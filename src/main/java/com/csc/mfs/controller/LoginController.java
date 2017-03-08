@@ -24,24 +24,10 @@ public class LoginController {
 	@Autowired
 	private UserServiceSecurity userService;
 
-	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
-	public ModelAndView accesssDenied() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("access-denied");
-		return modelAndView;
-	}
-
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
-		return modelAndView;
-	}
-
-	@RequestMapping(value={"/member"}, method = RequestMethod.GET)
-	public ModelAndView member(){
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("member");
 		return modelAndView;
 	}
 
@@ -87,9 +73,14 @@ public class LoginController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
+	public ModelAndView accesssDenied() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("access-denied");
+		return modelAndView;
 
+	}
 }
-
 
 
 
