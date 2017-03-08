@@ -12,8 +12,8 @@ import com.csc.mfs.model.User;
 import com.csc.mfs.repository.RoleRepository;
 import com.csc.mfs.repository.UserRepository;
 
-@Service("userService")
-public class UserServiceImpl implements UserService{
+@Service
+public class UserServiceImpl implements UserServiceSecurity{
 
 	@Autowired
 	private UserRepository userRepository;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
 	public void saveUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
-        Role userRole = roleRepository.findByRole("ADMIN");
+        Role userRole = roleRepository.findByRole("MEMBER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}

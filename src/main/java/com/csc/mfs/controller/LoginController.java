@@ -14,18 +14,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.mfs.model.User;
-import com.csc.mfs.service.UserService;
+import com.csc.mfs.service.UserServiceSecurity;
 
 @Controller
 public class LoginController {
 	
 	@Autowired
-	private UserService userService;
+	private UserServiceSecurity userService;
 
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value={"/member"}, method = RequestMethod.GET)
+	public ModelAndView member(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("member");
 		return modelAndView;
 	}
 	
@@ -73,3 +80,7 @@ public class LoginController {
 	
 
 }
+
+
+
+
