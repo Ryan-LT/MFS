@@ -1,11 +1,12 @@
 package com.csc.mfs.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.csc.mfs.domain.Role;
+import com.csc.mfs.model.Role;
 
-public interface RoleRepository extends CrudRepository<Role, Integer> {
+@Repository("roleRepository")
+public interface RoleRepository extends JpaRepository<Role, Integer>{
+	Role findByRole(String role);
 
-	Role findByName(String name);
-	
 }
