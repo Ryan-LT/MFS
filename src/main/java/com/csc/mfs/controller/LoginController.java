@@ -29,6 +29,11 @@ public class LoginController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "/admin") // , method = RequestMethod.GET
+	public String admin() {
+		return "admin";
+	}
+	
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
