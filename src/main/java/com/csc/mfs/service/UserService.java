@@ -3,6 +3,7 @@ package com.csc.mfs.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.csc.mfs.model.User;
@@ -32,9 +33,10 @@ public class UserService {
 	}
 	
 	public Message changePassword(int id, String oldPass, String newPass){
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		User user = userRepository.findOne(id);
-		if(user.getPassword().equals(oldPass)){
-			user.setPassword(newPass);
+		if(user.getPassword().equals(bCryptPasswordEncoder.encode(oldPass))){
+			user.setPassword(bCryptPasswordEncoder.encode(newPass));
 			userRepository.flush();
 			return (new Message(true, "Seccussful"));
 		} else {
