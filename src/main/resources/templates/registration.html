@@ -33,9 +33,9 @@
 			th:object="${user}" method="post" role="form" class="form">
 			<div class="input-group">
 				<span class="input-group-addon add-on"> <i
-					class="glyphicon glyphicon-user"></i>
+					class="glyphicon glyphicon-pencil"></i>
 				</span> <input type="text" class="form-control" th:field="*{name}"
-					placeholder="First Name">
+					placeholder="Display Name">
 			</div>
 			<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
 				class="validation-message lbl"></div>
@@ -55,7 +55,7 @@
 
 			<div class="input-group">
 				<span class="input-group-addon add-on"> <i
-					class="glyphicon glyphicon-user"></i>
+					class="glyphicon glyphicon-envelope"></i>
 				</span> <input type="text" class="form-control" th:field="*{email}"
 					placeholder="Email"> <span class="input-group-addon add-on tt">
 					<i class="glyphicon glyphicon-info-sign i-hover"></i>
@@ -69,7 +69,7 @@
 
 			<div class="input-group">
 				<span class="input-group-addon add-on"> <i
-					class="glyphicon glyphicon-user"></i>
+					class="glyphicon glyphicon-lock"></i>
 				</span> <input type="password" class="form-control" th:field="*{password}"
 					placeholder="Password"> <span
 					class="input-group-addon add-on tt"> <i
