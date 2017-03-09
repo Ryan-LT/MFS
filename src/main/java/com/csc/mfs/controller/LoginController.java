@@ -4,6 +4,7 @@ package com.csc.mfs.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,13 @@ public class LoginController {
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
+		/*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//User user = userService.findUserByEmail(auth.getName());
+		
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			if()
+		    return new ModelAndView("forward:/index");
+		}*/
 		modelAndView.setViewName("login");
 		return modelAndView;
 	}
@@ -86,7 +94,7 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
-		System.out.println(auth.getAuthorities());
+		//System.out.println(auth.getAuthorities());
 		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
 		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
 		modelAndView.setViewName("member/home");
@@ -95,8 +103,6 @@ public class LoginController {
 
 	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
 	public ModelAndView accesssDenied() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth.getAuthorities());
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("access-denied");
 		return modelAndView;
