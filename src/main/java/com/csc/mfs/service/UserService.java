@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.csc.mfs.model.Files;
 import com.csc.mfs.model.Role;
 import com.csc.mfs.model.User;
 import com.csc.mfs.messages.Message;
+import com.csc.mfs.repository.DownloadRepository;
+import com.csc.mfs.repository.FilesRepository;
 import com.csc.mfs.repository.RoleRepository;
 import com.csc.mfs.repository.UserRepository;
 
@@ -18,6 +21,10 @@ import com.csc.mfs.repository.UserRepository;
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private FileService fileService;
+	@Autowired
+	private DownloadRepository downloadRepository;
 	
 	@Autowired
     private RoleRepository roleRepository;
@@ -30,7 +37,16 @@ public class UserService {
 	}
 	
 	public void delete(int id){
+		fileService.updateUser(id);
 		userRepository.delete(id);
+	}
+	
+	public void lock(int id){
+		User user =userRepository.findOne(id);
+		if(null!=user){
+			user.setActive(0);
+			userRepository.flush();
+		}
 	}
 	
 	public User getUser(int id){
@@ -58,7 +74,7 @@ public class UserService {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
         Role userRole = roleRepository.findByRole("MEMBER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoleCollection(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}
 	public User findUserByEmail(String email) {

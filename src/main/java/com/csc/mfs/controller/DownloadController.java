@@ -34,6 +34,11 @@ public class DownloadController {
 		downloadService.delete(id);;
 	}
 	
+	@RequestMapping("/deleteByUser/{id}")
+	public void deleteByUser(@PathVariable int id){
+		downloadService.deleteBUser(id);
+	}
+	
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	public void insert(@RequestBody Download download){
 		downloadService.insert(download);

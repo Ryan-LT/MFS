@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -62,7 +63,7 @@ public class Files implements Serializable {
     @JsonIgnore
     private Collection<Download> downloadCollection;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(	cascade = {CascadeType.PERSIST})
     @JsonIgnore
     private User userId;
     

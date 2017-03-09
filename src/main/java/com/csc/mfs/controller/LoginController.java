@@ -69,14 +69,29 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
+		System.out.println(auth.getAuthorities());
 		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
 		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
 		modelAndView.setViewName("admin/home");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/member/home", method = RequestMethod.GET)
+	public ModelAndView memberHome(){
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		System.out.println(auth.getAuthorities());
+		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+		modelAndView.setViewName("member/home");
+		return modelAndView;
+	}
 
 	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
 	public ModelAndView accesssDenied() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getAuthorities());
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("access-denied");
 		return modelAndView;
