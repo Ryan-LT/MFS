@@ -1,5 +1,146 @@
-.validation-message {
-	font-style: normal;
-	font-size: 12px;
-	color: #FF1C19;
+.form {
+	width: 70%;
+	margin-left: 50px;
+	float: left;
+}
+
+.form-signin-heading {
+	font-size: 50px;
+	font-weight: bold;
+	color: #3b3b3b;
+}
+
+.form-signup-heading {
+	text-align: center;
+	font-size: x-large;
+	color: #3b3b3b;
+}
+
+.form-control {
+	position: relative;
+	font-size: 16px;
+	height: auto;
+}
+
+input[type="text"] {
+	margin-bottom: 0px;
+	background-color: transparent;
+	border: 0px;
+	border-bottom: 1px solid;
+	box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0);
+	border-radius: 0px;
+	font-size: large;
+}
+
+input[type="password"] {
+	margin-bottom: 10px !important;
+	background-color: transparent;
+	border: 0px;
+	border-bottom: 1px solid;
+	box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0);
+	border-radius: 0px;
+	font-size: large;
+}
+
+.signup {
+	margin-top: 5px;
+	text-align: center;
+}
+
+.body {
+	/* background: url(/images/bg3.jpg) no-repeat center fixed; */
+	/* background: url(/images/bg4.jpg) repeat; */
+	/* background-color: silver; */
+	
+}
+
+.button-login {
+	max-width: 300px;
+	background-color: #09568d;
+	color: white;
+	border-radius: 0 !important;
+	font-weight: bolder !important;
+	margin-top: 10px;
+}
+
+.button-login:hover {
+	background-color: #16216a;
+	color: white !important;
+}
+
+.button-signup {
+	background-color: white;
+	color: #0090c7;
+	border-radius: 0 !important;
+	font-weight: bolder !important;
+	margin-top: 10px;
+}
+
+.button-signup:hover {
+	background-color: #0090c7;
+	color: white !important;
+}
+
+.add-on {
+	border: 0 !important;
+	background-color: transparent !important;
+	font-size: x-large !important;
+	padding-bottom: 10px !important;
+}
+
+.i-hover:hover {
+	color: #47add5;
+}
+
+.logo {
+	width: 200px;
+	margin-top: -30px;
+	margin-left: -30px;
+}
+
+p {
+	font-size: large;
+}
+
+.lbl {
+	margin-left: 50px;
+	color: red;
+}
+
+.tt {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tt .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    background-color: #555;
+    color: #fff;
+    font-size: medium;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    top: -3px;
+    margin-left: 10px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tt .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+}
+
+.tt:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
