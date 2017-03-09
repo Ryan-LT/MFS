@@ -44,43 +44,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.
-			authorizeRequests()
-				.antMatchers("/").permitAll()
-				.antMatchers("/login").permitAll()
-				.antMatchers("/registration").permitAll()
-				.antMatchers("/user/**").permitAll()
-				.antMatchers("/file/**").permitAll()
-				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-				.authenticated().and().csrf().disable().formLogin()
-				.loginPage("/login").failureUrl("/login?error=true")
-				.defaultSuccessUrl("/admin")
-				.usernameParameter("email")
-				.passwordParameter("password")
-			.and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/")
-			.and()
-				.exceptionHandling().accessDeniedPage("/access-denied");
-//		http
-//			.authorizeRequests()
-//				.antMatchers("/member/**").hasAuthority("MEMBER").anyRequest()
-//				.authenticated().and().csrf().disable()
-//			.formLogin()
-//				.loginPage("/login")
-//				.failureUrl("/login?error=true")
-//				.usernameParameter("email")
-//				.passwordParameter("password")
-//				.defaultSuccessUrl("/member/home");
-		
+		authorizeRequests()
+		.antMatchers("/").permitAll()
+		.antMatchers("/login").permitAll()
+		.antMatchers("/registration").permitAll()
+		.antMatchers("/user/**").permitAll()
+		.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+		.authenticated().and().csrf().disable().formLogin()
+		.loginPage("/login").failureUrl("/login?error=true")
+		.defaultSuccessUrl("/admin")
+		.usernameParameter("email")
+		.passwordParameter("password")
+		.and().logout()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutSuccessUrl("/")
+		.and()
+		.exceptionHandling().accessDeniedPage("/access-denied");
+
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web
 		.ignoring()
-		.antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/resources/**", "/index.html", "/login.html",
-	   "/partials/**", "/", "/error/**", "/user/**", "/file/**");
-
+		.antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/resources/**", "/login.html",
+				"/partials/**", "/", "/error/**", "/user/**");
 	}
 
 }
