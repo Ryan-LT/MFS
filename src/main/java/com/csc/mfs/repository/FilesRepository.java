@@ -3,10 +3,13 @@ package com.csc.mfs.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.csc.mfs.model.Files;
+import com.csc.mfs.model.User;
 
 public interface FilesRepository extends JpaRepository<Files, Integer> {
 	@Query(value="SELECT * FROM files WHERE name like %:fileInfo%"
@@ -20,6 +23,14 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	
 	@Query(value="SELECT SUM(size) FROM files WHERE user_id=:idUser", nativeQuery=true)
 	Object sumSizeUpload(@Param("idUser") int idUser);
+	
+	@Transactional
+	void removeByUserId(User user);
+	 
+	@Transactional
+	@Modifying
+	@Query(value="UPDATE files SET user_id= 0 WHERE user_id=:idUser", nativeQuery=true)
+	void UpdateUser(@Param("idUser") int idUser);
 	
 }
 /*

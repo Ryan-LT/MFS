@@ -36,6 +36,7 @@ public class FileController {
 		return fileService.getAll();
 	}
 	
+	
 	@RequestMapping(value="/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Files getFile(@PathVariable int id){
 		return fileService.getFile(id);
@@ -44,6 +45,16 @@ public class FileController {
 	@RequestMapping("/delete/{id}")
 	public void delete(@PathVariable int id){
 		fileService.delete(id);
+	}
+	
+	@RequestMapping("/deleteFUser/{id}")
+	public void deleteFilesOfUser(@PathVariable int id){
+		fileService.deleteFilesOfUser(id);
+	}
+	
+	@RequestMapping("/updateUFile/{id}")
+	public void UpdateUserOfUser(@PathVariable int id){
+		fileService.updateUser(id);
 	}
 	
 	@RequestMapping("/fSearch/{infoFile}/{page}/{pageSize}")

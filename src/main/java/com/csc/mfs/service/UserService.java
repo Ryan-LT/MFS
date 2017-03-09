@@ -18,20 +18,31 @@ import com.csc.mfs.repository.UserRepository;
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private FileService fileService;
+
 	
 	@Autowired
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	   private BCryptPasswordEncoder bCryptPasswordEncoder;
-	 
+    private RoleRepository roleRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
 	
 	public List<User> getAll(){
 		return userRepository.findAll();
 	}
 	
 	public void delete(int id){
+		fileService.updateUser(id);
 		userRepository.delete(id);
+	}
+	
+	public void lock(int id){
+		User user =userRepository.findOne(id);
+		if(null!=user){
+			user.setActive(0);
+			userRepository.flush();
+		}
 	}
 	
 	public User getUser(int id){
@@ -57,12 +68,12 @@ public class UserService {
 	
 	public void saveUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		       user.setActive(1);
-		       Role userRole = roleRepository.findByRole("MEMBER");
-		       user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setActive(1);
+        Role userRole = roleRepository.findByRole("MEMBER");
+        user.setRoleCollection(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
-		}
+	}
 	public User findUserByEmail(String email) {
 		return userRepository.findByEmail(email);
-		}
+	}
 }

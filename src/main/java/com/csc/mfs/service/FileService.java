@@ -43,6 +43,11 @@ public class FileService {
 		fileRepository.delete(id);
 	}
 	
+	public void updateUser(int idUser){
+		fileRepository.UpdateUser(idUser);
+	}
+	
+	
 	public List<Files> searchFile(String infoFile, int page, int pageSize){
 		int number = page*pageSize;
 		return fileRepository.findByInfo(infoFile, number, pageSize);
@@ -94,6 +99,11 @@ public class FileService {
 				user.setRank_Id(user.getRank_Id()+1);
 			}
 		}
+	}
+	
+	public void deleteFilesOfUser(int idUser){
+		User user = userRepository.findOne(idUser);
+		fileRepository.removeByUserId(user);
 	}
 	
 	

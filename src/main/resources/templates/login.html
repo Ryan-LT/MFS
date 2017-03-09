@@ -50,8 +50,9 @@
 				</span>
 			</div>
 
-			<br />
-
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
+			<br>
 			<div align="center" th:if="${param.error}">
 				<p style="font-size: 20; color: #FF1C19;">Email or Password
 					invalid, please verify</p>

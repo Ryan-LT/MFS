@@ -45,6 +45,10 @@ public class Download implements Serializable {
 
     public Download() {
     }
+    public Download(User user, Files file) {
+    	this.idUser = user;
+    	this.idFile = file;
+    }
 
     public Download(Integer id) {
         this.id = id;
