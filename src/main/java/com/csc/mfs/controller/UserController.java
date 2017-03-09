@@ -50,8 +50,6 @@ public class UserController {
 	public Message changePassword(@RequestBody int id, @RequestBody String oldPass, @RequestBody String newPass){
 		return userService.changePassword(id, oldPass, newPass);
 	}
-	
-	
 }
 
 
