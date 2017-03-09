@@ -1,37 +1,121 @@
-.wrapper {    
-	margin-top: 80px;
-	margin-bottom: 20px;
+.form {
+	max-width: 420px;
+	padding: 30px;
+	margin: 0 auto;
+	background: rgba(255, 255, 255, 0.85);
+	border: none;
 }
 
-.form-signin {
-  max-width: 420px;
-  padding: 30px 38px 66px;
-  margin: 0 auto;
-  background-color: #eee;
-  border: 3px dotted rgba(0,0,0,0.1);  
-  }
-
 .form-signin-heading {
-  text-align:center;
-  margin-bottom: 30px;
+	text-align: center;
+	font-size: xx-large;
+	font-weight: bolder;
+	color: #3b3b3b;
+}
+
+.form-signup-heading {
+	text-align: center;
+	font-size: x-large;
+	color: #3b3b3b;
 }
 
 .form-control {
-  position: relative;
-  font-size: 16px;
-  height: auto;
-  padding: 10px;
+	position: relative;
+	font-size: 16px;
+	height: auto;
 }
 
 input[type="text"] {
-  margin-bottom: 0px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+	margin-bottom: 0px;
+	background-color: transparent;
+	border: 0px;
+	border-bottom: 1px solid;
+	box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0);
+	border-radius: 0px;
+	font-size: large;
 }
 
 input[type="password"] {
-  margin-bottom: 20px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+	margin-bottom: 10px !important;
+	background-color: transparent;
+	border: 0px;
+	border-bottom: 1px solid;
+	box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0);
+	border-radius: 0px;
+	font-size: large;
 }
 
+.signup {
+	margin-top: 5px;
+	text-align: center;
+}
+
+.body {
+	background: url(/images/bg3.jpg) no-repeat center fixed;
+	/* background: url(/images/bg4.jpg) repeat; */
+	/* background-color: silver; */
+}
+	
+.button-login {
+	background-color: #09568d;
+	color: white;
+	border-radius: 0 !important;
+	font-weight: bolder !important;
+	margin-top: 10px;
+}
+
+.button-login:hover {
+	background-color: #16216a;
+	color: white !important;
+}
+
+.button-signup {
+	background-color: white;
+	color: #0090c7;
+	border-radius: 0 !important;
+	font-weight: bolder !important;
+	margin-top: 10px;
+}
+
+.button-signup:hover {
+	background-color: #0090c7;
+	color: white !important;
+}
+
+.add-on {
+	border: 0 !important;
+	background-color: transparent !important;
+	font-size: x-large !important;
+	padding-bottom: 10px !important;
+}
+
+.i-hover:hover {
+	color: #47add5;
+}
+
+.search {
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+.search-text {
+	width: 250px !important;
+	color: white !important;
+	transition: width 0.4s ease-in-out !important;
+	float: right !important;
+}
+
+.search-text:focus {
+	width: 60% !important;
+}
+
+.search-button {
+	margin-top: 0px !important;
+}
+
+.logo {
+	float: left;
+	width: 200px;
+	margin-top: -45px;
+	margin-left: -30px;
+}

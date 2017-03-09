@@ -2,71 +2,96 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Registration Form</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Registration Form</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{\css\registration.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
-	<form th:action="@{/}" method="get">
-		<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
-	</form>	
-	
+</head>
+<body class="body">
+	<img src="/images/logo3.png" alt="Logo" class="logo">
+
+
 	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<form autocomplete="off" action="#" th:action="@{/registration}"
-					th:object="${user}" method="post" class="form-horizontal"
-					role="form">
-					<h2>Registration Form</h2>
-					<div class="form-group">
-						<div class="col-sm-9">
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-								class="validation-message"></label>
-						<input type="text" th:field="*{name}" placeholder="Name"
-								class="form-control" /> 
-						</div>
-					</div>
 
-					<div class="form-group">
-						<div class="col-sm-9">
-						<label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-								class="validation-message"></label>
-							<input type="text" th:field="*{lastName}"
-								placeholder="Last Name" class="form-control" /> 
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="text" th:field="*{email}" placeholder="Email"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-								class="validation-message"></label>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="password" th:field="*{password}"
-								placeholder="Password" class="form-control" /> <label
-								th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-								class="validation-message"></label>
-						</div>
-					</div>
+		<div class="form-signin-heading">Registration</div>
+		<br />
+		<p>
+			I have an account! <span class="glyphicon glyphicon-hand-right"></span>
+			<a href="/">Login</a>
+		</p>
+		<br>
 
-					<div class="form-group">
-						<div class="col-sm-9">
-							<button type="submit" class="btn btn-primary btn-block">Register User</button>
-						</div>
-					</div>
-					
-					<span th:utext="${successMessage}"></span>
-					
-					
-				</form>
+		<form autocomplete="off" action="#" th:action="@{/registration}"
+			th:object="${user}" method="post" role="form" class="form">
+			<div class="input-group">
+				<span class="input-group-addon add-on"> <i
+					class="glyphicon glyphicon-user"></i>
+				</span> <input type="text" class="form-control" th:field="*{name}"
+					placeholder="First Name">
 			</div>
-		</div>
-	</div>
+			<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+				class="validation-message lbl"></div>
+			<br />
 
+
+			<div class="input-group">
+				<span class="input-group-addon add-on"> <i
+					class="glyphicon glyphicon-user"></i>
+				</span> <input type="text" class="form-control" th:field="*{lastName}"
+					placeholder="Last Name">
+			</div>
+			<div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+				class="validation-message lbl"></div>
+			<br />
+
+
+			<div class="input-group">
+				<span class="input-group-addon add-on"> <i
+					class="glyphicon glyphicon-user"></i>
+				</span> <input type="text" class="form-control" th:field="*{email}"
+					placeholder="Email"> <span class="input-group-addon add-on tt">
+					<i class="glyphicon glyphicon-info-sign i-hover"></i>
+					<span class="tooltiptext">Email form: abc@example.ex</span>
+				</span>
+			</div>
+			<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+				class="validation-message lbl"></div>
+			<br />
+
+
+			<div class="input-group">
+				<span class="input-group-addon add-on"> <i
+					class="glyphicon glyphicon-user"></i>
+				</span> <input type="password" class="form-control" th:field="*{password}"
+					placeholder="Password"> <span
+					class="input-group-addon add-on tt"> <i
+					class="glyphicon glyphicon-info-sign i-hover"></i>
+					<span class="tooltiptext">Password must have at least 5 characters</span>
+				</span>
+			</div>
+			<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+				class="validation-message lbl"></div>
+			<br />
+
+			<h5>
+				By clicking on the "Create Account" button below, you understand and
+				agree that the use of our web site is subject to the <a href="#">Terms
+					of Use</a> and <a href="#">Privacy Policy</a>, including the fact that
+				may transfer your personal information collected in connection with
+				your registration on this website to its affiliates globally.
+			</h5>
+			<button type="submit" class="btn btn-lg button-login btn-block">Create
+				Account</button>
+
+			<span th:utext="${successMessage}"></span>
+		</form>
 </body>
 </html>
