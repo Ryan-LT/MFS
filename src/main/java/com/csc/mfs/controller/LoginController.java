@@ -1,11 +1,15 @@
 package com.csc.mfs.controller;
 
 
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,22 +31,20 @@ public class LoginController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/admin") // , method = RequestMethod.GET
+	@RequestMapping(value = "/account") // , method = RequestMethod.GET
 	public String admin() {
-		return "admin";
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getAuthorities().toString());
+		if(auth.getAuthorities().toString().equals("[ADMIN]")){
+			return "admin";	
+		}
+		return "member";
 	}
 	
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
-		/*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		//User user = userService.findUserByEmail(auth.getName());
-		
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			if()
-		    return new ModelAndView("forward:/index");
-		}*/
-		modelAndView.setViewName("login");
+		modelAndView.setViewName("index");	
 		return modelAndView;
 	}
 
@@ -82,22 +84,30 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
-		System.out.println(auth.getAuthorities());
-		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-		modelAndView.setViewName("admin/home");
+		//System.out.println(auth.getAuthorities());
+		if(null!=user){
+			modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+			modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+			modelAndView.setViewName("admin");
+		} else {
+			modelAndView.setViewName("login");
+		}
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/member/home", method = RequestMethod.GET)
+	@RequestMapping(value="/member", method = RequestMethod.GET)
 	public ModelAndView memberHome(){
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		//System.out.println(auth.getAuthorities());
-		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-		modelAndView.setViewName("member/home");
+		if(null!=user){
+			modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+			modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+			modelAndView.setViewName("member");
+		} else {
+			modelAndView.setViewName("login");
+		}
 		return modelAndView;
 	}
 
