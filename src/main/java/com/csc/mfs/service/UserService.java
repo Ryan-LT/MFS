@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.csc.mfs.model.Role;
 import com.csc.mfs.model.User;
 import com.csc.mfs.messages.Message;
+import com.csc.mfs.repository.DownloadRepository;
 import com.csc.mfs.repository.RoleRepository;
 import com.csc.mfs.repository.UserRepository;
 
@@ -20,7 +21,8 @@ public class UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private FileService fileService;
-
+	@Autowired
+	DownloadRepository downloadRepsitory;
 	
 	@Autowired
     private RoleRepository roleRepository;
@@ -32,9 +34,13 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
-	public void delete(int id){
-		fileService.updateUser(id);
-		userRepository.delete(id);
+	public void delete(int idUser){
+		User user= userRepository.findOne(idUser);
+		if(null!=user){
+			downloadRepsitory.removeByIdUser(user);	
+		}
+		fileService.updateUser(idUser);
+		userRepository.delete(idUser);
 	}
 	
 	public void lock(int id){
@@ -70,7 +76,7 @@ public class UserService {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
         Role userRole = roleRepository.findByRole("MEMBER");
-        user.setRoleCollection(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}
 	public User findUserByEmail(String email) {

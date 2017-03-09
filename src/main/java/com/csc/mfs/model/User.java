@@ -14,7 +14,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.ws.rs.DELETE;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -49,35 +48,17 @@ public class User {
 	@NotEmpty(message = "*Please provide your last name")
 	private String lastName;
 	
-	@Column(name = "active", nullable=false)
+	@Column(name = "active")
 	private int active;
 	
-	@JoinTable(name = "user_role", joinColumns = {
-	        @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-	        @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)})
 	@ManyToMany
-	private Collection<Role> roleCollection;
-	
-	@OneToMany(	cascade = {CascadeType.ALL}, mappedBy = "idUser")
-	private Collection<Download> downloadCollection;
-	@OneToMany(	cascade = {CascadeType.ALL}, mappedBy = "userId")
-	private Collection<Files> filesCollection;
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), 
+							inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 	
 	@Column(name = "rank_id")
 	private int rank_Id;
 	
-	
-	
-	public User() {}
-	public User(int id, String email, String password, String name, String lastName, int active, int rank_id){
-		this.id = id;
-		this.email =email;
-		this.password = password;
-		this.name = name;
-		this.lastName = lastName;
-		this.active=active;
-		this.rank_Id = rank_id;
-	}
 	public int getId() {
 		return id;
 	}
@@ -126,24 +107,14 @@ public class User {
 		this.active = active;
 	}
 
-	public Collection<Role> getRoleCollection() {
-		return roleCollection;
+	public Set<Role> getRoles() {
+		return roles;
 	}
-	public void setRoleCollection(Collection<Role> roleCollection) {
-		this.roleCollection = roleCollection;
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
-	public Collection<Download> getDownloadCollection() {
-		return downloadCollection;
-	}
-	public void setDownloadCollection(Collection<Download> downloadCollection) {
-		this.downloadCollection = downloadCollection;
-	}
-	public Collection<Files> getFilesCollection() {
-		return filesCollection;
-	}
-	public void setFilesCollection(Collection<Files> filesCollection) {
-		this.filesCollection = filesCollection;
-	}
+
 	public int getRank_Id() {
 		return rank_Id;
 	}
@@ -151,6 +122,8 @@ public class User {
 	public void setRank_Id(int rank_Id) {
 		this.rank_Id = rank_Id;
 	}
+
+	
 	
 
 }
