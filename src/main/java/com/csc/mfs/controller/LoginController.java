@@ -1,9 +1,6 @@
 package com.csc.mfs.controller;
 
 
-
-import java.security.Principal;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.mfs.model.User;
-import com.csc.mfs.service.UserServiceSecurity;
+import com.csc.mfs.service.UserService;
 
 @Controller
 public class LoginController {
 
 	@Autowired
-	private UserServiceSecurity userService;
+	private UserService userService;
 
 	@RequestMapping(value = "/index") // , method = RequestMethod.GET
 	public String index() {

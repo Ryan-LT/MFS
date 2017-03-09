@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.csc.mfs.repository.UserRepository;
 import com.csc.mfs.service.UserService;
-import com.csc.mfs.service.UserServiceSecurity;
 import com.csc.mfs.messages.Message;
 import com.csc.mfs.model.User;
 
@@ -44,6 +43,11 @@ public class UserController {
 	public void updateUser(@RequestBody User user){
 		user.setPassword(userRepository.findOne(user.getId()).getPassword());
 		userService.updateUser(user);
+	}
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public void addUser(@RequestBody User user){
+		userService.saveUser(user);
 	}
 	
 	@RequestMapping(value="/changePass", method=RequestMethod.POST)
