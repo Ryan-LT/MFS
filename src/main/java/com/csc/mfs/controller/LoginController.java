@@ -108,14 +108,14 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/error", method = RequestMethod.GET)
-	public ModelAndView error() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth.getAuthorities());
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("error");
-		return modelAndView;
-	}
+//	@RequestMapping(value = "/error", method = RequestMethod.GET)
+//	public ModelAndView error() {
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		System.out.println(auth.getAuthorities());
+//		ModelAndView modelAndView = new ModelAndView();
+//		modelAndView.setViewName("error");
+//		return modelAndView;
+//	}
 }
 
 

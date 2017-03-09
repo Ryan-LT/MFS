@@ -20,16 +20,16 @@ app.factory('userDataOp',function($http) {
 //		});
 //	}
 //	
-//	var addProduct = function(product) {
-//		return $http({
-//			method: 'POST',
-//			url: "http://localhost:9000/fresherangular/product/add",
-//			data: product
-//		}).then(function(response) {
-//			return response.data;
-//		});
-//	}
-//	
+	var addUser = function(user) {
+		return $http({
+			method: 'POST',
+			url: "http://localhost:8080/user/add/",
+			data: user
+		}).then(function(response) {
+			return response.data;
+		});
+	}
+	
 	var deleteUser = function(id) {
 		return $http({
 			method: 'GET',
@@ -43,7 +43,7 @@ app.factory('userDataOp',function($http) {
 	return {
 //		addAvailable : addAvailable,
 //		minusAvailable : minusAvailable,
-//		addProduct: addProduct,
+		addUser: addUser,
 		deleteUser : deleteUser
 	}
 });
