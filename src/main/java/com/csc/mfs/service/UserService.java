@@ -8,12 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.csc.mfs.model.Files;
 import com.csc.mfs.model.Role;
 import com.csc.mfs.model.User;
 import com.csc.mfs.messages.Message;
-import com.csc.mfs.repository.DownloadRepository;
-import com.csc.mfs.repository.FilesRepository;
 import com.csc.mfs.repository.RoleRepository;
 import com.csc.mfs.repository.UserRepository;
 
@@ -23,8 +20,7 @@ public class UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private FileService fileService;
-	@Autowired
-	private DownloadRepository downloadRepository;
+
 	
 	@Autowired
     private RoleRepository roleRepository;
@@ -81,7 +77,3 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 }
-
-
-
-

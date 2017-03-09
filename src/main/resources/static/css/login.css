@@ -51,11 +51,12 @@ input[type="password"] {
 }
 
 .body {
-	background: url(/images/bg3.jpg) no-repeat center fixed;
-	/* background: url(/images/bg4.jpg) repeat; */
-	/* background-color: silver; */
+	background: url(/images/bg3.jpg) fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
-	
+
 .button-login {
 	background-color: #09568d;
 	color: white;
@@ -121,41 +122,41 @@ input[type="password"] {
 }
 
 .tt {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted #47add5;
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted #47add5;
 }
 
 .tt .ttt {
-    visibility: hidden;
-    width: 320px;
-    background-color: #47add5;
-    color: #fff;
-    font-size: medium;
-    font-weight: 500;
-    border-radius: 6px;
-    padding: 20px 10px 20px 10px;
-    position: absolute;
-    z-index: 1;
-    top: -3px;
-    margin-left: 10px;
-    margin-top: -15px;
-    opacity: 0;
-    transition: opacity 1s;
+	visibility: hidden;
+	width: 320px;
+	background-color: #47add5;
+	color: #fff;
+	font-size: medium;
+	font-weight: 500;
+	border-radius: 6px;
+	padding: 20px 10px 20px 10px;
+	position: absolute;
+	z-index: 1;
+	top: -3px;
+	margin-left: 10px;
+	margin-top: -15px;
+	opacity: 0;
+	transition: opacity 1s;
 }
 
 .tt .ttt::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent #47add5 transparent transparent;
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 100%;
+	margin-top: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent #47add5 transparent transparent;
 }
 
 .tt:hover .ttt {
-    visibility: visible;
-    opacity: 0.8;
+	visibility: visible;
+	opacity: 0.8;
 }
