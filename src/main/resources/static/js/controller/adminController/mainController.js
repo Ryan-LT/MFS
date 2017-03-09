@@ -13,6 +13,24 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 		.error(function(data, status, headers, config){});
 	}
 	
+	$scope.addUser = function() {
+		var user = {
+				email : $scope.email,
+				password : $scope.password,
+				name : $scope.name,
+				lastName : $scope.lastName
+		};
+		userDataOp.addUser(user).then(Success, Error);
+		$scope.email = "",
+		$scope.password = "",
+		$scope.name = "",
+		$scope.lastName = ""
+	};
+
+	$scope.deleteProduct = function(id){
+		productDataOp.deleteProduct(id).then(Success, Error);
+	}
+	
 	$scope.deleteUser = function(id){
 		userDataOp.deleteUser(id).then(Success, Error);
 	}
