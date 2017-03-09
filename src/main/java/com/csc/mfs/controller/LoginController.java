@@ -2,6 +2,8 @@ package com.csc.mfs.controller;
 
 
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.mfs.model.User;
-import com.csc.mfs.service.UserService;
+import com.csc.mfs.service.UserServiceSecurity;
 
 @Controller
 public class LoginController {
-	
+
 	@Autowired
-	private UserService userService;
+	private UserServiceSecurity userService;
 
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
@@ -28,8 +30,8 @@ public class LoginController {
 		modelAndView.setViewName("login");
 		return modelAndView;
 	}
-	
-	
+
+
 	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public ModelAndView registration(){
 		ModelAndView modelAndView = new ModelAndView();
@@ -38,15 +40,15 @@ public class LoginController {
 		modelAndView.setViewName("registration");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userService.findUserByEmail(user.getEmail());
 		if (userExists != null) {
 			bindingResult
-					.rejectValue("email", "error.user",
-							"There is already a user registered with the email provided");
+			.rejectValue("email", "error.user",
+					"There is already a user registered with the email provided");
 		}
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("registration");
@@ -55,11 +57,11 @@ public class LoginController {
 			modelAndView.addObject("successMessage", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
 			modelAndView.setViewName("registration");
-			
+
 		}
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
 	public ModelAndView home(){
 		ModelAndView modelAndView = new ModelAndView();
@@ -70,6 +72,15 @@ public class LoginController {
 		modelAndView.setViewName("admin/home");
 		return modelAndView;
 	}
-	
 
+	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
+	public ModelAndView accesssDenied() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("access-denied");
+		return modelAndView;
+
+	}
 }
+
+
+
