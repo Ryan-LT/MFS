@@ -26,14 +26,9 @@ public class LoginController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/e") // , method = RequestMethod.GET
-	public String admin() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth.getAuthorities().toString());
-		if(auth.getAuthorities().toString().equals("[ADMIN]")){
-			return "admin";	
-		}
-		return "member";
+	@RequestMapping(value = "/up") // , method = RequestMethod.GET
+	public String up() {
+		return "up";
 	}
 	
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
@@ -130,15 +125,6 @@ public class LoginController {
 		modelAndView.setViewName("access-denied");
 		return modelAndView;
 	}
-	
-//	@RequestMapping(value = "/error", method = RequestMethod.GET)
-//	public ModelAndView error() {
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		System.out.println(auth.getAuthorities());
-//		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.setViewName("error");
-//		return modelAndView;
-//	}
 }
 
 
