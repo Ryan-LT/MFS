@@ -1,0 +1,24 @@
+<div ng-controller="PersonStorageController as storage" ng-init="stt=0; incre=1">
+<input type="text" id="myInput" ng-model="filter_"  placeholder="Search for names.." title="Type in a name">
+<table id="myTable" class="table">
+  <tr class="header">
+    <th style="width:25%;">Name File</th>
+    <th style="width:25%;">Size</th>
+    <th style="width:25%;">Date Upload</th>
+    <th style="width:25%;">Action</th>
+  </tr>
+  <tr ng-repeat="file in files | filter: filter_">
+    <td>{{file.name}}</td>
+    <td>{{file.size}}</td>
+    <td>{{file.dateupload}}</td>
+    <td>
+		<button ng-click="deleteFile(file.id)" type="button" class="btn btn-danger">
+			Delete
+			<span style="color: white"class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
+		</button>
+	</td>
+  </tr>
+</table>
+</div>
+<p></p> 
+</body>
