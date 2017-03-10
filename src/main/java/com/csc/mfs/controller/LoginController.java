@@ -26,6 +26,11 @@ public class LoginController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "/up") // , method = RequestMethod.GET
+	public String up() {
+		return "up";
+	}
+	
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public String login(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

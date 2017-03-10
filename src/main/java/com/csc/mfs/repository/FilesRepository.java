@@ -27,10 +27,14 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	@Transactional
 	void removeByUserId(User user);
 	 
+	
+	
 	@Transactional
 	@Modifying
 	@Query(value="UPDATE files SET user_id= 0 WHERE user_id=:idUser", nativeQuery=true)
 	void UpdateUser(@Param("idUser") int idUser);
+
+	List<Files> findByUserId(User user);
 	
 }
 /*
