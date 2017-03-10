@@ -4,30 +4,37 @@
 
 <head>
 <title>403-Access-Denied</title>
-<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-
+<link rel="stylesheet" type="text/css"
+	th:href="@{\css\access-denied.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
+	<a href="/"><img src="/images/logo3.png" alt="Logo" class="logo"></a>
 	<div class="container">
-	
-		<form th:action="@{/logout}" method="get">
-			<button class="btn btn-md btn-danger btn-block" name="registration"
-				type="Submit">Logout</button>
-		</form>    
-		
-		<div class="panel-group" style="margin-top:40px">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-				</div>
-				<div class="panel-body">
-					<img th:src="@{/images/403.png}" class="img-responsive center-block" width="400" height="400" alt="403" /> 
-				</div>
+
+		<div class="form">
+			<div class="form-header">ACCESS DENIED</div>
+			<img src="/images/access-denied.png" alt="img" class="img">
+			<div class="row1">
+				Access to the requested page has been denied.
+			</div>
+			<div>
+				Please contact the Administrator if you think this is an error!
+				<br> or <br>
+				<a href="/logout"><b>Login</b></a> using another account
+				<br>
+				<br>
+				<br>
+				<a href="/e">Return to Homepage</a>
 			</div>
 		</div>
-		
+
 	</div>
 </body>
 </html>
