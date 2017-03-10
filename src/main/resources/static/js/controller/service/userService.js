@@ -32,7 +32,6 @@ app.factory('userDataOp',function($http) {
 	}
 	
 	return {
-		uploadFile : uploadFile,
 		editUser : editUser,
 		addUser: addUser,
 		deleteUser : deleteUser
