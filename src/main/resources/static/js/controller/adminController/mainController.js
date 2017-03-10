@@ -13,6 +13,18 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 		.error(function(data, status, headers, config){});
 	}
 	
+	$scope.getUser = function(id) {
+		$scope.editBlock = true;
+		$scope.addBlock = false;
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/user/get/" + id
+		}).success(function(data, status, headers, config){
+			$scope.user = data;
+		})
+		.error(function(data, status, headers, config){});
+	};
+	
 	$scope.addUser = function() {
 		var user = {
 				email : $scope.email,
@@ -26,10 +38,10 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 		$scope.name = "",
 		$scope.lastName = ""
 	};
-
-	$scope.deleteProduct = function(id){
-		productDataOp.deleteProduct(id).then(Success, Error);
-	}
+	
+	$scope.editUser = function(user) {
+		userDataOp.editUser(user).then(Success, Error);
+	};
 	
 	$scope.deleteUser = function(id){
 		userDataOp.deleteUser(id).then(Success, Error);
