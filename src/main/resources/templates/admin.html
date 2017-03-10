@@ -16,7 +16,9 @@
 	<link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
 </head>
 <body>
-
+	<form action="#" th:action="@{/logout}" method="POST">
+		<button type="submit">Logout</button>
+	</form>
 	<form th:action="@{#/admin}">
 		<button class="btn btn-md btn-warning btn-block" type="Submit">AdminPage</button>
 	</form>	

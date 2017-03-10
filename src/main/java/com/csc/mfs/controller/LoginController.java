@@ -1,15 +1,10 @@
 package com.csc.mfs.controller;
 
 
-import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
-
 import javax.validation.Valid;
 
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -31,7 +26,7 @@ public class LoginController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/account") // , method = RequestMethod.GET
+	@RequestMapping(value = "/e") // , method = RequestMethod.GET
 	public String admin() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println(auth.getAuthorities().toString());
@@ -42,19 +37,37 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
-	public ModelAndView login(){
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("index");	
-		return modelAndView;
+	public String login(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getAuthorities().toString());
+		if(auth.getAuthorities().toString().equals("[ADMIN]")){
+			return "admin";	
+		}
+		else if(auth.getAuthorities().toString().equals("[MEMBER]")) {
+			return "member";
+		}
+		return "login";
 	}
 
 
 	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public ModelAndView registration(){
 		ModelAndView modelAndView = new ModelAndView();
+		ModelAndView modelAndViewAdmin = new ModelAndView();
+		ModelAndView modelAndViewMember = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getAuthorities().toString());
 		User user = new User();
 		modelAndView.addObject("user", user);
 		modelAndView.setViewName("registration");
+		if(auth.getAuthorities().toString().equals("[ADMIN]")){
+			modelAndViewAdmin.setViewName("admin");
+			return modelAndViewAdmin;	
+		}
+		else if(auth.getAuthorities().toString().equals("[MEMBER]")) {
+			modelAndViewMember.setViewName("member");
+			return modelAndViewMember;
+		}
 		return modelAndView;
 	}
 
@@ -79,7 +92,7 @@ public class LoginController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
+	@RequestMapping(value="/admin", method = RequestMethod.GET)
 	public ModelAndView home(){
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
