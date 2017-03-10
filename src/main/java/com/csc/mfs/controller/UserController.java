@@ -3,6 +3,7 @@ package com.csc.mfs.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,9 +25,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/all")
-	public List<User> getAll(){
-		return userService.getAll();
+	@RequestMapping("/all/{page}/{pageSize}")
+	public Page<User> getAll(@PathVariable int page, @PathVariable int pageSize){
+		return userService.getAll(page, pageSize);
 	}
 	
 	@RequestMapping("/delete/{id}")
