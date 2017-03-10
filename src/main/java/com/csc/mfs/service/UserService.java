@@ -4,7 +4,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import org.hibernate.annotations.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +33,14 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     
 	
-	public List<User> getAll(){
-		return userRepository.findAll();
+	public Page<User> getAll(int pageNumber, int pageSize){
+		  PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		            //new PageRequest(pageNumber - 1, pageSize,  Sort.Direction.DESC, "startTime");
+		return (Page<User>) userRepository.findAll(pageRequest);
+	}
+	
+	public long countRecord(){
+		return userRepository.count();
 	}
 	
 	public void delete(int idUser){

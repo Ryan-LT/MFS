@@ -46,7 +46,9 @@ public class DownloadController {
 	
 	@RequestMapping(value="/total/{id}")
 	public double total(@PathVariable int id){
-		return downloadService.totalDownloadInDay(id);
+		return downloadService.downloadInDay(id);
 	}
+	
+	
 	
 }

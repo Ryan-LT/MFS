@@ -41,6 +41,11 @@ public class FileController {
 	public Files getFile(@PathVariable int id){
 		return fileService.getFile(id);
 	}
+
+	@RequestMapping(value="/getByUser/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Files> getFileByUser(@PathVariable int id){
+		return fileService.getFileByUser(id);
+	}
 	
 	@RequestMapping("/delete/{id}")
 	public void delete(@PathVariable int id){
