@@ -6,13 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.csc.mfs.repository.DownloadRepository;
-
+import com.csc.mfs.repository.UserRepository;
 import com.csc.mfs.model.Download;
+import com.csc.mfs.model.User;
 
 @Service
 public class DownloadService {
 	@Autowired
 	private DownloadRepository downloadRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	public List<Download> getAll(){
 		return downloadRepository.findAll();
@@ -32,5 +36,10 @@ public class DownloadService {
 	
 	public void insert(Download download){
 		downloadRepository.save(download);
+	}
+	
+	public void deleteBUser(int id){
+		User user = userRepository.findOne(id);
+		downloadRepository.removeByIdUser(user);
 	}
 }

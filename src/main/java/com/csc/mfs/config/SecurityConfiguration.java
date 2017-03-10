@@ -44,30 +44,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.
-		authorizeRequests()
-		.antMatchers("/").permitAll()
-		.antMatchers("/login").permitAll()
-		.antMatchers("/registration").permitAll()
-		.antMatchers("/user/**").permitAll()
-		.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-		.authenticated().and().csrf().disable().formLogin()
-		.loginPage("/login").failureUrl("/login?error=true")
-		.defaultSuccessUrl("/admin/home")
-		.usernameParameter("email")
-		.passwordParameter("password")
-		.and().logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/")
-		.and()
-		.exceptionHandling().accessDeniedPage("/access-denied");
+			authorizeRequests()
+				.antMatchers("/").permitAll()
+				.antMatchers("/login").permitAll()
+				.antMatchers("/registration").permitAll()
+				.antMatchers("/admin").hasAnyAuthority("ADMIN")
+				.antMatchers("/member").hasAnyAuthority("MEMBER","ADMIN")
+				.and().csrf().disable().formLogin()
+				.loginPage("/login").failureUrl("/login?error=true")
+				.defaultSuccessUrl("/e")
+				.usernameParameter("email")
+				.passwordParameter("password")
+			.and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/")
+			.and()
+				.exceptionHandling().accessDeniedPage("/access-denied");
+
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web
 		.ignoring()
-		.antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/resources/**", "/index.html", "/login.html",
-	   "/partials/**", "/", "/error/**", "/user/**");
+		.antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/resources/**", "/login.html",
+				"/partials/**", "/error/**", "/user/**");
 	}
 
 }

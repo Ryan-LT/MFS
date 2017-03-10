@@ -35,9 +35,7 @@
 				<span class="input-group-addon add-on"> <i
 					class="glyphicon glyphicon-user"></i>
 				</span> <input type="text" class="form-control" id="email" name="email"
-					placeholder="Email"> <span class="input-group-addon add-on">
-					<i class="glyphicon glyphicon-info-sign i-hover"></i>
-				</span>
+					placeholder="Email"> </span>
 			</div>
 			<br />
 
@@ -45,13 +43,16 @@
 				<span class="input-group-addon add-on"> <i
 					class="glyphicon glyphicon-lock"></i></span> <input type="password"
 					id="password" name="password" placeholder="Password"
-					class="form-control" /> <span class="input-group-addon add-on">
-					<i class="glyphicon glyphicon-info-sign i-hover"></i>
+					class="form-control" /> <span class="input-group-addon add-on tt">
+					<i class="glyphicon glyphicon-info-sign i-hover"></i> <span style="line-height: 20px"
+					class="ttt">Be careful about Caps Lock. <br>
+					<b><a style="color:white" href="forgotPassword">Forgot password?</a></b></span>
 				</span>
 			</div>
 
-			<br />
-
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
+			<br>
 			<div align="center" th:if="${param.error}">
 				<p style="font-size: 20; color: #FF1C19;">Email or Password
 					invalid, please verify</p>
@@ -66,8 +67,8 @@
 			<div class="form-signup-heading">You don't have an account?</div>
 			<button class="btn btn-lg button-signup btn-block" type="Submit">Create
 				Account</button>
-
 		</form>
+
 	</div>
 
 </body>
