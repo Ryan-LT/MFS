@@ -14,9 +14,8 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-</head>
-<body class="body">
-	<img src="/images/logo3.png" alt="Logo" class="logo">
+<body class="body" onload="myToast()">
+	<a href="/"><img src="/images/logo3.png" alt="Logo" class="logo"></a>
 
 
 	<div class="container">
@@ -57,9 +56,10 @@
 				<span class="input-group-addon add-on"> <i
 					class="glyphicon glyphicon-envelope"></i>
 				</span> <input type="text" class="form-control" th:field="*{email}"
-					placeholder="Email"> <span class="input-group-addon add-on tt">
-					<i class="glyphicon glyphicon-info-sign i-hover"></i>
-					<span class="tooltiptext">Email form: abc@example.ex</span>
+					placeholder="Email"> <span
+					class="input-group-addon add-on tt"> <i
+					class="glyphicon glyphicon-info-sign i-hover"></i> <span
+					class="tooltiptext">Email form: abc@example.ex</span>
 				</span>
 			</div>
 			<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
@@ -73,8 +73,8 @@
 				</span> <input type="password" class="form-control" th:field="*{password}"
 					placeholder="Password"> <span
 					class="input-group-addon add-on tt"> <i
-					class="glyphicon glyphicon-info-sign i-hover"></i>
-					<span class="tooltiptext">Password must have at least 5 characters</span>
+					class="glyphicon glyphicon-info-sign i-hover"></i> <span
+					class="tooltiptext">Password must have at least 5 characters</span>
 				</span>
 			</div>
 			<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
@@ -88,10 +88,29 @@
 				may transfer your personal information collected in connection with
 				your registration on this website to its affiliates globally.
 			</h5>
-			<button type="submit" class="btn btn-lg button-login btn-block">Create
-				Account</button>
+			<input type="submit" class="btn btn-lg button-login btn-block"
+				value="Create Account"> <span id="textshow"
+				th:utext="${message}"></span>
 
-			<span th:utext="${successMessage}"></span>
+
 		</form>
+
+	</div>
+
+	<script>
+		function myToast() {
+			var a = document.getElementById("textshow");
+			if (a.textContent != "") {
+				if (a.textContent == "Registration fail.") {
+					a.style.backgroundColor = "#ffb3b3";
+					a.style.borderLeftColor = "#ff1a1a"
+				}
+				a.className = "show";
+				setTimeout(function() {
+					a.className = a.className.replace("show", "");
+				}, 3000);
+			}
+		}
+	</script>
 </body>
 </html>

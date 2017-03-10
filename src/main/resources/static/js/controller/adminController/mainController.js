@@ -12,7 +12,19 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 		})
 		.error(function(data, status, headers, config){});
 	}
-	
+
+	$scope.getUser = function(id) {
+		$scope.editBlock = true;
+		$scope.addBlock = false;
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/user/get/" + id
+		}).success(function(data, status, headers, config){
+			$scope.user = data;
+		})
+		.error(function(data, status, headers, config){});
+	};
+
 	$scope.addUser = function() {
 		var user = {
 				email : $scope.email,
@@ -27,14 +39,27 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 		$scope.lastName = ""
 	};
 
-	$scope.deleteProduct = function(id){
-		productDataOp.deleteProduct(id).then(Success, Error);
-	}
-	
+	$scope.editUser = function(user) {
+		userDataOp.editUser(user).then(Success, Error);
+	};
+
 	$scope.deleteUser = function(id){
 		userDataOp.deleteUser(id).then(Success, Error);
-	}
-	
+	};
+	uploadUrl = "http://localhost:8080/file/upload/";
+	$scope.uploadFile = function(files) {
+		var fd = new FormData();
+		//Take the first selected file
+		fd.append("file", files[0]);
+		
+			$http.post(uploadUrl, fd, {
+				withCredentials: true,
+				headers: {'Content-Type': undefined },
+				transformRequest: angular.identity
+			}).success( "...all right!..." ).error( "..damn!..." );
+
+	};
+
 	// Exception Handling
 	var Success = function(data, status, headers, config){
 		getData();

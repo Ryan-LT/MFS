@@ -6,6 +6,7 @@
 			<th>Email</th>
 			<th>Name</th>
 			<th>Last Name</th>
+			<th>Rank</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -15,24 +16,45 @@
 			<td>{{u.email}}</td>
 			<td>{{u.name}}</td>
 			<td>{{u.lastName}}</td>
+			<td>{{u.rank_Id}}</td>
 			<td>
 				<button ng-click="deleteUser(u.id)" type="button"
 					class="btn btn-danger">
 					<span style="color: white"
 						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
 				</button>
+				<button ng-click="getUser(u.id)" type="button"
+					class="btn" style="background-color: teal;">
+					<span style="color: white"
+						class="glyphicon glyphicon-wrench"></span>
+				</button>
 			</td>
 		</tr>
 	</tbody>
 </table>
-<div>
+<button ng-click="addBlock=true; editBlock=false" type="button"
+					class="btn" style="background-color: green">
+					<span style="color: white"
+						class="glyphicon glyphicon-plus"></span>
+</button>
+<div ng-show="addBlock">
 	<h2>Add new user</h2>
-	<form class="form-horizontal css-form" name="myForm" ng-submit="addUser()">
-	<label>Email:</label> <input type="text" class="form-control" ng-model="email" required />
+	<form class="form-horizontal css-form" name="addForm" ng-submit="addUser()">
+	<label>Email:</label> <input type="email" class="form-control" ng-model="email" required />
 	<label>Password:</label> <input type="text" class="form-control" ng-model="password" required />
 	<label>Name:</label> <input type="text" class="form-control" ng-model=name required />
 	<label>Last Name:</label> <input type="text" class="form-control" ng-model="lastName" required />
-	<button type="submit" ng-click="addUser()" ng-disabled="myForm.$invalid" class="btn btn-primary">Add</button>
+	<button type="submit" ng-disabled="addForm.$invalid" class="btn btn-primary">Add</button>
+	</form>
+</div>
+<div ng-show="editBlock">
+	<h2>Edit User</h2>
+	<form class="form-horizontal css-form" name="editForm" ng-submit="editUser(user)">
+	<label>Email:</label> <input type="email" class="form-control" ng-model="user.email" required />
+	<label>Name:</label> <input type="text" class="form-control" ng-model=user.name required />
+	<label>Last Name:</label> <input type="text" class="form-control" ng-model="user.lastName" required />
+	<label>Rank:</label> <input type="text" class="form-control" ng-model="user.rank_Id" required />
+	<button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">Save Change</button>
 	</form>
 </div>
 </div>
