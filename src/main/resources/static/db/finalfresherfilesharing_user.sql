@@ -31,7 +31,7 @@ CREATE TABLE `user` (
   `active` int(11) DEFAULT NULL,
   `last_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin@gmail.com','$2a$10$BLMrQvHR7Eb6/vWZD7jxTOgpxLchu6kmaY7ZbKg0X4DcQokXeRcCG','admin',2,1,''),(2,'member@gmail.com','$2a$10$Y/PnG/xHP157r6R1zwUPX.hhvmqRuh/Fg3qOvkqRuyNDJIUIaX3MK','member',2,1,''),(4,'vuong@gmail.com','$2a$10$C/y6blVJ39LhEaJdHorDV.G2V4mSVqmijep1xaiHlj8wAF6OR0Gmi','vuong',0,1,'vu'),(5,'v@gmail.com','$2a$10$LhWpi2sGyHJskLZkEjG0XO7ZXgEGe0PeazbhaDoCDm/cnaaLFiiW6','v',0,1,'vu'),(6,'vv@gmail.com','$2a$10$ma5D3Tum4F.KlB2yA/2w..YRFOekBalAbYukf9cCZrcLW/H6pVvTq','vv',0,1,'vv');
+INSERT INTO `user` VALUES (1,'admin@gmail.com','$2a$10$BLMrQvHR7Eb6/vWZD7jxTOgpxLchu6kmaY7ZbKg0X4DcQokXeRcCG','admin',2,1,''),(2,'member@gmail.com','$2a$10$Y/PnG/xHP157r6R1zwUPX.hhvmqRuh/Fg3qOvkqRuyNDJIUIaX3MK','member',2,1,''),(4,'vuong@gmail.com','$2a$10$C/y6blVJ39LhEaJdHorDV.G2V4mSVqmijep1xaiHlj8wAF6OR0Gmi','vuong',0,1,'vu'),(5,'v@gmail.com','$2a$10$LhWpi2sGyHJskLZkEjG0XO7ZXgEGe0PeazbhaDoCDm/cnaaLFiiW6','v',0,1,'vu'),(6,'vv@gmail.com','$2a$10$ma5D3Tum4F.KlB2yA/2w..YRFOekBalAbYukf9cCZrcLW/H6pVvTq','vv',0,1,'vv'),(7,'tn@gmail.com','$2a$10$KCnnZIJoZ49TsuhXNJTuPOCHNwLKxTzuJRSgdaMpPgK6fSGG.dkzq','Thinh',0,1,'Nu'),(8,'km@gmail.com','$2a$10$i9GxNtRmUJeBFaSlWFFh5eI9sHcGNwA0OoolXC0/dhLpyJ5s5cFl.','Kim Ni',0,1,'Anh Anh');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-08 14:31:52
+-- Dump completed on 2017-03-10 13:33:24
