@@ -39,6 +39,12 @@ public class FileService {
 		return fileRepository.findOne(id);
 	}
 	
+	public List<Files> getFileByUser(int idUser){
+		User user = userRepository.findOne(idUser);
+		return fileRepository.findByUserId(user);
+	}
+	
+	
 	public void delete(int id){
 		fileRepository.delete(id);
 	}

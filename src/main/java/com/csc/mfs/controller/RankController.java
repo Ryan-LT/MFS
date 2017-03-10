@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.csc.mfs.model.Rank;
+import com.csc.mfs.model.User;
 import com.csc.mfs.repository.RankRepository;
 import com.csc.mfs.service.RankService;
 
@@ -45,21 +46,8 @@ public class RankController {
 		return rankService.getOne(id);
 	}
 	
-	@RequestMapping("/updateSizeUpload/{id}/{size}")
-	public void sizeUpload(@PathVariable int id, @PathVariable double size){
-		rankService.sizeUpload(id, size);
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public void update(@RequestBody Rank rank){
+		rankService.update(rank);
 	}
-	
-	@RequestMapping("/updateSizeDownload/{id}/{size}")
-	public void sizeDownload(@PathVariable int id, @PathVariable double size){
-		rankService.sizeDownload(id, size);
-	}
-	
-	@RequestMapping("/sizerank/{id}/{size}")
-	public void sizeRank(@PathVariable int id, @PathVariable double size){
-		rankService.sizeRank(id, size);
-	}
-	
-	
-	
 }

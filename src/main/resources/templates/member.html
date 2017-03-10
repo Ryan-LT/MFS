@@ -1,13 +1,100 @@
+
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" >
+
+<head >
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AngularJS Plunker</title>
+  
+	  <!-- Script file-->
+	  <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+	  <script src="../js/controller/memberControllers/userController.js"></script>
+	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+	  
+	  <!-- link file CSS -->
+	  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 	  <link href="../static/css/member.css" th:href="@{/css/member.css}" rel="stylesheet" />
+ 	
+ 	
+   <script>
+    // Script to open and close sidenav
+    function w3_open() {
+      document.getElementById("mySidenav").style.display = "block";
+      document.getElementById("myOverlay").style.display = "block";
+    }
+    function w3_close() {
+    document.getElementById("mySidenav").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+    }
+
+    // Modal Image Gallery
+    function onClick(element) {
+      document.getElementById("img01").src = element.src;
+      document.getElementById("modal01").style.display = "block";
+      var captionText = document.getElementById("caption");
+      captionText.innerHTML = element.alt;
+    }
+  </script>
+
 </head>
-<body>
-<form action="#" th:action="@{/logout}" method="POST">
+
+<body ng-app="myWeb">
+	<form action="#" th:action="@{/logout}" method="POST">
 		<button type="submit">Logout</button>
 	</form>
-MemberPage
+	
+  <!-- Sidenav/menu -->
+  <nav class="w3-sidenav w3-light-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidenav">
+    <br>
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-padding-xlarge w3-hide-large w3-display-topleft w3-hover-white" style="width:100%;font-size:22px">Close Menu</a>
+    <div class="w3-container">
+      <h3 class="w3-padding-64"><b>Mini File Sharing<br><img ng-src="http://www.ganfyd.org/images/2/29/Open_Clipart_Library_logo.png" style="width:60%; height:60%; text-align:center;"></b></h3>
+    </div>
+    <a href="#/upload" onclick="w3_close()" class="w3-padding w3-hover-white"><i class="fa fa-files-o" style="font-size:20px"></i> Upload File</a>
+    <a href="#/userInfo" onclick="w3_close()" class="w3-padding w3-hover-white"><i class="fa fa-venus-mars" style="font-size:20px"></i> Personal Info</a>
+    <a href="#/fileManage" onclick="w3_close()" class="w3-padding w3-hover-white"><i class="fa fa-files-o" style="font-size:20px"></i> File Management</a>
+  </nav>
+
+  <!-- Top menu on small screens -->
+  <header class="w3-container w3-top w3-hide-large w3-light-blue  w3-xlarge w3-padding">
+    <a href="javascript:void(0)" class="w3-button w3-light-blue w3-margin-right" onclick="w3_open()">☰</a>
+    <span>Mini File Sharing</span>
+  </header>
+
+  <!-- Overlay effect when opening sidenav on small screens -->
+  <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main" style="margin-left:340px;margin-right:40px;">
+    <h2></h2>
+    <br>
+    <br>
+    <!-- <form>
+  <input type="text" name="search" id="myInput" onkeyup="myFunction1()" placeholder="Search for names.." title="Type in a name">
+</form> -->
+
+
+
+
+
+    <div ng-view></div>
+
+    <!-- End page content -->
+  </div>
+
+  <!-- W3.CSS Container -->
+  <div class="w3-light-grey w3-container w3-padding-32" style="bottom:0;padding-right:58px;">
+    <p class="w3-right">
+      Powered by <a href="https://www.google.com.vn/" title="Google.com" target="_blank" class="w3-hover-opacity">Google.com</a></p>
+  </div>
+
+
+ 
 </body>
+
 </html>
