@@ -1,24 +1,24 @@
-
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" >
-
+	xmlns:th="http://www.thymeleaf.org" ng-app="myWeb">
 <head >
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AngularJS Plunker</title>
   
-	  <!-- Script file-->
-	  <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
-	  <script src="../js/controller/memberControllers/userController.js"></script>
-	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
-	  
-	  <!-- link file CSS -->
-	  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
-	  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- 	  <link href="../static/css/member.css" th:href="@{/css/member.css}" rel="stylesheet" />
+	<!-- Script file-->
+	<script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+	<script src="../js/controller/memberControllers/userController.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- link file CSS -->
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 	<link href="../static/css/member.css" th:href="@{/css/member.css}" rel="stylesheet" />
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  	
  	
    <script>
@@ -42,19 +42,18 @@
   </script>
 
 </head>
-
-<body ng-app="myWeb">
-	<form action="#" th:action="@{/logout}" method="POST">
-		<button type="submit">Logout</button>
-	</form>
-	
+<body>
   <!-- Sidenav/menu -->
   <nav class="w3-sidenav w3-light-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidenav">
     <br>
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-padding-xlarge w3-hide-large w3-display-topleft w3-hover-white" style="width:100%;font-size:22px">Close Menu</a>
-    <div class="w3-container">
+    <section class="w3-container">
       <h3 class="w3-padding-64"><b>Mini File Sharing<br><img ng-src="http://www.ganfyd.org/images/2/29/Open_Clipart_Library_logo.png" style="width:60%; height:60%; text-align:center;"></b></h3>
-    </div>
+    </section>
+    
+    <form action="#" th:action="@{/logout}" method="POST">
+		<button type="submit">Logout</button>
+	</form>
     <a href="#/upload" onclick="w3_close()" class="w3-padding w3-hover-white"><i class="fa fa-files-o" style="font-size:20px"></i> Upload File</a>
     <a href="#/userInfo" onclick="w3_close()" class="w3-padding w3-hover-white"><i class="fa fa-venus-mars" style="font-size:20px"></i> Personal Info</a>
     <a href="#/fileManage" onclick="w3_close()" class="w3-padding w3-hover-white"><i class="fa fa-files-o" style="font-size:20px"></i> File Management</a>
@@ -67,34 +66,24 @@
   </header>
 
   <!-- Overlay effect when opening sidenav on small screens -->
-  <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+  <section class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></section>
 
   <!-- !PAGE CONTENT! -->
-  <div class="w3-main" style="margin-left:340px;margin-right:40px;">
-    <h2></h2>
-    <br>
-    <br>
-    <!-- <form>
-  <input type="text" name="search" id="myInput" onkeyup="myFunction1()" placeholder="Search for names.." title="Type in a name">
-</form> -->
-
-
-
-
-
-    <div ng-view></div>
-
-    <!-- End page content -->
-  </div>
-
+  <section ng-controller="mainControl"	th:attr="ng-init='userId='+${userId}+''" 
+  				class="w3-main" <!-- style="margin-left:340px;margin-right:40px;" -->>
+    <br><br>
+    <section class="container">
+    	<section class="col-md-2"></section>
+    	<section ng-view></section>
+    	<!-- End page content -->
+    </section>
+    
+    
+  </section>
   <!-- W3.CSS Container -->
-  <div class="w3-light-grey w3-container w3-padding-32" style="bottom:0;padding-right:58px;">
+  <section class="w3-light-grey w3-container w3-padding-32" style="bottom:0;padding-right:58px;">
     <p class="w3-right">
       Powered by <a href="https://www.google.com.vn/" title="Google.com" target="_blank" class="w3-hover-opacity">Google.com</a></p>
-  </div>
-
-
- 
+  </section>
 </body>
-
 </html>

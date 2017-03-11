@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.mfs.model.User;
+import com.csc.mfs.repository.UserRepository;
 import com.csc.mfs.service.UserService;
 
 @Controller
@@ -32,16 +33,23 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
-	public String login(){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth.getAuthorities().toString());
+	public ModelAndView login(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();		
 		if(auth.getAuthorities().toString().equals("[ADMIN]")){
-			return "admin";	
+			User user = userService.findUserByEmail(auth.getName());
+			modelAndView.addObject("userId", user.getId());
+			modelAndView.addObject("userName", user.getLastName());
+			modelAndView.setViewName("admin");
 		}
 		else if(auth.getAuthorities().toString().equals("[MEMBER]")) {
-			return "member";
+			User user = userService.findUserByEmail(auth.getName());
+			modelAndView.addObject("userId", user.getId());
+			modelAndView.addObject("userName", user.getLastName());
+			modelAndView.setViewName("member");;
 		}
-		return "login";
+		return modelAndView;
 	}
 
 
