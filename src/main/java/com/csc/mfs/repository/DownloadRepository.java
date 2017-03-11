@@ -1,5 +1,7 @@
 package com.csc.mfs.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +20,14 @@ public interface DownloadRepository extends JpaRepository<Download, Integer>{
 			+ " AND d.id_user=:idOfUser AND (UNIX_TIMESTAMP(datedownload)*1000)=:dateDownload", nativeQuery=true)
 	Object sumSizeDownloadInDay(@Param("idOfUser") int idOfUser, @Param("dateDownload") long dateDownload);
 	
+	@Query(value="SELECT count(*) FROM files f WHERE f.user_id=:idOfUser", nativeQuery=true)
+	long countDownloadByUser(@Param("idOfUser") int idOfUser);
+	
+	@Query(value="SELECT count(*) FROM download WHERE id_file=:idFile", nativeQuery=true)
+	long countDownloadFiles(@Param("idFile") int idFile);
+	
 	@Transactional
 	void removeByIdUser(User user);
+
+	List<Download> findByIdUser(User findOne);
 }

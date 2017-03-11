@@ -72,9 +72,13 @@ public class UserService {
 	public Message changePassword(int id, String oldPass, String newPass){
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		User user = userRepository.findOne(id);
-		if(user.getPassword().equals(bCryptPasswordEncoder.encode(oldPass))){
+		System.out.println(user.getEmail()+"----------E");
+		System.out.println(user.getPassword());
+		System.out.println(bCryptPasswordEncoder.matches(oldPass, user.getPassword()));
+		if(bCryptPasswordEncoder.matches(oldPass, user.getPassword())){
 			user.setPassword(bCryptPasswordEncoder.encode(newPass));
 			userRepository.flush();
+			System.out.println(user.getPassword()+"---------P");
 			return (new Message(true, "Seccussful"));
 		} else {
 			return (new Message(false, "Old password is wrong!"));

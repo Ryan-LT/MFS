@@ -30,8 +30,27 @@ public class DownloadService {
 		return downloadRepository.findAll();
 	}
 	
+	public long countDownload(){
+		return downloadRepository.count();
+	}
+	
+	public long countDownloadByUser(int idOfUser){
+		return downloadRepository.countDownloadByUser(idOfUser);
+	}
+	
+	public long countDownFile(int idFile){
+		return downloadRepository.countDownloadFiles(idFile);
+	}
+	
 	public Download getOne(int id){
 		return downloadRepository.findOne(id);
+	}
+	
+	public List<Download> findByUser(int idUser){
+		if(null!=userRepository.findOne(idUser)){
+			return (List<Download>)downloadRepository.findByIdUser(userRepository.findOne(idUser));
+		}
+		return null;
 	}
 	
 	public void delete(int id){
