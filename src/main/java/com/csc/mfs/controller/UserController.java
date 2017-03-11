@@ -1,7 +1,8 @@
 package com.csc.mfs.controller;
 
-import java.util.List;
-
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -9,15 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.csc.mfs.repository.UserRepository;
 import com.csc.mfs.service.UserService;
+
 import com.csc.mfs.messages.Message;
 import com.csc.mfs.model.User;
 
 @RestController
-@RequestMapping("user")
+@ResponseBody
+@RequestMapping("/user")
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
@@ -52,8 +56,24 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/changePass", method=RequestMethod.POST)
-	public Message changePassword(@RequestBody int id, @RequestBody String oldPass, @RequestBody String newPass){
-		return userService.changePassword(id, oldPass, newPass);
+	public Message changePassword(@RequestBody String jsonStr){
+		int index= 0; 
+		String oldPass="";
+		String newPass="";
+		JSONParser parser = new JSONParser();
+		Object obj;
+		try {
+			obj = parser.parse(jsonStr);
+			JSONObject jsonObject = (JSONObject) obj;
+			System.out.println(jsonObject);
+			index = ((Long) jsonObject.get("id")).intValue();
+            oldPass = (String) jsonObject.get("oldPass");
+            newPass = (String) jsonObject.get("newPass");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return userService.changePassword(index, oldPass, newPass);
 	}
 }
 

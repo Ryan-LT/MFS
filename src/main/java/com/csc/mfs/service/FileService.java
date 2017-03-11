@@ -39,14 +39,18 @@ public class FileService {
 		return fileRepository.findOne(id);
 	}
 	
-	public List<Files> getFileByUser(int idUser){
-		User user = userRepository.findOne(idUser);
-		return fileRepository.findByUserId(user);
+	public List<Files> getFileByUser(int idUser, int page, int pageSize){
+		int count = page*pageSize;
+		return fileRepository.findFileActiveByUserId(idUser, count, pageSize);
 	}
 	
+	public long countFileOfUser(int idUser){
+		return fileRepository.countFileActiveByUserId(idUser);
+	}
 	
 	public void delete(int id){
-		fileRepository.delete(id);
+		//fileRepository.delete(id);
+		fileRepository.updateActive(id);
 	}
 	
 	public void updateUser(int idUser){

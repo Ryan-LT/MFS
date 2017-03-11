@@ -67,6 +67,8 @@ public class Files implements Serializable {
     @JsonIgnore
     private User userId;
     
+    @Column(name = "active")
+    private int active;
 
     public Files() {
     }
@@ -141,7 +143,15 @@ public class Files implements Serializable {
         this.userId = userId;
     }
 
-    @Override
+    public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

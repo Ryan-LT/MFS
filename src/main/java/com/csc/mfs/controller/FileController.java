@@ -42,9 +42,13 @@ public class FileController {
 		return fileService.getFile(id);
 	}
 
-	@RequestMapping(value="/getByUser/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Files> getFileByUser(@PathVariable int id){
-		return fileService.getFileByUser(id);
+	@RequestMapping(value="/getByUser/{id}/{page}/{pageSize}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Files> getFileByUser(@PathVariable int id, @PathVariable int page, @PathVariable int pageSize){
+		return fileService.getFileByUser(id, page, pageSize);
+	}
+	@RequestMapping(value="/countFileOfUser/{id}")
+	public long countFileByUser(@PathVariable int id){
+		return fileService.countFileOfUser(id);
 	}
 	
 	@RequestMapping("/delete/{id}")

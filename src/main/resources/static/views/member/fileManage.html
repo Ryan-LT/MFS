@@ -1,24 +1,37 @@
-<div ng-controller="PersonStorageController as storage" ng-init="stt=0; incre=1">
-<input type="text" id="myInput" ng-model="filter_"  placeholder="Search for names.." title="Type in a name">
-<table id="myTable" class="table">
-  <tr class="header">
-    <th style="width:25%;">Name File</th>
-    <th style="width:25%;">Size</th>
-    <th style="width:25%;">Date Upload</th>
-    <th style="width:25%;">Action</th>
-  </tr>
-  <tr ng-repeat="file in files | filter: filter_">
-    <td>{{file.name}}</td>
-    <td>{{file.size}}</td>
-    <td>{{file.dateupload}}</td>
-    <td>
-		<button ng-click="deleteFile(file.id)" type="button" class="btn btn-danger">
-			Delete
-			<span style="color: white"class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
-		</button>
-	</td>
-  </tr>
-</table>
-</div>
-<p></p> 
-</body>
+<section class="container" ng-controller="PersonStorageController as storage" ng-init="stt=0; incre=1">
+	<section class="row">
+		<section class="col-md-1"></section>
+		<section class="col-md-9">
+			<section class="row">
+				<input type="text" id="myInput" ng-model="filter_"  placeholder="Search for names.." title="Type in a name">
+				<table id="myTable" class="table">
+				  <tr class="header">
+				    <th style="width:25%;">Name File</th>
+				    <th style="width:25%;">Size</th>
+				    <th style="width:25%;">Date Upload</th>
+				    <th style="width:25%;">Action</th>
+				  </tr>
+				  <tr ng-repeat="file in files | filter: filter_">
+				    <td><a href="#/detail/{{file.id}}">{{file.name}}</a></td>
+				    <td>{{file.size}}</td>
+				    <td>{{file.dateupload}}</td>
+				    <td>
+						<button ng-click="deleteFile(file.id)" type="button" class="btn btn-danger">
+							Delete
+							<span style="color: white"class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
+						</button>
+					</td>
+				  </tr>
+				</table>
+			</section>
+			<section class="row">
+				<ul class="list-inline">
+    				<li ng-repeat="i in getNumber(count) track by $index">
+    					<button ng-click="getFileByPage($index, 2)" >{{$index+1}}</button>
+    				</li>
+				</ul>
+			</section>
+		</section>
+		<section class="col-md-1"></section>
+	</section>
+</section>
