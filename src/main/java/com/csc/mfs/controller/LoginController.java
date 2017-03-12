@@ -27,6 +27,11 @@ public class LoginController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "/main") // , method = RequestMethod.GET
+	public String main() {
+		return "mainPage";
+	}
+	
 	@RequestMapping(value = "/up") // , method = RequestMethod.GET
 	public String up() {
 		return "up";
