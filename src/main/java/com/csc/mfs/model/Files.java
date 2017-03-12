@@ -69,17 +69,23 @@ public class Files implements Serializable {
     
     @Column(name = "active")
     private int active;
+    
+    @JoinColumn(name = "id_type", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
+    @ManyToOne(optional = false)
+    private CategoriesType idType;
 
     public Files() {
     }
     
-    public Files(String name, String path, double size, User userId, Date dateUpload){
+    public Files(String name, String path, double size, User userId, Date dateUpload, 
+    		CategoriesType type){
     	this.name = name;
     	this.path = path;
     	this.size = size;
     	this.userId = userId;
     	this.dateupload = dateUpload;
-    	
+    	this.idType = type;
     }
 
     public Files(Integer id) {
@@ -151,6 +157,14 @@ public class Files implements Serializable {
 		this.active = active;
 	}
 
+	public CategoriesType getIdType() {
+		return idType;
+	}
+
+	public void setIdType(CategoriesType idType) {
+		this.idType = idType;
+	}
+
 	@Override
     public int hashCode() {
         int hash = 0;
@@ -160,7 +174,6 @@ public class Files implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Files)) {
             return false;
         }
