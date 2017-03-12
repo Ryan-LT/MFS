@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2017 at 06:16 PM
+-- Generation Time: Mar 12, 2017 at 01:57 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -19,6 +19,87 @@ SET time_zone = "+00:00";
 --
 -- Database: `finalfresherfilesharing`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(5) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`) VALUES
+(1, 'Text'),
+(2, 'Graphic'),
+(3, 'Spreadsheet'),
+(4, 'Presentation'),
+(5, 'Multimedia'),
+(6, 'Compression'),
+(7, 'Other');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories_type`
+--
+
+CREATE TABLE `categories_type` (
+  `id` int(11) NOT NULL,
+  `file_type` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `category_id` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `categories_type`
+--
+
+INSERT INTO `categories_type` (`id`, `file_type`, `category_id`) VALUES
+(1, 'txt', 1),
+(2, 'rtf', 1),
+(3, 'doc', 1),
+(4, 'wpd', 1),
+(5, 'sdw', 1),
+(6, 'sxw', 1),
+(7, 'sam', 1),
+(8, 'xml', 1),
+(9, 'xhtml', 1),
+(10, 'htm', 1),
+(11, 'html', 1),
+(12, 'jpg', 2),
+(13, 'png', 2),
+(14, 'gif', 2),
+(15, 'svg', 2),
+(16, 'tif', 2),
+(17, 'tiff', 2),
+(18, 'bmp', 2),
+(19, 'wpg', 2),
+(20, 'pcx', 2),
+(26, 'xls', 3),
+(27, 'wkq', 3),
+(28, 'qpw', 3),
+(29, 'sdc', 3),
+(30, 'wks', 3),
+(31, 'ppt', 4),
+(32, 'shw', 4),
+(33, 'sdd', 4),
+(34, 'zip', 6),
+(43, 'ps', 5),
+(44, 'pdf', 5),
+(45, 'mpg', 5),
+(46, 'mpeg', 5),
+(47, 'wm', 5),
+(48, 'wma', 5),
+(49, 'mp3', 5),
+(50, 'wav', 5),
+(51, 'docx', 1),
+(52, 'Other', 7);
 
 -- --------------------------------------------------------
 
@@ -42,7 +123,15 @@ INSERT INTO `download` (`id`, `id_file`, `id_user`, `datedownload`) VALUES
 (2, 7, 16, '0000-00-00'),
 (3, 4, 16, '2017-03-02'),
 (4, 4, 20, '2017-03-10'),
-(5, 4, 19, '2017-03-08');
+(5, 4, 19, '2017-03-08'),
+(6, 6, 16, '2017-03-08'),
+(7, 8, 19, '2017-03-15'),
+(8, 9, 16, '0000-00-00'),
+(9, 9, 19, '0000-00-00'),
+(10, 7, 19, '2017-03-09'),
+(11, 6, 19, '2017-03-09'),
+(12, 6, 19, '2017-03-12'),
+(13, 6, 19, '2017-03-11');
 
 -- --------------------------------------------------------
 
@@ -57,19 +146,20 @@ CREATE TABLE `files` (
   `size` double DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `dateupload` datetime DEFAULT NULL,
-  `active` int(11) NOT NULL DEFAULT '1'
+  `active` int(11) NOT NULL DEFAULT '1',
+  `id_type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `files`
 --
 
-INSERT INTO `files` (`id`, `name`, `path`, `size`, `user_id`, `dateupload`, `active`) VALUES
-(4, 'abc.docx', NULL, 9878, 20, '2017-03-01 00:00:00', 1),
-(6, 'abc', NULL, 123123, 20, '2017-03-09 00:00:00', 1),
-(7, 'demo.txt', NULL, 65, 20, '2017-03-10 00:00:00', 1),
-(8, 'test.zip', NULL, 1237, 0, '2017-03-08 00:00:00', 1),
-(9, 'kiem.zip', NULL, 6755, 0, '2017-03-08 00:00:00', 1);
+INSERT INTO `files` (`id`, `name`, `path`, `size`, `user_id`, `dateupload`, `active`, `id_type`) VALUES
+(4, 'abc.docx', NULL, 9878, 20, '2017-03-01 00:00:00', 1, 51),
+(6, 'abc', NULL, 123123, 20, '2017-03-09 00:00:00', 1, 52),
+(7, 'demo.txt', NULL, 65, 20, '2017-03-10 00:00:00', 1, 1),
+(8, 'test.zip', NULL, 1237, 0, '2017-03-08 00:00:00', 1, 34),
+(9, 'kiem.zip', NULL, 6755, 0, '2017-03-08 00:00:00', 1, 34);
 
 -- --------------------------------------------------------
 
@@ -164,6 +254,19 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 --
 
 --
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories_type`
+--
+ALTER TABLE `categories_type`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKpikl0j3jmyfanl3147grxy6u` (`category_id`);
+
+--
 -- Indexes for table `download`
 --
 ALTER TABLE `download`
@@ -176,7 +279,8 @@ ALTER TABLE `download`
 --
 ALTER TABLE `files`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_file_idx` (`user_id`);
+  ADD KEY `user_file_idx` (`user_id`),
+  ADD KEY `FKaty6roy7josrpv01akx19s3hr` (`id_type`);
 
 --
 -- Indexes for table `rank`
@@ -209,10 +313,20 @@ ALTER TABLE `user_role`
 --
 
 --
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `categories_type`
+--
+ALTER TABLE `categories_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+--
 -- AUTO_INCREMENT for table `download`
 --
 ALTER TABLE `download`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `files`
 --
@@ -222,7 +336,7 @@ ALTER TABLE `files`
 -- AUTO_INCREMENT for table `rank`
 --
 ALTER TABLE `rank`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `role`
 --
@@ -238,6 +352,13 @@ ALTER TABLE `user`
 --
 
 --
+-- Constraints for table `categories_type`
+--
+ALTER TABLE `categories_type`
+  ADD CONSTRAINT `FK_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
+  ADD CONSTRAINT `FKpikl0j3jmyfanl3147grxy6u` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
+
+--
 -- Constraints for table `download`
 --
 ALTER TABLE `download`
@@ -250,6 +371,8 @@ ALTER TABLE `download`
 -- Constraints for table `files`
 --
 ALTER TABLE `files`
+  ADD CONSTRAINT `FK_category_file` FOREIGN KEY (`id_type`) REFERENCES `categories_type` (`id`),
+  ADD CONSTRAINT `FKaty6roy7josrpv01akx19s3hr` FOREIGN KEY (`id_type`) REFERENCES `categories_type` (`id`),
   ADD CONSTRAINT `FKkw4jwo1uukj6uwrdxsv6u3qjt` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `user_file` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 

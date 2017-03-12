@@ -10,24 +10,58 @@ import org.springframework.transaction.annotation.Transactional;
 import com.csc.mfs.model.Download;
 import com.csc.mfs.model.User;
 
-
+/**
+ * This interface extend JpaRepository interface, support method interactive db(direct)
+ * @author VuMin
+ *
+ */
 public interface DownloadRepository extends JpaRepository<Download, Integer>{
+	/**
+	 * Get total size download of user
+	 * @param idOfUser
+	 * @return Object 
+	 */
 	@Query(value="SELECT SUM(size) FROM files f, download d WHERE f.id=d.id_file"
 			+ " AND d.id_user=:idOfUser", nativeQuery=true)
-	double sumSizeDownload(@Param("idOfUser") int idOfUser);
+	Object sumSizeDownload(@Param("idOfUser") int idOfUser);
 	
+	/**
+	 * Get total size download of user in day
+	 * @param idOfUser
+	 * @param dateDownload
+	 * @return Object(it could be NULL)
+	 */
 	@Query(value="SELECT SUM(size) FROM files f, download d WHERE f.id=d.id_file"
 			+ " AND d.id_user=:idOfUser AND (UNIX_TIMESTAMP(datedownload)*1000)=:dateDownload", nativeQuery=true)
 	Object sumSizeDownloadInDay(@Param("idOfUser") int idOfUser, @Param("dateDownload") long dateDownload);
 	
-	@Query(value="SELECT count(*) FROM files f WHERE f.user_id=:idOfUser", nativeQuery=true)
+	/**
+	 * Get total download of user
+	 * @param idOfUser
+	 * @return long
+	 */
+	@Query(value="SELECT count(*) FROM download d WHERE d.id_user=:idOfUser", nativeQuery=true)
 	long countDownloadByUser(@Param("idOfUser") int idOfUser);
 	
+	/**
+	 * get total downloads of file
+	 * @param idFile
+	 * @return long
+	 */
 	@Query(value="SELECT count(*) FROM download WHERE id_file=:idFile", nativeQuery=true)
 	long countDownloadFiles(@Param("idFile") int idFile);
 	
+	/**
+	 * Remove record by Id user
+	 * @param user
+	 */
 	@Transactional
 	void removeByIdUser(User user);
-
+	
+	/**
+	 * Get record download of user
+	 * @param findOne
+	 * @return List<Download>
+	 */
 	List<Download> findByIdUser(User findOne);
 }
