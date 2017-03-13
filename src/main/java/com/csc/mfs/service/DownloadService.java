@@ -177,4 +177,12 @@ public class DownloadService {
 		}
 		return false;
 	}
+	
+	public List<Object> getDownloadOfuser(int idUser, int page, int pageSize){
+		return downloadRepository.getHistoryDownload(idUser, page*pageSize, pageSize);
+	}
+	
+	public long countHistory(int idUser){
+		return downloadRepository.countDownloadByUser(idUser);
+	}
 }
