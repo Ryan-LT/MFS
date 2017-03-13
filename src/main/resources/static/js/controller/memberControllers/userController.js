@@ -18,6 +18,10 @@ app.config(function($routeProvider) {
     templateUrl: "/views/member/explore.html",
     controller: "explore"
   })
+  .when("/download", {
+    templateUrl: "/views/member/download.html",
+    controller: "download"
+  })
 });
 
 
@@ -156,8 +160,9 @@ app.controller("detail", function($scope, $routeParams, $http){
 });
 
 app.controller("explore", function($http, $scope){
-	getDataSearch("");
-	function getDataSearch(info){
+	$scope.search="";
+	getBestDownload("");
+	function getBestDownload(info){
 		$http({
 			method: 'get',
 			url: "http://localhost:8080/file/getBestDownload/"
@@ -179,8 +184,83 @@ app.controller("explore", function($http, $scope){
 			alert("fail");
 		});	
 	}
+	
+	$scope.doSearch = function(page, pageSize){
+		$scope.search = $scope.infoSearch;
+		countSearch();
+		searchFiles(page, pageSize);
+		
+	};//countSearch
+	$scope.infoTemp = $scope.search;
+	function searchFiles(page, pageSize){
+		$scope.search = $scope.infoSearch;
+		countSearch();
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/file/fSearch/" + $scope.infoSearch + "/"+ page +"/"+ pageSize
+		}).success(function(data, status, headers, config){
+			$scope.files = data;
+		})
+		.error(function(data, status, headers, config){});
+	}
+	
+	$scope.getDownloadByPage = function(page, pageSize){
+		searchFiles(page, pageSize);
+    }
+	
+	$scope.getNumber = function(num) {
+        return new Array(num);
+    }
+	
+	function countSearch() { 
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/file/countSearch/" + $scope.infoSearch
+		}).success(function(data, status, headers, config){
+			$scope.count = Math.round(data/2);
+		})
+		.error(function(data, status, headers, config){
+			alert("fail");
+		});
+	}
+	
+	
 });
 
 
 
-
+app.controller("download", function($scope, $http){
+	$scope.count = 0;
+	getHistory(0,2);
+	
+	countDownloadHistory();
+	function getHistory(page, pageSize){
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/download/history/" + $scope.userId + "/" + page + "/" + pageSize
+		}).success(function(data, status, headers, config){
+			$scope.files = data;
+		})
+		.error(function(data, status, headers, config){});	
+	}
+	
+	$scope.getNumber = function(num) {
+        return new Array(num);
+    }
+	
+    function countDownloadHistory() { 
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/download/countHistory/" + $scope.userId
+		}).success(function(data, status, headers, config){
+			$scope.count = Math.round(data/2);
+		})
+		.error(function(data, status, headers, config){
+			alert("fail");
+		});
+	}
+    $scope.getDownloadByPage = function(page, pageSize){
+    	getHistory(parseInt(page), parseInt(pageSize));
+    }
+	
+});
