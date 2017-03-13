@@ -1,0 +1,31 @@
+<article class="container">
+	<section class="row" id="article_table">
+			<section class="col-md-2"></section>
+			<section class="col-md-8">
+				<h1>{{file.name | uppercase}}'s Detail</h1>
+				<table class="table table-bordered table-striped">
+					<tr>
+						<td>Name</td>
+						<td>{{file.name}}</td>
+					</tr>
+					<tr>
+						<td>Size</td>
+						<td>{{file.size}}</td>
+					</tr>
+					<tr>
+						<td>Date upload</td>
+						<td>{{file.dateupload}}</td>
+					</tr>
+					<tr>
+						<td>Total download</td>
+						<td>{{total}}</td>
+					</tr>
+				</table>
+				<button class="btn btn-primary" type="button">
+					<a style="color: white" href="#/fileManage">
+						<span class="glyphicon glyphicon-arrow-left">Back</span>
+					</a>
+				</button>
+			</section>
+	</section>
+</article>

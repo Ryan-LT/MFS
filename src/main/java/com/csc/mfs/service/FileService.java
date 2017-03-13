@@ -25,40 +25,96 @@ public class FileService {
 	@Autowired
 	private RankRepository rankRepository;
 	
+	/**
+	 * Get all file uploaded
+	 * @return List<Files>
+	 */
 	public List<Files> getAll(){
 		return fileRepository.findAll();
 	}
-
 	
+	/**
+	 * Insert or update file
+	 * @param file
+	 */
 	public void insertFile(Files file){
 		//Files file_ = new Files("vuong.txt", "", 1234, new User(2), new Date());
 		fileRepository.save(file);
 	}
 
+	/**
+	 * Get one file by id
+	 * @param id
+	 * @return Files
+	 */
 	public Files getFile(int id){
 		return fileRepository.findOne(id);
 	}
 	
-	public List<Files> getFileByUser(int idUser){
-		User user = userRepository.findOne(idUser);
-		return fileRepository.findByUserId(user);
+	/**
+	 * get file have most downloaded
+	 * @return List<Files>
+	 */
+	public List<Files> getBestDownload(){
+		return fileRepository.getBestDownload();
 	}
 	
+	/**
+	 * Get file by user id(pagination)
+	 * @param idUser
+	 * @param page
+	 * @param pageSize
+	 * @return List<Files>
+	 */
+	public List<Files> getFileByUser(int idUser, int page, int pageSize){
+		int count = page*pageSize;
+		return fileRepository.findFileActiveByUserId(idUser, count, pageSize);
+	}
 	
+	/**
+	 * Get total file user uploaded which still active
+	 * @param idUser
+	 * @return long
+	 */
+	public long countFileOfUser(int idUser){
+		return fileRepository.countFileActiveByUserId(idUser);
+	}
+	
+	/**
+	 * Delete file(set active =0... foreign key)
+	 * @param id
+	 */
 	public void delete(int id){
-		fileRepository.delete(id);
+		//fileRepository.delete(id);
+		fileRepository.updateActive(id);
 	}
 	
+	/**
+	 * Set id_user = 0(foreign key).. delete user
+	 * @param idUser
+	 */
 	public void updateUser(int idUser){
 		fileRepository.UpdateUser(idUser);
 	}
 	
 	
+	/**
+	 * Search file
+	 * @param infoFile
+	 * @param page
+	 * @param pageSize
+	 * @return List<Files>
+	 */
 	public List<Files> searchFile(String infoFile, int page, int pageSize){
 		int number = page*pageSize;
 		return fileRepository.findByInfo(infoFile, number, pageSize);
 	}
 	
+	/**
+	 * Get total size upload in day of user
+	 * @param idUser
+	 * @return
+	 */
 	public double sumSizeUploadInDay(int idUser){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
 		Date date = new Date();
@@ -75,6 +131,11 @@ public class FileService {
 		}
 	}
 	
+	/**
+	 * Get total size upload of user
+	 * @param idUser
+	 * @return double
+	 */
 	public double totalSizeUpload(int idUser){
 		if(null!=fileRepository.sumSizeUpload(idUser)){
 			return (double)fileRepository.sumSizeUpload(idUser);	
@@ -83,6 +144,12 @@ public class FileService {
 		}
 	}
 	
+	/**
+	 * Check condition before upload
+	 * @param id
+	 * @param sizeFile
+	 * @return
+	 */
 	public double beforeUpload(int id, double sizeFile){
 		User user = userRepository.findOne(id);
 		Rank rank = rankRepository.findOne(user.getRank_Id());
@@ -94,6 +161,11 @@ public class FileService {
 		}
 	}
 	
+	/**
+	 * Set rank(condition) after upload
+	 * @param id
+	 * @param sizeFile
+	 */
 	public void afterUpload(int id, double sizeFile){
 		User user = userRepository.findOne(id);
 		Rank rank = rankRepository.findOne(user.getRank_Id());
@@ -107,11 +179,24 @@ public class FileService {
 		}
 	}
 	
+	/**
+	 * Delete file of User
+	 * @param idUser
+	 */
 	public void deleteFilesOfUser(int idUser){
 		User user = userRepository.findOne(idUser);
 		fileRepository.removeByUserId(user);
 	}
 	
+	/**
+	 * Get all file(pagination)
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Files> getAllFilePagination(int page, int pageSize){
+		return fileRepository.getAllFilePagination(page*pageSize, pageSize);
+	}
 	
 }
 
