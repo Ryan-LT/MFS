@@ -12,10 +12,11 @@ app.config(function($routeProvider) {
   })
   .when("/detail/:id", {
     templateUrl: '/views/member/detail.html',
-    controller: "Detail"
+    controller: "detail"
   })
-  .when("/upload", {
-    templateUrl: "upload.html"
+  .when("/explore", {
+    templateUrl: "/views/member/explore.html",
+    controller: "explore"
   })
 });
 
@@ -130,7 +131,7 @@ app.controller("userInfo", function($scope, $http){
 	}
 });
 
-app.controller("Detail", function($scope, $routeParams, $http){
+app.controller("detail", function($scope, $routeParams, $http){
 	$scope.file="";
 	$scope.total=0;
 	$http({
@@ -154,6 +155,31 @@ app.controller("Detail", function($scope, $routeParams, $http){
 	});
 });
 
+app.controller("explore", function($http, $scope){
+	getDataSearch("");
+	function getDataSearch(info){
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/file/getBestDownload/"
+		}).success(function(data, status, headers, config){
+			$scope.files = data;
+		})
+		.error(function(data, status, headers, config){
+			alert("fail");
+		});	
+	}
+	$scope.getOwner = function(id){
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/user/get/"+id
+		}).success(function(data, status, headers, config){
+			return data.name;
+		})
+		.error(function(data, status, headers, config){
+			alert("fail");
+		});	
+	}
+});
 
 
 
