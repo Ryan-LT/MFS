@@ -30,15 +30,15 @@
 		</tr>
 	</tbody>
 </table>
-<section class="row">
-				<ul class="list-inline">
-				<li><button ng-click="getUserByPage(page=page-1,2)" ng-disabled="page+1<=1" >Previous</button></li>
-    				<li ng-repeat="i in getNumber(pageSum) track by $index">
-    					<button ng-click="getUserByPage($index, 2)" >{{$index+1}}</button>
-    				</li>
-    				<li><button ng-click="getUserByPage(page=page+1,2)" ng-disabled="page+1>=pageSum" >Next</button></li>
-				</ul>
-</section>
+<ul class="list-inline">
+	<li><button class="btn m-btn" ng-click="getUserByPage(page=page-1,2)"
+			ng-disabled="page=1">Previous</button></li>
+	<li ng-repeat="i in getNumber(pageSum) track by $index">
+		<button class="btn m-btn active" ng-click="getUserByPage($index, 5)">{{$index+1}}</button>
+	</li>
+	<li><button class="btn m-btn" ng-click="getUserByPage(page=page+1,2)"
+			ng-disabled="page+1>=pageSum">Next</button></li>
+</ul>
 <button ng-click="addBlock=true; editBlock=false" type="button"
 	class="btn" style="background-color: green">
 	<span style="color: white" class="glyphicon glyphicon-plus"></span>
@@ -72,3 +72,7 @@
 			class="btn btn-primary">Add</button>
 	</form>
 </div>
+
+<script>
+	
+</script>

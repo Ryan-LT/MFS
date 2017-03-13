@@ -9,6 +9,10 @@ app.config(function($routeProvider){
             templateUrl: "/views/admin/rank.html",
             controller: "rankController"
         })
+        .when("/file", {
+            templateUrl: "/views/admin/file.html",
+            controller: "fileController"
+        })
         .otherwise(
             { redirectTo: '/'}
         );

@@ -1,0 +1,35 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Size</th>
+			<th>Dateupload</th>
+			<th>UserId</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="f in files">
+			<td>{{f.id}}</td>
+			<td>{{f.name}}</td>
+			<td>{{f.dateupload}}</td>
+			<td>{{f.userId}}</td>
+			<td>
+				<button ng-click="deleteFile(f.id)" type="button"
+					class="btn btn-danger">
+					<span style="color: white"
+						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<ul class="list-inline">
+	<li><button class="btn m-btn" ng-click="getFileByPage(page=page-1,2)"
+			ng-disabled="page=1">Previous</button></li>
+	<li ng-repeat="i in getNumber(pageSum) track by $index">
+		<button class="btn m-btn active" ng-click="getFileByPage($index, 5)">{{$index+1}}</button>
+	</li>
+	<li><button class="btn m-btn" ng-click="getFileByPage(page=page+1,2)"
+			ng-disabled="page+1>=pageSum">Next</button></li>
+</ul>

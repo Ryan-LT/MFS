@@ -4,7 +4,7 @@ app.controller("mainController", function($scope, $http, userDataOp,
 
 	$scope.pageSum;
 	$scope.page;
-	getData('0', '2');
+	getData('0', '5');
 	countUser();
 	$scope.getNumber = function(num) {
 		return new Array(num);
@@ -27,7 +27,7 @@ app.controller("mainController", function($scope, $http, userDataOp,
 			method : 'get',
 			url : "http://localhost:8080/user/countUser/"
 		}).success(function(data, status, headers, config) {
-			$scope.pageSum = Math.round(data / 2);
+			$scope.pageSum = Math.round(data / 5);
 		}).error(function(data, status, headers, config) {
 		});
 	}
@@ -71,7 +71,7 @@ app.controller("mainController", function($scope, $http, userDataOp,
 
 	// Exception Handling
 	var Success = function(data, status, headers, config) {
-		getData();
+		getData('0', '5');
 	};
 
 	var Error = function(data, status, headers, config) {
