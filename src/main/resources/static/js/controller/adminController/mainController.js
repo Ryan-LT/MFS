@@ -27,7 +27,7 @@ app.controller("mainController", function($scope, $http, userDataOp,
 			method : 'get',
 			url : "http://localhost:8080/user/countUser/"
 		}).success(function(data, status, headers, config) {
-			$scope.pageSum = Math.round(data / 5);
+			$scope.pageSum = Math.ceil(data / 5);
 		}).error(function(data, status, headers, config) {
 		});
 	}
@@ -48,7 +48,6 @@ app.controller("mainController", function($scope, $http, userDataOp,
 		}).success(function(data, status, headers, config) {
 			$scope.user = data;
 			id_Rank = data.rank_Id;
-			$scope.xxx = data.rank_Id;
 			$http({
 				method: 'get',
 				url: "http://localhost:8080/rank/all"
