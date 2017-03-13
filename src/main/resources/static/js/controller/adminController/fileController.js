@@ -31,7 +31,7 @@ app.controller("fileController", function($scope, $http, fileDataOp, $routeParam
 			method : 'get',
 			url : "http://localhost:8080/file/countFile/"
 		}).success(function(data, status, headers, config) {
-			$scope.pageSum = Math.round(data / 5);
+			$scope.pageSum = Math.ceil(data / 5);
 		}).error(function(data, status, headers, config) {
 		});
 	}

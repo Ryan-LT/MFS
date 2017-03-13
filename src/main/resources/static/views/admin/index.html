@@ -31,13 +31,13 @@
 	</tbody>
 </table>
 <ul class="list-inline">
-	<li><button class="btn m-btn" ng-click="getUserByPage(page=page-1,2)"
-			ng-disabled="page=1">Previous</button></li>
+	<li><button class="btn m-btn"
+			ng-click="getUserByPage(page=page-1,5)" ng-disabled="page-1<0">Previous</button></li>
 	<li ng-repeat="i in getNumber(pageSum) track by $index">
 		<button class="btn m-btn active" ng-click="getUserByPage($index, 5)">{{$index+1}}</button>
 	</li>
-	<li><button class="btn m-btn" ng-click="getUserByPage(page=page+1,2)"
-			ng-disabled="page+1>=pageSum">Next</button></li>
+	<li><button class="btn m-btn"
+			ng-click="getUserByPage(page=page+1,5)" ng-disabled="page+1>=pageSum">Next</button></li>
 </ul>
 <button ng-click="addBlock=true; editBlock=false" type="button"
 	class="btn" style="background-color: green">
