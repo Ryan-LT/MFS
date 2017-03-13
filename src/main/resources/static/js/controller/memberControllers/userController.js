@@ -168,17 +168,7 @@ app.controller("explore", function($http, $scope){
 			alert("fail");
 		});	
 	}
-	$scope.getOwner = function(id){
-		$http({
-			method: 'get',
-			url: "http://localhost:8080/user/get/"+id
-		}).success(function(data, status, headers, config){
-			return data.name;
-		})
-		.error(function(data, status, headers, config){
-			alert("fail");
-		});	
-	}
+	
 });
 
 
