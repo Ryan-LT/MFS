@@ -64,4 +64,10 @@ public interface DownloadRepository extends JpaRepository<Download, Integer>{
 	 * @return List<Download>
 	 */
 	List<Download> findByIdUser(User findOne);
+	
+	@Query(value="SELECT f.*, d.datedownload FROM files f, download d "
+			+ " WHERE d.id_file=f.id AND id_user=:idUser"
+			+ " LIMIT :number, :pageSize", nativeQuery=true) 
+	List<Object> getHistoryDownload(@Param("idUser") int idUser, @Param("number") int number, @Param("pageSize") int pageSize);
+	
 }

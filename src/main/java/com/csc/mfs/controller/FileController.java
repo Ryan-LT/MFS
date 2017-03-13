@@ -144,6 +144,10 @@ public class FileController {
 		return fileService.getBestDownload();
 	}
 	
+	@RequestMapping("/countSearch/{infoFile}")
+	public long countSearch(@PathVariable("infoFile") String infoFile){
+		return fileService.countSearch(infoFile);
+	}
 
 }
 

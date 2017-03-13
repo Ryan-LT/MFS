@@ -34,6 +34,15 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
             + ")) LIMIT :number, :pageSize" , nativeQuery=true)
 	List<Files> findByInfo(@Param("fileInfo") String fileInfo, @Param("number") int number, @Param("pageSize") int pageSize);
 	
+	@Query(value="SELECT COUNT(*) FROM files WHERE active=1 AND (name like %:fileInfo%"
+			+ " OR size like %:fileInfo% OR"
+			+ " user_id IN (SELECT id FROM user WHERE name=:fileInfo)"
+			+ " OR id_type IN (SELECT id FROM categories_type WHERE file_type LIKE %:fileInfo%)"
+            + " OR id_type IN (SELECT id FROM categories_type t WHERE t.category_id "
+            + "	IN ( SELECT id FROM categories WHERE name LIKE %:fileInfo%)"
+            + "))" , nativeQuery=true)
+	long countSearch(@Param("fileInfo") String fileInfo);
+	
 	/**
 	 * Get total size file which user uploaded in day
 	 * @param idUser
