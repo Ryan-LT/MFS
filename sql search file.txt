@@ -1,0 +1,14 @@
+SELECT * FROM `files` WHERE active = 1 AND (name LIKE '%123%' OR size LIKE '%123%' 
+                                       	OR user_id IN ( SELECT id FROM user WHERE name='123')
+                                       OR id_type IN (SELECT id FROM categories_type WHERE file_type LIKE '%123%')
+                                        OR id_type IN (SELECT id FROM categories_type t WHERE t.category_id IN (
+                                        	SELECT id FROM categories WHERE name LIKE '%123%'
+                                        )))
+
+
+
+
+/**
+* get file have total download best
+*/
+SELECT f.* FROM `download` d, files f WHERE f.id = d.id_file GROUP BY id_file ORDER BY COUNT(*) DESC
