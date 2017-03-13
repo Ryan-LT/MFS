@@ -1,7 +1,12 @@
+.body {
+	 background-color: #363942
+}
+
 .form {
-	width: 70%;
-	margin-left: 50px;
-	float: left;
+	width: 800px;
+	margin: 50px auto;
+	padding: 50px;
+	background: rgba(226, 233, 228, 1);
 }
 
 .form-signin-heading {
@@ -47,38 +52,19 @@ input[type="password"] {
 	text-align: center;
 }
 
-.body {
-	/* background: url(/images/bg3.jpg) no-repeat center fixed; */
-	/* background: url(/images/bg4.jpg) repeat; */
-	/* background-color: silver; */
-	
-}
-
-.button-login {
-	max-width: 300px;
-	background-color: #09568d;
+.button-create {
+	background-color: #008040;
 	color: white;
 	border-radius: 0 !important;
 	font-weight: bolder !important;
-	margin-top: 10px;
+	margin-top: 20px;
+	width: 300px !important;
+	
 }
 
-.button-login:hover {
-	background-color: #16216a;
-	color: white !important;
-}
-
-.button-signup {
+.button-create:hover {
 	background-color: white;
-	color: #0090c7;
-	border-radius: 0 !important;
-	font-weight: bolder !important;
-	margin-top: 10px;
-}
-
-.button-signup:hover {
-	background-color: #0090c7;
-	color: white !important;
+	color: #008040 !important;
 }
 
 .add-on {
@@ -107,66 +93,48 @@ p {
 	color: red;
 }
 
-.tt {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted #47add5;
-}
-
-.tt .tooltiptext {
-    visibility: hidden;
-    width: 320px;
-    background-color: #47add5;
-    color: #fff;
-    font-size: medium;
-    font-weight: 500;
-    border-radius: 6px;
-    padding: 20px 10px 20px 10px;
-    position: absolute;
-    z-index: 1;
-    top: -3px;
-    margin-left: 20px;
-    margin-top: -5px;
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-.tt .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent #47add5 transparent transparent;
-}
-
-.tt:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
 #textshow {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #99ff99;
-    color: black;
-    text-align: center;
-    padding: 30px;
-    position: fixed;
-    z-index: 1;
-    right: 30px;
-    top: 30px;
-    font-size: 17px;
-    border-left: 6px solid #00cc00;
-    font-weight: 500;
+   visibility: hidden;
+   min-width: 250px;
+   margin-left: -125px;
+   background-color: #99ff99;
+   color: black;
+   text-align: center;
+   padding: 30px;
+   position: fixed;
+   z-index: 1;
+   right: 30px;
+   top: 30px;
+   font-size: 17px;
+   border-left: 6px solid #00cc00;
+   font-weight: 500;
 }
 
 #textshow.show {
-    visibility: visible;
-    animation: fadein 1s, fadeout 0.5s 2.5s;
+   visibility: visible;
+   animation: fadein 1s, fadeout 0.5s 2.5s;
+}
+
+#textshow {
+   visibility: hidden;
+   min-width: 250px;
+   margin-left: -125px;
+   background-color: #99ff99;
+   color: black;
+   text-align: center;
+   padding: 30px;
+   position: fixed;
+   z-index: 1;
+   right: 30px;
+   top: 30px;
+   font-size: 17px;
+   border-left: 6px solid #00cc00;
+   font-weight: 500;
+}
+
+#textshow.show {
+   visibility: visible;
+   animation: fadein 1s, fadeout 0.5s 2.5s;
 }
 
 @keyframes fadein {
