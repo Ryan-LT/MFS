@@ -12,6 +12,9 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
+	<script th:src="@{/js/uploadFile.js}" type="text/javascript"></script>
 	<!-- link file CSS -->
 	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
@@ -20,7 +23,9 @@
  	<link href="../static/css/member.css" th:href="@{/css/member.css}" rel="stylesheet" />
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  	
+ 	<link th:href="@{/css/uploadFile.css}" rel="stylesheet">
  	
+
    <script>
     // Script to open and close sidenav
     function w3_open() {
@@ -54,7 +59,7 @@
     <form action="#" th:action="@{/logout}" method="POST">
 		<button type="submit">Logout</button>
 	</form>
-    <a href="#/upload" onclick="w3_close()" class="w3-padding w3-hover-white"><i class="fa fa-files-o" style="font-size:20px"></i> Upload File</a>
+    <a href="#/explore" onclick="w3_close()" class="w3-padding w3-hover-white"><i class="fa fa-files-o" style="font-size:20px"></i> File Explorer</a>
     <a href="#/userInfo" onclick="w3_close()" class="w3-padding w3-hover-white"><i class="fa fa-venus-mars" style="font-size:20px"></i> Personal Info</a>
     <a href="#/fileManage" onclick="w3_close()" class="w3-padding w3-hover-white"><i class="fa fa-files-o" style="font-size:20px"></i> File Management</a>
   </nav>
@@ -70,14 +75,13 @@
 
   <!-- !PAGE CONTENT! -->
   <section ng-controller="mainControl"	th:attr="ng-init='userId='+${userId}+''" 
-  				class="w3-main" <!-- style="margin-left:340px;margin-right:40px;" -->>
+  				class="w3-main" ><!-- style="margin-left:340px;margin-right:40px;" -->
     <br><br>
     <section class="container">
     	<section class="col-md-2"></section>
     	<section ng-view></section>
     	<!-- End page content -->
     </section>
-    
     
   </section>
   <!-- W3.CSS Container -->

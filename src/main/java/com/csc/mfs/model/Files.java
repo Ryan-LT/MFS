@@ -62,10 +62,11 @@ public class Files implements Serializable {
     @OneToMany(mappedBy = "idFile")
     @JsonIgnore
     private Collection<Download> downloadCollection;
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(	cascade = {CascadeType.PERSIST})
-    @JsonIgnore
-    private User userId;
+//    @JoinColumn(name = "user_id", referencedColumnName = "id")
+//    @ManyToOne(	cascade = {CascadeType.PERSIST})
+//    @JsonIgnore
+    @Column(name = "user_id")
+    private int userId;
     
     @Column(name = "active")
     private int active;
@@ -78,7 +79,7 @@ public class Files implements Serializable {
     public Files() {
     }
     
-    public Files(String name, String path, double size, User userId, Date dateUpload, 
+    public Files(String name, String path, double size, int userId, Date dateUpload, 
     		CategoriesType type){
     	this.name = name;
     	this.path = path;
@@ -141,15 +142,16 @@ public class Files implements Serializable {
         this.downloadCollection = downloadCollection;
     }
 
-    public User getUserId() {
-        return userId;
-    }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
+    public int getUserId() {
+		return userId;
+	}
 
-    public int getActive() {
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getActive() {
 		return active;
 	}
 

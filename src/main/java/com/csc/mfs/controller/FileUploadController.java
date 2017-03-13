@@ -84,7 +84,7 @@ public class FileUploadController {
         fileDB.setSize((double)file.getSize());
         fileDB.setDateupload(new Date());
         fileDB.setPath(fileDBPath.resolve(file.getOriginalFilename()).toString());
-        fileDB.setUserId(user);
+        fileDB.setUserId(user.getId());
         
         fileService.insertFile(fileDB);
         return "redirect:/upload/";
