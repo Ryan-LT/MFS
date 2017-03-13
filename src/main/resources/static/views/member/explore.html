@@ -1,0 +1,44 @@
+
+<section class="container" ng-controller="explore">
+        <section class="row">
+        	<section class="col-md-1"></section>
+        	<section class="col-md-9">
+	          <!-- <section class="container-fluid">
+	                  <h1>Upload File</h1>
+	              <form enctype="multipart/form-data">
+	                  <section class="form-group">
+	                      <input id="file-0d" class="file" type="file">
+	                  </section>
+	              </form>
+	          </section> -->
+	          <h1>Download File</h1>
+	          <input type="text" id="myInput" placeholder="Search for names.." title="Type in a name">
+	
+	          <table class="table table-hover">
+	              <thead class="bg-primary text-white">
+	                <tr>
+	                  <th>#</th>
+	                  <th>Name</th>
+	                  <th>Size</th>
+	                  <th>Updated Date</th>
+	                  <th>Owner</th>
+	                  <th></th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr ng-repeat="file in files track by $index">
+	                  <td>{{$index+1}}</td>
+	                  <td>{{file.name}}</td>
+	                  <td>{{file.size}}</td>
+	                  <td>{{file.dateupload}}</td>
+	                  <td>{{getOwner(file.userId)}}</td>
+	                  <!-- <td><i class="fa fa-download">   <i class="fa fa-file"></td> -->
+	                </tr>
+	              </tbody>
+	            </table>
+	            </section>
+	            <section class="col-md-1"></section>
+        </section>
+         <!-- /#page-wrapper -->
+    </section>
+  
