@@ -40,11 +40,28 @@ app.controller("mainController", function($scope, $http, userDataOp,
 	$scope.getUser = function(id) {
 		$scope.editBlock = true;
 		$scope.addBlock = false;
+		$scope.rank_default = "2";
+		var id_Rank=null;
 		$http({
 			method : 'get',
 			url : "http://localhost:8080/user/get/" + id
 		}).success(function(data, status, headers, config) {
 			$scope.user = data;
+			id_Rank = data.rank_Id;
+			$scope.xxx = data.rank_Id;
+			$http({
+				method: 'get',
+				url: "http://localhost:8080/rank/all"
+			}).success(function(data, status, headers, config){
+				//alert(data[id_Rank-1].name);
+				$scope.rank = { current: (id_Rank-1)+"", names: []};
+				for(var i=0; i < data.length;i++){
+						$scope.rank.names.push({id: parseInt(i), name: data[i].name});
+				}
+
+				
+			})
+			.error(function(data, status, headers, config){});
 		}).error(function(data, status, headers, config) {
 		});
 	};
@@ -62,6 +79,8 @@ app.controller("mainController", function($scope, $http, userDataOp,
 	};
 
 	$scope.editUser = function(user) {
+		//alert($scope.rank.current);
+		user.rank_Id = parseInt($scope.rank.current)+1;
 		userDataOp.editUser(user).then(Success, Error);
 	};
 

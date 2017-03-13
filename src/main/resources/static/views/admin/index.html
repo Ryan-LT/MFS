@@ -17,12 +17,12 @@
 			<td>{{u.lastName}}</td>
 			<td>{{u.rank_Id}}</td>
 			<td>
-				<button ng-click="deleteUser(u.id)" type="button"
+				<button ng-disabled="{{u.id == 0 }}" ng-click="deleteUser(u.id)" type="button"
 					class="btn btn-danger">
 					<span style="color: white"
 						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
 				</button>
-				<button ng-click="getUser(u.id)" type="button" class="btn"
+				<button ng-disabled="{{u.id == 0 }}" ng-click="getUser(u.id)" type="button" class="btn"
 					style="background-color: teal;">
 					<span style="color: white" class="glyphicon glyphicon-wrench"></span>
 				</button>
@@ -46,14 +46,19 @@
 
 <div ng-show="editBlock">
 	<h2>Edit User</h2>
-	<form class="form-horizontal css-form" name="editForm"
-		ng-submit="editUser(user)">
-		<label>Email:</label> <input type="email" class="form-control"
-			ng-model="user.email" required /> <label>Name:</label> <input
-			type="text" class="form-control" ng-model=user.name required /> <label>Last
-			Name:</label> <input type="text" class="form-control"
-			ng-model="user.lastName" required /> <label>Rank:</label> <input
-			type="text" class="form-control" ng-model="user.rank_Id" required />
+	<form class="form-horizontal css-form" name="editForm" ng-submit="editUser(user)">
+		<label>Email:</label> 
+		<input type="email" class="form-control" ng-model="user.email" required /> 
+		<label>Name:</label> 
+		<input type="text" class="form-control" ng-model=user.name required /> 
+		<label>Last Name:</label> 
+		<input type="text" class="form-control" ng-model="user.lastName" required /> 
+		<label>Rank:</label> 
+		<!-- <input type="text" class="form-control" ng-model="user.rank_Id" required /> -->
+		
+ 		<select class="form-control" ng-model="rank.current">
+      		<option ng-repeat="name in rank.names" value="{{name.id}}">{{name.name}}</option>
+    	</select>
 		<button type="submit" ng-disabled="editForm.$invalid"
 			class="btn btn-primary">Save Change</button>
 	</form>
