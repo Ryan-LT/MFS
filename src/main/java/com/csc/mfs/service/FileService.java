@@ -198,6 +198,10 @@ public class FileService {
 		return fileRepository.getAllFilePagination(page*pageSize, pageSize);
 	}
 	
+	public long countSearch(String infoFile){
+		return fileRepository.countSearch(infoFile);
+	}
+	
 }
 
 

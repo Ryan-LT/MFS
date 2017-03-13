@@ -43,11 +43,11 @@
 				<div style="text-align: right">User Management</div></li>
 		</a>
 
-		<a href="/" class="li-a">
+		<a href="#/rank" class="li-a">
 			<li class="li"><span class="lii"> <i
 					class="fa fa-sitemap" aria-hidden="true"></i>
 			</span> <br>
-				<div style="text-align: right">Role Management</div></li>
+				<div style="text-align: right">Rank Management</div></li>
 		</a>
 
 
@@ -79,8 +79,8 @@
 			Created by: Thịnh Nụ đẹp gái<br> Administrator Email:
 			vuongdaika@gmail.com<br> Hot line: 09909990009
 		</p>
-		<a href="/"><img src="/images/logo3.png" alt="Logo"
-			class="logo-bottom"></a>
+		<!-- <a href="/"><img src="/images/logo3.png" alt="Logo"
+			class="logo-bottom"></a> -->
 	</footer>
 
 	<script src="../static/js/lib/angular-1.4.9/angular.js"
@@ -94,9 +94,13 @@
 	<script src="../static/js/admin.js" th:src="@{/js/admin.js}"></script>
 	<script src="../static/js/controller/adminController/mainController.js"
 		th:src="@{/js/controller/adminController/mainController.js}"></script>
+	<script src="../static/js/controller/adminController/rankController.js"
+		th:src="@{/js/controller/adminController/rankController.js}"></script>
 
 	<!-- Services -->
 	<script src="../static/js/controller/service/userService.js"
 		th:src="@{/js/controller/service/userService.js}"></script>
+	<script src="../static/js/controller/service/userService.js"
+		th:src="@{/js/controller/service/rankService.js}"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 	max-width: 420px;
 	padding: 30px;
 	margin: 0 auto;
-	background: rgba(255, 255, 255, 0.85);
+	background: rgba(226, 233, 228, 1);
 	border: none;
 }
 
@@ -51,36 +51,38 @@ input[type="password"] {
 }
 
 .body {
-	background: url(/images/bg3.jpg) fixed;
+	/* background: url(/images/bg3.jpg) fixed;
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: center center;
+	background-position: center center; */
+	background-color: #363942;
 }
 
 .button-login {
-	background-color: #09568d;
+	background-color: #008040;
 	color: white;
 	border-radius: 0 !important;
 	font-weight: bolder !important;
 	margin-top: 10px;
+	
 }
 
 .button-login:hover {
-	background-color: #16216a;
-	color: white !important;
+	background-color: white;
+	color: #008040 !important;
 }
 
 .button-signup {
 	background-color: white;
-	color: #0090c7;
+	color: #616161;
 	border-radius: 0 !important;
 	font-weight: bolder !important;
 	margin-top: 10px;
 }
 
 .button-signup:hover {
-	background-color: #0090c7;
-	color: white !important;
+	color: #008040 !important;
+	border: 1px solid #008040;
 }
 
 .add-on {
@@ -90,73 +92,9 @@ input[type="password"] {
 	padding-bottom: 10px !important;
 }
 
-.i-hover:hover {
-	color: #47add5;
-}
-
-.search {
-	margin-top: 20px;
-	margin-right: 20px;
-}
-
-.search-text {
-	width: 250px !important;
-	color: white !important;
-	transition: width 0.4s ease-in-out !important;
-	float: right !important;
-}
-
-.search-text:focus {
-	width: 60% !important;
-}
-
-.search-button {
-	margin-top: 0px !important;
-}
-
 .logo {
 	float: left;
 	width: 200px;
 	margin-top: -45px;
 	margin-left: -30px;
-}
-
-.tt {
-	position: relative;
-	display: inline-block;
-	border-bottom: 1px dotted #47add5;
-}
-
-.tt .ttt {
-	visibility: hidden;
-	width: 320px;
-	background-color: #47add5;
-	color: #fff;
-	font-size: medium;
-	font-weight: 500;
-	border-radius: 6px;
-	padding: 20px 10px 20px 10px;
-	position: absolute;
-	z-index: 1;
-	top: -3px;
-	margin-left: 10px;
-	margin-top: -15px;
-	opacity: 0;
-	transition: opacity 1s;
-}
-
-.tt .ttt::after {
-	content: "";
-	position: absolute;
-	top: 50%;
-	right: 100%;
-	margin-top: -5px;
-	border-width: 5px;
-	border-style: solid;
-	border-color: transparent #47add5 transparent transparent;
-}
-
-.tt:hover .ttt {
-	visibility: visible;
-	opacity: 0.8;
 }

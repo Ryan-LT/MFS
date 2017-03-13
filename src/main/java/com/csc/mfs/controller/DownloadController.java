@@ -113,4 +113,14 @@ public class DownloadController {
 	public double countDownloadFile(@PathVariable int idFile){
 		return downloadService.countDownFile(idFile);
 	}
+	
+	@RequestMapping("/history/{idUser}/{page}/{pageSize}")
+	public Object getHistoryDownload(@PathVariable int idUser, @PathVariable int page, @PathVariable int pageSize){
+		return downloadService.getDownloadOfuser(idUser, page, pageSize);
+	}
+	
+	@RequestMapping("/countHistory/{idUser}")
+	public long countHistoryDownload(@PathVariable int idUser){
+		return downloadService.countDownloadByUser(idUser);
+	}
 }
