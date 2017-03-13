@@ -59,6 +59,7 @@ public class FileController {
 	 */
 	@RequestMapping(value="/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Files getFile(@PathVariable int id){
+		System.out.println(fileReponsitory.findOne(id).getUserId());
 		return fileService.getFile(id);
 	}
 
