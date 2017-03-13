@@ -1,0 +1,62 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Sizeupload</th>
+			<th>Sizedownload</th>
+			<th>Sizerank</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="r in ranks">
+			<td>{{r.name}}</td>
+			<td>{{r.sizeupload}}</td>
+			<td>{{r.sizedownload}}</td>
+			<td>{{r.sizerank}}</td>
+			<td>
+				<button ng-click="deleteRank(r.id)" type="button"
+					class="btn btn-danger">
+					<span style="color: white"
+						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
+				</button>
+				<button ng-click="getRank(r.id)" type="button" class="btn"
+					style="background-color: teal;">
+					<span style="color: white" class="glyphicon glyphicon-wrench"></span>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<button ng-click="addBlock=true; editBlock=false" type="button"
+	class="btn" style="background-color: green">
+	<span style="color: white" class="glyphicon glyphicon-plus"></span>
+</button>
+
+<div ng-show="editBlock">
+	<h2>Edit rank</h2>
+	<form class="form-horizontal css-form" name="editForm"
+		ng-submit="editRank(rank)">
+		<label>Name:</label> <input type="text" class="form-control"
+			ng-model="rank.name" required /> <label>Sizeupload:</label> <input
+			type="number" class="form-control" ng-model=rank.sizeupload required />
+		<label>Sizedownload:</label> <input type="number" class="form-control"
+			ng-model="rank.sizedownload" required /> <label>Sizerank:</label> <input
+			type="number" class="form-control" ng-model="rank.sizerank" required />
+		<button type="submit" ng-disabled="editForm.$invalid"
+			class="btn btn-primary">Save Change</button>
+	</form>
+</div>
+<div ng-show="addBlock">
+	<h2>Add new rank</h2>
+	<form class="form-horizontal css-form" name="addForm"
+		ng-submit="addRank()">
+		<label>Name:</label> <input type="text" class="form-control"
+			ng-model="name" required /> <label>Sizeupload:</label> <input
+			type="number" class="form-control" ng-model="sizeupload" required />
+		<label>Sizedownload:</label> <input type="number" class="form-control"
+			ng-model=sizedownload required /> <label>Sizerank:</label> <input
+			type="number" class="form-control" ng-model="sizerank" required />
+		<button type="submit" ng-disabled="addForm.$invalid"
+			class="btn btn-primary">Add</button>
+	</form>
+</div>

@@ -50,9 +50,14 @@ public class UserController {
 		userService.updateUser(user);
 	}
 	
+	@RequestMapping(value="/countUser/")
+	public long countFileByUser(){
+		return userService.countUser();
+	}
+	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public void addUser(@RequestBody User user){
-		userService.saveUser(user);
+	public Message addUser(@RequestBody User user){
+		return userService.saveUser(user);
 	}
 	
 	@RequestMapping(value="/changePass", method=RequestMethod.POST)
