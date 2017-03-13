@@ -1,0 +1,26 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Size</th>
+			<th>Dateupload</th>
+			<th>UserId</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="f in files">
+			<td>{{f.id}}</td>
+			<td>{{f.name}}</td>
+			<td>{{f.dateupload}}</td>
+			<td>{{f.userId}}</td>
+			<td>
+				<button ng-click="deleteFile(f.id)" type="button"
+					class="btn btn-danger">
+					<span style="color: white"
+						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>

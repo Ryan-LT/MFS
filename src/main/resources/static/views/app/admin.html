@@ -52,11 +52,11 @@
 
 
 
-		<a href="/" class="li-a">
+		<a href="#/file" class="li-a">
 			<li class="li"><span class="lii"> <i
 					class="fa fa-list-ol" aria-hidden="true"></i>
 			</span> <br>
-				<div style="text-align: right">Ranking</div></li>
+				<div style="text-align: right">File Managerment</div></li>
 		</a>
 
 		<a href="/logout" class="li-a">
@@ -96,11 +96,15 @@
 		th:src="@{/js/controller/adminController/mainController.js}"></script>
 	<script src="../static/js/controller/adminController/rankController.js"
 		th:src="@{/js/controller/adminController/rankController.js}"></script>
+		<script src="../static/js/controller/adminController/rankController.js"
+		th:src="@{/js/controller/adminController/fileController.js}"></script>
 
 	<!-- Services -->
 	<script src="../static/js/controller/service/userService.js"
 		th:src="@{/js/controller/service/userService.js}"></script>
 	<script src="../static/js/controller/service/userService.js"
 		th:src="@{/js/controller/service/rankService.js}"></script>
+		<script src="../static/js/controller/service/userService.js"
+		th:src="@{/js/controller/service/fileService.js}"></script>
 </body>
 </html>
