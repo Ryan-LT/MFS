@@ -71,7 +71,7 @@ app.controller("mainController", function($scope, $http, userDataOp,
 
 	// Exception Handling
 	var Success = function(data, status, headers, config) {
-		getData();
+		getData('0', '5');
 	};
 
 	var Error = function(data, status, headers, config) {
