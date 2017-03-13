@@ -27,7 +27,7 @@ app.controller("mainController", function($scope, $http, userDataOp,
 			method : 'get',
 			url : "http://localhost:8080/user/countUser/"
 		}).success(function(data, status, headers, config) {
-			$scope.pageSum = Math.round(data / 5);
+			$scope.pageSum = Math.ceil(data / 5);
 		}).error(function(data, status, headers, config) {
 		});
 	}
