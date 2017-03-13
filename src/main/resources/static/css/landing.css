@@ -1,9 +1,14 @@
+.m-btn {
+	background-color: transparent;
+	width: 100px;
+	margin-left: 100px;
+	border-radius: 0px;
+}
+
 .form {
-	max-width: 420px;
-	padding: 30px;
-	margin: 0 auto;
-	background: rgba(226, 233, 228, 1);
+	max-width: 520px;
 	border: none;
+	margin: 0 auto;
 }
 
 .form-signin-heading {
@@ -50,39 +55,30 @@ input[type="password"] {
 	text-align: center;
 }
 
-.body {
-	/* background: url(/images/bg3.jpg) fixed;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center; */
-	background-color: #363942;
-}
-
 .button-login {
-	background-color: #008040;
+	background-color: #09568d;
 	color: white;
 	border-radius: 0 !important;
 	font-weight: bolder !important;
 	margin-top: 10px;
-	
 }
 
 .button-login:hover {
-	background-color: white;
-	color: #008040 !important;
+	background-color: #16216a;
+	color: white !important;
 }
 
 .button-signup {
 	background-color: white;
-	color: #616161;
+	color: #0090c7;
 	border-radius: 0 !important;
 	font-weight: bolder !important;
 	margin-top: 10px;
 }
 
 .button-signup:hover {
-	color: #008040 !important;
-	border: 1px solid #008040;
+	background-color: #0090c7;
+	color: white !important;
 }
 
 .add-on {
@@ -92,9 +88,11 @@ input[type="password"] {
 	padding-bottom: 10px !important;
 }
 
-.logo {
-	float: left;
-	width: 200px;
-	margin-top: -45px;
-	margin-left: -30px;
+.modal-dialog {
+	width: 450px;
+	margin: 150px auto;
+}
+
+.modal-content {
+	border-radius: 0px;
 }

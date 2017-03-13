@@ -3,8 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Registration Form</title>
-<link rel="stylesheet" type="text/css"
-	th:href="@{\css\registration.css}" />
+<link rel="stylesheet" href="css\registration.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -13,87 +12,82 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
-<body class="body" onload="myToast()">
-	<a href="/"><img src="/images/logo3.png" alt="Logo" class="logo"></a>
+<body onload="myToast()" class="body">
 
 
 	<div class="container">
-
-		<div class="form-signin-heading">Registration</div>
-		<br />
-		<p>
-			I have an account! <span class="glyphicon glyphicon-hand-right"></span>
-			<a href="/">Login</a>
-		</p>
-		<br>
-
-		<form autocomplete="off" action="#" th:action="@{/registration}"
-			th:object="${user}" method="post" role="form" class="form">
-			<div class="input-group">
-				<span class="input-group-addon add-on"> <i
-					class="glyphicon glyphicon-pencil"></i>
-				</span> <input type="text" class="form-control" th:field="*{name}"
-					placeholder="Display Name">
-			</div>
-			<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-				class="validation-message lbl"></div>
+		<div class="form">
+			<h1 style="text-align: center">Registration</h1>
 			<br />
+			<p>
+				I have an account! <span class="glyphicon glyphicon-hand-right"></span>
+				<a href="/login">Login</a>
+			</p>
+			<br>
+
+			<form autocomplete="off" action="#" th:action="@{/registration}"
+				th:object="${user}" method="post" role="form">
+				<div class="input-group">
+					<span class="input-group-addon add-on"> <i
+						class="glyphicon glyphicon-pencil"></i>
+					</span> <input type="text" class="form-control" th:field="*{name}"
+						placeholder="Display Name">
+				</div>
+				<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+					class="validation-message lbl"></div>
+				<br />
 
 
-			<div class="input-group">
-				<span class="input-group-addon add-on"> <i
-					class="glyphicon glyphicon-user"></i>
-				</span> <input type="text" class="form-control" th:field="*{lastName}"
-					placeholder="Last Name">
-			</div>
-			<div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-				class="validation-message lbl"></div>
-			<br />
+				<div class="input-group">
+					<span class="input-group-addon add-on"> <i
+						class="glyphicon glyphicon-user"></i>
+					</span> <input type="text" class="form-control" th:field="*{lastName}"
+						placeholder="Last Name">
+				</div>
+				<div th:if="${#fields.hasErrors('lastName')}"
+					th:errors="*{lastName}" class="validation-message lbl"></div>
+				<br />
 
 
-			<div class="input-group">
-				<span class="input-group-addon add-on"> <i
-					class="glyphicon glyphicon-envelope"></i>
-				</span> <input type="text" class="form-control" th:field="*{email}"
-					placeholder="Email"> <span
-					class="input-group-addon add-on tt"> <i
-					class="glyphicon glyphicon-info-sign i-hover"></i> <span
-					class="tooltiptext">Email form: abc@example.ex</span>
-				</span>
-			</div>
-			<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-				class="validation-message lbl"></div>
-			<br />
+				<div class="input-group">
+					<span class="input-group-addon add-on"> <i
+						class="glyphicon glyphicon-envelope"></i>
+					</span> <input type="text" class="form-control" th:field="*{email}"
+						placeholder="Email">
+				</div>
+				<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+					class="validation-message lbl"></div>
+				<br />
 
 
-			<div class="input-group">
-				<span class="input-group-addon add-on"> <i
-					class="glyphicon glyphicon-lock"></i>
-				</span> <input type="password" class="form-control" th:field="*{password}"
-					placeholder="Password"> <span
-					class="input-group-addon add-on tt"> <i
-					class="glyphicon glyphicon-info-sign i-hover"></i> <span
-					class="tooltiptext">Password must have at least 5 characters</span>
-				</span>
-			</div>
-			<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-				class="validation-message lbl"></div>
-			<br />
+				<div class="input-group">
+					<span class="input-group-addon add-on"> <i
+						class="glyphicon glyphicon-lock"></i>
+					</span> <input type="password" class="form-control" th:field="*{password}"
+						placeholder="Password">
+				</div>
+				<div th:if="${#fields.hasErrors('password')}"
+					th:errors="*{password}" class="validation-message lbl"></div>
+				<br />
 
-			<h5>
-				By clicking on the "Create Account" button below, you understand and
-				agree that the use of our web site is subject to the <a href="#">Terms
-					of Use</a> and <a href="#">Privacy Policy</a>, including the fact that
-				may transfer your personal information collected in connection with
-				your registration on this website to its affiliates globally.
-			</h5>
-			<input type="submit" class="btn btn-lg button-login btn-block"
-				value="Create Account"> <span id="textshow"
-				th:utext="${message}"></span>
+				<h5>
+					By clicking on the "Create Account" button below, you understand
+					and agree that the use of our web site is subject to the <a
+						href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>,
+					including the fact that may transfer your personal information
+					collected in connection with your registration on this website to
+					its affiliates globally.
+				</h5>
+				<input type="submit" class="btn btn-lg button-create btn-block"
+					value="Create Account"> <span id="textshow"
+					th:utext="${successMessage}"></span>
 
 
-		</form>
+			</form>
+		</div>
+
 
 	</div>
 
