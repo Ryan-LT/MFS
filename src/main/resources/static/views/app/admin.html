@@ -13,41 +13,32 @@
 <title>MFS</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="\css\admin.css" />
-<link rel="stylesheet" type="text/css" href="\css\admin-index.css" />
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="\css\dataTables.bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="\css\admin.css" />
+<link rel="stylesheet" type="text/css" href="\css\admin-index.css" />
 </head>
 <body class="body">
-	<a href="/"><img src="/images/logo3.png" alt="Logo" class="logo"></a>
-	<!-- <form th:action="@{/}" method="get" class="input-group search">
-		<input type="text" class="form-control search-text"
-			placeholder="Search">
-		<div class="input-group-btn search-button">
-			<button class="btn btn-default" type="submit">
-				<i class="fa fa-search"></i>
-			</button>
-		</div>
-	</form> -->
 	<ul class="nav-ul">
 		<a href="#/admin" class="li-a">
 			<li class="li"><span class="lii"> <i class="fa fa-home"
 					aria-hidden="true"></i>
-			</span> <br>
-				<div style="text-align: right">User Management</div></li>
+			</span> User Management</li>
 		</a>
 
 		<a href="#/rank" class="li-a">
 			<li class="li"><span class="lii"> <i
 					class="fa fa-sitemap" aria-hidden="true"></i>
-			</span> <br>
-				<div style="text-align: right">Rank Management</div></li>
+			</span> Rank Management</li>
 		</a>
 
 
@@ -55,22 +46,19 @@
 		<a href="/" class="li-a">
 			<li class="li"><span class="lii"> <i
 					class="fa fa-list-ol" aria-hidden="true"></i>
-			</span> <br>
-				<div style="text-align: right">Ranking</div></li>
+			</span> Ranking</li>
 		</a>
 
 		<a href="/logout" class="li-a">
 			<li class="li"><span class="lii"> <i
 					class="fa fa-sign-out" aria-hidden="true"></i>
-			</span> <br>
-				<div style="text-align: right">Logout</div></li>
+			</span> Logout</li>
 		</a>
 	</ul>
-	<div class="container">
-		<div class="main">
+	<div class="main">
+		<div class="sub">
 			<div ng-view></div>
 		</div>
-
 
 	</div>
 	<footer>
@@ -82,6 +70,11 @@
 		<!-- <a href="/"><img src="/images/logo3.png" alt="Logo"
 			class="logo-bottom"></a> -->
 	</footer>
+	
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+	<script src="js/dataTables.bootstrap.min.js"></script>
 
 	<script src="../static/js/lib/angular-1.4.9/angular.js"
 		th:src="@{/js/lib/angular-1.4.9/angular.js}"></script>
