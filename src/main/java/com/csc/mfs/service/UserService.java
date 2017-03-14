@@ -89,6 +89,7 @@ public class UserService {
 		} else {
 			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 			user.setActive(1);
+			user.setRank_Id(1);
 			Role userRole = roleRepository.findByRole("MEMBER");
 			user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 			userRepository.save(user);
