@@ -144,8 +144,6 @@ public class FileUploadController {
 		} else {
 			 return ResponseEntity.ok().body("Fail to upload "+file.getOriginalFilename());
 		}
-       
-        
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
