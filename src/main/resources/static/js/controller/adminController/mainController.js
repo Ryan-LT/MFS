@@ -4,7 +4,7 @@ app.controller("mainController", function($scope, $http, userDataOp,
 
 	$scope.pageSum;
 	$scope.page;
-	getData('0', '2');
+	getData('0', '5');
 	countUser();
 	$scope.getNumber = function(num) {
 		return new Array(num);
@@ -27,7 +27,7 @@ app.controller("mainController", function($scope, $http, userDataOp,
 			method : 'get',
 			url : "http://localhost:8080/user/countUser/"
 		}).success(function(data, status, headers, config) {
-			$scope.pageSum = Math.round(data / 2);
+			$scope.pageSum = Math.ceil(data / 5);
 		}).error(function(data, status, headers, config) {
 		});
 	}
@@ -40,11 +40,27 @@ app.controller("mainController", function($scope, $http, userDataOp,
 	$scope.getUser = function(id) {
 		$scope.editBlock = true;
 		$scope.addBlock = false;
+		$scope.rank_default = "2";
+		var id_Rank=null;
 		$http({
 			method : 'get',
 			url : "http://localhost:8080/user/get/" + id
 		}).success(function(data, status, headers, config) {
 			$scope.user = data;
+			id_Rank = data.rank_Id;
+			$http({
+				method: 'get',
+				url: "http://localhost:8080/rank/all"
+			}).success(function(data, status, headers, config){
+				//alert(data[id_Rank-1].name);
+				$scope.rank = { current: (id_Rank-1)+"", names: []};
+				for(var i=0; i < data.length;i++){
+						$scope.rank.names.push({id: parseInt(i), name: data[i].name});
+				}
+
+				
+			})
+			.error(function(data, status, headers, config){});
 		}).error(function(data, status, headers, config) {
 		});
 	};
@@ -62,6 +78,8 @@ app.controller("mainController", function($scope, $http, userDataOp,
 	};
 
 	$scope.editUser = function(user) {
+		//alert($scope.rank.current);
+		user.rank_Id = parseInt($scope.rank.current)+1;
 		userDataOp.editUser(user).then(Success, Error);
 	};
 
@@ -71,7 +89,7 @@ app.controller("mainController", function($scope, $http, userDataOp,
 
 	// Exception Handling
 	var Success = function(data, status, headers, config) {
-		getData();
+		getData('0', '5');
 	};
 
 	var Error = function(data, status, headers, config) {
