@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.mfs.model.User;
-import com.csc.mfs.repository.UserRepository;
 import com.csc.mfs.service.UserService;
 
 @Controller

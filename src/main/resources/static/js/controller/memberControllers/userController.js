@@ -77,6 +77,19 @@ app.controller('PersonStorageController', function($scope, $http){
 		});
     }
     
+    $scope.uploadFile = function(){
+    	$http({
+			method: 'POST',
+			url: "http://localhost:8080/file/delete/"+id,
+			data: $scope.file_data
+		}).success(function(data, status, headers, config){
+			getFile()
+		})
+		.error(function(data, status, headers, config){
+			alert("fail");
+		});
+    }
+    
 });
 
 app.controller("userInfo", function($scope, $http){

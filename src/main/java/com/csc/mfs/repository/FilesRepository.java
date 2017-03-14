@@ -82,7 +82,7 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	 * @param user
 	 * @return List<Files>
 	 */
-	List<Files> findByUserId(User user);
+	List<Files> findByUserId(int user);
 	
 	/**
 	 * Get all file of user(pagination)

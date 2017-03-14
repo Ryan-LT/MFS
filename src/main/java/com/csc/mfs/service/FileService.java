@@ -177,7 +177,6 @@ public class FileService {
 	public void afterUpload(int id, double sizeFile){
 		User user = userRepository.findOne(id);
 		Rank rank = rankRepository.findOne(user.getRank_Id());
-		double inDay = sumSizeUploadInDay(id);
 		if(user.getRank_Id()==3){
 			return;
 		} else {
