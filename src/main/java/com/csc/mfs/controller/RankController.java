@@ -11,16 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.csc.mfs.model.Rank;
-import com.csc.mfs.model.User;
-import com.csc.mfs.repository.RankRepository;
 import com.csc.mfs.service.RankService;
 
 @RestController
 @RequestMapping("rank")
 public class RankController {
-	
-	@Autowired
-	private RankRepository rankRepository;
 	
 	@Autowired
 	private RankService rankService;

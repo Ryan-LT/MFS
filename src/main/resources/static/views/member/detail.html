@@ -28,4 +28,22 @@
 				</button>
 			</section>
 	</section>
+	<hr>
+	<section class="row" >
+			<section class="col-md-2"></section>
+			<section class="col-md-8">
+				<h4>Comment</h4>
+				<form ng-submit="saveComment()">
+					<textarea class="form-control" rows="3" ></textarea>
+					<button class="btn btn-primary" type="submit">Comment</button>
+				</form>
+				<table class="table table-bordered table-striped">
+					<tr>
+						<td>Name</td>
+						<td>{{file.name}}</td>
+					</tr>
+				</table>
+			</section>
+			
+	</section>
 </article>
