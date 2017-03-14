@@ -23,7 +23,7 @@
 			<td>{{u.email}}</td>
 			<td>{{u.name}}</td>
 			<td>{{u.lastName}}</td>
-			<td>{{u.rank_Id}}</td>
+			<td>{{rankData[u.rank_Id-1]}}</td>
 			<td>
 
 				<button ng-disabled="{{u.id == 0 }}" ng-click="getUser(u.id)"

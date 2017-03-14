@@ -137,9 +137,10 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	 * @param pageSize
 	 * @return
 	 */
-	@Query(value="SELECT * FROM files WHERE active=1 "
+	@Query(value="SELECT f.*, u.name as uploader"
+			+ " FROM files f, user u WHERE f.active=1 AND u.id=f.user_id "
 			+ " LIMIT :number, :pageSize", nativeQuery=true)
-	List<Files> getAllFilePagination( @Param("number") int number, 
+	List<Object> getAllFilePagination( @Param("number") int number, 
 			@Param("pageSize") int pageSize);	
 	
 	/**

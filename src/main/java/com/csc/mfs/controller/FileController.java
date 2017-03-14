@@ -51,7 +51,7 @@ public class FileController {
 	 * @return List<Files>
 	 */
 	@RequestMapping(value = "/allPagination/{page}/{pageSize}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Files> getAllFilePagination(@PathVariable int page, @PathVariable int pageSize) {
+	public List<Object> getAllFilePagination(@PathVariable int page, @PathVariable int pageSize) {
 		return fileService.getAllFilePagination(page, pageSize);
 	}
 
