@@ -33,14 +33,27 @@
 			<section class="col-md-2"></section>
 			<section class="col-md-8">
 				<h4>Comment</h4>
-				<form ng-submit="saveComment()">
-					<textarea class="form-control" rows="3" ></textarea>
+				<form ng-submit="saveComment(file.id)">
+					<textarea ng-model="content" class="form-control" rows="3" ></textarea>
 					<button class="btn btn-primary" type="submit">Comment</button>
 				</form>
 				<table class="table table-bordered table-striped">
-					<tr>
-						<td>Name</td>
-						<td>{{file.name}}</td>
+					<tr ng-repeat="comment in comments">
+						<td>
+							<article>
+								<header>
+									<a href="">{{comment[4]}}:</a>
+								</header>
+								<section>
+									{{comment[1]}}
+								</section>
+								<footer>
+									{{comment[2]}} 
+									<a href="" ng-click="increase(comment[0])">like</a>
+									| {{comment[3]}}
+								</footer>
+							</article>
+						</td>
 					</tr>
 				</table>
 			</section>

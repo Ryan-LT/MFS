@@ -6,6 +6,8 @@
 package com.csc.mfs.model;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,8 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -51,8 +55,21 @@ public class Comment implements Serializable {
     
     @Column(name="id_user")
     private Integer idUser;
-
-    public Comment() {
+    
+    @Column(name="datecomment")
+    @Temporal(TemporalType.DATE)
+    private Date datecomment;
+    
+    public Comment(String content, int likeComment, int idUser, int idFile, Date dateComment) {
+    	this.content =content;
+    	this.likeComment = likeComment;
+    	this.idUser =idUser;
+    	this.idFile = idFile;
+    	this.datecomment = dateComment;
+    }
+    
+    public Comment(){
+    	
     }
 
     public Comment(Integer id) {
@@ -98,7 +115,14 @@ public class Comment implements Serializable {
 	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
-	
+
+	public Date getDatecomment() {
+		return datecomment;
+	}
+
+	public void setDatecomment(Date datecomment) {
+		this.datecomment = datecomment;
+	}
 
 	@Override
     public int hashCode() {
