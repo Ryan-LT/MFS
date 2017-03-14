@@ -10,6 +10,18 @@ app.controller("mainController", function($scope, $http, userDataOp,
 		return new Array(num);
 	}
 	// Get Data
+	
+	$scope.getRankByID = function(rankId) {
+		$http({
+			method : 'get',
+			url : "http://localhost:8080/rank/get/" + rankId
+		}).success(function(data, status, headers, config) {
+			$scope.rankInfor = data;
+			alert(rankInfor.name)
+		}).error(function(data, status, headers, config) {
+		});
+	}
+	
 	function getData(page, pageSize) {
 		$http(
 				{
