@@ -37,7 +37,12 @@ public class LoginController {
 		return "up";
 	}
 	
-	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/","landing"}) // , method = RequestMethod.GET
+	public String landing() {
+		return "landing";
+	}
+	
+	@RequestMapping(value={"/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
