@@ -2,9 +2,7 @@ package com.csc.mfs.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
-import org.hibernate.annotations.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -91,6 +89,7 @@ public class UserService {
 		} else {
 			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 			user.setActive(1);
+			user.setRank_Id(1);
 			Role userRole = roleRepository.findByRole("MEMBER");
 			user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 			userRepository.save(user);

@@ -6,66 +6,56 @@
 package com.csc.mfs.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author VuMin
+ * @author training
  */
 @Entity
-@Table(name = "download", catalog = "finalfresherfilesharing", schema = "")
+@Table(name = "comment", catalog = "finalfresherfilesharing", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Download.findAll", query = "SELECT d FROM Download d"),
-    @NamedQuery(name = "Download.findById", query = "SELECT d FROM Download d WHERE d.id = :id")})
-public class Download implements Serializable {
+    @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c")
+    , @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.id = :id")
+    , @NamedQuery(name = "Comment.findByLikeComment", query = "SELECT c FROM Comment c WHERE c.likeComment = :likeComment")})
+public class Comment implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @JoinColumn(name = "id_user", referencedColumnName = "id")
-    @ManyToOne
-    private User idUser;
-    public Date getDatedownload() {
-		return datedownload;
-	}
-	public void setDatedownload(Date datedownload) {
-		this.datedownload = datedownload;
-	}
-
-	@JoinColumn(name = "id_file", referencedColumnName = "id")
-    @ManyToOne
-    private Files idFile;
-
-    @Column(name = "datedownload")
-    @Temporal(TemporalType.DATE)
-    private Date datedownload;
+    @Lob
+    @Size(max = 2147483647)
+    @Column(name = "content", length = 2147483647)
+    private String content;
     
-    public Download() {
-    }
-    public Download(User user, Files file) {
-    	this.idUser = user;
-    	this.idFile = file;
+    @Column(name = "likecomment")
+    private Integer likeComment;
+    
+    @Column(name="id_file")
+    private Integer idFile;
+    
+    @Column(name="id_user")
+    private Integer idUser;
+
+    public Comment() {
     }
 
-    public Download(Integer id) {
+    public Comment(Integer id) {
         this.id = id;
     }
 
@@ -77,23 +67,40 @@ public class Download implements Serializable {
         this.id = id;
     }
 
-    public User getIdUser() {
-        return idUser;
+    public String getContent() {
+        return content;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Files getIdFile() {
-        return idFile;
-    }
+    public Integer getLikeComment() {
+		return likeComment;
+	}
 
-    public void setIdFile(Files idFile) {
-        this.idFile = idFile;
-    }
+	public void setLikeComment(Integer likeComment) {
+		this.likeComment = likeComment;
+	}
 
-    @Override
+	public Integer getIdFile() {
+		return idFile;
+	}
+
+	public void setIdFile(Integer idFile) {
+		this.idFile = idFile;
+	}
+
+	public Integer getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
+	}
+	
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -103,10 +110,10 @@ public class Download implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Download)) {
+        if (!(object instanceof Comment)) {
             return false;
         }
-        Download other = (Download) object;
+        Comment other = (Comment) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -115,7 +122,7 @@ public class Download implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication1.Download[ id=" + id + " ]";
+        return "com.csc.mfs.domain.Comment[ id=" + id + " ]";
     }
     
 }
