@@ -21,28 +21,13 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
-
-	@RequestMapping(value = "/index") // , method = RequestMethod.GET
-	public String index() {
-		return "index";
-	}
 	
 	@RequestMapping(value = "/main") // , method = RequestMethod.GET
 	public String main() {
 		return "mainPage";
 	}
 	
-	@RequestMapping(value = "/up") // , method = RequestMethod.GET
-	public String up() {
-		return "up";
-	}
-	
-	@RequestMapping(value = {"/","landing"}) // , method = RequestMethod.GET
-	public String landing() {
-		return "landing";
-	}
-	
-	@RequestMapping(value={"/login"}, method = RequestMethod.GET)
+	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
@@ -112,8 +97,6 @@ public class LoginController {
 		User user = userService.findUserByEmail(auth.getName());
 		//System.out.println(auth.getAuthorities());
 		if(null!=user){
-			modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-			modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
 			modelAndView.setViewName("admin");
 		} else {
 			modelAndView.setViewName("login");
