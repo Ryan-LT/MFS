@@ -1,6 +1,6 @@
 var app = angular.module('myWeb');
 
-app.controller("explore", function($http, $scope){
+app.controller("explore", function($http, $scope, $window){
 	$scope.search="";
 	getBestDownload("");
 	function getBestDownload(info){
@@ -64,6 +64,33 @@ app.controller("explore", function($http, $scope){
 			alert("fail");
 		});
 	}
+	
+	
+	$scope.downloadFile = function(idFile){
+		 //$window.open("http://localhost:8080/download/files/" + idFile);
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/download/check/" + idFile
+		}).success(function(data, status, headers, config){
+			if(data<0){
+				$window.open("http://localhost:8080/download/files/" + idFile, "_blank");
+			} else {
+				$scope.msgErrorDownload = data;
+			}
+		})
+		.error(function(data, status, headers, config){
+			alert("fail");
+		});
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 });

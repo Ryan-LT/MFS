@@ -100,8 +100,8 @@ public class FileUploadController {
  		
  		
  		// check if the user have not reach the maximum download per day.
- 		if(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()))
- 		{
+// 		if(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()))
+// 		{
  			downLoad.setIdFile(fileDownLoad);
  	 		downLoad.setIdUser(user);
  	 		downLoad.setDatedownload(new Date());
@@ -111,14 +111,37 @@ public class FileUploadController {
  	                .ok()
  	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
  	                .body(file);
- 		}
+// 		}
  		
- 		Resource file = null;
- 		return ResponseEntity
-	                .ok()
-	                .body(file);
+// 		Resource file = null;
+// 		return ResponseEntity
+//	                .ok()
+//	                .body(file);
         
     }
+    
+    @GetMapping("/download/check/{idFile}")
+    public ResponseEntity<Double> checkBeforeDownload(@PathVariable Integer idFile) {
+    	//get current log-in user
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+ 		User user = userService.findUserByEmail(auth.getName());
+ 		Files fileDownLoad = fileRepo.findOne(idFile);
+ 		
+ 		// check if the user have not reach the maximum download per day.
+ 		if(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize())>=0)
+ 		{
+ 	        return ResponseEntity
+                .ok()
+                .body(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()));
+ 		}
+ 		return ResponseEntity
+	                .ok()
+	                .body(-1.0);
+        
+    }
+    
+    
+    
 
     @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
