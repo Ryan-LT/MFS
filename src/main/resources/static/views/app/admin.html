@@ -26,39 +26,42 @@
 <link rel="stylesheet" type="text/css" href="\css\admin-index.css" />
 </head>
 <body class="body">
-	<ul class="nav-ul">
+	<div class="nav-ul">
+		<div class="admin-header">.</div>
+		<div class="info">
+			<a class="profile"><i class="fa fa-user-circle"></i> Profile</a>
+			<a class="setting"><i class="fa fa-cog"></i> Setting</a>
+		</div>
 		<a href="#/admin" class="li-a">
-			<li class="li"><span class="lii"> <i class="fa fa-home"
+			<div class="li active"><span class="lii"> <i class="fa fa-home"
 					aria-hidden="true"></i>
-			</span> User Management</li>
+			</span> User Management</div>
 		</a>
 
 		<a href="#/rank" class="li-a">
-			<li class="li"><span class="lii"> <i
+			<div class="li"><span class="lii"> <i
 					class="fa fa-sitemap" aria-hidden="true"></i>
-			</span> Rank Management</li>
+			</span> Rank Management</div>
 		</a>
 
 		<a href="#/file" class="li-a">
-			<li class="li"><span class="lii"> <i
+			<div class="li"><span class="lii"> <i
 					class="fa fa-list-ol" aria-hidden="true"></i>
-			</span> File Managerment</li>
+			</span> File Managerment</div>
 		</a>
 
 		<a href="/logout" class="li-a">
-			<li class="li"><span class="lii"> <i
+			<div class="li"><span class="lii"> <i
 					class="fa fa-sign-out" aria-hidden="true"></i>
-			</span> Logout</li>
+			</span> Logout</div>
 		</a>
-	</ul>
+	</div>
 	<div class="main">
 		<div class="sub">
 			<div ng-view></div>
 		</div>
 
 	</div>
-
-	<script src="js/bootstrap.min.js"></script>
 
 	<script src="../static/js/lib/angular-1.4.9/angular.js"
 		th:src="@{/js/lib/angular-1.4.9/angular.js}"></script>

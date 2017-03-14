@@ -115,28 +115,6 @@ p {
    animation: fadein 1s, fadeout 0.5s 2.5s;
 }
 
-#textshow {
-   visibility: hidden;
-   min-width: 250px;
-   margin-left: -125px;
-   background-color: #99ff99;
-   color: black;
-   text-align: center;
-   padding: 30px;
-   position: fixed;
-   z-index: 1;
-   right: 30px;
-   top: 30px;
-   font-size: 17px;
-   border-left: 6px solid #00cc00;
-   font-weight: 500;
-}
-
-#textshow.show {
-   visibility: visible;
-   animation: fadein 1s, fadeout 0.5s 2.5s;
-}
-
 @keyframes fadein {
     from {top: 10px; opacity: 0;}
     to {top: 30px; opacity: 1;}
