@@ -1,4 +1,5 @@
 var app = angular.module('admin', ['ngRoute']);
+
 app.config(function($routeProvider){
     $routeProvider
         .when("/admin", {
@@ -14,6 +15,6 @@ app.config(function($routeProvider){
             controller: "fileController"
         })
         .otherwise(
-            { redirectTo: '/'}
+            { redirectTo: '/admin'}
         );
 });

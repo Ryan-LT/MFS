@@ -82,8 +82,9 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	 * @param user
 	 * @return List<Files>
 	 */
-	List<Files> findByUserId(User user);
+	List<Files> findByUserId(int user);
 	
+	List<Files> findByName(@Param("name") String name);
 	/**
 	 * Get all file of user(pagination)
 	 * @param idUser
@@ -140,5 +141,11 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 			+ " LIMIT :number, :pageSize", nativeQuery=true)
 	List<Files> getAllFilePagination( @Param("number") int number, 
 			@Param("pageSize") int pageSize);	
+	
+	/**
+	 * 
+	 */
+	@Query(value="SELECT * FROM files WHERE active=1 ",nativeQuery=true)
+	List<Files> getAllFile();
 	
 }
