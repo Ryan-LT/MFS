@@ -120,12 +120,11 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file,
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
     	
-        storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
+        
+        
         Files fileDB = new Files();
         Path fileDBPath = Paths.get(storageProp.getLocation());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -139,11 +138,15 @@ public class FileUploadController {
 		        fileDB.setUserId(user.getId());
 		        fileDB.setIdType(category);
 		        fileService.insertFile(fileDB);
-		        
-		        return ResponseEntity.ok().body("You have successfully uploaded "+file.getOriginalFilename());
+		        storageService.store(file);
+		        redirectAttributes.addFlashAttribute("message",
+		                "You successfully uploaded " + file.getOriginalFilename() + "!");
 		} else {
-			 return ResponseEntity.ok().body("Fail to upload "+file.getOriginalFilename());
+			redirectAttributes.addFlashAttribute("message",
+	                "Fail to upload " + file.getOriginalFilename() + "!");
 		}
+       
+        return "redirect:/upload/";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
