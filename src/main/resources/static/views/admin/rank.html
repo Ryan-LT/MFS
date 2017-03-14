@@ -57,15 +57,15 @@
 							class="form-control" ng-model="rank.sizedownload" required /> <label>Sizerank:</label>
 						<input type="number" class="form-control" ng-model="rank.sizerank"
 							required />
-
+						<div class="modal-footer">
+							<button type="submit" ng-disabled="editForm.$invalid"
+								class="btn m-btn-edit" onclick="closeModal('edit')">Save
+								Change</button>
+						</div>
 					</form>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="submit" ng-disabled="editForm.$invalid"
-					class="btn m-btn-edit" onclick="closeModal('edit')">Save
-					Change</button>
-			</div>
+
 		</div>
 
 	</div>
@@ -93,14 +93,14 @@
 							class="form-control" ng-model=sizedownload required /> <label>Sizerank:</label>
 						<input type="number" class="form-control" ng-model="sizerank"
 							required />
-
+						<div class="modal-footer">
+							<button type="submit" ng-disabled="addForm.$invalid"
+								class="btn m-btn-add" onclick="closeModal('add')">Add</button>
+						</div>
 					</form>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="submit" ng-disabled="addForm.$invalid"
-					class="btn m-btn-add" onclick="closeModal('add')">Add</button>
-			</div>
+
 		</div>
 
 	</div>
