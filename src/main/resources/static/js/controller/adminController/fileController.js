@@ -15,8 +15,7 @@ app.controller("fileController", function($scope, $http, fileDataOp, $routeParam
 }
 	
 	function getData(page, pageSize) {
-		$http(
-				{
+		$http({
 					method : 'get',
 					url : "http://localhost:8080/file/allPagination/" + parseInt(page)
 							+ "/" + parseInt(pageSize)
