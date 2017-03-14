@@ -3,14 +3,19 @@
 		<section class="col-md-1"></section>
 		<section class="col-md-9">
 			<h1>File Management</h1>
-			
-			
-			
+			<section class="row kv-main">
+				    <form enctype="multipart/form-data" ng-submit="uploadFile()">
+				        <section class="form-group">
+				            <input id="file-0d" class="file" type="file" ng-model="file_data">
+				        </section>
+				        <section class="form-group">
+				            <input type="submit" class="btn btn-primary" value="upload">
+				        </section>
+				        
+				    </form>
+			</section>
 			<section class="row">
-<!-- 				<input type="text" id="myInput" ng-model="filter_"  placeholder="Search for names.." title="Type in a name">-->				
- 				
- 				
- 				
+<!-- 				<input type="text" id="myInput" ng-model="filter_"  placeholder="Search for names.." title="Type in a name">-->
  				<table id="myTable" class="table">
 				  <tr class="header">
 				    <th style="width:25%;">Name File</th>
