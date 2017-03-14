@@ -15,6 +15,6 @@ app.config(function($routeProvider){
             controller: "fileController"
         })
         .otherwise(
-            { redirectTo: '/'}
+            { redirectTo: '/admin'}
         );
 });

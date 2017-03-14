@@ -50,9 +50,10 @@ public class FileUploadController {
     @Autowired
 	private UserService userService;
 
-    @GetMapping("/upload/")
+    @GetMapping("/upload")
     public String listUploadedFiles(Model model) throws IOException {
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
         model.addAttribute("files", storageService
                 .loadAll()
                 .map(path ->
@@ -80,23 +81,23 @@ public class FileUploadController {
 //    	x.add("12344");
 //    	model.addAttribute("files",x);
         
-        return "mainPage";
+        return "upload";
     }
     
     /**
      * @param This function is for responding to a download request
      * @return
      */
-    @GetMapping("/files/{filename:.+}")
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    @GetMapping("/download/files/{idFile}")
+    public ResponseEntity<Resource> serveFile(@PathVariable Integer idFile) {
     	//get current log-in user
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
  		User user = userService.findUserByEmail(auth.getName());
  		//get download information
  		Download downLoad = new Download();
  		
- 		List<Files> listFile = fileRepo.findByName(filename);
- 		Files fileDownLoad = listFile.get(0);
+ 		Files fileDownLoad = fileRepo.findOne(idFile);
+ 		
  		
  		// check if the user have not reach the maximum download per day.
  		if(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()))
@@ -105,7 +106,7 @@ public class FileUploadController {
  	 		downLoad.setIdUser(user);
  	 		downLoad.setDatedownload(new Date());
  	 		downloadService.insert(downLoad);
- 	        Resource file = storageService.loadAsResource(filename);
+ 	        Resource file = storageService.loadAsResource(fileDownLoad.getPath());
  	        return ResponseEntity
  	                .ok()
  	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
@@ -120,37 +121,40 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file,
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
     	
-        storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
+        
         Files fileDB = new Files();
         Path fileDBPath = Paths.get(storageProp.getLocation());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
+		Double spaceAvailable = fileService.beforeUpload(user.getId(), file.getSize()/1024.0);
 		CategoriesType category = new CategoriesType(1);
-		if(fileService.beforeUpload(user.getId(), file.getSize()/1024.0)!=-1){
+		redirectAttributes.addFlashAttribute("spaceAvailable",
+				spaceAvailable);
+		if(spaceAvailable>=0){
 			 fileDB.setName(file.getOriginalFilename());
 		        fileDB.setSize((double)file.getSize()/1024.0);
 		        fileDB.setDateupload(new Date());
-		        fileDB.setPath(fileDBPath.resolve(file.getOriginalFilename()).toString());
+		        fileDB.setPath((file.getOriginalFilename()).toString());
 		        fileDB.setUserId(user.getId());
 		        fileDB.setIdType(category);
 		        fileService.insertFile(fileDB);
-		        
-		        return ResponseEntity.ok().body("You have successfully uploaded "+file.getOriginalFilename());
+		        storageService.store(file);
+		        fileService.afterUpload(user.getId(), file.getSize()/1024.0);
+		        redirectAttributes.addFlashAttribute("message",
+		                "You successfully uploaded " + file.getOriginalFilename() + "!");
 		} else {
-			 return ResponseEntity.ok().body("Fail to upload "+file.getOriginalFilename());
+			redirectAttributes.addFlashAttribute("message",
+	                "Fail to upload " + file.getOriginalFilename() + "!");
 		}
        
-        
+        return "redirect:/upload";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
     }
-
 }

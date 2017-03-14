@@ -21,11 +21,6 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 	
-/*	@RequestMapping(value = "/main") // , method = RequestMethod.GET
-	public String main() {
-		return "mainPage";
-	}*/
-	
 	@RequestMapping(value = "/") // , method = RequestMethod.GET
 	public String landing() {
 		return "landing";
