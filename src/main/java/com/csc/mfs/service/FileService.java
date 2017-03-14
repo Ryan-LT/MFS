@@ -164,7 +164,7 @@ public class FileService {
 		Rank rank = rankRepository.findOne(user.getRank_Id());
 		double inDay = sumSizeUploadInDay(id);
 		if((inDay+sizeFile)>=rank.getSizeupload()){
-			return -1;
+			return inDay-rank.getSizeupload();
 		} else {
 			return (rank.getSizeupload()-(inDay+sizeFile));
 		}
@@ -178,12 +178,12 @@ public class FileService {
 	public void afterUpload(int id, double sizeFile){
 		User user = userRepository.findOne(id);
 		Rank rank = rankRepository.findOne(user.getRank_Id());
-		double inDay = sumSizeUploadInDay(id);
 		if(user.getRank_Id()==3){
 			return;
 		} else {
-			if((totalSizeUpload(id)+sizeFile)>rank.getSizeupload()){
+			if((totalSizeUpload(id)+sizeFile)>rank.getSizerank()){
 				user.setRank_Id(user.getRank_Id()+1);
+				userRepository.flush();
 			}
 		}
 	}
