@@ -84,6 +84,7 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	 */
 	List<Files> findByUserId(User user);
 	
+	List<Files> findByName(@Param("name") String name);
 	/**
 	 * Get all file of user(pagination)
 	 * @param idUser
