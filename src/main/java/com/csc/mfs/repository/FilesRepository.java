@@ -142,4 +142,10 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	List<Files> getAllFilePagination( @Param("number") int number, 
 			@Param("pageSize") int pageSize);	
 	
+	/**
+	 * 
+	 */
+	@Query(value="SELECT * FROM files WHERE active=1 ",nativeQuery=true)
+	List<Files> getAllFile();
+	
 }

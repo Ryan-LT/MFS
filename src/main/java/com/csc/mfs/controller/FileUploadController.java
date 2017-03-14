@@ -88,16 +88,16 @@ public class FileUploadController {
      * @param This function is for responding to a download request
      * @return
      */
-    @GetMapping("/files/{filename:.+}")
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    @GetMapping("/download/files/{idFile}")
+    public ResponseEntity<Resource> serveFile(@PathVariable Integer idFile) {
     	//get current log-in user
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
  		User user = userService.findUserByEmail(auth.getName());
  		//get download information
  		Download downLoad = new Download();
  		
- 		List<Files> listFile = fileRepo.findByName(filename);
- 		Files fileDownLoad = listFile.get(0);
+ 		Files fileDownLoad = fileRepo.findOne(idFile);
+ 		
  		
  		// check if the user have not reach the maximum download per day.
  		if(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()))
@@ -106,7 +106,7 @@ public class FileUploadController {
  	 		downLoad.setIdUser(user);
  	 		downLoad.setDatedownload(new Date());
  	 		downloadService.insert(downLoad);
- 	        Resource file = storageService.loadAsResource(filename);
+ 	        Resource file = storageService.loadAsResource(fileDownLoad.getPath());
  	        return ResponseEntity
  	                .ok()
  	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
@@ -137,7 +137,7 @@ public class FileUploadController {
 			 fileDB.setName(file.getOriginalFilename());
 		        fileDB.setSize((double)file.getSize()/1024.0);
 		        fileDB.setDateupload(new Date());
-		        fileDB.setPath(fileDBPath.resolve(file.getOriginalFilename()).toString());
+		        fileDB.setPath((file.getOriginalFilename()).toString());
 		        fileDB.setUserId(user.getId());
 		        fileDB.setIdType(category);
 		        fileService.insertFile(fileDB);
