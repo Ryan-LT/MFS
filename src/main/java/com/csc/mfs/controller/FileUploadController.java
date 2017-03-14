@@ -20,7 +20,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.util.stream.Collectors;
 import com.csc.mfs.model.*;
@@ -53,33 +55,31 @@ public class FileUploadController {
     @GetMapping("/upload/")
     public String listUploadedFiles(Model model) throws IOException {
 
-        model.addAttribute("files", storageService
-                .loadAll()
-                .map(path ->
-                        MvcUriComponentsBuilder
-                                .fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
-                                .build().toString())
-                .collect(Collectors.toList()));
-    	
-    	
-//      model.addAttribute("files", storageService
-//      .loadAll()
-//      .map(path -> path.getFileName().toString()) .collect(Collectors.toList()));
-              
-    	
-    	
-//      Path x =Paths.get("s");
-//     
-//      model.addAttribute("files", storageService
-//      .loadAll()
-//      .map(path ->
-//              x)
-//      .collect(Collectors.toList()));
-//    	List<String> x = new Vector();
-//    	x.add("124");
-//    	x.add("12344");
-//    	model.addAttribute("files",x);
+//        model.addAttribute("files", storageService
+//                .loadAll()
+//                .map(path ->
+//                        MvcUriComponentsBuilder
+//                                .fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
+//                                .build().toString())
+//                .collect(Collectors.toList()));
+//    	List<Files> listDisplayFile = fileRepo.getAllFile();
+//    	Map<String,String> files= new HashMap<String,String>();
+//    	
+//    	
+//    	for(Files f: listDisplayFile){
+//    		files.put(f.getName(), f.getPath());
+//    	}
+//    	
+//    	files.
+//    	
+//        model.addAttribute("files", files);
+      
         
+//        model.addAttribute("files", storageService
+//                .loadAll()       
+//                .collect(Collectors.toList()));
+ //       model.addAttribute("link","http://localhost:8080/files/");
+	
         return "mainPage";
     }
     
@@ -87,24 +87,26 @@ public class FileUploadController {
      * @param This function is for responding to a download request
      * @return
      */
-    @GetMapping("/files/{filename:.+}")
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    @GetMapping("/download/files/{idFile}")
+    public ResponseEntity<Resource> serveFile(@PathVariable Integer idFile) {
     	//get current log-in user
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
  		User user = userService.findUserByEmail(auth.getName());
  		//get download information
  		Download downLoad = new Download();
+ 		//retrieve the file name without time
+// 		String filenameDB = filename.substring(0,filename.length()-13);
+ 		Files fileDownload = fileRepo.findOne(idFile);
  		
- 		List<Files> listFile = fileRepo.findByName(filename);
- 		Files fileDownLoad = listFile.get(0);
  		
  		// check if the user have not reach the maximum download per day.
- 		if(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()))
+ 		if(downloadService.beforeDownload(user.getId(), fileDownload.getSize()))
  		{
- 			downLoad.setIdFile(fileDownLoad);
+ 			downLoad.setIdFile(fileDownload);
  	 		downLoad.setIdUser(user);
  	 		downLoad.setDatedownload(new Date());
  	 		downloadService.insert(downLoad);
+ 	 		String filename  = fileDownload.getPath();
  	        Resource file = storageService.loadAsResource(filename);
  	        return ResponseEntity
  	                .ok()
@@ -130,11 +132,11 @@ public class FileUploadController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		CategoriesType category = new CategoriesType(1);
-		if(fileService.beforeUpload(user.getId(), file.getSize()/1024.0)!=-1){
+		if(fileService.beforeUpload(user.getId(), file.getSize()/(1024.0*1024.0))!=-1){
 			 fileDB.setName(file.getOriginalFilename());
-		        fileDB.setSize((double)file.getSize()/1024.0);
+		        fileDB.setSize((double)file.getSize()/(1024.0*1024.0));
 		        fileDB.setDateupload(new Date());
-		        fileDB.setPath(fileDBPath.resolve(file.getOriginalFilename()).toString());
+		        fileDB.setPath((file.getOriginalFilename()).toString());
 		        fileDB.setUserId(user.getId());
 		        fileDB.setIdType(category);
 		        fileService.insertFile(fileDB);

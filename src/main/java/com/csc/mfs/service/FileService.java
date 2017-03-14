@@ -39,6 +39,7 @@ public class FileService {
 	 */
 	public void insertFile(Files file){
 		//Files file_ = new Files("vuong.txt", "", 1234, new User(2), new Date());
+		file.setActive(1);
 		fileRepository.save(file);
 	}
 
