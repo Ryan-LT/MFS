@@ -16,6 +16,8 @@
 		          		</form>
 		          	</section>
 	          </section>
+	          <section class="row">{{msgErrorDownload}}
+	          </section>
 	          <section>
 		          <table class="table table-hover">
 		              <thead class="bg-primary text-white">
@@ -25,7 +27,7 @@
 		                  <th>Size</th>
 		                  <th>Updated Date</th>
 		                  <th>Owner</th>
-		                  <th></th>
+		                  <th>Action</th>
 		                </tr>
 		              </thead>
 		              <tbody>
@@ -34,6 +36,13 @@
 		                  <td>{{file.name}}</td>
 		                  <td>{{file.size}}</td>
 		                  <td>{{file.dateupload}}</td>
+		                  <td></td>
+		                  <td>
+		                  	<button ng-click="downloadFile(file.id)" type="button" class="btn btn-danger">
+							Download
+							<span style="color: white"class="glyphicon glyphicon-download-alt"></span>
+							</button>
+		                  </td>
 		                  <!-- <td>{{getOwner(file.userId)}}</td> -->
 		                  <!-- <td><i class="fa fa-download">   <i class="fa fa-file"></td> -->
 		                </tr>

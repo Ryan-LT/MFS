@@ -203,7 +203,7 @@ public class FileService {
 	 * @param pageSize
 	 * @return
 	 */
-	public List<Files> getAllFilePagination(int page, int pageSize){
+	public List<Object> getAllFilePagination(int page, int pageSize){
 		return fileRepository.getAllFilePagination(page*pageSize, pageSize);
 	}
 	

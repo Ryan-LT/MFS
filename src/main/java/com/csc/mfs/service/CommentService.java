@@ -18,6 +18,10 @@ public class CommentService {
 		return commentRepository.findByIdFile(idFile);
 	}
 	
+	public List<Object> getCommentOfFile(int idFile){
+		return commentRepository.getCommentOfFle(idFile);
+	}
+	
 	public void saveComment(Comment comment){
 		commentRepository.saveAndFlush(comment);
 	}
