@@ -76,15 +76,16 @@
 						<select class="form-control" ng-model="rank.current">
 							<option ng-repeat="name in rank.names" value="{{name.id}}">{{name.name}}</option>
 						</select>
-
+						<section class="modal-footer">
+							<button type="submit" ng-disabled="editForm.$invalid" 
+								class="btn m-btn-edit" onclick="closeModal('edit')">
+							Save Change
+							</button>
+						</section>
 					</form>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="submit" ng-disabled="editForm.$invalid"
-					class="btn m-btn-edit" onclick="closeModal('edit')">Save
-					Change</button>
-			</div>
+			
 		</div>
 
 	</div>
