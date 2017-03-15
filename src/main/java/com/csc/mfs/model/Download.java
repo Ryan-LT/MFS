@@ -43,7 +43,14 @@ public class Download implements Serializable {
     @JoinColumn(name = "id_user", referencedColumnName = "id")
     @ManyToOne
     private User idUser;
-    @JoinColumn(name = "id_file", referencedColumnName = "id")
+    public Date getDatedownload() {
+		return datedownload;
+	}
+	public void setDatedownload(Date datedownload) {
+		this.datedownload = datedownload;
+	}
+
+	@JoinColumn(name = "id_file", referencedColumnName = "id")
     @ManyToOne
     private Files idFile;
 

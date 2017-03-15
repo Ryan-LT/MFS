@@ -1,31 +1,85 @@
 .body {
-	background-color: #363942;
+}
+
+.nav-header {
+	padding: 10px;
+	text-align: center;
+	font-size: 25px;
+	color: white;
+	background-color: #008040;
+	border-bottom: 2px solid white;
+}
+
+.admin-header {
+	margin: 40px auto 5px auto;
+	color: white;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	border-radius: 50%;
+	border: 1px solid white;
+}
+
+.info {
+	text-align: center;
+	padding: 5px;
+	color: yellow;
+	margin-bottom: 40px;
+}
+
+.profile {
+	color: lightgreen;
+}
+
+.profile:hover {
+	color: green;
+	cursor: pointer;
+}
+
+.setting {
+	color: lightgreen;
+	padding-left: 8px;
+}
+
+.setting:hover {
+	color: green;
+	cursor: pointer;
 }
 
 .nav-ul {
-	margin-top: 20px;
-	margin-left: 0px;
 	float: left;
-	width: 250px;
+	width: 220px;
+	background: #363942;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	position: fixed;
 }
 
 .li {
 	background-color: transparent;
-	color: #008040;
+	color: #ffffff;
 	list-style-type: none;
-	margin-top: 1px;
-	padding: 7px;
+	margin: auto;
+	padding: 5px 0 5px 15px;
 }
 
 .li:hover {
 	background-color: #008040;
 	color: white;
+	font-weight: bold;
+}
+
+.li.active {
+	background-color: white;
+	color: #363942;
+	font-weight: bold;
 }
 
 .li-a {
 	text-decoration: none;
 	color: white;
-	font-size: 18px;
+	font-size: 15px;
 }
 
 .li-a:hover {
@@ -34,20 +88,26 @@
 }
 
 .lii {
-	font-size: 25px;
+	font-size: 20px;
 }
+
+
 
 .main {
-	margin: 30px;
-	background: rgba(226, 233, 240, 1);
+	margin-left: 220px;
+	min-height: 800px;
 	padding: 10px;
 }
 
-.sub {
-	background: rgba(226, 233, 228, 1);
-	margin-left: 250px;
-	min-height: 800px;
+.main-header {
 	padding: 10px;
+	padding-top: 50px;
+	padding-bottom: 5px;
+	margin-bottom: 50px;
+	font-size: 30px;
+	border-bottom: 1px double #363942;
+	color: #363942;
+	font-weight: 500;
 }
 
 footer {
@@ -58,10 +118,4 @@ footer {
 	background-color: #f2f7ff;
 	text-align: center;
 	margin-top: 20px;
-}
-
-.logo-bottom {
-	width: 200px;
-	float: right;
-	margin-bottom: -500px;
 }

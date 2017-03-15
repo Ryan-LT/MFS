@@ -1,3 +1,10 @@
+<div class="main-header">Rank Management</div>
+
+<button ng-click="addBlock=true; editBlock=false" data-toggle="modal"
+	type="button" data-target="#addModal" class="btn btn-info btn-add">
+	<span style="color: white" class="glyphicon glyphicon-plus"></span> Add
+	Rank
+</button>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -5,6 +12,7 @@
 			<th>Sizeupload</th>
 			<th>Sizedownload</th>
 			<th>Sizerank</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -14,49 +22,116 @@
 			<td>{{r.sizedownload}}</td>
 			<td>{{r.sizerank}}</td>
 			<td>
+				<button ng-click="getRank(r.id)" type="button" data-toggle="modal"
+					data-target="#editModal" class="btn btn-warning btn-circle">
+					<span style="color: white" class="glyphicon glyphicon-edit"></span>
+				</button>
 				<button ng-click="deleteRank(r.id)" type="button"
-					class="btn btn-danger">
+					class="btn btn-danger btn-circle" onclick="myToast('del')">
 					<span style="color: white"
 						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
-				</button>
-				<button ng-click="getRank(r.id)" type="button" class="btn"
-					style="background-color: teal;">
-					<span style="color: white" class="glyphicon glyphicon-wrench"></span>
 				</button>
 			</td>
 		</tr>
 	</tbody>
 </table>
-<button ng-click="addBlock=true; editBlock=false" type="button"
-	class="btn" style="background-color: green">
-	<span style="color: white" class="glyphicon glyphicon-plus"></span>
-</button>
 
-<div ng-show="editBlock">
-	<h2>Edit rank</h2>
-	<form class="form-horizontal css-form" name="editForm"
-		ng-submit="editRank(rank)">
-		<label>Name:</label> <input type="text" class="form-control"
-			ng-model="rank.name" required /> <label>Sizeupload:</label> <input
-			type="number" class="form-control" ng-model=rank.sizeupload required />
-		<label>Sizedownload:</label> <input type="number" class="form-control"
-			ng-model="rank.sizedownload" required /> <label>Sizerank:</label> <input
-			type="number" class="form-control" ng-model="rank.sizerank" required />
-		<button type="submit" ng-disabled="editForm.$invalid"
-			class="btn btn-primary">Save Change</button>
-	</form>
+<div class="modal fade" id="editModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content m-modal-content">
+			<div class="modal-header m-modal-header-edit">
+				<button type="button" class="close m-close-button"
+					data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Rank</h4>
+			</div>
+			<div class="modal-body">
+				<div ng-show="editBlock">
+					<form class="form-horizontal css-form" name="editForm"
+						ng-submit="editRank(rank)">
+						<label>Name:</label> <input type="text" class="form-control"
+							ng-model="rank.name" required /> <label>Sizeupload:</label> <input
+							type="number" class="form-control" ng-model=rank.sizeupload
+							required /> <label>Sizedownload:</label> <input type="number"
+							class="form-control" ng-model="rank.sizedownload" required /> <label>Sizerank:</label>
+						<input type="number" class="form-control" ng-model="rank.sizerank"
+							required />
+						<div class="modal-footer">
+							<button type="submit" ng-disabled="editForm.$invalid"
+								class="btn m-btn-edit" onclick="closeModal('edit')">Save
+								Change</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
 </div>
-<div ng-show="addBlock">
-	<h2>Add new rank</h2>
-	<form class="form-horizontal css-form" name="addForm"
-		ng-submit="addRank()">
-		<label>Name:</label> <input type="text" class="form-control"
-			ng-model="name" required /> <label>Sizeupload:</label> <input
-			type="number" class="form-control" ng-model="sizeupload" required />
-		<label>Sizedownload:</label> <input type="number" class="form-control"
-			ng-model=sizedownload required /> <label>Sizerank:</label> <input
-			type="number" class="form-control" ng-model="sizerank" required />
-		<button type="submit" ng-disabled="addForm.$invalid"
-			class="btn btn-primary">Add</button>
-	</form>
+
+<div class="modal fade" id="addModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content m-modal-content">
+			<div class="modal-header m-modal-header-add">
+				<button type="button" class="close m-close-button"
+					data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Add New User</h4>
+			</div>
+			<div class="modal-body">
+				<div ng-show="addBlock">
+					<h2>Add new rank</h2>
+					<form class="form-horizontal css-form" name="addForm"
+						ng-submit="addRank()">
+						<label>Name:</label> <input type="text" class="form-control"
+							ng-model="name" required /> <label>Sizeupload:</label> <input
+							type="number" class="form-control" ng-model="sizeupload" required />
+						<label>Sizedownload:</label> <input type="number"
+							class="form-control" ng-model=sizedownload required /> <label>Sizerank:</label>
+						<input type="number" class="form-control" ng-model="sizerank"
+							required />
+						<div class="modal-footer">
+							<button type="submit" ng-disabled="addForm.$invalid"
+								class="btn m-btn-add" onclick="closeModal('add')">Add</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
 </div>
+
+<div id="textshow"></div>
+
+<script>
+	function closeModal(i) {
+		$('#editModal').modal('hide');
+		$('#addModal').modal('hide');
+		myToast(i);
+	}
+
+	function myToast(i) {
+		var a = document.getElementById("textshow");
+		if (i == "edit") {
+			a.innerHTML = "Rank information has been saved.";
+			a.style.backgroundColor = "#ec971f";
+		}
+		if (i == "add") {
+			a.innerHTML = "A new rank has been created.";
+			a.style.backgroundColor = "#5bc0de";
+		}
+		if (i == "del") {
+			a.innerHTML = "A rank has been deleted.";
+			a.style.backgroundColor = "#c9302c";
+		}
+		a.className = "show";
+		setTimeout(function() {
+			a.className = a.className.replace("show", "");
+		}, 3000);
+	}
+</script>

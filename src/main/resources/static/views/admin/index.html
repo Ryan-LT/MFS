@@ -1,3 +1,11 @@
+<div class="main-header">User Management</div>
+
+<button ng-click="addBlock=true; editBlock=false" data-toggle="modal"
+	type="button" data-target="#addModal" class="btn btn-info btn-add">
+	<span style="color: white" class="glyphicon glyphicon-plus"></span> Add
+	User
+</button>
+
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -15,16 +23,19 @@
 			<td>{{u.email}}</td>
 			<td>{{u.name}}</td>
 			<td>{{u.lastName}}</td>
-			<td>{{u.rank_Id}}</td>
+			<td>{{rankData[u.rank_Id-1]}}</td>
 			<td>
-				<button ng-disabled="{{u.id == 0 }}" ng-click="deleteUser(u.id)" type="button"
-					class="btn btn-danger">
+
+				<button ng-disabled="{{u.id == 0 }}" ng-click="getUser(u.id)"
+					type="button" data-toggle="modal" data-target="#editModal"
+					class="btn btn-warning btn-circle">
+					<span style="color: white" class="glyphicon glyphicon-edit"></span>
+				</button>
+				<button ng-disabled="{{u.id == 0 }}" ng-click="deleteUser(u.id)"
+					type="button" class="btn btn-danger btn-circle"
+					onclick="myToast('del')">
 					<span style="color: white"
 						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
-				</button>
-				<button ng-disabled="{{u.id == 0 }}" ng-click="getUser(u.id)" type="button" class="btn"
-					style="background-color: teal;">
-					<span style="color: white" class="glyphicon glyphicon-wrench"></span>
 				</button>
 			</td>
 		</tr>
@@ -32,52 +43,112 @@
 </table>
 <ul class="list-inline">
 	<li><button class="btn m-btn"
-			ng-click="getUserByPage(page=page-1,5)" ng-disabled="page-1<0">Previous</button></li>
+			ng-click="getUserByPage(page=page-1,5)" ng-disabled="page-1<0"><<</button></li>
 	<li ng-repeat="i in getNumber(pageSum) track by $index">
 		<button class="btn m-btn active" ng-click="getUserByPage($index, 5)">{{$index+1}}</button>
 	</li>
 	<li><button class="btn m-btn"
-			ng-click="getUserByPage(page=page+1,5)" ng-disabled="page+1>=pageSum">Next</button></li>
+			ng-click="getUserByPage(page=page+1,5)" ng-disabled="page+1>=pageSum">>></button></li>
 </ul>
-<button ng-click="addBlock=true; editBlock=false" type="button"
-	class="btn" style="background-color: green">
-	<span style="color: white" class="glyphicon glyphicon-plus"></span>
-</button>
 
-<div ng-show="editBlock">
-	<h2>Edit User</h2>
-	<form class="form-horizontal css-form" name="editForm" ng-submit="editUser(user)">
-		<label>Email:</label> 
-		<input type="email" class="form-control" ng-model="user.email" required /> 
-		<label>Name:</label> 
-		<input type="text" class="form-control" ng-model=user.name required /> 
-		<label>Last Name:</label> 
-		<input type="text" class="form-control" ng-model="user.lastName" required /> 
-		<label>Rank:</label> 
-		<!-- <input type="text" class="form-control" ng-model="user.rank_Id" required /> -->
-		
- 		<select class="form-control" ng-model="rank.current">
-      		<option ng-repeat="name in rank.names" value="{{name.id}}">{{name.name}}</option>
-    	</select>
-		<button type="submit" ng-disabled="editForm.$invalid"
-			class="btn btn-primary">Save Change</button>
-	</form>
+<div class="modal fade" id="editModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content m-modal-content">
+			<div class="modal-header m-modal-header-edit">
+				<button type="button" class="close m-close-button"
+					data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit User</h4>
+			</div>
+			<div class="modal-body">
+				<div ng-show="editBlock">
+
+					<form class="form-horizontal css-form" name="editForm"
+						ng-submit="editUser(user)">
+						<label>Email:</label> <input type="email"
+							class="form-control m-input" ng-model="user.email" required /> <label>Name:</label>
+						<input type="text" class="form-control" ng-model=user.name
+							required /> <label>Last Name:</label> <input type="text"
+							class="form-control" ng-model="user.lastName" required /> <label>Rank:</label>
+						<!-- <input type="text" class="form-control" ng-model="user.rank_Id" required /> -->
+
+						<select class="form-control" ng-model="rank.current">
+							<option ng-repeat="name in rank.names" value="{{name.id}}">{{name.name}}</option>
+						</select>
+						<div class="modal-footer">
+							<button type="submit" ng-disabled="editForm.$invalid"
+								class="btn m-btn-edit" onclick="closeModal('edit')">Save
+								Change</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
 </div>
-<div ng-show="addBlock">
-	<h2>Add new user</h2>
-	<form class="form-horizontal css-form" name="addForm"
-		ng-submit="addUser()">
-		<label>Email:</label> <input type="email" class="form-control"
-			ng-model="email" required /> <label>Password:</label> <input
-			type="text" class="form-control" ng-model="password" required /> <label>Name:</label>
-		<input type="text" class="form-control" ng-model=name required /> <label>Last
-			Name:</label> <input type="text" class="form-control" ng-model="lastName"
-			required />
-		<button type="submit" ng-disabled="addForm.$invalid"
-			class="btn btn-primary">Add</button>
-	</form>
+
+<div class="modal fade" id="addModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content m-modal-content">
+			<div class="modal-header m-modal-header-add">
+				<button type="button" class="close m-close-button"
+					data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Add New User</h4>
+			</div>
+			<div class="modal-body">
+				<div ng-show="addBlock">
+					<form class="form-horizontal css-form" name="addForm"
+						ng-submit="addUser()">
+						<label>Email:</label> <input type="email" class="form-control"
+							ng-model="email" required /> <label>Password:</label> <input
+							type="text" class="form-control" ng-model="password" required />
+						<label>Name:</label> <input type="text" class="form-control"
+							ng-model=name required /> <label>Last Name:</label> <input
+							type="text" class="form-control" ng-model="lastName" required />
+						<div class="modal-footer">
+							<button type="submit" ng-disabled="addForm.$invalid"
+								class="btn m-btn-add" onclick="closeModal('add')">Add</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
 </div>
+
+<div id="textshow"></div>
 
 <script>
-	
+	function closeModal(i) {
+		$('#editModal').modal('hide');
+		$('#addModal').modal('hide');
+		myToast(i);
+	}
+
+	function myToast(i) {
+		var a = document.getElementById("textshow");
+		if (i == "edit") {
+			a.innerHTML = "User information has been saved.";
+			a.style.backgroundColor = "#ec971f";
+		}
+		if (i == "add") {
+			a.innerHTML = "A new user has been created.";
+			a.style.backgroundColor = "#5bc0de";
+		}
+		if (i == "del") {
+			a.innerHTML = "A user has been deleted.";
+			a.style.backgroundColor = "#c9302c";
+		}
+		a.className = "show";
+		setTimeout(function() {
+			a.className = a.className.replace("show", "");
+		}, 3000);
+	}
 </script>

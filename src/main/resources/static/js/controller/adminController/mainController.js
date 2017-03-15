@@ -1,15 +1,26 @@
 var app = angular.module('admin');
-app.controller("mainController", function($scope, $http, userDataOp,
-		$routeParams) {
+app.controller("mainController", function($scope, $http, userDataOp, $routeParams) {
 
 	$scope.pageSum;
 	$scope.page;
+	getDataRank();
 	getData('0', '5');
 	countUser();
 	$scope.getNumber = function(num) {
 		return new Array(num);
 	}
 	// Get Data
+	
+	function getDataRank(rankId) {
+		$http.get("http://localhost:8080/rank/all")
+			.success(function(data, status, headers, config){
+				$scope.rankData = [];
+				for(var i=0; i < data.length;i++){
+						$scope.rankData.push(data[i].name);
+				}
+		}).error(function(data, status, headers, config){});
+	}
+	
 	function getData(page, pageSize) {
 		$http(
 				{

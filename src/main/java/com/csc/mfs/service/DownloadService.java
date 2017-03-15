@@ -154,7 +154,7 @@ public class DownloadService {
 	 * @param sizeFile
 	 * @return boolean
 	 */
-	public boolean beforeDownload(int idUser, double sizeFile){
+	public double beforeDownload(int idUser, double sizeFile){
 		User user = userRepository.findOne(idUser);
 		if(null!=user){
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
@@ -170,12 +170,12 @@ public class DownloadService {
 			}
 			Rank rank = rankRepository.findOne(user.getRank_Id());
 			if(size+sizeFile>=rank.getSizedownload()){
-				return false;
+				return rank.getSizedownload()-size;
 			} else {
-				return true;
+				return -1.0d;
 			}
 		}
-		return false;
+		return 1.0d;
 	}
 	
 	public List<Object> getDownloadOfuser(int idUser, int page, int pageSize){

@@ -39,6 +39,7 @@ public class FileService {
 	 */
 	public void insertFile(Files file){
 		//Files file_ = new Files("vuong.txt", "", 1234, new User(2), new Date());
+		file.setActive(1);
 		fileRepository.save(file);
 	}
 
@@ -163,7 +164,7 @@ public class FileService {
 		Rank rank = rankRepository.findOne(user.getRank_Id());
 		double inDay = sumSizeUploadInDay(id);
 		if((inDay+sizeFile)>=rank.getSizeupload()){
-			return -1;
+			return inDay-rank.getSizeupload();
 		} else {
 			return (rank.getSizeupload()-(inDay+sizeFile));
 		}
@@ -177,12 +178,12 @@ public class FileService {
 	public void afterUpload(int id, double sizeFile){
 		User user = userRepository.findOne(id);
 		Rank rank = rankRepository.findOne(user.getRank_Id());
-		double inDay = sumSizeUploadInDay(id);
 		if(user.getRank_Id()==3){
 			return;
 		} else {
-			if((totalSizeUpload(id)+sizeFile)>rank.getSizeupload()){
+			if((totalSizeUpload(id)+sizeFile)>rank.getSizerank()){
 				user.setRank_Id(user.getRank_Id()+1);
+				userRepository.flush();
 			}
 		}
 	}
@@ -202,7 +203,7 @@ public class FileService {
 	 * @param pageSize
 	 * @return
 	 */
-	public List<Files> getAllFilePagination(int page, int pageSize){
+	public List<Object> getAllFilePagination(int page, int pageSize){
 		return fileRepository.getAllFilePagination(page*pageSize, pageSize);
 	}
 	
