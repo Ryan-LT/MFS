@@ -1,0 +1,117 @@
+1
+Void assertEquals(boolean expected, boolean actual)
+Check that two primitives/Objects are equal
+2
+void assertFalse(boolean condition)
+Check that a condition is false
+3
+void assertNotNull(Object object)
+Check that an object isn't null.
+4
+void assertNull(Object object)
+Check that an object is null
+5
+void assertTrue(boolean condition)
+Check that a condition is true.
+6
+void fail()
+Fails a test with no message.
+1
+int countTestCases()
+Counts the number of test cases executed by run(TestResult result).
+2
+TestResult createResult()
+Creates a default TestResult object.
+3
+String getName()
+Gets the name of a TestCase.
+4
+TestResult run()
+A convenience method to run this test, collecting the results with a default TestResult object.
+5
+void run(TestResult result)
+Runs the test case and collects the results in TestResult.
+6
+void setName(String name)
+Sets the name of a TestCase.
+7
+void setUp()
+Sets up the fixture, for example, open a network connection.
+8
+void tearDown()
+Tears down the fixture, for example, close a network connection.
+9
+String toString()
+Returns a string representation of the test case.
+1
+void addError(Test test, Throwable t)
+Adds an error to the list of errors.
+2
+void addFailure(Test test, AssertionFailedError t)
+Adds a failure to the list of failures.
+3
+void endTest(Test test)
+Informs the result that a test was completed.
+4
+int errorCount()
+Gets the number of detected errors.
+5
+Enumeration<TestFailure> errors()
+Returns an Enumeration for the errors.
+6
+int failureCount()
+Gets the number of detected failures.
+7
+void run(TestCase test)
+Runs a TestCase.
+8
+int runCount() Gets the number of run tests.
+9
+void startTest(Test test) Informs the result that a test will be started.
+10
+void stop() Marks that the test run should stop.
+1
+void addTest(Test test)
+Adds a test to the suite.
+2
+void addTestSuite(Class<? extends TestCase> testClass)
+Adds the tests from the given class to the suite.
+3
+int countTestCases()
+Counts the number of test cases that will be run by this test.
+4
+String getName()
+Returns the name of the suite.
+5
+void run(TestResult result)
+Runs the tests and collects their result in a TestResult.
+6
+void setName(String name)
+Sets the name of the suite.
+7
+Test testAt(int index)
+Returns the test at the given index.
+8
+int testCount()
+Returns the number of tests in this suite.
+9
+static Test warning(String message)
+Returns a test which will fail and log a warning message.
+1
+@Test
+The Test annotation tells JUnit that the public void method to which it is attached can be run as a test case.
+2
+@Before
+Several tests need similar objects created before they can run. Annotating a public void method with @Before causes that method to be run before each Test method.
+3
+@After
+If you allocate external resources in a Before method you need to release them after the test runs. Annotating a public void method with @After causes that method to be run after the Test method.
+4
+@BeforeClass
+Annotating a public static void method with @BeforeClass causes it to be run once before any of the test methods in the class.
+5
+@AfterClass
+This will perform the method after all tests have finished. This can be used to perform clean-up activities.
+6
+@Ignore
+The Ignore annotation is used to ignore the test and that test will not be executed.
