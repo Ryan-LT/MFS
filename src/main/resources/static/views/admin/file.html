@@ -1,3 +1,5 @@
+<div class="main-header">File Management</div>
+
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -16,7 +18,7 @@
 			<td>{{f.userId}}</td>
 			<td>
 				<button ng-click="deleteFile(f.id)" type="button"
-					class="btn btn-danger">
+					class="btn btn-danger btn-circle" onclick="myToast('del')">
 					<span style="color: white"
 						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
 				</button>
@@ -26,11 +28,27 @@
 </table>
 <ul class="list-inline">
 	<li><button class="btn m-btn"
-			ng-click="getFileByPage(page=page-1,5)" ng-disabled="page-1<0">Previous</button></li>
+			ng-click="getFileByPage(page=page-1,5)" ng-disabled="page-1<0"><<</button></li>
 	<li ng-repeat="i in getNumber(pageSum) track by $index">
 		<button class="btn m-btn active" ng-click="getFileByPage($index, 5)">{{$index+1}}</button>
 	</li>
 	<li><button class="btn m-btn"
-			ng-click="getFileByPage(page=page+1,5)" ng-disabled="page+1>=pageSum">Next</button></li>
+			ng-click="getFileByPage(page=page+1,5)" ng-disabled="page+1>=pageSum">>></button></li>
 
 </ul>
+
+<div id="textshow"></div>
+
+<script>
+	var a = document.getElementById("textshow");
+	function myToast(i) {
+		if (i == "del") {
+			a.innerHTML = "A file has been deleted.";
+			a.style.backgroundColor = "#c9302c";
+		}
+		a.className = "show";
+		setTimeout(function() {
+			a.className = a.className.replace("show", "");
+		}, 3000);
+	}
+</script>
