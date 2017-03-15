@@ -160,11 +160,11 @@ public class FileUploadController {
 			 fileDB.setName(file.getOriginalFilename());
 		        fileDB.setSize((double)file.getSize()/1024.0);
 		        fileDB.setDateupload(new Date());
-		        fileDB.setPath((file.getOriginalFilename()).toString());
+		        fileDB.setPath((file.getOriginalFilename()).toString()+(new Date()).getTime());
 		        fileDB.setUserId(user.getId());
 		        fileDB.setIdType(category);
 		        fileService.insertFile(fileDB);
-		        storageService.store(file);
+		        storageService.store(file,Paths.get(fileDB.getPath()));
 		        fileService.afterUpload(user.getId(), file.getSize()/1024.0);
 		        redirectAttributes.addFlashAttribute("message",
 		                "You successfully uploaded " + file.getOriginalFilename() + "!");
