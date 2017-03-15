@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="landing">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -77,7 +77,7 @@
 <!-- Analytics end-->
 
 </head>
-<body data-spy="scroll">
+<body data-spy="scroll" ng-controller="landingController">
 	<!-- Preloader -->
 	<div id="preloader">
 		<div id="status">
@@ -308,7 +308,8 @@
 		<!-- SERVICE ITEMS START -->
 		<div class="row">
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<img src="images/s1.png" alt="">
+				<a href="#portfolio"><img src="images/s1.png" alt=""
+					height="100px" width="100px"></a>
 				<h4>Responsive Web Design</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -317,7 +318,8 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<img src="images/s2.png" alt="">
+				<a href="#portfolio"><img src="images/s2.png" alt=""
+					height="100px" width="100px"></a>
 				<h4>Android App Design</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -326,7 +328,8 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<img src="images/s3.png" alt="">
+				<a href="#portfolio"><img src="images/s3.png" alt=""
+					height="100px" width="100px"></a>
 				<h4>iOS App Design</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -335,7 +338,8 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<img src="images/s4.png" alt="">
+				<a href="#portfolio"><img src="images/s4.png" alt=""
+					height="100px" width="100px"></a>
 				<h4>Windows App Design</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -344,7 +348,8 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<img src="images/s5.png" alt="">
+				<a href="#portfolio"><img src="images/s5.png" alt=""
+					height="100px" width="100px"></a>
 				<h4>Brand Identity Design</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -353,7 +358,8 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<img src="images/s6.png" alt="">
+				<a href="#portfolio"><img src="images/s6.png" alt=""
+					height="100px" width="100px"></a>
 				<h4>CMYK Print Design</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -368,29 +374,36 @@
 	<!-- ===========================
     PORTFOLIO SECTION START
     =========================== -->
-	<div id="portfolio">
-		<div class="sectionhead wow bounceInUp" data-wow-duration="2s">
-			<span class="bigicon icon-rocket"></span>
-			<h3>A few recent works</h3>
-			<hr class="separetor">
-		</div>
-		<!-- PORTFOLIO SECTION HEAD END -->
+	<div id="portfolio" class="container">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Name</th>
+					<th>Dateupload</th>
+					<th>Uploader</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="f in files track by $index">
+					<td>{{$index+1}}</td>
+					<td>{{f[1]}}</td>
+					<td>{{f[5] | date:'MM/dd/yyyy'}}</td>
+					<td>{{f[8]}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul class="list-inline">
+			<li><button class="btn m-btn"
+					ng-click="getFileByPage(page=page-1,5)" ng-disabled="page-1<0"><<</button></li>
+			<li ng-repeat="i in getNumber(pageSum) track by $index">
+				<button class="btn m-btn active" ng-click="getFileByPage($index, 5)">{{$index+1}}</button>
+			</li>
+			<li><button class="btn m-btn"
+					ng-click="getFileByPage(page=page+1,5)"
+					ng-disabled="page+1>=pageSum">>></button></li>
 
-		<!-- PORTFOLIO ITEMS START -->
-		<div class="portfolioitems container">
-			<ul>
-				<div id="shotsByPlayerId"></div>
-			</ul>
-			<!--REFER TO THE js/drifolio.js-->
-		</div>
-		<!-- PORTFOLIO ITEMS END -->
-
-		<!--Replace the URL below with your dribbble profile URL-->
-		<a class="btn btn-default wow fadeInUp"
-			href="http://dribbble.com/srizon" role="button"> <span
-			class="btnicon icon-social-dribbble"></span> <span
-			class="button_text">View all items</span>
-		</a>
+		</ul>
 	</div>
 	<!-- PORTFOLIO SECTION END -->
 
@@ -555,5 +568,15 @@
 	<script>
 		new WOW().init();
 	</script>
+	<script src="../static/js/lib/angular-1.4.9/angular.js"
+		th:src="@{/js/lib/angular-1.4.9/angular.js}"></script>
+	<script src="../static/js/lib/angular-1.4.9/angular-resource.js"
+		th:src="@{/js/lib/angular-1.4.9/angular-resource.js}"></script>
+	<script src="../static/js/lib/angular-1.4.9/angular-route.js"
+		th:src="@{/js/lib/angular-1.4.9/angular-route.js}"></script>
+
+	<script
+		src="../static/js/controller/landingController/landingController.js"
+		th:src="@{/js/controller/landingController/landingController.js}"></script>
 </body>
 </html>
