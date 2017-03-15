@@ -129,18 +129,32 @@
 	<!--header end-->
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-body">
-					<div class="modal-welcome">Welcome</div>
+					<div class="modal-welcome">
+						WELLCOME TO <font style="color: #0c750c">MFS.COM</font><br>
+					</div>
 					<hr>
-					<div class="modal-desc">Desc</div>
+					<div class="modal-desc">
+						File storage made easy – including powerful features you won’t
+						find anywhere else. Whether you’re sharing photos, videos, audio,
+						or docs, <font style="color: #0c750c">MFS.COM</font> can simplify
+						your workflow. Always have your important files with you. Never
+						forget your work at home. View, manage, and share from anywhere.<br>
+						<br> <font style="font-weight: bold; font-size: large;">We
+							make your storing work convenient like never before</font>
+					</div>
 				</div>
 				<br> <br> <br>
 				<div class="m-modal-footer">
-					<button class="btn btn-login">Login</button>
+					<a href="/registration"><button class="btn btn-login">Sign
+							Up Now</button></a>
+					<p>
+						<a href="/login">Already have an acount ?</a>
+					</p>
 				</div>
 
 			</div>
@@ -157,8 +171,8 @@
 
 		<!-- SERVICE SECTION HEADING START -->
 		<div class="sectionhead  row wow fadeInUp">
-			<span class="bigicon icon-cup "></span>
-			<h3>This is what I can do for you</h3>
+			<span class="bigicon icon-grid "></span>
+			<h3>This is your favorite catelogies</h3>
 			<hr class="separetor">
 		</div>
 		<!--SERVICE SECTION HEADING END-->
@@ -168,7 +182,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s1.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>Responsive Web Design</h4>
+				<h4>TEXTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -178,7 +192,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s2.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>Android App Design</h4>
+				<h4>PICTURES</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -188,7 +202,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s3.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>iOS App Design</h4>
+				<h4>DOCUMENTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -198,7 +212,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s4.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>Windows App Design</h4>
+				<h4>PRESENTATION</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -208,7 +222,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s5.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>Brand Identity Design</h4>
+				<h4>MULTIMEDIA</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -218,7 +232,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s6.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>CMYK Print Design</h4>
+				<h4>COMPRESSION</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -232,9 +246,14 @@
 	<!-- ===========================
     PORTFOLIO SECTION START
     =========================== -->
-	<div id="portfolio" class="container">
-		<table class="table table-striped">
-			<thead>
+	<div id="portfolio" class="container" style="background-color: white">
+		<div class="sectionhead  row wow fadeInUp">
+			<span class="bigicon icon-list "></span>
+			<h3>This is what we have for you</h3>
+			<hr class="separetor">
+		</div>
+		<table class="table">
+			<thead style="background-color: green">
 				<tr>
 					<th>No.</th>
 					<th>Name</th>
@@ -242,7 +261,7 @@
 					<th>Uploader</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style="background-color: #efeded">
 				<tr ng-repeat="f in files track by $index">
 					<td>{{$index+1}}</td>
 					<td>{{f[1]}}</td>
@@ -270,10 +289,8 @@
     =========================== -->
 	<div id="testimonials" class="container">
 		<div class="sectionhead wow bounceInUp" data-wow-duration="2s">
-			<span class="bigicon icon-bubbles"></span>
-			<h3>This is what I love to listen</h3>
-			<h4>Expedita nobis natus doloribus blanditiis quos, atque
-				voluptatem, veritatis soluta eveniet ea!</h4>
+			<span class="bigicon icon-users"></span>
+			<h3>The Team</h3>
 			<hr class="separetor">
 		</div>
 		<!-- TESTIMONIAL SECTIONHEAD END -->
@@ -283,7 +300,7 @@
 			<!-- 1ST TESTIMONIAL ITEM -->
 			<div class="col-md-6 wow bounceIn" data-wow-duration="2s">
 				<div class="clientsphoto">
-					<img src="images/dan.jpg" alt="Dan">
+					<img src="images/Thinh.jpg" alt="Thinh">
 				</div>
 
 				<div class="quote">
@@ -293,8 +310,8 @@
 							hic odit saepe repellat nesciunt dolorum, officiis laborum ad,
 							aliquam. Quos, et.</p>
 					</blockquote>
-					<h5>Dan Cederholm</h5>
-					<p>Co-Founder, Dribbble</p>
+					<h5>Thinh Quoc, Le</h5>
+					<p>EIU Student</p>
 				</div>
 			</div>
 			<!-- 1ST TESTIMONIAL ITEM END -->
@@ -302,7 +319,7 @@
 			<!-- 2ND TESTIMONIAL ITEM -->
 			<div class="col-md-6 wow bounceIn" data-wow-duration="3s">
 				<div class="clientsphoto">
-					<img src="images/bill.jpg" alt="Bill">
+					<img src="images/Vuong.png" alt="Vuong">
 				</div>
 
 				<div class="quote">
@@ -312,8 +329,8 @@
 							hic odit saepe repellat nesciunt dolorum, officiis laborum ad,
 							aliquam. Quos, et. lorem</p>
 					</blockquote>
-					<h5>Bill S Kenney</h5>
-					<p>Art Director at Focus Lab LLC.</p>
+					<h5>Vuong Minh, Vu</h5>
+					<p>Ton Duc Thang Student</p>
 				</div>
 			</div>
 			<!-- 2ND TESTIMONIAL ITEM END -->
@@ -321,7 +338,7 @@
 			<!-- 3RD TESTIMONIAL ITEM -->
 			<div class="col-md-6 wow bounceIn" data-wow-duration="3s">
 				<div class="clientsphoto">
-					<img src="images/eric.png" alt="Eric">
+					<img src="images/Ngan.jpg" alt="Eric">
 				</div>
 
 				<div class="quote">
@@ -331,8 +348,8 @@
 							hic odit saepe repellat nesciunt dolorum, officiis laborum ad,
 							aliquam. Quos, et.</p>
 					</blockquote>
-					<h5>Eric Hoffman</h5>
-					<p>Principal Designer, JellyJar</p>
+					<h5>Ngan Thao, Le</h5>
+					<p>EIU Student</p>
 				</div>
 			</div>
 			<!-- 3RD TESTIMONIAL ITEM END -->
@@ -340,7 +357,7 @@
 			<!-- 4TH TESTIMONIAL ITEM -->
 			<div class="col-md-6 wow bounceIn" data-wow-duration="2s">
 				<div class="clientsphoto">
-					<img src="images/ramil.jpg" alt="Ramil">
+					<img src="images/Ky.png" alt="Ky">
 				</div>
 
 				<div class="quote">
@@ -350,8 +367,24 @@
 							hic odit saepe repellat nesciunt dolorum, officiis laborum ad,
 							aliquam. Quos, et.</p>
 					</blockquote>
-					<h5>Ramil Derogongun</h5>
-					<p>Visual Designer, Bluroon</p>
+					<h5>Ky, Tran</h5>
+					<p>Cant Remember Uni</p>
+				</div>
+			</div>
+			<div  class="col-md-6 wow bounceIn" data-wow-duration="3s">
+				<div class="clientsphoto">
+					<img src="images/Thong.jpg" alt="Thong">
+				</div>
+
+				<div class="quote">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							Quia et pariatur ipsam tempora officia ea iusto expedita, nulla,
+							hic odit saepe repellat nesciunt dolorum, officiis laborum ad,
+							aliquam. Quos, et. lorem</p>
+					</blockquote>
+					<h5>Thong Duy, Trang</h5>
+					<p>FPT Student</p>
 				</div>
 			</div>
 			<!-- 4TH TESTIMONIAL ITEM END -->
