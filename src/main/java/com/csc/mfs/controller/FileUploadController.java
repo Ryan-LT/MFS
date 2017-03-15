@@ -97,7 +97,6 @@ public class FileUploadController {
  			}
  			
  	 		downLoad.setDatedownload(date);
- 	 		System.out.println(date.getTime());
  	 		downloadService.insert(downLoad);
  	        Resource file = storageService.loadAsResource(fileDownLoad.getPath());
  	        return ResponseEntity
@@ -121,11 +120,12 @@ public class FileUploadController {
  		Files fileDownLoad = fileRepo.findOne(idFile);
  		
  		// check if the user have not reach the maximum download per day.
- 		if(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize())>=0)
+ 		double checkData = downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()); 
+ 		if(checkData>0)
  		{
  	        return ResponseEntity
                 .ok()
-                .body(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()));
+                .body(checkData);
  		}
  		return ResponseEntity
 	                .ok()
