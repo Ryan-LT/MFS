@@ -3,21 +3,21 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Id</th>
+			<th>#</th>
 			<th>Name</th>
-			<th>Size</th>
 			<th>Dateupload</th>
-			<th>UserId</th>
+			<th>User</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="f in files">
-			<td>{{f.id}}</td>
-			<td>{{f.name}}</td>
-			<td>{{f.dateupload}}</td>
-			<td>{{f.userId}}</td>
+		<tr ng-repeat="f in files track by $index">
+			<td>{{$index+1}}</td>
+			<td>{{f[1]}}</td>
+			<td>{{f[5] | date:'MM/dd/yyyy'}}</td>
+			<td>{{f[8]}}</td>
 			<td>
-				<button ng-click="deleteFile(f.id)" type="button"
+				<button ng-click="deleteFile(f[0])" type="button"
 					class="btn btn-danger btn-circle" onclick="myToast('del')">
 					<span style="color: white"
 						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
