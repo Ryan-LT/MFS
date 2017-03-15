@@ -16,8 +16,7 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="\css\dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="\css\dataTables.bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
@@ -28,39 +27,45 @@
 <link rel="stylesheet" type="text/css" href="\css\admin-index.css" />
 </head>
 <body class="body">
-	<ul class="nav-ul">
-		<a href="#/admin" class="li-a">
-			<li class="li"><span class="lii"> <i class="fa fa-home"
-					aria-hidden="true"></i>
-			</span> User Management</li>
-		</a>
-
-		<a href="#/rank" class="li-a">
-			<li class="li"><span class="lii"> <i
-					class="fa fa-sitemap" aria-hidden="true"></i>
-			</span> Rank Management</li>
-		</a>
-
-
-
-		<a href="/" class="li-a">
-			<li class="li"><span class="lii"> <i
-					class="fa fa-list-ol" aria-hidden="true"></i>
-			</span> Ranking</li>
-		</a>
-
-		<a href="/logout" class="li-a">
-			<li class="li"><span class="lii"> <i
-					class="fa fa-sign-out" aria-hidden="true"></i>
-			</span> Logout</li>
-		</a>
-	</ul>
-	<div class="main">
-		<div class="sub">
-			<div ng-view></div>
+	<div class="nav-ul">
+		<div class="nav-header">Mini File Sharing</div>
+		<div class="admin-header">.</div>
+		<div class="admin-info">
+			<a class="user-info"><span class="fa fa-info-circle"></span> Profile</a>
+			<a class="user-setting"><span class="fa fa-cog"></span> Setting</a>
 		</div>
-
+		<a href="#/admin" class="li-a">
+			<div class="li active">
+				<span class="lii"> <i class="fa fa-home" aria-hidden="true"></i>
+				</span> User Management
+			</div>
+		</a> 
+		<a href="#/rank" class="li-a">
+			<div class="li">
+				<span class="lii"> <i class="fa fa-sitemap"
+					aria-hidden="true"></i>
+				</span> Rank Management
+			</div>
+		</a> 
+		<a href="/" class="li-a">
+			<div class="li">
+				<span class="lii"> <i class="fa fa-list-ol"
+					aria-hidden="true"></i>
+				</span> Ranking
+			</div>
+		</a> 
+		<a href="/logout" class="li-a">
+			<div class="li">
+				<span class="lii"> <i class="fa fa-sign-out"
+					aria-hidden="true"></i>
+				</span> Logout
+			</div>
+		</a>
 	</div>
+	<div class="main">
+		<div ng-view></div>
+	</div>
+
 	<footer>
 		<p>Mini File Sharing</p>
 		<p>
@@ -70,7 +75,7 @@
 		<!-- <a href="/"><img src="/images/logo3.png" alt="Logo"
 			class="logo-bottom"></a> -->
 	</footer>
-	
+
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.dataTables.min.js"></script>
