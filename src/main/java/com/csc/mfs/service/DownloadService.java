@@ -140,8 +140,8 @@ public class DownloadService {
 		}
 		System.out.println(date);
 		System.out.println(date.getTime());
-		if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date.getTime())){
-			return (double) downloadRepository.sumSizeDownloadInDay(idUser, date.getTime());
+		if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date)){
+			return (double) downloadRepository.sumSizeDownloadInDay(idUser, date);
 		} else {
 			return 0;
 		}
@@ -157,16 +157,20 @@ public class DownloadService {
 	public double beforeDownload(int idUser, double sizeFile){
 		User user = userRepository.findOne(idUser);
 		if(null!=user){
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
 			try {
 				date = sdf.parse(sdf.format(date));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+//			System.out.println(date);
+//			System.out.println(date.getTime());
 			double size = 0;
-			if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date.getTime())){
-				size = (double) downloadRepository.sumSizeDownloadInDay(idUser, date.getTime());
+			System.out.println(downloadRepository.sumSizeDownloadInDay(idUser, date));
+			if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date)){
+				size = (double) downloadRepository.sumSizeDownloadInDay(idUser, date);
+				System.out.println(size+"--------");
 			}
 			Rank rank = rankRepository.findOne(user.getRank_Id());
 			if(size+sizeFile>=rank.getSizedownload()){

@@ -1,5 +1,6 @@
 package com.csc.mfs.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,8 +33,8 @@ public interface DownloadRepository extends JpaRepository<Download, Integer>{
 	 * @return Object(it could be NULL)
 	 */
 	@Query(value="SELECT SUM(size) FROM files f, download d WHERE f.id=d.id_file"
-			+ " AND d.id_user=:idOfUser AND (UNIX_TIMESTAMP(datedownload)*1000)=:dateDownload", nativeQuery=true)
-	Object sumSizeDownloadInDay(@Param("idOfUser") int idOfUser, @Param("dateDownload") long dateDownload);
+			+ " AND d.id_user=:idOfUser AND datedownload=:dateDownload", nativeQuery=true)
+	Object sumSizeDownloadInDay(@Param("idOfUser") int idOfUser, @Param("dateDownload") Date dateDownload);
 	
 	/**
 	 * Get total download of user

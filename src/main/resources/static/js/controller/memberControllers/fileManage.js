@@ -1,6 +1,6 @@
 var app = angular.module('myWeb');
 
-app.controller('PersonStorageController', function($scope, $http){
+app.controller('fileManage', function($scope, $http){
     //this.files = storage;
 	$scope.count = 0;
     getFiles('0', '2');
@@ -47,5 +47,14 @@ app.controller('PersonStorageController', function($scope, $http){
 			alert("fail");
 		});
     }
-    
+    $scope.changeShare = function(idFile){
+    	alert(idFile);
+    	$http({
+			method: 'get',
+			url: "http://localhost:8080/file/updateSharing/"+idFile
+		}).success(function(data, status, headers, config){
+		})
+		.error(function(data, status, headers, config){
+		});
+    }
 });
