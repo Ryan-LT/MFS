@@ -48,7 +48,6 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/landing.css">
 
 <!-- ===========================
     ICONS: 
@@ -75,38 +74,15 @@
 <!--Replace this line with your analytics code-->
 
 <!-- Analytics end-->
-
+<script>
+	function load() {
+		$('#myModal').modal('show');
+	}
+</script>
 </head>
-<body data-spy="scroll" ng-controller="landingController">
-	<!-- Preloader -->
-	<div id="preloader">
-		<div id="status">
-			<div class="loadicon icon-moustache wow tada infinite"
-				data-wow-duration="8s"></div>
-		</div>
-	</div>
-
+<body data-spy="scroll" ng-controller="landingController"
+	onload="load()">
 	<header>
-		<!-- ===========================
-        HERO AREA
-        =========================== -->
-		<div id="hero">
-			<div class="container herocontent">
-				<h1 class="wow fadeInUp" data-wow-duration="2s">Share your file
-					in second. Visualy.</h1>
-				<h4 class="wow fadeInDown" data-wow-duration="3s">
-					The most powerful online file sharing platform today. Store your
-					documents, videos and every files
-					<h3>Sign Up now to recieve 5MB upload daily</h3>
-				</h4>
-			</div>
-
-			<!-- Featured image on the Hero area -->
-			<img class="heroshot wow bounceInUp" data-wow-duration="4s"
-				src="images/hero-img.png" alt="Featured Work">
-		</div>
-		<!--HERO AREA END-->
-
 		<!-- ===========================
          NAVBAR START
          =========================== -->
@@ -151,146 +127,42 @@
 		<!--navbar end-->
 	</header>
 	<!--header end-->
-
 	<!-- Modal -->
-	<!-- <div class="modal fade" id="loginModal" role="dialog">
-		<div class="modal-dialog">
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-lg">
 
-			Modal content
+			<!-- Modal content-->
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Login</h4>
-				</div>
 				<div class="modal-body">
-					<form th:action="@{/login}" method="POST" class="form">
-						<br />
-						<div class="input-group">
-							<span class="input-group-addon add-on"> <i
-								class="glyphicon glyphicon-user"></i>
-							</span> <input type="text" class="form-control" id="email" name="email"
-								placeholder="Email"> </span>
-						</div>
-						<br />
-
-						<div class="input-group">
-							<span class="input-group-addon add-on"> <i
-								class="glyphicon glyphicon-lock"></i></span> <input type="password"
-								id="password" name="password" placeholder="Password"
-								class="form-control" /> </span>
-						</div>
-
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" /> <br>
-						<div align="center" th:if="${param.error}">
-							<p style="font-size: 20; color: #FF1C19;">Email or Password
-								invalid, please verify</p>
-						</div>
-						<button class="btn btn-lg button-login btn-block" name="Submit"
-							value="Login" type="Submit" th:text="Login"></button>
-					</form>
-
-					<br>
-
-					<form class="form" th:action="@{/registration}" method="get">
-						<div class="form-signup-heading">You don't have an account?</div>
-						<button class="btn btn-lg button-signup btn-block" type="Submit">Create
-							Account</button>
-					</form>
+					<div class="modal-welcome">
+						WELLCOME TO <font style="color: #0c750c">MFS.COM</font><br>
+					</div>
+					<hr>
+					<div class="modal-desc">
+						File storage made easy – including powerful features you won’t
+						find anywhere else. Whether you’re sharing photos, videos, audio,
+						or docs, <font style="color: #0c750c">MFS.COM</font> can simplify
+						your workflow. Always have your important files with you. Never
+						forget your work at home. View, manage, and share from anywhere.<br>
+						<br> <font style="font-weight: bold; font-size: large;">We
+							make your storing work convenient like never before</font>
+					</div>
 				</div>
-			</div>
-		</div>
+				<br> <br> <br>
+				<div class="m-modal-footer">
+					<a href="/registration"><button class="btn btn-login">Sign
+							Up Now</button></a>
+					<p>
+						<a href="/login">Already have an acount ?</a>
+					</p>
+				</div>
 
-	</div> -->
+			</div>
 
-	<!-- ===========================
-    FEATURED CLIENTS SECTION START
-    =========================== -->
-	<div id="clients">
-		<div class="container">
-			<div class="col-md-3">
-				<h4>Proudly worked with:</h4>
-			</div>
-			<div class="col-md-9">
-				<ul>
-					<!--CLIENTS LOGO-->
-					<li><img src="images/payoneer.png" alt="Payoneer"></li>
-					<li><img src="images/amazon.png" alt="Amazon"></li>
-					<li><img src="images/elance-odesk.png" alt="Elance-oDesk"></li>
-					<li><img src="images/curb.png" alt="Curb Envy"></li>
-				</ul>
-				<!--CLIENTS LOGO END-->
-			</div>
 		</div>
-		<hr>
-		<!-- SECTION SEPARETOR LINE -->
 	</div>
-	<!--FEATURED CLIENTS SECTION END-->
 
 
-	<!-- ===========================
-    ABOUT SECTION START
-    =========================== -->
-	<div id="about" class="container">
-
-		<!-- LEFT PART OF THE ABOUT SECTION -->
-		<div class="col-md-6">
-			<div class="row">
-				<h2 class="wow fadeInDown" data-wow-duration="2s">I'm Mamun
-					Srizon from Bangladesh</h2>
-
-				<h4 class="wow fadeInUp" data-wow-duration="3s">A freelance
-					UI/UX wizard as well as a Daydreamer who workes on the Graveyard
-					Shift and sleeps all the day!</h4>
-
-				<p class="wow fadeInDown" data-wow-duration="3s">I'm gonna build
-					me an airport, put my name on it. Why, Michael? So you can fly away
-					from your feelings? I don't care if it takes from now till the end
-					of Shrimpfest.</p>
-				<p class="wow fadeInDown" data-wow-duration="3s">Bugger bag
-					egg's old boy willy jolly scrote munta skive pillock, bloody
-					shambles nose rag blummin' scrote narky ever so, Lorem ipsum dolor
-					sit amet, consectetur adipisicing elit.</p>
-
-				<a class="dribbble-follow-button wow bounce"
-					href="http://dribbble.com/srizon">Follow</a>
-			</div>
-			<!-- ABOUT INFO END -->
-
-
-			<div class="myapps row">
-				<h5>Tools and apps I use everyday:</h5>
-
-				<ul>
-					<!-- FAVORITE APP ICONS START -->
-					<li><img class="wow animated bounceInUp"
-						data-wow-duration="1s" src="images/photoshop.svg" alt="Photoshop"></li>
-					<li><img class="wow bounceInUp" data-wow-duration="2s"
-						src="images/illustrator.svg" alt="Illustrator"></li>
-					<li><img class="wow bounceInUp" data-wow-duration="3s"
-						src="images/flash.svg" alt="Adobe Flash"></li>
-					<li><img class="wow animated bounceInUp"
-						data-wow-duration="4s" src="images/after_effects.svg"
-						alt="After Effects"></li>
-					<li><img class="wow bounceInUp" data-wow-duration="5s"
-						src="images/indesign.svg" alt="InDesign"></li>
-				</ul>
-				<!-- FAVORITE APP ICONS END -->
-			</div>
-		</div>
-		<!-- LEFT PART OF THE ABOUT SECTION END -->
-		<!--Left part end-->
-
-		<!-- RIGHT PART OF THE ABOUT SECTION -->
-		<div class="col-md-6 wow fadeInUp myphoto" data-wow-duration="4s">
-			<img src="images/user.png" alt="Mamun Srizon">
-		</div>
-		<!-- RIGHT PART OF THE ABOUT SECTION END -->
-	</div>
-	<!-- ABOUT SECTION END -->
-
-	<hr>
-	<!-- SECTION SEPARETOR LINE -->
 
 	<!-- ===========================
     SERVICE SECTION START
@@ -299,8 +171,8 @@
 
 		<!-- SERVICE SECTION HEADING START -->
 		<div class="sectionhead  row wow fadeInUp">
-			<span class="bigicon icon-cup "></span>
-			<h3>This is what I can do for you</h3>
+			<span class="bigicon icon-grid "></span>
+			<h3>This is your favorite catelogies</h3>
 			<hr class="separetor">
 		</div>
 		<!--SERVICE SECTION HEADING END-->
@@ -310,7 +182,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s1.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>Responsive Web Design</h4>
+				<h4>TEXTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -320,7 +192,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s2.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>Android App Design</h4>
+				<h4>PICTURES</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -330,7 +202,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s3.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>iOS App Design</h4>
+				<h4>DOCUMENTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -340,7 +212,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s4.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>Windows App Design</h4>
+				<h4>PRESENTATION</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -350,7 +222,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s5.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>Brand Identity Design</h4>
+				<h4>MULTIMEDIA</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -360,7 +232,7 @@
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
 				<a href="#portfolio"><img src="images/s6.png" alt=""
 					height="100px" width="100px"></a>
-				<h4>CMYK Print Design</h4>
+				<h4>COMPRESSION</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
 					nulla.</p>
@@ -374,9 +246,14 @@
 	<!-- ===========================
     PORTFOLIO SECTION START
     =========================== -->
-	<div id="portfolio" class="container">
-		<table class="table table-striped">
-			<thead>
+	<div id="portfolio" class="container" style="background-color: white">
+		<div class="sectionhead  row wow fadeInUp">
+			<span class="bigicon icon-list "></span>
+			<h3>This is what we have for you</h3>
+			<hr class="separetor">
+		</div>
+		<table class="table">
+			<thead style="background-color: green">
 				<tr>
 					<th>No.</th>
 					<th>Name</th>
@@ -384,7 +261,7 @@
 					<th>Uploader</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style="background-color: #efeded">
 				<tr ng-repeat="f in files track by $index">
 					<td>{{$index+1}}</td>
 					<td>{{f[1]}}</td>
@@ -412,10 +289,8 @@
     =========================== -->
 	<div id="testimonials" class="container">
 		<div class="sectionhead wow bounceInUp" data-wow-duration="2s">
-			<span class="bigicon icon-bubbles"></span>
-			<h3>This is what I love to listen</h3>
-			<h4>Expedita nobis natus doloribus blanditiis quos, atque
-				voluptatem, veritatis soluta eveniet ea!</h4>
+			<span class="bigicon icon-users"></span>
+			<h3>The Team</h3>
 			<hr class="separetor">
 		</div>
 		<!-- TESTIMONIAL SECTIONHEAD END -->
@@ -425,7 +300,7 @@
 			<!-- 1ST TESTIMONIAL ITEM -->
 			<div class="col-md-6 wow bounceIn" data-wow-duration="2s">
 				<div class="clientsphoto">
-					<img src="images/dan.jpg" alt="Dan">
+					<img src="images/Thinh.jpg" alt="Thinh">
 				</div>
 
 				<div class="quote">
@@ -435,8 +310,8 @@
 							hic odit saepe repellat nesciunt dolorum, officiis laborum ad,
 							aliquam. Quos, et.</p>
 					</blockquote>
-					<h5>Dan Cederholm</h5>
-					<p>Co-Founder, Dribbble</p>
+					<h5>Thinh Quoc, Le</h5>
+					<p>EIU Student</p>
 				</div>
 			</div>
 			<!-- 1ST TESTIMONIAL ITEM END -->
@@ -444,7 +319,7 @@
 			<!-- 2ND TESTIMONIAL ITEM -->
 			<div class="col-md-6 wow bounceIn" data-wow-duration="3s">
 				<div class="clientsphoto">
-					<img src="images/bill.jpg" alt="Bill">
+					<img src="images/Vuong.png" alt="Vuong">
 				</div>
 
 				<div class="quote">
@@ -454,8 +329,8 @@
 							hic odit saepe repellat nesciunt dolorum, officiis laborum ad,
 							aliquam. Quos, et. lorem</p>
 					</blockquote>
-					<h5>Bill S Kenney</h5>
-					<p>Art Director at Focus Lab LLC.</p>
+					<h5>Vuong Minh, Vu</h5>
+					<p>Ton Duc Thang Student</p>
 				</div>
 			</div>
 			<!-- 2ND TESTIMONIAL ITEM END -->
@@ -463,7 +338,7 @@
 			<!-- 3RD TESTIMONIAL ITEM -->
 			<div class="col-md-6 wow bounceIn" data-wow-duration="3s">
 				<div class="clientsphoto">
-					<img src="images/eric.png" alt="Eric">
+					<img src="images/Ngan.jpg" alt="Eric">
 				</div>
 
 				<div class="quote">
@@ -473,8 +348,8 @@
 							hic odit saepe repellat nesciunt dolorum, officiis laborum ad,
 							aliquam. Quos, et.</p>
 					</blockquote>
-					<h5>Eric Hoffman</h5>
-					<p>Principal Designer, JellyJar</p>
+					<h5>Ngan Thao, Le</h5>
+					<p>EIU Student</p>
 				</div>
 			</div>
 			<!-- 3RD TESTIMONIAL ITEM END -->
@@ -482,7 +357,7 @@
 			<!-- 4TH TESTIMONIAL ITEM -->
 			<div class="col-md-6 wow bounceIn" data-wow-duration="2s">
 				<div class="clientsphoto">
-					<img src="images/ramil.jpg" alt="Ramil">
+					<img src="images/Ky.png" alt="Ky">
 				</div>
 
 				<div class="quote">
@@ -492,8 +367,24 @@
 							hic odit saepe repellat nesciunt dolorum, officiis laborum ad,
 							aliquam. Quos, et.</p>
 					</blockquote>
-					<h5>Ramil Derogongun</h5>
-					<p>Visual Designer, Bluroon</p>
+					<h5>Ky, Tran</h5>
+					<p>Cant Remember Uni</p>
+				</div>
+			</div>
+			<div  class="col-md-6 wow bounceIn" data-wow-duration="3s">
+				<div class="clientsphoto">
+					<img src="images/Thong.jpg" alt="Thong">
+				</div>
+
+				<div class="quote">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							Quia et pariatur ipsam tempora officia ea iusto expedita, nulla,
+							hic odit saepe repellat nesciunt dolorum, officiis laborum ad,
+							aliquam. Quos, et. lorem</p>
+					</blockquote>
+					<h5>Thong Duy, Trang</h5>
+					<p>FPT Student</p>
 				</div>
 			</div>
 			<!-- 4TH TESTIMONIAL ITEM END -->

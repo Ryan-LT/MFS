@@ -51,11 +51,9 @@ input[type="password"] {
 }
 
 .body {
-	/* background: url(/images/bg3.jpg) fixed;
-	background-size: cover;
+	background-image: url("/images/loginIM.png");
 	background-repeat: no-repeat;
-	background-position: center center; */
-	background-color: #363942;
+	background-size: cover;
 }
 
 .button-login {

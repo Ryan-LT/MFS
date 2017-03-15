@@ -23,7 +23,7 @@ $.jribbble.getShotsByPlayerId('srizon', function (playerShots) {
 //========================
 //Follow button
 //========================
-
+/*
 $(function() {
 
 
@@ -43,7 +43,7 @@ $(function() {
 		$(button+'.disableCount').find('.count').remove();
 	});
 
-});
+});*/
 
 
 //========================
