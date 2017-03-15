@@ -71,13 +71,11 @@ app.controller("explore", function($http, $scope, $window, $location, $window){
 				method: 'get',
 				url: "http://localhost:8080/download/check/" + idFile
 			}).success(function(data, status, headers, config){
-				if(data<0){
-					alert("OK");
-					//$location.hash('http://localhost:8080/download/files/10');
+				alert(data);
+				if(data<=0){
 					$window.location.href = 'http://localhost:8080/download/files/10';
 				} else {
-					alert("bạn đã hết dung lượng download hôm nay!")
-					return;
+					alert("bạn đã hết dung lượng download hôm nay!");
 				}
 			})
 			.error(function(data, status, headers, config){

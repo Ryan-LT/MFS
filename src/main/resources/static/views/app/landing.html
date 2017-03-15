@@ -180,7 +180,7 @@
 		<!-- SERVICE ITEMS START -->
 		<div class="row">
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio"><img src="images/s1.png" alt=""
+				<a href="#portfolio" ng-click="getFileByCategory('Text',0,100)"><img src="images/s1.png" alt=""
 					height="100px" width="100px"></a>
 				<h4>TEXTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -190,7 +190,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio"><img src="images/s2.png" alt=""
+				<a href="#portfolio" ng-click="getFileByCategory('Graphic',0,100)"><img src="images/s2.png" alt=""
 					height="100px" width="100px"></a>
 				<h4>PICTURES</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -200,7 +200,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio"><img src="images/s3.png" alt=""
+				<a href="#portfolio" ng-click="getFileByCategory('Spreadsheet',0,100)"><img src="images/s3.png" alt=""
 					height="100px" width="100px"></a>
 				<h4>DOCUMENTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -210,7 +210,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio"><img src="images/s4.png" alt=""
+				<a href="#portfolio" ng-click="getFileByCategory('Presentation',0,100)"><img src="images/s4.png" alt=""
 					height="100px" width="100px"></a>
 				<h4>PRESENTATION</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -220,7 +220,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio"><img src="images/s5.png" alt=""
+				<a href="#portfolio" ng-click="getFileByCategory('Multimedia',0,100)"><img src="images/s5.png" alt=""
 					height="100px" width="100px"></a>
 				<h4>MULTIMEDIA</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -230,7 +230,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio"><img src="images/s6.png" alt=""
+				<a href="#portfolio" ng-click="getFileByCategory('Compression',0,100)"><img src="images/s6.png" alt=""
 					height="100px" width="100px"></a>
 				<h4>COMPRESSION</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -259,6 +259,7 @@
 					<th>Name</th>
 					<th>Dateupload</th>
 					<th>Uploader</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody style="background-color: #efeded">
@@ -266,7 +267,13 @@
 					<td>{{$index+1}}</td>
 					<td>{{f[1]}}</td>
 					<td>{{f[5] | date:'MM/dd/yyyy'}}</td>
-					<td>{{f[8]}}</td>
+					<td>{{f[9]}}</td>
+					<td>
+						<button ng-disabled="{{f[8]==0}}" ng-click="downloadFile(file.id)" type="button" class="btn btn-circle btn-warning">
+							Download
+							<span class="fa fa-download"></span>
+						</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>
