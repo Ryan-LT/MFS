@@ -170,5 +170,12 @@ public class FileController {
 	public long countSearch(@PathVariable("infoFile") String infoFile) {
 		return fileService.countSearch(infoFile);
 	}
+	
+	@RequestMapping("/updateSharing/{idFile}")
+	public void updateSharing(@PathVariable("idFile") int idFile) {
+		fileService.updateSharing(idFile);;
+	}
+	
+	
 
 }
