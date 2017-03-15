@@ -1,16 +1,7 @@
 .body {
 }
 
-.nav-header {
-	padding: 10px;
-	text-align: center;
-	font-size: 25px;
-	color: white;
-	background-color: #008040;
-	border-bottom: 2px solid white;
-}
-
-.admin-header {
+.user-header {
 	margin: 40px auto 5px auto;
 	color: white;
 	width: 100px;
