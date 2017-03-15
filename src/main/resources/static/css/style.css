@@ -74,10 +74,14 @@ HERO AREA
 #hero{
     color: #fff;
     text-align: center;
-    background: url(../img/trianglify-background.svg)no-repeat; /*your background image*/
+    background: url(../images/bg6.jpg) no-repeat; /*your background image*/
     background-size: cover;
-    max-height: 880px;
+    height: 920px;
     overflow: hidden;
+}
+
+.opa1 {
+	opacity: 1 !important;
 }
 
 .herocontent{
@@ -275,7 +279,7 @@ FOLLOW BUTTON
     height: 18px;
     width: 18px;
     float: left;
-    background: url(../img/icon.png) no-repeat top left;
+    background: url(../images/icon.png) no-repeat top left;
 }
 
 .dribbble-follow-button .label:hover {
@@ -316,3 +320,52 @@ FOLLOW BUTTON
     border-right-color: white;
 }
 
+
+
+
+
+
+
+
+
+
+
+.modal-dialog {
+	margin: 100px auto;
+}
+.modal-content {
+	border-radius: 10px;
+}
+
+.modal-body {
+}
+
+.modal-welcome {
+	text-align: center;
+	font-weight: bolder;
+	font-size: 20px;
+}
+
+.modal-desc {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+hr {
+	margin-left: 200px;
+    margin-right: 200px;
+    border-width: 3px;
+    border-color: red;
+}
+
+.m-modal-footer {
+	text-align: center;
+	margin-bottom: 10px;	
+}
+
+
+.btn-login {
+	background-color: #1faf5c;
+	color: white;
+	font-weight: bold;
+}
