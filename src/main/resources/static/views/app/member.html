@@ -190,9 +190,12 @@
 						<li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
 						</li>
 						<li class="sectionider"></li>
-						<li><a href="#"><i class="fa fa-fw fa-power-off"></i> Log
-								Out</a></li>
-					</ul></li>
+						<li>
+							<form action="#" th:action="@{/logout}" method="POST">
+								<button type="submit">Logout</button>
+							</form>
+						</li>
+					</ul>
 			</ul>
 			<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 			<section class="collapse navbar-collapse navbar-ex1-collapse">
