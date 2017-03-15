@@ -81,6 +81,14 @@ public class FileService {
 	}
 	
 	/**
+	 * Get total file
+	 * @return long
+	 */
+	public long countFile(){
+		return fileRepository.countFile();
+	}
+	
+	/**
 	 * Delete file(set active =0... foreign key)
 	 * @param id
 	 */

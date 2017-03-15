@@ -104,6 +104,14 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	@Query(value="SELECT count(*) FROM files WHERE active=1 AND user_id=:idUser", nativeQuery=true)
 	long countFileActiveByUserId(@Param("idUser") int idUser);
 	
+	
+	/**
+	 * Count all file
+	 * @return long
+	 */
+	@Query(value="SELECT count(*) FROM files WHERE active=1", nativeQuery=true)
+	long countFile();
+	
 	/**
 	 * Update active when user delete file
 	 * @param idFile
