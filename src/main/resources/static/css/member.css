@@ -1,6 +1,174 @@
-/* Put your css in here */
+* {font-family: "Poppins", sans-serif}
 
-body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+.body {
+}
+
+.ava-header {
+	margin: 40px auto 5px auto;
+	color: white;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	border-radius: 50%;
+	border: 1px solid white;
+}
+
+.info {
+	text-align: center;
+	padding: 5px;
+	color: yellow;
+	margin-bottom: 40px;
+}
+
+.profile {
+	color: lightgreen;
+}
+
+.profile:hover {
+	color: green;
+	cursor: pointer;
+}
+
+.setting {
+	color: lightgreen;
+	padding-left: 8px;
+}
+
+.setting:hover {
+	color: green;
+	cursor: pointer;
+}
+
+.nav-ul {
+	float: left;
+	width: 220px;
+	background: #363942;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	position: fixed;
+}
+
+.li {
+	background-color: transparent;
+	color: #ffffff;
+	list-style-type: none;
+	margin: auto;
+	padding: 5px 0 5px 15px;
+}
+
+.li:hover {
+	background-color: #008040;
+	color: white;
+	font-weight: bold;
+}
+
+.li.active {
+	background-color: white;
+	color: #363942;
+	font-weight: bold;
+}
+
+.li-a {
+	text-decoration: none;
+	color: white;
+	font-size: 15px;
+}
+
+.li-a:hover {
+	text-decoration: none;
+	color: white;
+}
+
+.lii {
+	font-size: 20px;
+}
+
+
+
+.main {
+	margin-left: 220px;
+	min-height: 800px;
+	padding: 10px;
+}
+
+.main-header {
+	padding: 10px;
+	padding-top: 50px;
+	padding-bottom: 5px;
+	margin-bottom: 50px;
+	font-size: 30px;
+	border-bottom: 1px double #363942;
+	color: #363942;
+	font-weight: 500;
+}
+
+footer {
+	left: 0;
+	right:0;
+	bottom: 0;
+	position: inherit;
+	background-color: #f2f7ff;
+	text-align: center;
+	margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
@@ -28,7 +196,7 @@ input[type=text]:focus {
 }
 
 #myInput {
-      /* background-image: url('/css/searchicon.png'); */
+      background-image: url('/css/searchicon.png');
       background-position: 10px 10px;
       background-repeat: no-repeat;
       width: 100%;
@@ -61,4 +229,4 @@ input[type=text]:focus {
 
 .white_color{
 	color: white !important;
-}
+} */

@@ -1,68 +1,159 @@
+<div ng-controler="explore">
+	<!-- <div class="main-header">Search File</div> -->
 
-<section class="container" ng-controller="explore">
-	
-        <section class="row">
-        	<section class="col-md-1"></section>
-        	<section class="col-md-9">
-	          <h1>Search Files</h1>
-	          <section class="row">
-	          		<section class="col-md-6">
-	          			<input type="text" id="myInput" placeholder="filter..." ng-model="filterFile">
-	          		</section>
-	          		<section class="col-md-6">
-	          			<form ng-submit="doSearch(0, 2)">
-			          		<input type="text" id="search" placeholder="Info to search..." ng-model="infoSearch">
-			          		<button type="submit" class="btn btn-primary" >Search</button>
-		          		</form>
-		          	</section>
-	          </section>
-	          <section class="row">{{msgErrorDownload}}
-	          </section>
-	          <section>
-		          <table class="table table-hover">
-		              <thead class="bg-primary text-white">
-		                <tr>
-		                  <th>#</th>
-		                  <th>Name</th>
-		                  <th>Size</th>
-		                  <th>Updated Date</th>
-		                  <th>Owner</th>
-		                  <th>Action</th>
-		                </tr>
-		              </thead>
-		              <tbody>
-		                <tr ng-repeat="file in files track by $index">
-		                  <td>{{$index+1}}</td>
-		                  <td>{{file.name}}</td>
-		                  <td>{{file.size}}</td>
-		                  <td>{{file.dateupload}}</td>
-		                  <td></td>
-		                  <td>
-			                 <a href="" 
-			                 	ng-click="downloadFile(file.id)">
-								<button type="button" class="btn btn-danger">
-									Download
-								<span style="color: white"class="glyphicon glyphicon-download-alt"></span>
-								</button>
-							  </a>
-		                  </td>
-		                  <!-- <td>{{getOwner(file.userId)}}</td> -->
-		                  <!-- <td><i class="fa fa-download">   <i class="fa fa-file"></td> -->
-		                </tr>
-		              </tbody>
-		            </table>
-	            </section>
-	            <section class="row">
-					<ul class="list-inline">
-    					<li ng-repeat="i in getNumber(count) track by $index">
-    					<button ng-click="getDownloadByPage($index, 2)" >{{$index+1}}</button>
-    					</li>
-					</ul>
-					<!-- <a ng-click="func($event)" href="http://localhost:8080/download/files/10">ahihi</a> -->
+	<form class="search-form" ng-submit="doSearch(0, 2)">
+		<input class="input-search" type="text" id="search"
+			placeholder="Search ..." ng-model="infoSearch">
+		<button type="submit" class="btn btn-search">Search</button>
+	</form>
+	<div class="filter-form">
+		<input class="input-filter" type="text" id="myInput"
+			placeholder="Filter ..." ng-model="filterFile">
+	</div>
+
+
+	<br>
+	<!-- <div class="advance-search" onclick="toggleSearch()">
+		<span class="fa fa-plus-square fa-custom"></span> Advance Search
+	</div> -->
+
+	<!-- <div id="advance" style="display: none;"> -->
+
+</div>
+
+
+<div class="row">{{msgErrorDownload}}</div>
+
+
+<!-- <div class="row">
+		<div class="card" ng-repeat="file in files track by $index">
+			<div class="container">
+				<div>
+					<div class="card-title">{{file.name}}</div>
+					<div class="card-info">
+						Size: {{file.size}} <br> Updated date: {{file.dateupload}} <br>
+						Owner: {{file.owner}}
+					</div>
+					<button ng-click="downloadFile(file.id)" type="button"
+						class="btn card-button">
+						Download <span style="color: white"
+							class="glyphicon glyphicon-download-alt"></span>
+					</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br> -->
+
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th width="40%">Name</th>
+			<th>Size</th>
+			<th>Updated Date</th>
+			<th>Owner</th>
+			<th width="15%">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="file in files track by $index">
+			<td>{{$index+1}}</td>
+			<td>{{file.name}}</td>
+			<td>{{file.size}}</td>
+			<td>{{file.dateupload}}</td>
+			<td></td>
+			<td>
+				<button ng-click="downloadFile(file.id)" type="button"
+					class="btn btn-circle btn-warning">
+					<span class="fa fa-download"></span>
+				</button>
+				<button type="button" class="btn btn-circle btn-info">
+					<span class="fa fa-info"></span>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<ul class="list-inline">
+	<li ng-repeat="i in getNumber(count) track by $index">
+		<button class="btn m-btn active"
+			ng-click="getDownloadByPage($index, 2)">{{$index+1}}</button>
+	</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+<!-- <section class="container" ng-controller="explore">
+
+	<section class="row">
+		<section class="col-md-1"></section>
+		<section class="col-md-9">
+			<h1>Search Files</h1>
+			<section class="row">
+				<section class="col-md-6">
+					<input type="text" id="myInput" placeholder="filter..."
+						ng-model="filterFile">
 				</section>
-	        </section>
-	        <section class="col-md-1"></section>
-        </section>
-         <!-- /#page-wrapper -->
-    </section>
-  
+				<section class="col-md-6">
+					<form ng-submit="doSearch(0, 2)">
+						<input type="text" id="search" placeholder="Info to search..."
+							ng-model="infoSearch">
+						<button type="submit" class="btn btn-primary">Search</button>
+					</form>
+				</section>
+			</section>
+			<section class="row">{{msgErrorDownload}}</section>
+			<section>
+				<table class="table table-hover">
+					<thead class="bg-primary text-white">
+						<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Size</th>
+							<th>Updated Date</th>
+							<th>Owner</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="file in files track by $index">
+							<td>{{$index+1}}</td>
+							<td>{{file.name}}</td>
+							<td>{{file.size}}</td>
+							<td>{{file.dateupload}}</td>
+							<td></td>
+							<td>
+								<button ng-click="downloadFile(file.id)" type="button"
+									class="btn btn-danger">
+									Download <span style="color: white"
+										class="glyphicon glyphicon-download-alt"></span>
+								</button>
+							</td>
+							<td>{{getOwner(file.userId)}}</td>
+							<td><i class="fa fa-download">   <i class="fa fa-file"></td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+			<section class="row">
+				<ul class="list-inline">
+					<li ng-repeat="i in getNumber(count) track by $index">
+						<button ng-click="getDownloadByPage($index, 2)">{{$index+1}}</button>
+					</li>
+				</ul>
+			</section>
+		</section>
+		<section class="col-md-1"></section>
+	</section>
+	/#page-wrapper
+</section> -->
