@@ -116,9 +116,8 @@ public class FileService {
 	 * @param pageSize
 	 * @return List<Files>
 	 */
-	public List<Files> searchFile(String infoFile, int page, int pageSize){
-		int number = page*pageSize;
-		return fileRepository.findByInfo(infoFile, number, pageSize);
+	public Page<Object> searchFile(String infoFile, Pageable pageable){
+		return fileRepository.findByInfo(infoFile, pageable);
 	}
 	
 	/**
@@ -207,10 +206,6 @@ public class FileService {
 	 */
 	public List<Object> getAllFilePagination(int page, int pageSize){
 		return fileRepository.getAllFilePagination(page*pageSize, pageSize);
-	}
-	
-	public long countSearch(String infoFile){
-		return fileRepository.countSearch(infoFile);
 	}
 	
 	public void updateSharing(int idFile){
