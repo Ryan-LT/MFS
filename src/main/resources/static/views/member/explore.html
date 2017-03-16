@@ -38,10 +38,13 @@
 		                  <td>{{file.dateupload}}</td>
 		                  <td></td>
 		                  <td>
-		                  	<button ng-click="downloadFile(file.id)" type="button" class="btn btn-danger">
-							Download
-							<span style="color: white"class="glyphicon glyphicon-download-alt"></span>
-							</button>
+			                 <a href="" 
+			                 	ng-click="downloadFile(file.id)">
+								<button type="button" class="btn btn-danger">
+									Download
+								<span style="color: white"class="glyphicon glyphicon-download-alt"></span>
+								</button>
+							  </a>
 		                  </td>
 		                  <!-- <td>{{getOwner(file.userId)}}</td> -->
 		                  <!-- <td><i class="fa fa-download">   <i class="fa fa-file"></td> -->
@@ -55,6 +58,7 @@
     					<button ng-click="getDownloadByPage($index, 2)" >{{$index+1}}</button>
     					</li>
 					</ul>
+					<!-- <a ng-click="func($event)" href="http://localhost:8080/download/files/10">ahihi</a> -->
 				</section>
 	        </section>
 	        <section class="col-md-1"></section>

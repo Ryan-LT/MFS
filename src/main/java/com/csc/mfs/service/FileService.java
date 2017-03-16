@@ -211,6 +211,18 @@ public class FileService {
 		return fileRepository.countSearch(infoFile);
 	}
 	
+	public void updateSharing(int idFile){
+		Files file = fileRepository.findOne(idFile);
+		if(null!=file){
+			if(file.getSharing()!=1){
+				file.setSharing(1);
+			} else {
+				file.setSharing(0);
+			}
+		}
+		fileRepository.flush();
+	}
+	
 }
 
 

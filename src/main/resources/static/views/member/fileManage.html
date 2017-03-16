@@ -1,4 +1,4 @@
-<section class="container" ng-controller="PersonStorageController as storage" ng-init="stt=0; incre=1">
+<section class="container" ng-controller="fileManage" ng-init="stt=0; incre=1">
 	<section class="row">
 		<section class="col-md-1"></section>
 		<section class="col-md-9">
@@ -21,6 +21,7 @@
 				    <th style="width:25%;">Name File</th>
 				    <th style="width:25%;">Size</th>
 				    <th style="width:25%;">Date Upload</th>
+				    <th>Sharing</th>
 				    <th style="width:25%;">Action</th>
 				  </tr>
 				  <tr ng-repeat="file in files | filter: filter_">
@@ -28,16 +29,22 @@
 				    <td>{{file.size | number:0}}</td>
 				    <td>{{file.dateupload}}</td>
 				    <td>
+				    	<input type="checkbox" ng-checked="{{file.sharing==1}}" ng-model="shareFile" 
+				    											ng-click="changeShare(file.id)">
+				    </td>
+				    <td>
 						<button ng-click="deleteFile(file.id)" type="button" class="btn btn-danger">
 							Delete
 							<span style="color: white"class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
 						</button>
 					</td>
 					<td>
-		            	<button ng-click="downloadFile(file.id)" type="button" class="btn btn-danger">
-						Download
-						<span style="color: white"class="glyphicon glyphicon-download-alt"></span>
-						</button>
+						<a href="" ng-click="downloadFile(file.id)">
+							<button type="button" class="btn btn-danger">
+								Download
+							<span style="color: white"class="glyphicon glyphicon-download-alt"></span>
+							</button>
+						</a>
 		            </td>
 				  </tr>
 				</table>

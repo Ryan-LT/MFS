@@ -8,7 +8,7 @@ app.config(function($routeProvider) {
   })
   .when("/fileManage", {
     templateUrl: '/views/member/fileManage.html',
-    controller: "PersonStorageController"
+    controller: "fileManage"
   })
   .when("/detail/:id", {
     templateUrl: '/views/member/detail.html',
@@ -21,6 +21,10 @@ app.config(function($routeProvider) {
   .when("/download", {
     templateUrl: "/views/member/download.html",
     controller: "download"
+  })
+  .when("/upload", {
+    templateUrl: "/views/member/upload.html",
+    controller: "uploadController"
   })
   .when("/", {
     controller: "mainControl"
