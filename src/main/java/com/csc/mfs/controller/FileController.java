@@ -141,10 +141,9 @@ public class FileController {
 	 * @param pageSize
 	 * @return List<Files>
 	 */
-	@RequestMapping("/fSearch/{infoFile}/{page}/{pageSize}")
-	public List<Files> searchFile(@PathVariable("infoFile") String infoFile, @PathVariable("page") int page,
-			@PathVariable("pageSize") int pageSize) {
-		return fileService.searchFile(infoFile, page, pageSize);
+	@RequestMapping("/fSearch/{infoFile}")
+	public Page<Object> searchFile(@PathVariable("infoFile") String infoFile, Pageable pageable) {
+		return fileService.searchFile(infoFile, pageable);
 	}
 
 	/**
@@ -167,11 +166,6 @@ public class FileController {
 	public List<Files> getBesDownload() {
 		return fileService.getBestDownload();
 	}
-
-	@RequestMapping("/countSearch/{infoFile}")
-	public long countSearch(@PathVariable("infoFile") String infoFile) {
-		return fileService.countSearch(infoFile);
-	}
 	
 	@RequestMapping("/updateSharing/{idFile}")
 	public void updateSharing(@PathVariable("idFile") int idFile) {
@@ -183,9 +177,4 @@ public class FileController {
 		return fileService.getFileByCategory(nameCategory, pageable);
 	}
 	
-//	@RequestMapping("/getFileByCategory/{nameCategory}/{page}/{pageSize}")
-//	public long countFileByCategory(@PathVariable String nameCategory) {
-//		return fileService.getFileByCategory(nameCategory);
-//	}
-
-}//@PathVariable int page, @PathVariable int pageSize) {
+}
