@@ -43,7 +43,7 @@ public class FileController {
 	 * @return List<Files>
 	 */
 	@RequestMapping("/all")
-	public List<Files> getAll() {
+	public ResponseEntity<List<Files>> getAll() {
 		return fileService.getAll();
 	}
 
