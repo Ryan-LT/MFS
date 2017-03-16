@@ -37,6 +37,10 @@ public class LoginController {
 	public ModelAndView login() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth.getAuthorities().toString().equals("[MEMBER]") || auth.getAuthorities().toString().equals("[ADMIN]")) {
+			modelAndView.setViewName("landing");
+		}
 		return modelAndView;
 	}
 
