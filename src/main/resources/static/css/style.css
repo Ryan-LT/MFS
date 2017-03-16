@@ -384,6 +384,7 @@ FOLLOW BUTTON
 
 .modal-dialog {
 	margin: 100px auto;
+	z-index: 1041;
 }
 
 .modal-content {
@@ -422,4 +423,16 @@ hr {
 	background-color: #1faf5c;
 	color: white;
 	font-weight: bold;
+}
+
+thead {
+	color: white;
+	background-color: green;
+	font-weight: bolder;
+	font-size: 17x;
+}
+
+td {
+	text-align: left;
+	vertical-align: middle !important;
 }

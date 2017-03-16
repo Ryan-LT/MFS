@@ -70,7 +70,7 @@ app.controller("landingController", function($http, $scope, $window, $location, 
 			method : 'get',
 			url : "http://localhost:8080/file/countSearch/" + $scope.infoSearch
 		}).success(function(data, status, headers, config) {
-			$scope.count = Math.round(data / 2);
+			$scope.count = Math.ceil(data / 2);
 		}).error(function(data, status, headers, config) {
 			alert("fail");
 		});
