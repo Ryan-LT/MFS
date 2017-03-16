@@ -16,8 +16,21 @@
 }
 
 .btn-add {
-	margin-bottom: 20px;
-	border-radius: 0;
+	width: 75px;
+	height: 75px;
+	position: fixed;
+	bottom: 50px;
+	right: 50px;
+	border-radius: 50%;
+	font-size: 35px;
+	vertical-align: middle;
+	text-align: center;
+	font-weight: 900;
+	z-index: 1000;
+	animation-iteration-count: infinite;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+	animation-name: bounce;
 }
 
 .modal-dialog {
@@ -47,6 +60,7 @@
 	border-radius: 0;
 	background-color: #5bc0de;
 	color: white;
+	
 }
 
 .m-btn-add:hover {
@@ -67,6 +81,17 @@
 
 label {
 	margin-top: 15px;
+}
+
+thead {
+	background-color: #008040;
+	color: white;
+	
+}
+
+.list-inline {
+	margin: 0 auto;
+	text-align: center !important;
 }
 
 #textshow {
@@ -98,4 +123,10 @@ label {
 @keyframes fadeout {
     from {top: 30px; opacity: .6;}
     to {top: 10px; opacity: 0;}
+}
+
+@keyframes bounce { 
+	0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
+    40% {transform: translateY(-30px);} 
+    60% {transform: translateY(-15px);} 
 }

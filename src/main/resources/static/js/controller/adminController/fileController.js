@@ -1,6 +1,6 @@
 var app = angular.module('admin');
 app.controller("fileController", function($scope, $http, fileDataOp, $routeParams){
-
+	$scope.selectedIndex = 0;
 	$scope.pageSum;
 	$scope.page;
 	getData('0', '5');
@@ -12,6 +12,7 @@ app.controller("fileController", function($scope, $http, fileDataOp, $routeParam
 	$scope.getFileByPage = function(page, pageSize) {
 		getData(parseInt(page), parseInt(pageSize));
 		$scope.page = (parseInt(page));
+		$scope.selectedIndex = page;
 }
 	
 	function getData(page, pageSize) {

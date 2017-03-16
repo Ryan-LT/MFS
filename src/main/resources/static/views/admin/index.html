@@ -2,8 +2,7 @@
 
 <button ng-click="addBlock=true; editBlock=false" data-toggle="modal"
 	type="button" data-target="#addModal" class="btn btn-info btn-add">
-	<span style="color: white" class="glyphicon glyphicon-plus"></span> Add
-	User
+	<span style="color: white" class="glyphicon glyphicon-plus"></span>
 </button>
 
 <table class="table table-striped">
@@ -41,15 +40,19 @@
 		</tr>
 	</tbody>
 </table>
-<ul class="list-inline">
-	<li><button class="btn m-btn"
-			ng-click="getUserByPage(page=page-1,5)" ng-disabled="page-1<0"><<</button></li>
-	<li ng-repeat="i in getNumber(pageSum) track by $index">
-		<button class="btn m-btn active" ng-click="getUserByPage($index, 5)">{{$index+1}}</button>
-	</li>
-	<li><button class="btn m-btn"
-			ng-click="getUserByPage(page=page+1,5)" ng-disabled="page+1>=pageSum">>></button></li>
-</ul>
+<div style="margin: auto;">
+	<ul class="list-inline">
+		<li><button class="btn m-btn"
+				ng-click="getUserByPage(page=page-1,5)" ng-disabled="page-1<0"><<</button></li>
+		<li ng-repeat="i in getNumber(pageSum) track by $index">
+			<button ng-class="{'active': $index == selectedIndex }" class="btn m-btn" ng-click="getUserByPage($index, 5)">{{$index+1}}</button>
+		</li>
+		<li><button class="btn m-btn"
+				ng-click="getUserByPage(page=page+1,5)"
+				ng-disabled="page+1>=pageSum">>></button></li>
+	</ul>
+</div>
+
 
 <div class="modal fade" id="editModal" role="dialog">
 	<div class="modal-dialog">

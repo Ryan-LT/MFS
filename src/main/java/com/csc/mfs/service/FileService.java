@@ -116,9 +116,8 @@ public class FileService {
 	 * @param pageSize
 	 * @return List<Files>
 	 */
-	public List<Files> searchFile(String infoFile, int page, int pageSize){
-		int number = page*pageSize;
-		return fileRepository.findByInfo(infoFile, number, pageSize);
+	public Page<Object> searchFile(String infoFile, Pageable pageable){
+		return fileRepository.findByInfo(infoFile, pageable);
 	}
 	
 	/**
@@ -209,10 +208,6 @@ public class FileService {
 		return fileRepository.getAllFilePagination(page*pageSize, pageSize);
 	}
 	
-	public long countSearch(String infoFile){
-		return fileRepository.countSearch(infoFile);
-	}
-	
 	public void updateSharing(int idFile){
 		Files file = fileRepository.findOne(idFile);
 		if(null!=file){
@@ -232,6 +227,40 @@ public class FileService {
 			nameCategory="%"+ nameCategory+"%";
 		}
 		return fileRepository.getFileByCategory(nameCategory, pageable);
+	}
+	
+	public Page<Object> findByInfoCategory(String infoFile, Pageable pageable){
+		if(infoFile.equals("")){
+			infoFile="%%";
+		} else {
+			infoFile="%"+ infoFile+"%";
+		}
+		return fileRepository.findByInfoCategory(infoFile, pageable);
+	}
+	
+	public Page<Object> findByInfoName(String infoFile, Pageable pageable){
+		if(infoFile.equals("")){
+			infoFile="%%";
+		} else {
+			infoFile="%"+ infoFile+"%";
+		}
+		return fileRepository.findByInfoName(infoFile, pageable);
+	}
+	
+	public Page<Object> findByInfoUploader(String uploader, Pageable pageable){
+		if(uploader.equals("")){
+			uploader="%%";
+		} else {
+			uploader="%"+ uploader+"%";
+		}
+		return fileRepository.findByInfoUploader(uploader, pageable);
+	}
+	
+	public Page<Object> findByInfoSize(int size, Pageable pageable){
+		if(size<0){
+			size=0;
+		}
+		return fileRepository.findByInfoSize(size, pageable);
 	}
 	
 }
