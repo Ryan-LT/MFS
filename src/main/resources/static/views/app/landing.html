@@ -81,7 +81,8 @@
 	}
 </script>
 </head>
-<body data-spy="scroll" ng-controller="landingController"  th:attr="ng-init='userName='+${userName}+''">
+<body data-spy="scroll" ng-controller="landingController"
+	th:attr="ng-init='userName='+${userName}+''">
 	<!-- 	onload="load()"> -->
 	<header>
 		<!-- ===========================
@@ -117,10 +118,11 @@
 						<!--don't forget to replace my email address below with yours-->
 						<li><a href="mailto:m@creatrix.us"><span
 								class="btnicon icon-envelope-open"></span>Contact</a></li>
-						<a href="/login" th:if="${userName} == null"><button type="button"
-								class="btn btn-info navbar-btn m-btn">Login</button></a>
-						<a href="/login" th:if="${userName} != null"><button type="button"
-								class="btn btn-info navbar-btn m-btn" th:text="${userName}">${userName}</button></a>
+						<a href="/login" th:if="${userName} == null"><button
+								type="button" class="btn btn-info navbar-btn m-btn">Login</button></a>
+						<a href="/login" th:if="${userName} != null"><button
+								type="button" class="btn btn-info navbar-btn m-btn"
+								th:text="${userName}">${userName}</button></a>
 					</ul>
 
 				</div>
@@ -258,8 +260,8 @@
 			<hr class="separetor">
 		</div>
 		<div>
-			<form class="search-form" ng-submit="doSearch(0, 2)">
-				<input class="input-search" type="text" id="search"
+			<form class="search-form" ng-submit="searchByCatelogy(2,infoSearch)">
+				<input class="input-search" type="text" 
 					placeholder="Search ..." ng-model="infoSearch">
 				<button type="submit" class="btn btn-search">Search</button>
 			</form>
@@ -289,13 +291,18 @@
 					<td>{{file[5] | date:'dd-MM-yyyy'}}</td>
 					<td>{{file[6]}}</td>
 					<td>
-						<button ng-click="downloadFile(file.id)" type="button"
-							class="btn btn-circle btn-warning">
-							<span class="fa fa-download"></span>
-						</button>
-						<button type="button" class="btn btn-circle btn-info">
-							<span class="fa fa-info"></span>
-						</button>
+						<div th:if="${userName} == null">
+							<button ng-click="loginAlert()" type="button"
+								class="btn btn-circle btn-warning">
+								<span class="fa fa-download"></span>
+							</button>
+						</div>
+						<div th:if="${userName} != null">
+							<button ng-click="downloadFile(file[0])" type="button"
+								class="btn btn-circle btn-warning">
+								<span class="fa fa-download"></span>
+							</button>
+						</div>
 					</td>
 				</tr>
 			</tbody>
@@ -479,8 +486,7 @@
 	<script src="/js/lib/jquery/jquery-latest.min.js"></script>
 
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script
-		src="/js/bootstrap.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 
 	<!--Other necessary scripts-->
 	<script src="js/lib/jquery/jquery.nicescroll.min.js"></script>
@@ -494,7 +500,6 @@
 	<script src="/js/lib/angular-1.4.9/angular-resource.js"></script>
 	<script src="/js/lib/angular-1.4.9/angular-route.js"></script>
 
-	<script
-		src="/js/controller/landingController/landingController.js"></script>
+	<script src="/js/controller/landingController/landingController.js"></script>
 </body>
 </html>
