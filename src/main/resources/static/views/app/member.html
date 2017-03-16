@@ -122,7 +122,7 @@
 <script src="../js/controller/memberControllers/downloadController.js"></script>
 <script src="../js/controller/memberControllers/mainController.js"></script>
 <script
-	src="../js/controller/memberControllers/personStorageController.js"></script>
+	src="../js/controller/memberControllers/fileManage.js"></script>
 <script src="../js/controller/memberControllers/userInfoController.js"></script>
 <script src="../js/controller/memberControllers/detailController.js"></script>
 <script src="../js/controller/memberControllers/exploreController.js"></script>
@@ -137,7 +137,7 @@
 
 <script th:src="@{/js/uploadFile.js}" type="text/javascript"></script>
 <!-- link file CSS -->
-]
+
 
 
 
@@ -155,21 +155,70 @@
 
 <link th:href="@{/css/uploadFile.css}" rel="stylesheet">
 <link href="css/member.css" rel="stylesheet">
-<link href="css/sb-admin.css" rel="stylesheet">
-
+<link href="css/member-explore.css" rel="stylesheet">
+<!-- <link href="css/sb-admin.css" rel="stylesheet">
+ -->
 
 </head>
 
 <body>
 
+	<div class="nav-ul">
+		<div class="ava-header">.</div>
+		<div class="info">
+			<a href="#/userInfo" class="profile"><i class="fa fa-user-circle"></i>
+				Profile</a> <a class="setting"><i class="fa fa-cog"></i> Setting</a>
+		</div>
+		<a href="#/explore" class="li-a">
+			<div class="li active">
+				<span class="lii"> <i class="fa fa-search" aria-hidden="true"></i>
+				</span> Search File
+			</div>
+		</a> <a href="#/fileManage" class="li-a">
+			<div class="li">
+				<span class="lii"> <i class="fa fa-file" aria-hidden="true"></i>
+				</span> File Management
+			</div>
+		</a> <a href="#/download" class="li-a">
+			<div class="li">
+				<span class="lii"> <i class="fa fa-history"
+					aria-hidden="true"></i>
+				</span> Download History
+			</div>
+		</a> <a href="/logout" class="li-a">
+			<div class="li">
+				<span class="lii"> <i class="fa fa-sign-out"
+					aria-hidden="true"></i>
+				</span> Logout
+			</div>
+		</a>
+	</div>
+	<div class="main" ng-controller="mainControl"
+		th:attr="ng-init='userId='+${userId}+''">
+		<div class="sub">
+			<div ng-view></div>
+		</div>
+	</div>
+
+	<script>
+		function toggleSearch() {
+			var x = document.getElementById('advance');
+			if (x.style.display === 'none') {
+				x.style.display = 'block';
+			} else {
+				x.style.display = 'none';
+			}
+		}
+	</script>
+
 	<!-- <section id="wrapper" style="background-color:#0066FF"> -->
 	<!-- <section id="wrapper"> -->
-	<section>
-		<!-- Navigation -->
-		<!-- <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> -->
-		<!-- <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> -->
+	<!-- <section>
+		Navigation
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<!-- Brand and toggle get grouped for better mobile display -->
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			Brand and toggle get grouped for better mobile display
 			<section class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-ex1-collapse">
@@ -179,7 +228,7 @@
 				</button>
 				<a class="navbar-brand" href="explore.html">Mini File Sharing</a>
 			</section>
-			<!-- Top Menu Items -->
+			Top Menu Items
 			<ul class="nav navbar-right top-nav">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"><i class="fa fa-user"></i> Nancy <b
@@ -194,7 +243,7 @@
 								Out</a></li>
 					</ul></li>
 			</ul>
-			<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+			Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
 			<section class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav side-nav">
 					<li><a href="#/explore"><i class="fa fa-fw fa-download"></i>
@@ -209,27 +258,27 @@
 							Upload</a></li>
 				</ul>
 			</section>
-			<!-- /.navbar-collapse -->
+			/.navbar-collapse
 		</nav>
 
 		<section id="page-wrapper">
 
-			<!-- !PAGE CONTENT! -->
+			!PAGE CONTENT!
 			<section ng-controller="mainControl"
 				th:attr="ng-init='userId='+${userId}+''" class="w3-main">
 				<br> <br>
 				<section class="container">
 					<section class="col-md-1"></section>
 					<section ng-view></section>
-					<!-- End page content -->
+					End page content
 				</section>
 			</section>
 		</section>
-		<!-- /#page-wrapper -->
+		/#page-wrapper
 
 	</section>
-	<!-- /#wrapper -->
-
+	/#wrapper
+ -->
 
 </body>
 

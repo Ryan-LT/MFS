@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -61,25 +63,6 @@ public class FileUploadController {
                                 .fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
                                 .build().toString())
                 .collect(Collectors.toList()));
-    	
-    	
-//      model.addAttribute("files", storageService
-//      .loadAll()
-//      .map(path -> path.getFileName().toString()) .collect(Collectors.toList()));
-              
-    	
-    	
-//      Path x =Paths.get("s");
-//     
-//      model.addAttribute("files", storageService
-//      .loadAll()
-//      .map(path ->
-//              x)
-//      .collect(Collectors.toList()));
-//    	List<String> x = new Vector();
-//    	x.add("124");
-//    	x.add("12344");
-//    	model.addAttribute("files",x);
         
         return "upload";
     }
@@ -104,7 +87,16 @@ public class FileUploadController {
 // 		{
  			downLoad.setIdFile(fileDownLoad);
  	 		downLoad.setIdUser(user);
- 	 		downLoad.setDatedownload(new Date());
+ 	 		
+ 	 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+ 			Date date = new Date();
+ 			try {
+ 				date = sdf.parse(sdf.format(date));//sdf.format(date)
+ 			} catch (ParseException e) {
+ 				e.printStackTrace();
+ 			}
+ 			
+ 	 		downLoad.setDatedownload(date);
  	 		downloadService.insert(downLoad);
  	        Resource file = storageService.loadAsResource(fileDownLoad.getPath());
  	        return ResponseEntity
@@ -128,11 +120,12 @@ public class FileUploadController {
  		Files fileDownLoad = fileRepo.findOne(idFile);
  		
  		// check if the user have not reach the maximum download per day.
- 		if(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize())>=0)
+ 		double checkData = downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()); 
+ 		if(checkData>0)
  		{
  	        return ResponseEntity
                 .ok()
-                .body(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()));
+                .body(checkData);
  		}
  		return ResponseEntity
 	                .ok()
@@ -172,7 +165,6 @@ public class FileUploadController {
 			redirectAttributes.addFlashAttribute("message",
 	                "Fail to upload " + file.getOriginalFilename() + "!");
 		}
-       
         return "redirect:/upload";
     }
 

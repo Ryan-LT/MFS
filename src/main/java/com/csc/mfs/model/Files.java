@@ -75,17 +75,21 @@ public class Files implements Serializable {
     @ManyToOne(optional = false)
     private CategoriesType idType;
 
+    @Column(name = "sharing")
+    private int sharing;
+    
     public Files() {
     }
     
     public Files(String name, String path, double size, int userId, Date dateUpload, 
-    		CategoriesType type){
+    		CategoriesType type, int sharing){
     	this.name = name;
     	this.path = path;
     	this.size = size;
     	this.userId = userId;
     	this.dateupload = dateUpload;
     	this.idType = type;
+    	this.sharing =sharing;
     }
 
     public Files(Integer id) {
@@ -164,6 +168,14 @@ public class Files implements Serializable {
 
 	public void setIdType(CategoriesType idType) {
 		this.idType = idType;
+	}
+
+	public int getSharing() {
+		return sharing;
+	}
+
+	public void setSharing(int sharing) {
+		this.sharing = sharing;
 	}
 
 	@Override
