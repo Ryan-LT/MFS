@@ -284,7 +284,7 @@
 			<tbody>
 				<tr ng-repeat="file in files.content track by $index" class="info">
 					<td>{{$index+1}}</td>
-					<td>{{file[1]}}</td>
+					<td><a href="#/detail/{{file.id}}">{{file[1]}}</a></td>
 					<td>{{file[3]}}</td>
 					<td>{{file[5] | date:'dd-MM-yyyy'}}</td>
 					<td>{{file[6]}}</td>
@@ -476,29 +476,25 @@
 	<!-- FOOTER END -->
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/js/lib/jquery/jquery-latest.min.js"></script>
 
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		src="/js/bootstrap.min.js"></script>
 
 	<!--Other necessary scripts-->
-	<script src="js/jquery.nicescroll.min.js"></script>
-	<script src="js/jquery.jribbble-1.0.1.ugly.js"></script>
+	<script src="js/lib/jquery/jquery.nicescroll.min.js"></script>
+	<script src="js/lib/jquery/jquery.jribbble-1.0.1.ugly.js"></script>
 	<script src="js/drifolio.js"></script>
 	<script src="js/wow.min.js"></script>
 	<script>
 		new WOW().init();
 	</script>
-	<script src="../static/js/lib/angular-1.4.9/angular.js"
-		th:src="@{/js/lib/angular-1.4.9/angular.js}"></script>
-	<script src="../static/js/lib/angular-1.4.9/angular-resource.js"
-		th:src="@{/js/lib/angular-1.4.9/angular-resource.js}"></script>
-	<script src="../static/js/lib/angular-1.4.9/angular-route.js"
-		th:src="@{/js/lib/angular-1.4.9/angular-route.js}"></script>
+	<script src="/js/lib/angular-1.4.9/angular.js"></script>
+	<script src="/js/lib/angular-1.4.9/angular-resource.js"></script>
+	<script src="/js/lib/angular-1.4.9/angular-route.js"></script>
 
 	<script
-		src="../static/js/controller/landingController/landingController.js"
-		th:src="@{/js/controller/landingController/landingController.js}"></script>
+		src="/js/controller/landingController/landingController.js"></script>
 </body>
 </html>
