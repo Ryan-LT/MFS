@@ -1,6 +1,8 @@
 var app = angular.module('landing', [ 'ngRoute' ]);
 app.controller("landingController", function($http, $scope, $window, $location, $window) {
 
+	$scope.page;
+	$scope.pageSum;
 	getFile();
 	
 	function getFile() {
@@ -19,6 +21,8 @@ app.controller("landingController", function($http, $scope, $window, $location, 
 										+ "&page=" + parseInt(page)
 		}).success(function(data, status, headers, config) {
 			$scope.files = data;
+			$scope.page = data.number;
+			$scope.pageSum = data.totalPages;
 		}).error(function(data, status, headers, config) {});
 	}
 	
@@ -27,11 +31,12 @@ app.controller("landingController", function($http, $scope, $window, $location, 
 		$scope.search = $scope.infoSearch;
 		countSearch();
 		searchFiles(page, pageSize);
-
-	};// countSearch
+	};
+	
 	$scope.infoTemp = $scope.search;
 	function searchFiles(page, pageSize) {
 		$scope.search = $scope.infoSearch;
+		alert($scope.infoSearch);
 		countSearch();
 		$http(
 				{
