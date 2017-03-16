@@ -48,7 +48,6 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/landing.css">
 
 <!-- ===========================
     ICONS: 
@@ -75,38 +74,15 @@
 <!--Replace this line with your analytics code-->
 
 <!-- Analytics end-->
-
+<script>
+	function load() {
+		$('#myModal').modal('show');
+	}
+</script>
 </head>
-<body data-spy="scroll" ng-controller="landingController">
-	<!-- Preloader -->
-	<div id="preloader">
-		<div id="status">
-			<div class="loadicon icon-moustache wow tada infinite"
-				data-wow-duration="8s"></div>
-		</div>
-	</div>
-
+<body data-spy="scroll" ng-controller="landingController"
+	onload="load()">
 	<header>
-		<!-- ===========================
-        HERO AREA
-        =========================== -->
-		<div id="hero">
-			<div class="container herocontent">
-				<h1 class="wow fadeInUp" data-wow-duration="2s">Share your file
-					in second. Visualy.</h1>
-				<h4 class="wow fadeInDown" data-wow-duration="3s">
-					The most powerful online file sharing platform today. Store your
-					documents, videos and every files
-					<h3>Sign Up now to recieve 5MB upload daily</h3>
-				</h4>
-			</div>
-
-			<!-- Featured image on the Hero area -->
-			<img class="heroshot wow bounceInUp" data-wow-duration="4s"
-				src="images/hero-img.png" alt="Featured Work">
-		</div>
-		<!--HERO AREA END-->
-
 		<!-- ===========================
          NAVBAR START
          =========================== -->
@@ -151,146 +127,28 @@
 		<!--navbar end-->
 	</header>
 	<!--header end-->
-
 	<!-- Modal -->
-	<!-- <div class="modal fade" id="loginModal" role="dialog">
+	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 
-			Modal content
+			<!-- Modal content-->
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Login</h4>
-				</div>
 				<div class="modal-body">
-					<form th:action="@{/login}" method="POST" class="form">
-						<br />
-						<div class="input-group">
-							<span class="input-group-addon add-on"> <i
-								class="glyphicon glyphicon-user"></i>
-							</span> <input type="text" class="form-control" id="email" name="email"
-								placeholder="Email"> </span>
-						</div>
-						<br />
-
-						<div class="input-group">
-							<span class="input-group-addon add-on"> <i
-								class="glyphicon glyphicon-lock"></i></span> <input type="password"
-								id="password" name="password" placeholder="Password"
-								class="form-control" /> </span>
-						</div>
-
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" /> <br>
-						<div align="center" th:if="${param.error}">
-							<p style="font-size: 20; color: #FF1C19;">Email or Password
-								invalid, please verify</p>
-						</div>
-						<button class="btn btn-lg button-login btn-block" name="Submit"
-							value="Login" type="Submit" th:text="Login"></button>
-					</form>
-
-					<br>
-
-					<form class="form" th:action="@{/registration}" method="get">
-						<div class="form-signup-heading">You don't have an account?</div>
-						<button class="btn btn-lg button-signup btn-block" type="Submit">Create
-							Account</button>
-					</form>
+					<div class="modal-welcome">Welcome</div>
+					<hr>
+					<div class="modal-desc">Desc</div>
 				</div>
-			</div>
-		</div>
+				<br> <br> <br>
+				<div class="m-modal-footer">
+					<button class="btn btn-login">Login</button>
+				</div>
 
-	</div> -->
+			</div>
 
-	<!-- ===========================
-    FEATURED CLIENTS SECTION START
-    =========================== -->
-	<div id="clients">
-		<div class="container">
-			<div class="col-md-3">
-				<h4>Proudly worked with:</h4>
-			</div>
-			<div class="col-md-9">
-				<ul>
-					<!--CLIENTS LOGO-->
-					<li><img src="images/payoneer.png" alt="Payoneer"></li>
-					<li><img src="images/amazon.png" alt="Amazon"></li>
-					<li><img src="images/elance-odesk.png" alt="Elance-oDesk"></li>
-					<li><img src="images/curb.png" alt="Curb Envy"></li>
-				</ul>
-				<!--CLIENTS LOGO END-->
-			</div>
 		</div>
-		<hr>
-		<!-- SECTION SEPARETOR LINE -->
 	</div>
-	<!--FEATURED CLIENTS SECTION END-->
 
 
-	<!-- ===========================
-    ABOUT SECTION START
-    =========================== -->
-	<div id="about" class="container">
-
-		<!-- LEFT PART OF THE ABOUT SECTION -->
-		<div class="col-md-6">
-			<div class="row">
-				<h2 class="wow fadeInDown" data-wow-duration="2s">I'm Mamun
-					Srizon from Bangladesh</h2>
-
-				<h4 class="wow fadeInUp" data-wow-duration="3s">A freelance
-					UI/UX wizard as well as a Daydreamer who workes on the Graveyard
-					Shift and sleeps all the day!</h4>
-
-				<p class="wow fadeInDown" data-wow-duration="3s">I'm gonna build
-					me an airport, put my name on it. Why, Michael? So you can fly away
-					from your feelings? I don't care if it takes from now till the end
-					of Shrimpfest.</p>
-				<p class="wow fadeInDown" data-wow-duration="3s">Bugger bag
-					egg's old boy willy jolly scrote munta skive pillock, bloody
-					shambles nose rag blummin' scrote narky ever so, Lorem ipsum dolor
-					sit amet, consectetur adipisicing elit.</p>
-
-				<a class="dribbble-follow-button wow bounce"
-					href="http://dribbble.com/srizon">Follow</a>
-			</div>
-			<!-- ABOUT INFO END -->
-
-
-			<div class="myapps row">
-				<h5>Tools and apps I use everyday:</h5>
-
-				<ul>
-					<!-- FAVORITE APP ICONS START -->
-					<li><img class="wow animated bounceInUp"
-						data-wow-duration="1s" src="images/photoshop.svg" alt="Photoshop"></li>
-					<li><img class="wow bounceInUp" data-wow-duration="2s"
-						src="images/illustrator.svg" alt="Illustrator"></li>
-					<li><img class="wow bounceInUp" data-wow-duration="3s"
-						src="images/flash.svg" alt="Adobe Flash"></li>
-					<li><img class="wow animated bounceInUp"
-						data-wow-duration="4s" src="images/after_effects.svg"
-						alt="After Effects"></li>
-					<li><img class="wow bounceInUp" data-wow-duration="5s"
-						src="images/indesign.svg" alt="InDesign"></li>
-				</ul>
-				<!-- FAVORITE APP ICONS END -->
-			</div>
-		</div>
-		<!-- LEFT PART OF THE ABOUT SECTION END -->
-		<!--Left part end-->
-
-		<!-- RIGHT PART OF THE ABOUT SECTION -->
-		<div class="col-md-6 wow fadeInUp myphoto" data-wow-duration="4s">
-			<img src="images/user.png" alt="Mamun Srizon">
-		</div>
-		<!-- RIGHT PART OF THE ABOUT SECTION END -->
-	</div>
-	<!-- ABOUT SECTION END -->
-
-	<hr>
-	<!-- SECTION SEPARETOR LINE -->
 
 	<!-- ===========================
     SERVICE SECTION START
