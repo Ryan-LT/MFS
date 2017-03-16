@@ -42,12 +42,13 @@
 <!-- ===========================
     STYLESHEETS
     =========================== -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+   
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/preloader.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
 
 <!-- ===========================
     ICONS: 
@@ -153,7 +154,7 @@
 					<a href="/registration"><button class="btn btn-login">Sign
 							Up Now</button></a>
 					<p>
-						<a href="/login">Already have an acount ?</a>
+						<a href="/login">Already have an account ?</a>
 					</p>
 				</div>
 
@@ -180,8 +181,8 @@
 		<!-- SERVICE ITEMS START -->
 		<div class="row">
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Text',0,100)"><img src="images/s1.png" alt=""
-					height="100px" width="100px"></a>
+				<a href="#portfolio" ng-click="getFileByCategory('Text',0,100)"><img
+					src="images/s1.png" alt="" height="100px" width="100px"></a>
 				<h4>TEXTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -190,8 +191,8 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Graphic',0,100)"><img src="images/s2.png" alt=""
-					height="100px" width="100px"></a>
+				<a href="#portfolio" ng-click="getFileByCategory('Graphic',0,100)"><img
+					src="images/s2.png" alt="" height="100px" width="100px"></a>
 				<h4>PICTURES</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -200,8 +201,9 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Spreadsheet',0,100)"><img src="images/s3.png" alt=""
-					height="100px" width="100px"></a>
+				<a href="#portfolio"
+					ng-click="getFileByCategory('Spreadsheet',0,100)"><img
+					src="images/s3.png" alt="" height="100px" width="100px"></a>
 				<h4>DOCUMENTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -210,8 +212,9 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Presentation',0,100)"><img src="images/s4.png" alt=""
-					height="100px" width="100px"></a>
+				<a href="#portfolio"
+					ng-click="getFileByCategory('Presentation',0,100)"><img
+					src="images/s4.png" alt="" height="100px" width="100px"></a>
 				<h4>PRESENTATION</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -220,8 +223,9 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Multimedia',0,100)"><img src="images/s5.png" alt=""
-					height="100px" width="100px"></a>
+				<a href="#portfolio"
+					ng-click="getFileByCategory('Multimedia',0,100)"><img
+					src="images/s5.png" alt="" height="100px" width="100px"></a>
 				<h4>MULTIMEDIA</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -230,8 +234,9 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Compression',0,100)"><img src="images/s6.png" alt=""
-					height="100px" width="100px"></a>
+				<a href="#portfolio"
+					ng-click="getFileByCategory('Compression',0,100)"><img
+					src="images/s6.png" alt="" height="100px" width="100px"></a>
 				<h4>COMPRESSION</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
 					aroma single origin cream. Percolator. Eligendi impedit dolores
@@ -244,7 +249,7 @@
 	<!-- SERVICE SECTION END -->
 
 	<!-- ===========================
-    PORTFOLIO SECTION START
+    PRODUCT DETAIL SECTION START
     =========================== -->
 	<div id="portfolio" class="container" style="background-color: white">
 		<div class="sectionhead  row wow fadeInUp">
@@ -252,44 +257,62 @@
 			<h3>This is what we have for you</h3>
 			<hr class="separetor">
 		</div>
-		<table class="table">
-			<thead style="background-color: green">
+		<div>
+			<form class="search-form" ng-submit="doSearch(0, 2)">
+				<input class="input-search" type="text" id="search"
+					placeholder="Search ..." ng-model="infoSearch">
+				<button type="submit" class="btn btn-search">Search</button>
+			</form>
+			<div class="filter-form">
+				<input class="input-filter" type="text" id="myInput"
+					placeholder="Filter ..." ng-model="filterFile">
+			</div>
+			<br>
+		</div>
+
+
+		<div class="row">{{msgErrorDownload}}</div>
+		<table class="table table-striped">
+			<thead>
 				<tr>
-					<th>No.</th>
-					<th>Name</th>
-					<th>Dateupload</th>
-					<th>Uploader</th>
-					<th></th>
+					<th>#</th>
+					<th width="40%">Name</th>
+					<th>Size</th>
+					<th>Updated Date</th>
+					<th>Owner</th>
+					<th width="15%">Action</th>
 				</tr>
 			</thead>
-			<tbody style="background-color: #efeded">
-				<tr ng-repeat="f in files track by $index">
+			<tbody>
+				<tr ng-repeat="file in files track by $index">
 					<td>{{$index+1}}</td>
-					<td>{{f[1]}}</td>
-					<td>{{f[5] | date:'MM/dd/yyyy'}}</td>
-					<td>{{f[9]}}</td>
+					<td>{{file.name}}</td>
+					<td>{{file.size}}</td>
+					<td>{{file.dateupload}}</td>
+					<td></td>
 					<td>
-						<button ng-disabled="{{f[8]==0}}" ng-click="downloadFile(file.id)" type="button" class="btn btn-circle btn-warning">
-							Download
+						<button ng-disabled="{{file.sharing==0}}"
+							ng-click="downloadFile(file.id)" type="button"
+							class="btn btn-circle btn-warning">
 							<span class="fa fa-download"></span>
+						</button>
+						<button type="button" class="btn btn-circle btn-info">
+							<span class="fa fa-info"></span>
 						</button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-		<ul class="list-inline">
-			<li><button class="btn m-btn"
-					ng-click="getFileByPage(page=page-1,5)" ng-disabled="page-1<0"><<</button></li>
-			<li ng-repeat="i in getNumber(pageSum) track by $index">
-				<button class="btn m-btn active" ng-click="getFileByPage($index, 5)">{{$index+1}}</button>
-			</li>
-			<li><button class="btn m-btn"
-					ng-click="getFileByPage(page=page+1,5)"
-					ng-disabled="page+1>=pageSum">>></button></li>
 
+
+		<ul class="list-inline">
+			<li ng-repeat="i in getNumber(count) track by $index">
+				<button class="btn m-btn active"
+					ng-click="getDownloadByPage($index, 2)">{{$index+1}}</button>
+			</li>
 		</ul>
 	</div>
-	<!-- PORTFOLIO SECTION END -->
+	<!-- PRODUCT DETAIL SECTION END -->
 
 	<!-- ===========================
     TESTIMONIAL SECTION START
@@ -378,7 +401,7 @@
 					<p>Cant Remember Uni</p>
 				</div>
 			</div>
-			<div  class="col-md-6 wow bounceIn" data-wow-duration="3s">
+			<div class="col-md-6 wow bounceIn" data-wow-duration="3s">
 				<div class="clientsphoto">
 					<img src="images/Thong.jpg" alt="Thong">
 				</div>
