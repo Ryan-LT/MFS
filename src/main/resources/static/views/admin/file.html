@@ -30,7 +30,7 @@
 	<li><button class="btn m-btn"
 			ng-click="getFileByPage(page=page-1,5)" ng-disabled="page-1<0"><<</button></li>
 	<li ng-repeat="i in getNumber(pageSum) track by $index">
-		<button class="btn m-btn active" ng-click="getFileByPage($index, 5)">{{$index+1}}</button>
+		<button ng-class="{'active': $index == selectedIndex }" class="btn m-btn" ng-click="getFileByPage($index, 5)">{{$index+1}}</button>
 	</li>
 	<li><button class="btn m-btn"
 			ng-click="getFileByPage(page=page+1,5)" ng-disabled="page+1>=pageSum">>></button></li>

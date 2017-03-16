@@ -11,7 +11,7 @@
 	width: 800px;
 	margin: 50px auto;
 	padding: 50px;
-	background: rgba(226, 233, 228, 1);
+	background: rgba(226, 233, 228, .9);
 }
 
 .form-signin-heading {
@@ -119,26 +119,21 @@ p {
 	animation: fadein 1s, fadeout 0.5s 2.5s;
 }
 
-@
-keyframes fadein {
-	from {top: 10px;
-	opacity: 0;
+@keyframes fadein {
+	from {top: 10px; opacity: 0;}
+ 	to {top: 30px; opacity: 1;}
 }
 
-to {
-	top: 30px;
-	opacity: 1;
+@keyframes fadeout {
+	from {top: 30px; opacity: 1;}
+	to { top: 10px; opacity: 0;}
 }
 
-}
-@
-keyframes fadeout {
-	from {top: 30px;
-	opacity: 1;
+.regAnim {
+	animation: example 1.5s ease;
 }
 
-to {
-	top: 10px;
-	opacity: 0;
-}
+@keyframes example {
+    0%   {margin-top: 50px; opacity: .2}
+    100% {margin-top: 0px; opacity: .9}
 }
