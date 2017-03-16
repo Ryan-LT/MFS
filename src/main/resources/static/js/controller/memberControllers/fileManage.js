@@ -1,6 +1,6 @@
 var app = angular.module('myWeb');
 
-app.controller('fileManage', function($scope, $http){
+app.controller('fileManage', function($scope, $http, $window){
     //this.files = storage;
 	$scope.count = 0;
     getFiles('0', '2');
@@ -19,6 +19,22 @@ app.controller('fileManage', function($scope, $http){
 			alert("fail");
 		});
 	}
+    
+	$scope.downloadFile = function(idFile){
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/download/check/" + idFile
+		}).success(function(data, status, headers, config){
+			if(data<=0){
+				$window.location.href = 'http://localhost:8080/download/files/' + idFile;
+			} else {
+				alert("You have meet your download limit!");
+			}
+		})
+		.error(function(data, status, headers, config){
+			alert("fail");
+		});		
+}
     
     function getFiles(page, pageSize) { 
 		$http({

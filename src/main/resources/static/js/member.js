@@ -14,17 +14,9 @@ app.config(function($routeProvider) {
     templateUrl: '/views/member/detail.html',
     controller: "detail"
   })
-  .when("/explore", {
-    templateUrl: "/views/member/explore.html",
-    controller: "explore"
-  })
   .when("/download", {
     templateUrl: "/views/member/download.html",
     controller: "download"
-  })
-  .when("/upload", {
-    templateUrl: "/views/member/upload.html",
-    controller: "uploadController"
   })
   .when("/", {
     controller: "mainControl"
