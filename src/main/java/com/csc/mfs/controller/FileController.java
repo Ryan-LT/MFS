@@ -3,6 +3,8 @@ package com.csc.mfs.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -176,9 +178,14 @@ public class FileController {
 		fileService.updateSharing(idFile);;
 	}
 	
-	@RequestMapping("/getFileByCategory/{nameCategory}/{page}/{pageSize}")
-	public List<Object> getFileByCategory(@PathVariable String nameCategory, @PathVariable int page, @PathVariable int pageSize) {
-		return fileService.getFileByCategory(nameCategory, page, pageSize);
-	}	
+	@RequestMapping("/getFileByCategory/{nameCategory}")
+	public Page<Object> getFileByCategory(@PathVariable String nameCategory, Pageable pageable) {
+		return fileService.getFileByCategory(nameCategory, pageable);
+	}
+	
+//	@RequestMapping("/getFileByCategory/{nameCategory}/{page}/{pageSize}")
+//	public long countFileByCategory(@PathVariable String nameCategory) {
+//		return fileService.getFileByCategory(nameCategory);
+//	}
 
-}
+}//@PathVariable int page, @PathVariable int pageSize) {
