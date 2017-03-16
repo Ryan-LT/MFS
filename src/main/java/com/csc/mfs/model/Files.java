@@ -78,11 +78,14 @@ public class Files implements Serializable {
     @Column(name = "sharing")
     private int sharing;
     
+    @Column(name="description")
+    private String description;
+    
     public Files() {
     }
     
     public Files(String name, String path, double size, int userId, Date dateUpload, 
-    		CategoriesType type, int sharing){
+    		CategoriesType type, int sharing, String description){
     	this.name = name;
     	this.path = path;
     	this.size = size;
@@ -90,6 +93,7 @@ public class Files implements Serializable {
     	this.dateupload = dateUpload;
     	this.idType = type;
     	this.sharing =sharing;
+    	this.description = description;
     }
 
     public Files(Integer id) {
@@ -176,6 +180,14 @@ public class Files implements Serializable {
 
 	public void setSharing(int sharing) {
 		this.sharing = sharing;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

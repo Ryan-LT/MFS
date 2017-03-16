@@ -1,50 +1,42 @@
 var app = angular.module('landing', [ 'ngRoute' ]);
 app.controller("landingController", function($http, $scope, $window, $location, $window) {
 
+	$scope.page;
+	$scope.pageSum;
 	getFile();
 	
 	function getFile() {
-		$http({
-			method : 'get',
-			url : "http://localhost:8080/file/all/"
-		}).success(function(data, status, headers, config) {
-			$scope.files = data;
-		}).error(function(data, status, headers, config) {
-			alert("fail");
-		});
+		getFileByCategoryFunction('all', 0, 8);
 	}
 	
 	$scope.getFileByCategory = function(category, page, pageSize){
+		getFileByCategoryFunction(category, page, pageSize);
+	}
+	
+	function getFileByCategoryFunction(category, page, pageSize){
+		$scope.catelogyName = category;
 		$http({
 			method : 'get',
-			url : "http://localhost:8080/file/getFileByCategory/" +category +"/"+ parseInt(page)
-										+ "/" + parseInt(pageSize)
+			url : "http://localhost:8080/file/getFileByCategory/" +category +"?size="+ parseInt(pageSize)
+										+ "&page=" + parseInt(page)
 		}).success(function(data, status, headers, config) {
 			$scope.files = data;
-			alert(data)
+			$scope.page = data.number;
+			$scope.pageSum = data.totalPages;
 		}).error(function(data, status, headers, config) {});
 	}
 	
-	$scope.getOwner = function(id) {
-		$http({
-			method : 'get',
-			url : "http://localhost:8080/user/get/" + id
-		}).success(function(data, status, headers, config) {
-			return data.name;
-		}).error(function(data, status, headers, config) {
-			alert("fail");
-		});
-	}
 
 	$scope.doSearch = function(page, pageSize) {
 		$scope.search = $scope.infoSearch;
 		countSearch();
 		searchFiles(page, pageSize);
-
-	};// countSearch
+	};
+	
 	$scope.infoTemp = $scope.search;
 	function searchFiles(page, pageSize) {
 		$scope.search = $scope.infoSearch;
+		alert($scope.infoSearch);
 		countSearch();
 		$http(
 				{
@@ -56,11 +48,7 @@ app.controller("landingController", function($http, $scope, $window, $location, 
 		}).error(function(data, status, headers, config) {
 		});
 	}
-
-	$scope.getDownloadByPage = function(page, pageSize) {
-		searchFiles(page, pageSize);
-	}
-
+	
 	$scope.getNumber = function(num) {
 		return new Array(num);
 	}

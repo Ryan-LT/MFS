@@ -1,6 +1,6 @@
 var app = angular.module('admin');
 app.controller("mainController", function($scope, $http, userDataOp, $routeParams) {
-
+	$scope.selectedIndex = 0;
 	$scope.pageSum;
 	$scope.page;
 	getDataRank();
@@ -46,6 +46,7 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 	$scope.getUserByPage = function(page, pageSize) {
 			getData(parseInt(page), parseInt(pageSize));
 			$scope.page = (parseInt(page));
+			$scope.selectedIndex = page;
 	}
 
 	$scope.getUser = function(id) {

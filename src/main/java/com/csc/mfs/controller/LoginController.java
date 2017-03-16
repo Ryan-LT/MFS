@@ -1,6 +1,5 @@
 package com.csc.mfs.controller;
 
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,35 +19,29 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
-	
-	@RequestMapping(value = "/") // , method = RequestMethod.GET
-	public String landing() {
-		return "landing";
-	}
-	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public ModelAndView login(){
+
+	@RequestMapping(value = "/") // , method = RequestMethod.GET public
+	public ModelAndView landing() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("login");
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();		
-		if(auth.getAuthorities().toString().equals("[ADMIN]")){
+		modelAndView.setViewName("landing");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth.getAuthorities().toString().equals("[MEMBER]")) {
 			User user = userService.findUserByEmail(auth.getName());
-			modelAndView.addObject("userId", user.getId());
-			modelAndView.addObject("userName", user.getLastName());
-			modelAndView.setViewName("admin");
-		}
-		else if(auth.getAuthorities().toString().equals("[MEMBER]")) {
-			User user = userService.findUserByEmail(auth.getName());
-			modelAndView.addObject("userId", user.getId());
-			modelAndView.addObject("userName", user.getLastName());
-			modelAndView.setViewName("member");;
+			modelAndView.addObject("userName", user.getName());
+			System.out.println(user.getName());
 		}
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
 
-	@RequestMapping(value="/registration", method = RequestMethod.GET)
-	public ModelAndView registration(){
+	@RequestMapping(value = "/registration", method = RequestMethod.GET)
+	public ModelAndView registration() {
 		ModelAndView modelAndView = new ModelAndView();
 		ModelAndView modelAndViewAdmin = new ModelAndView();
 		ModelAndView modelAndViewMember = new ModelAndView();
@@ -57,11 +50,10 @@ public class LoginController {
 		User user = new User();
 		modelAndView.addObject("user", user);
 		modelAndView.setViewName("registration");
-		if(auth.getAuthorities().toString().equals("[ADMIN]")){
+		if (auth.getAuthorities().toString().equals("[ADMIN]")) {
 			modelAndViewAdmin.setViewName("admin");
-			return modelAndViewAdmin;	
-		}
-		else if(auth.getAuthorities().toString().equals("[MEMBER]")) {
+			return modelAndViewAdmin;
+		} else if (auth.getAuthorities().toString().equals("[MEMBER]")) {
 			modelAndViewMember.setViewName("member");
 			return modelAndViewMember;
 		}
@@ -73,15 +65,15 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userService.findUserByEmail(user.getEmail());
 		if (userExists != null) {
-			bindingResult
-			.rejectValue("email", "error.user",
+			bindingResult.rejectValue("email", "error.user",
 					"There is already a user registered with the email provided");
 		}
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("registration");
+			modelAndView.addObject("message", "User has been registered fail.");
 		} else {
 			userService.saveUser(user);
-			modelAndView.addObject("successMessage", "User has been registered successfully");
+			modelAndView.addObject("message", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
 			modelAndView.setViewName("registration");
 
@@ -89,29 +81,30 @@ public class LoginController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value="/admin", method = RequestMethod.GET)
-	public ModelAndView home(){
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public ModelAndView home() {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
-		//System.out.println(auth.getAuthorities());
-		if(null!=user){
+		// System.out.println(auth.getAuthorities());
+		if (null != user) {
 			modelAndView.setViewName("admin");
 		} else {
 			modelAndView.setViewName("login");
 		}
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/member", method = RequestMethod.GET)
-	public ModelAndView memberHome(){
+
+	@RequestMapping(value = "/member", method = RequestMethod.GET)
+	public ModelAndView memberHome() {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
-		//System.out.println(auth.getAuthorities());
-		if(null!=user){
-			modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-			modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+		// System.out.println(auth.getAuthorities());
+		if (null != user) {
+			modelAndView.addObject("userName",
+					"Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+			modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
 			modelAndView.setViewName("member");
 		} else {
 			modelAndView.setViewName("login");
@@ -126,6 +119,3 @@ public class LoginController {
 		return modelAndView;
 	}
 }
-
-
-

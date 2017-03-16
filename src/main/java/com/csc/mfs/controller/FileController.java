@@ -3,6 +3,8 @@ package com.csc.mfs.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -139,10 +141,30 @@ public class FileController {
 	 * @param pageSize
 	 * @return List<Files>
 	 */
-	@RequestMapping("/fSearch/{infoFile}/{page}/{pageSize}")
-	public List<Files> searchFile(@PathVariable("infoFile") String infoFile, @PathVariable("page") int page,
-			@PathVariable("pageSize") int pageSize) {
-		return fileService.searchFile(infoFile, page, pageSize);
+	@RequestMapping("/fSearch/{infoFile}")
+	public Page<Object> searchFile(@PathVariable("infoFile") String infoFile, Pageable pageable) {
+		return fileService.searchFile(infoFile, pageable);
+	}
+	
+	/**
+	 * search by category
+	 * @param infoFile
+	 * @param pageable
+	 * @return
+	 */
+	@RequestMapping("/searchOption/{type}/{file}")
+	public Page<Object> fSearchByCategory(@PathVariable("file") String file, @PathVariable("type") int type, Pageable pageable) {
+		if(type==0){
+			return fileService.searchFile(file, pageable);
+		} else if(type==1){
+			return fileService.findByInfoCategory(file, pageable);
+		} else if(type==2){
+			return fileService.findByInfoName(file, pageable);
+		} else if(type==3){
+			return fileService.findByInfoUploader(file, pageable);
+		} else {
+			return fileService.findByInfoSize(Integer.parseInt(file), pageable);
+		}
 	}
 
 	/**
@@ -165,20 +187,15 @@ public class FileController {
 	public List<Files> getBesDownload() {
 		return fileService.getBestDownload();
 	}
-
-	@RequestMapping("/countSearch/{infoFile}")
-	public long countSearch(@PathVariable("infoFile") String infoFile) {
-		return fileService.countSearch(infoFile);
-	}
 	
 	@RequestMapping("/updateSharing/{idFile}")
 	public void updateSharing(@PathVariable("idFile") int idFile) {
 		fileService.updateSharing(idFile);;
 	}
 	
-	@RequestMapping("/getFileByCategory/{nameCategory}/{page}/{pageSize}")
-	public List<Object> getFileByCategory(@PathVariable String nameCategory, @PathVariable int page, @PathVariable int pageSize) {
-		return fileService.getFileByCategory(nameCategory, page, pageSize);
-	}	
-
+	@RequestMapping("/getFileByCategory/{nameCategory}")
+	public Page<Object> getFileByCategory(@PathVariable String nameCategory, Pageable pageable) {
+		return fileService.getFileByCategory(nameCategory, pageable);
+	}
+	
 }
