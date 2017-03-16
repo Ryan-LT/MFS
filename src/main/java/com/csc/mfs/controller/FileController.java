@@ -176,6 +176,9 @@ public class FileController {
 		fileService.updateSharing(idFile);;
 	}
 	
-	
+	@RequestMapping("/getFileByCategory/{nameCategory}/{page}/{pageSize}")
+	public List<Object> getFileByCategory(@PathVariable String nameCategory, @PathVariable int page, @PathVariable int pageSize) {
+		return fileService.getFileByCategory(nameCategory, page, pageSize);
+	}	
 
 }

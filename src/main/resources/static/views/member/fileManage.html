@@ -1,12 +1,12 @@
 <div class="main-header">File Management</div>
-<div ng-controller="PersonStorageController as storage"
-	ng-init="stt=0; incre=1">
+<div ng-controller="fileManage" ng-init="stt=0; incre=1">
 	<table id="myTable" class="table table-striped">
 		<thead>
 			<th>#</th>
 			<th width="40%">Name File</th>
 			<th>Size</th>
 			<th>Date Upload</th>
+			<th>Sharing</th>
 			<th width="15%"">Action</th>
 		</thead>
 		<tbody ng-repeat="file in files | filter: filter_">
@@ -15,7 +15,11 @@
 			<td>{{file.size}}</td>
 			<td>{{file.dateupload}}</td>
 			<td>
-				<button ng-click="downloadFile(file.id)" type="button"
+				<input ng-click="changeShare(file.id)" type="checkbox" ng-checked="{{file.sharing==1}}">
+			</td>
+			<td>
+				<button ng-disabled="{{file.sharing==0}}"
+					ng-click="downloadFile(file.id)" type="button"
 					class="btn btn-warning btn-circle">
 					<span class="fa fa-download"></span>
 				</button>

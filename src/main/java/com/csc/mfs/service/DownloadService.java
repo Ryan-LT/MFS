@@ -1,5 +1,6 @@
 package com.csc.mfs.service;
 
+import java.io.Console;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 import com.csc.mfs.repository.DownloadRepository;
 import com.csc.mfs.repository.RankRepository;
 import com.csc.mfs.repository.UserRepository;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 import com.csc.mfs.model.Download;
 import com.csc.mfs.model.Rank;
 import com.csc.mfs.model.User;
@@ -164,22 +168,18 @@ public class DownloadService {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-//			System.out.println(date);
-//			System.out.println(date.getTime());
 			double size = 0;
-			System.out.println(downloadRepository.sumSizeDownloadInDay(idUser, date));
 			if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date)){
 				size = (double) downloadRepository.sumSizeDownloadInDay(idUser, date);
-				System.out.println(size+"--------");
 			}
 			Rank rank = rankRepository.findOne(user.getRank_Id());
-			if(size+sizeFile>=rank.getSizedownload()){
+			if((size+sizeFile)>rank.getSizedownload()){
 				return rank.getSizedownload()-size;
-			} else {
-				return -1.0d;
+			} else if((size+sizeFile)==rank.getSizedownload()){
+				return 0d;
 			}
 		}
-		return 1.0d;
+		return -1.0d;
 	}
 	
 	public List<Object> getDownloadOfuser(int idUser, int page, int pageSize){

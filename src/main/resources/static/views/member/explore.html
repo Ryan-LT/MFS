@@ -66,7 +66,7 @@
 			<td>{{file.dateupload}}</td>
 			<td></td>
 			<td>
-				<button ng-click="downloadFile(file.id)" type="button"
+				<button ng-disabled="{{file.sharing==0}}" ng-click="downloadFile(file.id)" type="button"
 					class="btn btn-circle btn-warning">
 					<span class="fa fa-download"></span>
 				</button>

@@ -223,6 +223,10 @@ public class FileService {
 		fileRepository.flush();
 	}
 	
+	public List<Object> getFileByCategory(String nameCategory, int page, int pageSize){
+		return fileRepository.getFileByCategory(nameCategory, page, pageSize);
+	}
+	
 }
 
 
