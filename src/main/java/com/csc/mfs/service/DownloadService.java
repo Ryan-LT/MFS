@@ -168,11 +168,15 @@ public class DownloadService {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			
 			double size = 0;
 			if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date)){
 				size = (double) downloadRepository.sumSizeDownloadInDay(idUser, date);
 			}
 			Rank rank = rankRepository.findOne(user.getRank_Id());
+			System.out.println(rank.getSizedownload());
+			System.out.println(size);
+			System.out.println(sizeFile);
 			if((size+sizeFile)>rank.getSizedownload()){
 				return rank.getSizedownload()-size;
 			} else if((size+sizeFile)==rank.getSizedownload()){
