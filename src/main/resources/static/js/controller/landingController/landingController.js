@@ -33,6 +33,16 @@ app.controller("landingController", function($scope, $http, $routeParams){
 		}).error(function(data, status, headers, config) {
 		});
 	}
+	
+	$scope.getFileByCategory = function(category, page, pageSize){
+		$http({
+			method : 'get',
+			url : "http://localhost:8080/file/getFileByCategory/" +category +"/"+ parseInt(page)
+										+ "/" + parseInt(pageSize)
+		}).success(function(data, status, headers, config) {
+			$scope.files = data;
+		}).error(function(data, status, headers, config) {});
+	}
 
 	// Exception Handling
 	var Success = function(data, status, headers, config){

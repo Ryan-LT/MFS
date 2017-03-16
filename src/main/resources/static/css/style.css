@@ -43,7 +43,6 @@ a:hover{color: #c3c3c3; text-decoration: none;}
 }
 
 hr.separetor{
-    width: 80px;
     color: #363942;
     border-top: 2px solid #ea9312;
 }
@@ -320,16 +319,6 @@ FOLLOW BUTTON
     border-right-color: white;
 }
 
-
-
-
-
-
-
-
-
-
-
 .modal-dialog {
 	margin: 100px auto;
 }
@@ -342,8 +331,8 @@ FOLLOW BUTTON
 
 .modal-welcome {
 	text-align: center;
-	font-weight: bolder;
-	font-size: 20px;
+	font-weight: 900;
+	font-size: 30px;
 }
 
 .modal-desc {
@@ -352,10 +341,11 @@ FOLLOW BUTTON
 }
 
 hr {
-	margin-left: 200px;
-    margin-right: 200px;
-    border-width: 3px;
-    border-color: red;
+	margin-left: 350px;
+    margin-right: 350px;
+    border-width: 5px;
+    border-color: #0c750c;
+    border-radius: 100px;
 }
 
 .m-modal-footer {

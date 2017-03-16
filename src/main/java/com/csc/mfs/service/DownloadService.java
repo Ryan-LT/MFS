@@ -1,5 +1,6 @@
 package com.csc.mfs.service;
 
+import java.io.Console;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 import com.csc.mfs.repository.DownloadRepository;
 import com.csc.mfs.repository.RankRepository;
 import com.csc.mfs.repository.UserRepository;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 import com.csc.mfs.model.Download;
 import com.csc.mfs.model.Rank;
 import com.csc.mfs.model.User;
@@ -140,8 +144,8 @@ public class DownloadService {
 		}
 		System.out.println(date);
 		System.out.println(date.getTime());
-		if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date.getTime())){
-			return (double) downloadRepository.sumSizeDownloadInDay(idUser, date.getTime());
+		if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date)){
+			return (double) downloadRepository.sumSizeDownloadInDay(idUser, date);
 		} else {
 			return 0;
 		}
@@ -157,7 +161,7 @@ public class DownloadService {
 	public double beforeDownload(int idUser, double sizeFile){
 		User user = userRepository.findOne(idUser);
 		if(null!=user){
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
 			try {
 				date = sdf.parse(sdf.format(date));
@@ -165,17 +169,17 @@ public class DownloadService {
 				e.printStackTrace();
 			}
 			double size = 0;
-			if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date.getTime())){
-				size = (double) downloadRepository.sumSizeDownloadInDay(idUser, date.getTime());
+			if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date)){
+				size = (double) downloadRepository.sumSizeDownloadInDay(idUser, date);
 			}
 			Rank rank = rankRepository.findOne(user.getRank_Id());
-			if(size+sizeFile>=rank.getSizedownload()){
+			if((size+sizeFile)>rank.getSizedownload()){
 				return rank.getSizedownload()-size;
-			} else {
-				return -1.0d;
+			} else if((size+sizeFile)==rank.getSizedownload()){
+				return 0d;
 			}
 		}
-		return 1.0d;
+		return -1.0d;
 	}
 	
 	public List<Object> getDownloadOfuser(int idUser, int page, int pageSize){

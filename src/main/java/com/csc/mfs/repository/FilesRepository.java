@@ -141,12 +141,21 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 			+ " FROM files f, user u WHERE f.active=1 AND u.id=f.user_id "
 			+ " LIMIT :number, :pageSize", nativeQuery=true)
 	List<Object> getAllFilePagination( @Param("number") int number, 
-			@Param("pageSize") int pageSize);	
+			@Param("pageSize") int pageSize);
 	
 	/**
 	 * 
 	 */
 	@Query(value="SELECT * FROM files WHERE active=1 ",nativeQuery=true)
 	List<Files> getAllFile();
+	
+	//SELECT f.*, u.last_name FROM categories c INNER JOIN categories_type ct ON ct.category_id = c.id 
+	//INNER JOIN files f ON f.id_type = ct.id INNER JOIN user u ON u.id=f.user_id WHERE c.id=1
+	@Query(value="SELECT f.*, u.last_name FROM categories c INNER JOIN categories_type ct ON ct.category_id = c.id "
+				+" INNER JOIN files f ON f.id_type = ct.id "
+				+ " INNER JOIN user u ON u.id=f.user_id "
+				+ " WHERE c.name=:nameCategory LIMIT :number, :pageSize",nativeQuery=true)
+	List<Object> getFileByCategory(@Param("nameCategory") String nameCategory, @Param("number") int number, @Param("pageSize") int pageSize);
+
 	
 }
