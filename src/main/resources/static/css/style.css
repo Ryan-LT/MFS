@@ -12,6 +12,10 @@ TYPOGRAPHY
 body {
 	font-family: 'Raleway', sans-serif;
 	line-height: 1.8em;
+	background: url(../images/LdBG.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
 }
 
 .bigicon {
@@ -174,7 +178,6 @@ ABOUT SECTION
 PORTFOLIO SECTION
 ================================*/
 #portfolio {
-	background: #efefef;
 	margin-top: 50px;
 	padding: 30px 0;
 	text-align: center;
