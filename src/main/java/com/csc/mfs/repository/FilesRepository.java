@@ -2,6 +2,8 @@ package com.csc.mfs.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -146,16 +148,36 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	/**
 	 * 
 	 */
-	@Query(value="SELECT * FROM files WHERE active=1 ",nativeQuery=true)
-	List<Files> getAllFile();
+	//@Query(value="SELECT * FROM files WHERE active=1 ORDER BY ?#",nativeQuery=true)
+	Page<Files> findByActiveAndSharing(int active, int sharing, Pageable pagable);
 	
 	//SELECT f.*, u.last_name FROM categories c INNER JOIN categories_type ct ON ct.category_id = c.id 
 	//INNER JOIN files f ON f.id_type = ct.id INNER JOIN user u ON u.id=f.user_id WHERE c.id=1
-	@Query(value="SELECT f.*, u.last_name FROM categories c INNER JOIN categories_type ct ON ct.category_id = c.id "
-				+" INNER JOIN files f ON f.id_type = ct.id "
+	@Query(value="SELECT f.*, u.last_name FROM "
+			+ " categories INNER JOIN categories_type ON categories_type.category_id = categories.id "
+				+" INNER JOIN files f ON f.id_type = categories_type.id "
 				+ " INNER JOIN user u ON u.id=f.user_id "
-				+ " WHERE c.name=:nameCategory LIMIT :number, :pageSize",nativeQuery=true)
-	List<Object> getFileByCategory(@Param("nameCategory") String nameCategory, @Param("number") int number, @Param("pageSize") int pageSize);
+				+ " WHERE (categories.name=:nameCategory OR categories.name like :nameCategory) AND f.active =1 ORDER BY ?#{#pageable}"
+				, countQuery = "SELECT count(*) FROM "
+				+" categories INNER JOIN categories_type ON categories_type.category_id = categories.id" 
+				+" INNER JOIN files ON files.id_type = categories_type.id" 
+				+" INNER JOIN user ON user.id=files.user_id" 
+				+" WHERE (categories.name=:nameCategory OR categories.name like :nameCategory) AND files.active =1"
+				,nativeQuery=true)
+	Page<Object> getFileByCategory(@Param("nameCategory") String nameCategory, Pageable pageable);
 
 	
 }
+
+
+/*
+ * @Query(value="SELECT f.*, u.last_name FROM categories c INNER JOIN categories_type ct ON ct.category_id = c.id "
+				+" INNER JOIN files f ON f.id_type = ct.id "
+				+ " INNER JOIN user u ON u.id=f.user_id "
+				+ " WHERE c.name=:nameCategory AND f.active =1 LIMIT :number, :pageSize",nativeQuery=true)
+	List<Object> getFileByCategory(@Param("nameCategory") String nameCategory, @Param("number") int number, @Param("pageSize") int pageSize);
+ */
+
+
+
+
