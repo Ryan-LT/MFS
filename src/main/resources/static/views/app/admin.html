@@ -4,8 +4,7 @@
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html lang="en" ng-app="admin" class="no-js"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns="http://www.w3.org/1999/xhtml">
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
@@ -14,18 +13,13 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/lib/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="\css\admin.css" />
 <link rel="stylesheet" type="text/css" href="\css\admin-index.css" />
-<script src="../static/js/js-admin.js" th:src="@{/js/js-admin.js}"></script>
-</script>
+<script src="/js/js-admin.js"></script>
 </head>
 <body class="body">
 	<div class="nav-ul">
@@ -66,36 +60,20 @@
 	</div>
 
 
-
-
-
-
-
-
-
-
-	<script src="../static/js/lib/angular-1.4.9/angular.js"
-		th:src="@{/js/lib/angular-1.4.9/angular.js}"></script>
-	<script src="../static/js/lib/angular-1.4.9/angular-resource.js"
-		th:src="@{/js/lib/angular-1.4.9/angular-resource.js}"></script>
-	<script src="../static/js/lib/angular-1.4.9/angular-route.js"
-		th:src="@{/js/lib/angular-1.4.9/angular-route.js}"></script>
+	<!-- Angular -->
+	<script src="/js/lib/angular-1.4.9/angular.js"></script>
+	<script src="/js/lib/angular-1.4.9/angular-resource.js""></script>
+	<script src="/js/lib/angular-1.4.9/angular-route.js""></script>
 
 	<!-- Main Controller -->
-	<script src="../static/js/admin.js" th:src="@{/js/admin.js}"></script>
-	<script src="../static/js/controller/adminController/mainController.js"
-		th:src="@{/js/controller/adminController/mainController.js}"></script>
-	<script src="../static/js/controller/adminController/rankController.js"
-		th:src="@{/js/controller/adminController/rankController.js}"></script>
-	<script src="../static/js/controller/adminController/rankController.js"
-		th:src="@{/js/controller/adminController/fileController.js}"></script>
+	<script src="/js/controller/adminController/admin.js"></script>
+	<script src="/js/controller/adminController/mainController.js"></script>
+	<script src="/js/controller/adminController/rankController.js"></script>
+	<script src="/js/controller/adminController/fileController.js"></script>
 
 	<!-- Services -->
-	<script src="../static/js/controller/service/userService.js"
-		th:src="@{/js/controller/service/userService.js}"></script>
-	<script src="../static/js/controller/service/userService.js"
-		th:src="@{/js/controller/service/rankService.js}"></script>
-	<script src="../static/js/controller/service/userService.js"
-		th:src="@{/js/controller/service/fileService.js}"></script>
+	<script src="/js/controller/service/userService.js"></script>
+	<script src="/js/controller/service/rankService.js"></script>
+	<script src="/js/controller/service/fileService.js"></script>
 </body>
 </html>

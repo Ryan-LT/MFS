@@ -13,7 +13,7 @@ app.controller('fileManage', function($scope, $http, $window){
 			method: 'get',
 			url: "http://localhost:8080/file/countFileOfUser/"+$scope.userId
 		}).success(function(data, status, headers, config){
-			$scope.count = Math.round(data/2);
+			$scope.count = Math.ceil(data/2);
 		})
 		.error(function(data, status, headers, config){
 			alert("fail");
@@ -57,14 +57,13 @@ app.controller('fileManage', function($scope, $http, $window){
 			method: 'get',
 			url: "http://localhost:8080/file/delete/"+id
 		}).success(function(data, status, headers, config){
-			getFiles();
+			getFiles('0', '2');
 		})
 		.error(function(data, status, headers, config){
 			alert("fail");
 		});
     }
     $scope.changeShare = function(idFile){
-    	alert(idFile);
     	$http({
 			method: 'get',
 			url: "http://localhost:8080/file/updateSharing/"+idFile
