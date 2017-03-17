@@ -27,23 +27,23 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	 * @param pageSize
 	 * @return List<Files>
 	 */
-	@Query(value="SELECT * FROM files WHERE active=1 AND (name like %:fileInfo%"
-			+ " OR size like %:fileInfo% OR"
-			+ " user_id IN (SELECT id FROM user WHERE name=:fileInfo)"
+	@Query(value="SELECT f.*, u.last_name FROM files f INNER JOIN user u ON f.user_id=u.id WHERE f.active=1 "
+			+ " AND (f.name like %:fileInfo%"
+			+ " OR f.size like %:fileInfo% OR"
+			+ " f.user_id IN (SELECT id FROM user WHERE user.last_name=:fileInfo)"
 			+ " OR id_type IN (SELECT id FROM categories_type WHERE file_type LIKE %:fileInfo%)"
             + " OR id_type IN (SELECT id FROM categories_type t WHERE t.category_id "
             + "	IN ( SELECT id FROM categories WHERE name LIKE %:fileInfo%)"
-            + ")) LIMIT :number, :pageSize" , nativeQuery=true)
-	List<Files> findByInfo(@Param("fileInfo") String fileInfo, @Param("number") int number, @Param("pageSize") int pageSize);
-	
-	@Query(value="SELECT COUNT(*) FROM files WHERE active=1 AND (name like %:fileInfo%"
-			+ " OR size like %:fileInfo% OR"
-			+ " user_id IN (SELECT id FROM user WHERE name=:fileInfo)"
+            + ")) ORDER BY ?#{#pageable}"
+            , countQuery="SELECT count(*) FROM files f WHERE f.active=1 AND (f.name like %:fileInfo%"
+			+ " OR f.size like %:fileInfo% OR"
+			+ " f.user_id IN (SELECT id FROM user u WHERE u.last_name=:fileInfo)"
 			+ " OR id_type IN (SELECT id FROM categories_type WHERE file_type LIKE %:fileInfo%)"
             + " OR id_type IN (SELECT id FROM categories_type t WHERE t.category_id "
             + "	IN ( SELECT id FROM categories WHERE name LIKE %:fileInfo%)"
-            + "))" , nativeQuery=true)
-	long countSearch(@Param("fileInfo") String fileInfo);
+            + "))"
+            ,nativeQuery=true)
+	Page<Object> findByInfo(@Param("fileInfo") String fileInfo, Pageable pageable);
 	
 	/**
 	 * Get total size file which user uploaded in day
