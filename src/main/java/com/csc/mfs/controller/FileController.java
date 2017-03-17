@@ -145,6 +145,27 @@ public class FileController {
 	public Page<Object> searchFile(@PathVariable("infoFile") String infoFile, Pageable pageable) {
 		return fileService.searchFile(infoFile, pageable);
 	}
+	
+	/**
+	 * search by category
+	 * @param infoFile
+	 * @param pageable
+	 * @return
+	 */
+	@RequestMapping("/searchOption/{type}/{file}")
+	public Page<Object> fSearchByCategory(@PathVariable("file") String file, @PathVariable("type") int type, Pageable pageable) {
+		if(type==0){
+			return fileService.searchFile(file, pageable);
+		} else if(type==1){
+			return fileService.findByInfoCategory(file, pageable);
+		} else if(type==2){
+			return fileService.findByInfoName(file, pageable);
+		} else if(type==3){
+			return fileService.findByInfoUploader(file, pageable);
+		} else {
+			return fileService.findByInfoSize(Integer.parseInt(file), pageable);
+		}
+	}
 
 	/**
 	 * get total size file upload in day
