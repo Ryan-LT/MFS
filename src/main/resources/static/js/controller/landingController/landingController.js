@@ -37,8 +37,8 @@ app.controller("landingController", function($scope, $http, $routeParams){
 	$scope.getFileByCategory = function(category, page, pageSize){
 		$http({
 			method : 'get',
-			url : "http://localhost:8080/file/getFileByCategory/" +category +"/"+ parseInt(page)
-										+ "/" + parseInt(pageSize)
+			url : "http://localhost:8080/file/getFileByCategory/" +category +"?size="+ parseInt(pageSize)
+										+ "&page=" + parseInt(page)
 		}).success(function(data, status, headers, config) {
 			$scope.files = data;
 		}).error(function(data, status, headers, config) {});

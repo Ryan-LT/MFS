@@ -263,7 +263,7 @@
 				</tr>
 			</thead>
 			<tbody style="background-color: #efeded">
-				<tr ng-repeat="f in files track by $index">
+				<tr ng-repeat="f in files.content track by $index">
 					<td>{{$index+1}}</td>
 					<td>{{f[1]}}</td>
 					<td>{{f[5] | date:'MM/dd/yyyy'}}</td>

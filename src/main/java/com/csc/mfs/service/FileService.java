@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.csc.mfs.model.Files;
@@ -223,8 +225,8 @@ public class FileService {
 		fileRepository.flush();
 	}
 	
-	public List<Object> getFileByCategory(String nameCategory, int page, int pageSize){
-		return fileRepository.getFileByCategory(nameCategory, page, pageSize);
+	public Page<Object> getFileByCategory(String nameCategory, Pageable pageable){
+		return fileRepository.getFileByCategory(nameCategory, pageable);
 	}
 	
 }
