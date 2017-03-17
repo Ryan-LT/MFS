@@ -439,3 +439,38 @@ td {
 	text-align: left;
 	vertical-align: middle !important;
 }
+
+.close-btn {
+    background-color: #d80400;
+    color: white;
+    font-weight: 900;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 22px;
+    right: -15px;
+    top: -15px;
+    position: fixed;
+    padding: 2px;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.48);
+}
+
+.toTop-btn {
+	display: none;
+	width: 60px;
+	height: 60px;
+	background-color: orange;
+	color: white;
+	font-size: 35px;
+	bottom: 40px;
+	right: 40px;
+	position: fixed;
+	z-index: 100;
+	text-align: center;
+	padding: 7px;
+	border-radius: 50%;
+	box-shadow: 1px 1px 1px black;
+	border-top-color: #c8c8c8;
+    border-left-color: #a4a4a4;
+}

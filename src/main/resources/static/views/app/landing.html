@@ -60,8 +60,8 @@
 <!-- ===========================
     GOOGLE FONTS
     =========================== -->
-<link rel="stylesheet"
-	href="http://fonts.googleapis.com/css?family=Antic|Raleway:300">
+<!-- <link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Antic|Raleway:300"> -->
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -90,7 +90,6 @@
 </head>
 <body data-spy="scroll" ng-controller="landingController"
 	th:attr="ng-init='userName='+${userName}+''">
-	<!-- 	onload="load()"> -->
 	<header>
 		<!-- ===========================
          NAVBAR START
@@ -146,6 +145,7 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-body">
+					<div class="btn close-btn" data-dismiss="modal"><i class="fa fa-remove"></i></div>
 					<div class="modal-welcome">
 						WELLCOME TO <font style="color: #0c750c">MFS.COM</font><br>
 					</div>
@@ -174,6 +174,7 @@
 		</div>
 	</div>
 
+	<div class="btn toTop-btn" onclick="toTop()"><i class="glyphicon glyphicon-chevron-up"></i></div>
 
 	<!-- ===========================
     SERVICE SECTION START
@@ -525,6 +526,7 @@
 	<script src="/js/bootstrap.min.js"></script>
 
 	<!--Other necessary scripts-->
+	<script src="js/landing.js"></script>
 	<script src="js/lib/jquery/jquery.nicescroll.min.js"></script>
 	<script src="js/lib/jquery/jquery.jribbble-1.0.1.ugly.js"></script>
 	<script src="js/drifolio.js"></script>
