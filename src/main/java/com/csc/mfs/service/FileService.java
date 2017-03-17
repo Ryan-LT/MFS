@@ -226,6 +226,11 @@ public class FileService {
 	}
 	
 	public Page<Object> getFileByCategory(String nameCategory, Pageable pageable){
+		if(nameCategory.equals("all")){
+			nameCategory="%%";
+		} else {
+			nameCategory="%"+ nameCategory+"%";
+		}
 		return fileRepository.getFileByCategory(nameCategory, pageable);
 	}
 	
