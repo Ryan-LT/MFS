@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Registration Form</title>
 <link rel="stylesheet" href="css\registration.css" />
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	href="/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	src="/js/lib/jquery/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	src="/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	href="/css/font-awesome.min.css">
 
 </head>
 <body onload="myToast()" class="body">
-	<div class="container">
+	<div id="con" class="container regAnim">
 		<div class="form">
 			<h1 style="text-align: center">Registration</h1>
 			<br />
@@ -80,7 +79,7 @@
 				</h5>
 				<input type="submit" class="btn btn-lg button-create btn-block"
 					value="Create Account"> 
-				<span id="textshow" th:utext="${successMessage}"></span>
+				<span id="textshow" th:utext="${message}"></span>
 
 
 			</form>
@@ -92,11 +91,14 @@
 	<script>
 		function myToast() {
 			var a = document.getElementById("textshow");
+			var b= $("#con");
 			if (a.textContent != "") {
-				if (a.textContent == "Registration fail.") {
+				if (a.textContent == "User has been registered fail.") {
 					a.style.backgroundColor = "#ffb3b3";
-					a.style.borderLeftColor = "#ff1a1a"
+					a.style.borderLeftColor = "#ff1a1a";
+					
 				}
+				b.removeClass("regAnim");
 				a.className = "show";
 				setTimeout(function() {
 					a.className = a.className.replace("show", "");

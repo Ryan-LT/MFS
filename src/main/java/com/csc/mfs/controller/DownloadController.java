@@ -123,4 +123,9 @@ public class DownloadController {
 	public long countHistoryDownload(@PathVariable int idUser){
 		return downloadService.countDownloadByUser(idUser);
 	}
+	
+	@RequestMapping("/getAll")
+	public List<Download> getAll1(){
+		return downloadService.getAll();
+	}
 }

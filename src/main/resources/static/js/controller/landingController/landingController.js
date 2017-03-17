@@ -1,6 +1,8 @@
 var app = angular.module('landing', [ 'ngRoute' ]);
 app.controller("landingController", function($http, $scope, $window, $location, $window) {
 
+	$scope.page;
+	$scope.pageSum;
 	getFile();
 	
 	function getFile() {
@@ -19,19 +21,51 @@ app.controller("landingController", function($http, $scope, $window, $location, 
 										+ "&page=" + parseInt(page)
 		}).success(function(data, status, headers, config) {
 			$scope.files = data;
+			$scope.page = data.number;
+			$scope.pageSum = data.totalPages;
 		}).error(function(data, status, headers, config) {});
 	}
 	
-
-	$scope.doSearch = function(page, pageSize) {
-		$scope.search = $scope.infoSearch;
-		countSearch();
-		searchFiles(page, pageSize);
-
-	};// countSearch
+	$scope.downloadFile = function(idFile){
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/download/check/" + idFile
+		}).success(function(data, status, headers, config){
+			if(data<=0){
+				$window.location.href = 'http://localhost:8080/download/files/' + idFile;
+			} else {
+				alert("You have meet your download limit!");
+			}
+		})
+		.error(function(data, status, headers, config){
+			alert("fail");
+		});		
+}
+	
+	$scope.loginAlert = function() {
+		alert("You must login in order to download this file !")
+	};
+	
+	$scope.searchByCatelogy = function(type, input) {
+		alert(input)
+		alert(type)
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/file/searchOption/" + type + "/" + input
+		}).success(function(data, status, headers, config){
+			$scope.files = data;
+			$scope.page = data.number;
+			$scope.pageSum = data.totalPages;
+		})
+		.error(function(data, status, headers, config){
+			alert("fail");
+		});		
+	};
+	
 	$scope.infoTemp = $scope.search;
 	function searchFiles(page, pageSize) {
 		$scope.search = $scope.infoSearch;
+		alert($scope.infoSearch);
 		countSearch();
 		$http(
 				{

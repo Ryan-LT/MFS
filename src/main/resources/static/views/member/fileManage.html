@@ -12,7 +12,7 @@
 		<tbody ng-repeat="file in files | filter: filter_">
 			<td>{{$index+1}}</td>
 			<td><a href="#/detail/{{file.id}}">{{file.name}}</a></td>
-			<td>{{file.size}}</td>
+			<td>{{file.size | number:2}} Kb</td>
 			<td>{{file.dateupload}}</td>
 			<td><input ng-click="changeShare(file.id)" type="checkbox"
 				ng-checked="{{file.sharing==1}}"></td>
@@ -35,74 +35,3 @@
 		</li>
 	</ul>
 </div>
-
-<!-- <section class="container"
-	ng-controller="PersonStorageController as storage"
-	ng-init="stt=0; incre=1">
-	<section class="row">
-		<section class="col-md-1"></section>
-		<section class="col-md-9">
-			<h1>File Management</h1>
-			<section class="row kv-main">
-				<form enctype="multipart/form-data" ng-submit="uploadFile()">
-					<section class="form-group">
-						<input id="file-0d" class="file" type="file" ng-model="file_data">
-					</section>
-					<section class="form-group">
-						<input type="submit" class="btn btn-primary" value="upload">
-					</section>
-
-				</form>
-			</section>
-			<section class="row">
-								<input type="text" id="myInput" ng-model="filter_"  placeholder="Search for names.." title="Type in a name">
-				<table id="myTable" class="table">
-					<tr class="header">
-						<th style="width: 25%;">Name File</th>
-						<th style="width: 25%;">Size</th>
-						<th style="width: 25%;">Date Upload</th>
-						<th style="width: 25%;">Action</th>
-					</tr>
-					<tr ng-repeat="file in files | filter: filter_">
-						<td><a href="#/detail/{{file.id}}">{{file.name}}</a></td>
-						<td>{{file.size}}</td>
-						<td>{{file.dateupload}}</td>
-						<td>
-							<button ng-click="deleteFile(file.id)" type="button"
-								class="btn btn-danger">
-								Delete <span style="color: white"
-									class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
-							</button>
-						</td>
-						<td>
-							<button ng-click="downloadFile(file.id)" type="button"
-								class="btn btn-danger">
-								Download <span style="color: white"
-									class="glyphicon glyphicon-download-alt"></span>
-							</button>
-						</td>
-					</tr>
-				</table>
-			</section>
-			<section class="row">
-				<ul class="list-inline">
-					<li ng-repeat="i in getNumber(count) track by $index">
-						<button ng-click="getFileByPage($index, 2)">{{$index+1}}</button>
-					</li>
-				</ul>
-			</section>
-		</section>
-		<section class="col-md-1"></section>
-	</section>
-	<section class="container kv-main">
-				    <form enctype="multipart/form-data">
-				        <input id="file-0c" class="file" type="file" multiple data-min-file-count="3">
-				        <hr>
-				        <section class="form-group">
-				            <input id="file-0d" class="file" type="file">
-				        </section>
-				    </form>
-				</section>
-</section> -->
-
-<!-- upload bar -->
