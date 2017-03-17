@@ -26,8 +26,43 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="\css\admin.css" />
 <link rel="stylesheet" type="text/css" href="\css\admin-index.css" />
+<link rel="stylesheet" type="text/css" href="\css\filedrag.css" />
 </head>
 <body class="body">
+<!-- upload form -->
+		<h1>HTML5 File Drag &amp; Drop API</h1>
+		
+		<form id="upload" action="/upload" method="POST" enctype="multipart/form-data">
+		
+		<fieldset>
+		<legend>HTML File Upload</legend>
+		
+		<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+		
+		<div>
+			<label for="fileselect">Files to upload:</label>
+			<input type="file" id="fileselect" name="file" multiple="multiple" />
+			<div id="filedrag" style="height:300px;">
+				<div  class="fileDrag">or drop files here</div>
+			</div>
+		</div>
+		
+		<div id="submitbutton">
+			<button type="submit" value="Upload">Upload Files</button>
+		</div>
+		
+		</fieldset>
+		
+		</form>
+		
+		<div id="messages">
+		<p>Status Messages</p>
+		</div>
+<!-- end of upload form -->		
+		
+
+
+
 
 	<div th:if="${message}"><h2 th:text="${message}" ></h2>
 	</div>
@@ -54,7 +89,7 @@
 				th:text="${file}" /></li>
 		</ul>
 	</div>
-
+	<script src="js/filedrag.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
 	<script src="../static/js/lib/angular-1.4.9/angular.js"
