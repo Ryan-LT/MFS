@@ -1,8 +1,8 @@
-<div class="main-header">Download History</div>
+<h3><i class="fa fa-angle-right"></i> Download History</h3>
 <div ng-controller="download">
-	<table class="table table-hover" style="width: 80%; margin: auto;">
+	<table class="content-panel table table-striped table-advance table-hover">
 		<thead>
-			<tr>
+			<tr style{background-color:"#eea236"}>
 				<th>#</th>
 				<th width="40%">Name</th>
 				<th>Size</th>
@@ -22,7 +22,7 @@
 	</table>
 	<ul class="list-inline">
 		<li ng-repeat="i in getNumber(count) track by $index">
-			<button ng-click="getDownloadByPage($index, 2)">{{$index+1}}</button>
+			<button class="btn btn-success" ng-click="getDownloadByPage($index, 2)">{{$index+1}}</button>
 		</li>
 	</ul>
 </div>
