@@ -2,7 +2,7 @@
 	max-width: 420px;
 	padding: 30px;
 	margin: 0 auto;
-	background: rgba(226, 233, 228, 1);
+	background: rgba(226, 233, 228, .9);
 	border: none;
 }
 
@@ -98,4 +98,13 @@ input[type="password"] {
 	width: 200px;
 	margin-top: -45px;
 	margin-left: -30px;
+}
+
+.loginAnim {
+	animation: example 1.5s ease;
+}
+
+@keyframes example {
+    0%   {margin-top: 250px; opacity: .2}
+    100% {margin-top: 150px; opacity: .9}
 }

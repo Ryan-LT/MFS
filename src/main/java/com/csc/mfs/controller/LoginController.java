@@ -79,9 +79,10 @@ public class LoginController {
 		}
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("registration");
+			modelAndView.addObject("message", "User has been registered fail.");
 		} else {
 			userService.saveUser(user);
-			modelAndView.addObject("successMessage", "User has been registered successfully");
+			modelAndView.addObject("message", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
 			modelAndView.setViewName("registration");
 
