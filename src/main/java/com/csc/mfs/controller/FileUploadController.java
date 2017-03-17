@@ -52,7 +52,7 @@ public class FileUploadController {
     @Autowired
 	private UserService userService;
 
-    @GetMapping("/upload")
+    @RequestMapping(value="/upload", method = RequestMethod.GET)
     public String listUploadedFiles(Model model) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
@@ -63,7 +63,7 @@ public class FileUploadController {
                                 .fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
                                 .build().toString())
                 .collect(Collectors.toList()));
-        
+                 
         return "upload";
     }
     
@@ -79,13 +79,8 @@ public class FileUploadController {
  		//get download information
  		Download downLoad = new Download();
  		
- 		Files fileDownLoad = fileRepo.findOne(idFile);
- 		
- 		
- 		// check if the user have not reach the maximum download per day.
-// 		if(downloadService.beforeDownload(user.getId(), fileDownLoad.getSize()))
-// 		{
- 			downLoad.setIdFile(fileDownLoad);
+ 		Files fileDownload = fileRepo.findOne(idFile);
+ 			downLoad.setIdFile(fileDownload);
  	 		downLoad.setIdUser(user);
  	 		
  	 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -98,18 +93,11 @@ public class FileUploadController {
  			
  	 		downLoad.setDatedownload(date);
  	 		downloadService.insert(downLoad);
- 	        Resource file = storageService.loadAsResource(fileDownLoad.getPath());
+ 	        Resource file = storageService.loadAsResource(fileDownload.getPath());
  	        return ResponseEntity
  	                .ok()
- 	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
+ 	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+fileDownload.getName()+"\"")
  	                .body(file);
-// 		}
- 		
-// 		Resource file = null;
-// 		return ResponseEntity
-//	                .ok()
-//	                .body(file);
-        
     }
     
     @GetMapping("/download/check/{idFile}")
@@ -137,33 +125,51 @@ public class FileUploadController {
     
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
-    	
-        
-        Files fileDB = new Files();
-        Path fileDBPath = Paths.get(storageProp.getLocation());
+    public String handleFileUpload(@RequestParam("file") MultipartFile fileList[] ,
+    								@RequestParam("description") String description
+                                  , RedirectAttributes redirectAttributes) {
+    	/**
+    	 * 
+    	 * Retrieve user information.
+    	 */
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
-		Double spaceAvailable = fileService.beforeUpload(user.getId(), file.getSize()/1024.0);
-		CategoriesType category = new CategoriesType(1);
-		redirectAttributes.addFlashAttribute("spaceAvailable",
-				spaceAvailable);
-		if(spaceAvailable>=0){
-			 fileDB.setName(file.getOriginalFilename());
+		/**
+		 * Verify if user still has enough upload space.
+		 */			
+    	double sumFileSize=0.0; // the sum of file sizes
+    	for(MultipartFile file: fileList){
+    		sumFileSize +=file.getSize();
+    	}
+    	Double spaceAvailable = fileService.beforeUpload(user.getId(),sumFileSize/1024.0 );
+    	/**
+    	 * Store files and respond message.
+    	 */
+    	if(spaceAvailable>=0){
+    		String notice=""; // File names to print message
+    		
+    		for(MultipartFile file: fileList){
+    			CategoriesType category = new CategoriesType(1);
+    			Files fileDB = new Files();
+    			fileDB.setName(file.getOriginalFilename());
 		        fileDB.setSize((double)file.getSize()/1024.0);
 		        fileDB.setDateupload(new Date());
 		        fileDB.setPath((file.getOriginalFilename()).toString()+(new Date()).getTime());
 		        fileDB.setUserId(user.getId());
 		        fileDB.setIdType(category);
+		        fileDB.setDescription(description);
 		        fileService.insertFile(fileDB);
 		        storageService.store(file,Paths.get(fileDB.getPath()));
 		        fileService.afterUpload(user.getId(), file.getSize()/1024.0);
-		        redirectAttributes.addFlashAttribute("message",
-		                "You successfully uploaded " + file.getOriginalFilename() + "!");
+		        notice+=file.getOriginalFilename()+" ";
+    		}
+    		String message="You have successfully uploaded your files";
+    		System.out.println(message);
+    		redirectAttributes.addFlashAttribute("uploadMessage",message);
+    		System.out.println(redirectAttributes.toString());
 		} else {
 			redirectAttributes.addFlashAttribute("message",
-	                "Fail to upload " + file.getOriginalFilename() + "!");
+	                "You files have exceeded limitation! Please choose smaller files.");
 		}
         return "redirect:/upload";
     }
