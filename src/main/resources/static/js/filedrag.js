@@ -54,8 +54,6 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 		);
 
 	}
-
-
 	// initialize
 	function Init() {
 
