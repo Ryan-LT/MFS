@@ -52,7 +52,6 @@ public class FileUploadController {
     @Autowired
 	private UserService userService;
 
-    //@GetMapping("/upload")
     @RequestMapping(value="/upload", method = RequestMethod.GET)
     public String listUploadedFiles(Model model) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -80,8 +79,8 @@ public class FileUploadController {
  		//get download information
  		Download downLoad = new Download();
  		
- 		Files fileDownLoad = fileRepo.findOne(idFile);
- 			downLoad.setIdFile(fileDownLoad);
+ 		Files fileDownload = fileRepo.findOne(idFile);
+ 			downLoad.setIdFile(fileDownload);
  	 		downLoad.setIdUser(user);
  	 		
  	 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -94,10 +93,10 @@ public class FileUploadController {
  			
  	 		downLoad.setDatedownload(date);
  	 		downloadService.insert(downLoad);
- 	        Resource file = storageService.loadAsResource(fileDownLoad.getPath());
+ 	        Resource file = storageService.loadAsResource(fileDownload.getPath());
  	        return ResponseEntity
  	                .ok()
- 	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
+ 	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+fileDownload.getName()+"\"")
  	                .body(file);
     }
     
@@ -126,7 +125,8 @@ public class FileUploadController {
     
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile fileList[] ,@RequestParam("description") String descriptio
+    public String handleFileUpload(@RequestParam("file") MultipartFile fileList[] ,
+    								@RequestParam("description") String description
                                   , RedirectAttributes redirectAttributes) {
     	/**
     	 * 
@@ -146,7 +146,8 @@ public class FileUploadController {
     	 * Store files and respond message.
     	 */
     	if(spaceAvailable>=0){
-    		String files=""; // File names to print message
+    		String notice=""; // File names to print message
+    		
     		for(MultipartFile file: fileList){
     			CategoriesType category = new CategoriesType(1);
     			Files fileDB = new Files();
@@ -156,16 +157,19 @@ public class FileUploadController {
 		        fileDB.setPath((file.getOriginalFilename()).toString()+(new Date()).getTime());
 		        fileDB.setUserId(user.getId());
 		        fileDB.setIdType(category);
+		        fileDB.setDescription(description);
 		        fileService.insertFile(fileDB);
 		        storageService.store(file,Paths.get(fileDB.getPath()));
 		        fileService.afterUpload(user.getId(), file.getSize()/1024.0);
-		        files+=file.getOriginalFilename()+" ";
+		        notice+=file.getOriginalFilename()+" ";
     		}
-    		redirectAttributes.addFlashAttribute("message",
-	                "You have successfully uploaded "+files);
+    		String message="You have successfully uploaded your files";
+    		System.out.println(message);
+    		redirectAttributes.addFlashAttribute("uploadMessage",message);
+    		System.out.println(redirectAttributes.toString());
 		} else {
 			redirectAttributes.addFlashAttribute("message",
-	                "You have reached your upload limitation! Please choose smaller files.");
+	                "You files have exceeded limitation! Please choose smaller files.");
 		}
         return "redirect:/upload";
     }
