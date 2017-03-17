@@ -23,17 +23,15 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  *
  * @author VuMin
  */
 @Entity
 @Table(name = "categories_type", catalog = "finalfresherfilesharing", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "CategoriesType.findAll", query = "SELECT c FROM CategoriesType c"),
-    @NamedQuery(name = "CategoriesType.findById", query = "SELECT c FROM CategoriesType c WHERE c.id = :id"),
-    @NamedQuery(name = "CategoriesType.findByFileType", query = "SELECT c FROM CategoriesType c WHERE c.fileType = :fileType")})
 public class CategoriesType implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,8 +44,10 @@ public class CategoriesType implements Serializable {
     private String fileType;
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Categories categoryId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idType")
+    @JsonIgnore
     private Collection<Files> filesCollection;
 
     public CategoriesType() {

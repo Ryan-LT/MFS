@@ -3,6 +3,7 @@ package com.csc.mfs.controller;
 import com.csc.mfs.storage.StorageFileNotFoundException;
 import com.csc.mfs.storage.StorageProperties;
 import com.csc.mfs.storage.StorageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.stream.Collectors;
 import com.csc.mfs.model.*;
+import com.csc.mfs.repository.CategoryRepository;
 import com.csc.mfs.repository.FilesRepository;
 import com.csc.mfs.service.DownloadService;
 import com.csc.mfs.service.FileService;
@@ -44,7 +46,8 @@ public class FileUploadController {
     private FilesRepository fileRepo;
     @Autowired
     private FileService fileService;
-    
+    @Autowired
+    private CategoryRepository categoryRepository;
     @Autowired
     private StorageProperties storageProp;
     @Autowired
@@ -133,6 +136,10 @@ public class FileUploadController {
         
     }
     
+    @GetMapping("/get/category/{type}")
+    public CategoriesType  queryCategory(@PathVariable("type") String type ){
+    	return categoryRepository.findByFileType("txt");
+    }
     
     
 
@@ -146,7 +153,15 @@ public class FileUploadController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		Double spaceAvailable = fileService.beforeUpload(user.getId(), file.getSize()/1024.0);
-		CategoriesType category = new CategoriesType(1);
+		//Fix it later [Add library]
+		String fileName = file.getOriginalFilename();
+		String extension = "";
+		int i = fileName.lastIndexOf('.');
+		if (i>= 0) {
+			extension = fileName.substring(i+1);
+		}
+		CategoriesType category = categoryRepository.findByFileType(extension);
+		/////////////////////
 		redirectAttributes.addFlashAttribute("spaceAvailable",
 				spaceAvailable);
 		if(spaceAvailable>=0){

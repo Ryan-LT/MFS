@@ -49,6 +49,8 @@
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/thinh-landing.css">
+<link rel="stylesheet" href="css/landing.css">
 
 <!-- ===========================
     ICONS: 
@@ -78,6 +80,11 @@
 <script>
 	function load() {
 		$('#myModal').modal('show');
+	}
+	
+	function openByModal() {
+		$('#byModal').modal('show');
+		$('.modal-backdrop').removeClass("modal-backdrop");   
 	}
 </script>
 </head>
@@ -166,7 +173,6 @@
 
 		</div>
 	</div>
-
 
 
 	<!-- ===========================
@@ -259,10 +265,16 @@
 			<h3>This is what we have for you</h3>
 			<hr class="separetor">
 		</div>
+
 		<div>
-			<form class="search-form" ng-submit="searchByCatelogy(2,infoSearch)">
-				<input class="input-search" type="text" 
-					placeholder="Search ..." ng-model="infoSearch">
+			<form class="search-form"
+				ng-submit="searchByCatelogy(Selectedtype,infoSearch)">
+				<div class="div-search">
+					<input class="input-search" type="text" placeholder="Search ..."
+						ng-model="infoSearch">
+					<select class="by-btn" ng-model="Selectedtype" ng-options="type for type in types">
+					</select>
+				</div>
 				<button type="submit" class="btn btn-search">Search</button>
 			</form>
 			<div class="filter-form">
@@ -276,15 +288,39 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th width="40%">Name</th>
-					<th>Size</th>
-					<th>Updated Date</th>
-					<th>Owner</th>
+					<th width="40%">
+						<a href="#" ng-click="sortType = 'file[1]'; sortReverse = !sortReverse">
+          				Name
+            			<span ng-show="sortType == 'file[1]' && !sortReverse" class="fa fa-caret-down"></span>
+            			<span ng-show="sortType == 'file[1]' && sortReverse" class="fa fa-caret-up"></span>
+          			</a>
+          			</th>
+					<th>
+						<a href="#" ng-click="sortType = 'file[3]'; sortReverse = !sortReverse">
+          				Size
+            			<span ng-show="sortType == 'file[3]' && !sortReverse" class="fa fa-caret-down"></span>
+            			<span ng-show="sortType == 'file[3]' && sortReverse" class="fa fa-caret-up"></span>
+          				</a>
+          			</th>
+					<th>
+						<a href="#" ng-click="sortType = 'file[5]'; sortReverse = !sortReverse">
+          				Updated Date
+            			<span ng-show="sortType == 'file[5]' && !sortReverse" class="fa fa-caret-down"></span>
+            			<span ng-show="sortType == 'file[5]' && sortReverse" class="fa fa-caret-up"></span>
+          				</a>
+          			</th>
+					<th>
+						<a href="#" ng-click="sortType = 'file[6]'; sortReverse = !sortReverse">
+          				Owner
+            			<span ng-show="sortType == 'file[6]' && !sortReverse" class="fa fa-caret-down"></span>
+            			<span ng-show="sortType == 'file[6]' && sortReverse" class="fa fa-caret-up"></span>
+          				</a>
+          			</th>
 					<th width="15%">Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="file in files.content track by $index" class="info">
+				<tr ng-repeat="file in files.content  | filter:filterFile | orderBy:sortType:sortReverse track by $index" class="info">
 					<td>{{$index+1}}</td>
 					<td><a href="#/detail/{{file.id}}">{{file[1]}}</a></td>
 					<td>{{file[3]}}</td>
