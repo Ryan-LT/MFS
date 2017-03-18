@@ -3,42 +3,20 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 	$scope.selectedIndex = 0;
 	$scope.pageSum;
 	$scope.page;
-	getDataRank();
 	getData('0', '5');
-	countUser();
 	$scope.getNumber = function(num) {
 		return new Array(num);
 	}
 	// Get Data
 	
-	function getDataRank(rankId) {
-		$http.get("http://localhost:8080/rank/all")
-			.success(function(data, status, headers, config){
-				$scope.rankData = [];
-				for(var i=0; i < data.length;i++){
-						$scope.rankData.push(data[i].name);
-				}
-		}).error(function(data, status, headers, config){});
-	}
-	
 	function getData(page, pageSize) {
-		$http(
-				{
-					method : 'get',
-					url : "http://localhost:8080/user/all/" + parseInt(page)
-							+ "/" + parseInt(pageSize)
-				}).success(function(data, status, headers, config) {
-			$scope.users = data.content;
-		}).error(function(data, status, headers, config) {
-		});
-	}
-
-	function countUser() {
 		$http({
-			method : 'get',
-			url : "http://localhost:8080/user/countUser/"
-		}).success(function(data, status, headers, config) {
-			$scope.pageSum = Math.ceil(data / 5);
+					method : 'get',
+					url : "http://localhost:8080/user/all/?page=" + parseInt(page)
+							+ "&size=" + parseInt(pageSize)
+			}).success(function(data, status, headers, config) {
+			$scope.users = data.content;
+			$scope.pageSum = data.totalPages;
 		}).error(function(data, status, headers, config) {
 		});
 	}
@@ -65,7 +43,7 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 				url: "http://localhost:8080/rank/all"
 			}).success(function(data, status, headers, config){
 				//alert(data[id_Rank-1].name);
-				$scope.rank = { current: (id_Rank-1)+"", names: []};
+				$scope.rank = { current: ($scope.user.rankId.id-1)+"", names: []};
 				for(var i=0; i < data.length;i++){
 						$scope.rank.names.push({id: parseInt(i), name: data[i].name});
 				}
@@ -91,7 +69,15 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 
 	$scope.editUser = function(user) {
 		//alert($scope.rank.current);
-		user.rank_Id = parseInt($scope.rank.current)+1;
+		$scope.rankId = {
+		"id": parseInt($scope.rank.current)+1,
+		"name": "",
+		"sizeupload": 20,
+		"sizedownload": 1024,
+		"sizerank": 100
+		}
+		user.rankId = $scope.rankId;//parseInt($scope.rank.current)+1;
+		console.log(parseInt($scope.rank.current)+1);
 		userDataOp.editUser(user).then(Success, Error);
 	};
 

@@ -33,11 +33,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "categories_type", catalog = "finalfresherfilesharing", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "CategoriesType.findAll", query = "SELECT c FROM CategoriesType c")
-    , @NamedQuery(name = "CategoriesType.findById", query = "SELECT c FROM CategoriesType c WHERE c.id = :id")
-    , @NamedQuery(name = "CategoriesType.findByFileType", query = "SELECT c FROM CategoriesType c WHERE c.fileType = :fileType")})
 public class CategoriesType implements Serializable {
 
     private static final long serialVersionUID = 1L;
