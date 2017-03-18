@@ -15,7 +15,7 @@
 		</thead>
 		<tbody ng-repeat="file in files.content | filter: filter_">
 			<td>{{$index+1}}</td>
-			<td><a href="#/detail/{{file.id}}">{{file.name}}</a></td>
+			<td><a href="" ng-click="getInfoFile(file.id)">{{file.name}}</a></td>
 			<td>{{file.size | number:2}} Kb</td>
 			<td>{{file.dateupload | date:"dd-MM-yyyy"}}</td>
 			<td><input ng-click="changeShare(file.id)" type="checkbox"
@@ -72,15 +72,15 @@
 							<td>{{total}}</td>
 						</tr>
 					</table>
-					<h4>Description++++</h4>
-					<textarea rows="" cols="">{{fileDetail.description}}</textarea>
+					<h4>Description:</h4>
+					<textarea class="form-control" rows="8" cols="">{{fileDetail.description}}</textarea>
 				</div>
 				<hr>
 				<section class="row">
 					<section class="col-md-2"></section>
 					<section class="col-md-8">
 						<h4>Comment</h4>
-						<form ng-submit="saveComment(file.id)">
+						<form ng-submit="saveComment(fileDetail.id)">
 							<textarea ng-model="content" class="form-control" rows="3" ></textarea>
 							<button class="btn btn-primary" type="submit">Comment</button>
 						</form>
