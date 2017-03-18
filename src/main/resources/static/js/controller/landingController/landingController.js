@@ -1,9 +1,14 @@
 var app = angular.module('landing', [ 'ngRoute' ]);
 app.controller("landingController", function($http, $scope, $window, $location, $window) {
 
+	$scope.filterFile ='';
+	$scope.sortReverse = false; 
+	  
 	$scope.page;
 	$scope.pageSum;
 	getFile();
+	$scope.types = ["All", "Category", "Name", "Uploader", "Size"];
+	$scope.Selectedtype = $scope.types[0];
 	
 	function getFile() {
 		getFileByCategoryFunction('all', 0, 8);
@@ -47,8 +52,6 @@ app.controller("landingController", function($http, $scope, $window, $location, 
 	};
 	
 	$scope.searchByCatelogy = function(type, input) {
-		alert(input)
-		alert(type)
 		$http({
 			method: 'get',
 			url: "http://localhost:8080/file/searchOption/" + type + "/" + input
@@ -65,7 +68,6 @@ app.controller("landingController", function($http, $scope, $window, $location, 
 	$scope.infoTemp = $scope.search;
 	function searchFiles(page, pageSize) {
 		$scope.search = $scope.infoSearch;
-		alert($scope.infoSearch);
 		countSearch();
 		$http(
 				{

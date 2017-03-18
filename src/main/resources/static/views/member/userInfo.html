@@ -1,8 +1,9 @@
-<div class="main-header">User Information</div>
-<div ng-controller="userInfo" class="m-container">
+
+<h3><i class="fa fa-angle-right"></i> User Information</h3>
+<div ng-controller="userInfo" class="form-panel">
 	<div class="input-group">
 		<span class="input-group-addon" title="Your email"> <i
-			class="glyphicon glyphicon-envelope"></i>
+			class="fa fa-envelope"></i>
 		</span> <input readonly="readonly" id="email" type="text"
 			value="{{userInfo.email}}" class="form-control" name="email"
 			placeholder="Email">
@@ -10,7 +11,7 @@
 	<br>
 	<div class="input-group">
 		<span class="input-group-addon" title="Your name"> <i
-			class="glyphicon glyphicon-user"></i>
+			class="fa fa-user"></i>
 		</span> <input readonly="readonly" id="displayName" value="{{userInfo.name}}"
 			type="text" class="form-control" name="displayName"
 			placeholder="Display Name">
@@ -18,7 +19,7 @@
 	<br>
 	<div class="input-group">
 		<span class="input-group-addon" title="Your name"> <i
-			class="glyphicon glyphicon-bookmark" title="Your rank"></i>
+			class="fa fa-bookmark" title="Your rank"></i>
 		</span> <input readonly="readonly" id="displayName" value="{{rankName}}"
 			type="text" class="form-control" name="rank" placeholder="Rank">
 	</div>
@@ -26,7 +27,7 @@
 		<h3 class="text-center">Change Password</h3>
 		<div class="input-group">
 			<span class="input-group-addon"> <i
-				class="glyphicon glyphicon-lock"></i>
+				class="fa fa-lock"></i>
 			</span> <input required="required" id="password" type="password"
 				class="form-control" ng-model="currentPassword" name="password"
 				placeholder="Current Password">
@@ -34,13 +35,21 @@
 		<br>
 		<div class="input-group">
 			<span class="input-group-addon"> <i
-				class="glyphicon glyphicon-edit"></i>
+				class="fa fa-edit"></i>
 			</span> <input required="required" id="password" type="password"
 				class="form-control" ng-model="newPassword" name="password"
 				placeholder="New Password">
 		</div>
+		<br>
+		<div class="input-group">
+			<span class="input-group-addon"> <i
+				class="fa fa-edit"></i>
+			</span> <input required="required" id="password" type="password"
+				class="form-control"  name="confirm-password"
+				placeholder="Confirm New Password">
+		</div>
 		{{msg}} <br>
-		<button type="submit" class="btn m-btn active">Change
+		<button type="submit" class="btn btn-success">Change
 			Password</button>
 	</form>
 </div>

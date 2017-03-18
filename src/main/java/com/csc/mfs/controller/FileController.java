@@ -157,17 +157,17 @@ public class FileController {
 	 * @return
 	 */
 	@RequestMapping("/searchOption/{type}/{file}")
-	public Page<Object> fSearchByCategory(@PathVariable("file") String file, @PathVariable("type") int type, Pageable pageable) {
-		if(type==0){
-			return fileService.searchFile(file, pageable);
-		} else if(type==1){
-			return fileService.findByInfoCategory(file, pageable);
-		} else if(type==2){
-			return fileService.findByInfoName(file, pageable);
-		} else if(type==3){
-			return fileService.findByInfoUploader(file, pageable);
+	public Page<Object> fSearchByCategory(@PathVariable("file") String file, @PathVariable("type") String type, Pageable pageable) {
+		if(type.equals("All")){
+			return fileService.searchFile(file, pageable); //by All
+		} else if(type.equals("Category")){
+			return fileService.findByInfoCategory(file, pageable); //by category
+		} else if(type.equals("Name")){
+			return fileService.findByInfoName(file, pageable); //by name
+		} else if(type.equals("Uploader")){
+			return fileService.findByInfoUploader(file, pageable); //by owner
 		} else {
-			return fileService.findByInfoSize(Integer.parseInt(file), pageable);
+			return fileService.findByInfoSize(Integer.parseInt(file), pageable); //by size
 		}
 	}
 
