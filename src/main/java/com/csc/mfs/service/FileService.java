@@ -163,11 +163,11 @@ public class FileService {
 	public double beforeUpload(int id, double sizeFile){
 		User user = userRepository.findOne(id);
 		Rank rank = rankRepository.findOne(user.getRank_Id());
-		double inDay = sumSizeUploadInDay(id);
-		if((inDay+sizeFile)>=rank.getSizeupload()){
-			return inDay-rank.getSizeupload();
+		
+		if((sizeFile)>=rank.getSizeupload()){
+			return -1;
 		} else {
-			return (rank.getSizeupload()-(inDay+sizeFile));
+			return 1;
 		}
 	}
 	
