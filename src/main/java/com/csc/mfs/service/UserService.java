@@ -66,7 +66,7 @@ public class UserService {
 	}
 
 	public void updateUser(User user) {
-		User u = userRepository.findOne(user.getId());
+		User u = userRepository.findByEmail(user.getEmail());
 		if(null!=u){
 			user.setPassword(u.getPassword());
 			userRepository.saveAndFlush(user);	
