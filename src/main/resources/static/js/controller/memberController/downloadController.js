@@ -21,7 +21,31 @@ app.controller("download", function($scope, $http){
     $scope.getDownloadByPage = function(page, pageSize){
     	getHistory(parseInt(page), parseInt(pageSize));
     }
-	
+    
+    $scope.getInfoFile = function(id){
+    	$('.modal').modal('show');
+    	alert(id);
+    	$http({
+			method: 'get',
+			url: "http://localhost:8080/file/get/"+id
+		}).success(function(data, status, headers, config){
+			$scope.fileDetail = data;
+		})
+		.error(function(data, status, headers, config){
+			alert("fail__")
+		});
+    	$http({
+			method: 'get',
+			url: "http://localhost:8080/download/total/"+id
+		}).success(function(data, status, headers, config){
+			$scope.total = data;
+			
+		})
+		.error(function(data, status, headers, config){
+			alert("fail__")
+		});
+    	getComment(id);
+    }
     
     function getComment(id){
     	$http({

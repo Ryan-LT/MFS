@@ -86,5 +86,29 @@ app.controller('fileManage', function($scope, $http, $window){
 		});
     	getComment(id);
     }
-  
+    
+    function getComment(id){
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/comment/getByFile/" + id
+		}).success(function(data, status, headers, config){
+			$scope.comments = data;
+		})
+		.error(function(data, status, headers, config){});
+	}
+    
+    $scope.saveComment = function(id){
+    	alert(id);
+		$scope.contentComment = {
+				content: $scope.content,
+		    	idFile: id
+		}
+		$http.post("http://localhost:8080/comment/saveComment", $scope.contentComment)
+		.success(function(data, status, headers, config){
+			getComment(id);
+		})
+		.error(function(data, status, headers, config){
+		});
+	}
+	
 });

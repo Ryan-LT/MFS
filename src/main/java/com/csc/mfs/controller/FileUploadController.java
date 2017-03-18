@@ -156,7 +156,8 @@ public class FileUploadController {
 				fileDB.setSize((double) file.getSize() / 1024.0);
 				fileDB.setDateupload(new Date());
 				fileDB.setPath((file.getOriginalFilename()).toString() + (new Date()).getTime());
-				fileDB.setUserId(user.getId());
+				fileDB.setUserId(user);
+				fileDB.setSharing(1);
 				fileDB.setIdType(category);
 				fileDB.setDescription(description);
 				fileService.insertFile(fileDB);
