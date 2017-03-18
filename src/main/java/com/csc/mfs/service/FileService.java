@@ -27,39 +27,17 @@ public class FileService {
 	@Autowired
 	private RankRepository rankRepository;
 	
-	/**
-	 * Get all file uploaded
-	 * @return List<Files>
-	 */
-	public List<Files> getAll(){
-		return fileRepository.findAll();
+	public Page<Files> getAll(Pageable pageable){
+		return fileRepository.findBySharingAndActive(1, 1, pageable);
 	}
 	
-	/**
-	 * Insert or update file
-	 * @param file
-	 */
-	public void insertFile(Files file){
-		//Files file_ = new Files("vuong.txt", "", 1234, new User(2), new Date());
-		file.setActive(1);
-		fileRepository.save(file);
-	}
-
 	/**
 	 * Get one file by id
 	 * @param id
 	 * @return Files
 	 */
-	public Files getFile(int id){
-		return fileRepository.findOne(id);
-	}
-	
-	/**
-	 * get file have most downloaded
-	 * @return List<Files>
-	 */
-	public List<Files> getBestDownload(){
-		return fileRepository.getBestDownload();
+	public Files getFile(int idFile){
+		return fileRepository.findOne(idFile);
 	}
 	
 	/**
@@ -69,77 +47,28 @@ public class FileService {
 	 * @param pageSize
 	 * @return List<Files>
 	 */
-	public List<Files> getFileByUser(int idUser, int page, int pageSize){
-		int count = page*pageSize;
-		return fileRepository.findFileActiveByUserId(idUser, count, pageSize);
-	}
-	
-	/**
-	 * Get total file user uploaded which still active
-	 * @param idUser
-	 * @return long
-	 */
-	public long countFileOfUser(int idUser){
-		return fileRepository.countFileActiveByUserId(idUser);
-	}
-	
-	/**
-	 * Get total file
-	 * @return long
-	 */
-	public long countFile(){
-		return fileRepository.countFile();
+	public Page<Files> getFileByUser(int idUser, Pageable pageable){
+		User user = userRepository.findOne(idUser); 
+		if(user != null){
+			return fileRepository.findByUserIdAndActive(user, 1, pageable);	
+		} else {
+			return null;
+		}
 	}
 	
 	/**
 	 * Delete file(set active =0... foreign key)
 	 * @param id
 	 */
-	public void delete(int id){
-		//fileRepository.delete(id);
-		fileRepository.updateActive(id);
-	}
-	
-	/**
-	 * Set id_user = 0(foreign key).. delete user
-	 * @param idUser
-	 */
-	public void updateUser(int idUser){
-		fileRepository.UpdateUser(idUser);
-	}
-	
-	
-	/**
-	 * Search file
-	 * @param infoFile
-	 * @param page
-	 * @param pageSize
-	 * @return List<Files>
-	 */
-	public Page<Object> searchFile(String infoFile, Pageable pageable){
-		return fileRepository.findByInfo(infoFile, pageable);
-	}
-	
-	/**
-	 * Get total size upload in day of user
-	 * @param idUser
-	 * @return
-	 */
-	public double sumSizeUploadInDay(int idUser){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
-		Date date = new Date();
-		try {
-			date = sdf.parse(sdf.format(date));
-			System.out.println(date.getTime());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		if(null!=fileRepository.sumSizeUploadInDay(idUser, date.getTime())){
-			return (double)fileRepository.sumSizeUploadInDay(idUser, date.getTime());	
-		} else {
-			return 0d;
+	public void delete(int idFile){
+		Files file = fileRepository.findOne(idFile);
+		if(file!=null){
+			file.setActive(0);
+			fileRepository.flush();
 		}
 	}
+	
+	
 	
 	/**
 	 * Get total size upload of user
@@ -160,15 +89,16 @@ public class FileService {
 	 * @param sizeFile
 	 * @return
 	 */
-	public double beforeUpload(int id, double sizeFile){
-		User user = userRepository.findOne(id);
-		Rank rank = rankRepository.findOne(user.getRank_Id());
-		
-		if((sizeFile)>=rank.getSizeupload()){
-			return -1;
-		} else {
-			return 1;
+	public double beforeUpload(int idUser, double sizeFile){
+		User user = userRepository.findOne(idUser);
+		Rank rank = null;
+		if(user!=null){
+			rank = rankRepository.findOne(user.getRankId().getId());
+			if(sizeFile>=rank.getSizeupload()){
+				return -1;
+			}
 		}
+		return 1;
 	}
 	
 	/**
@@ -176,39 +106,59 @@ public class FileService {
 	 * @param id
 	 * @param sizeFile
 	 */
-	public void afterUpload(int id, double sizeFile){
-		User user = userRepository.findOne(id);
-		Rank rank = rankRepository.findOne(user.getRank_Id());
-		if(user.getRank_Id()==3){
-			return;
+	public void afterUpload(int idUser, double sizeFile){
+		User user = userRepository.findOne(idUser);
+		Rank rank = rankRepository.findOne(user.getRankId().getId());
+		if("gold".equals(user.getRankId().getName().toLowerCase())){
 		} else {
-			if((totalSizeUpload(id)+sizeFile)>rank.getSizerank()){
-				user.setRank_Id(user.getRank_Id()+1);
+			if(totalSizeUpload(idUser)>rank.getSizerank()){
+				user.setRankId(rankRepository.findOne(user.getRankId().getId()+1));
 				userRepository.flush();
 			}
 		}
 	}
 	
 	/**
-	 * Delete file of User
-	 * @param idUser
+	 * Insert or update file
+	 * @param file
 	 */
-	public void deleteFilesOfUser(int idUser){
-		User user = userRepository.findOne(idUser);
-		fileRepository.removeByUserId(user);
+	public void insertFile(Files file){
+		file.setActive(1);
+		fileRepository.save(file);
 	}
 	
-	/**
-	 * Get all file(pagination)
-	 * @param page
-	 * @param pageSize
-	 * @return
-	 */
-	public List<Object> getAllFilePagination(int page, int pageSize){
-		return fileRepository.getAllFilePagination(page*pageSize, pageSize);
+	
+	public Page<Files> findBySize(double size, Pageable pageable){
+		return fileRepository.findBySizeIsLessThanEqual(size, pageable);
 	}
 	
-	public void updateSharing(int idFile){
+	public Page<Files> findByNameLike(String name, Pageable pageable){
+		return fileRepository.findByNameContainingAndActive(name, 1, pageable);
+	}
+	
+	public Page<Files> findByUploader(String lastName, Pageable pageable){
+		return fileRepository.findByUserIdLastNameContainingAndActive(lastName, 1, pageable);
+	}
+	
+	public Page<Files> findByFileType(String typeFile, Pageable pageable){
+		return fileRepository.findByIdTypeFileTypeContainingAndActive(typeFile, 1, pageable);
+	}
+	
+	public Page<Files> findByCategory(String category, Pageable pageable){
+		return fileRepository.findByIdTypeCategoryIdNameAndActive(category, 1, pageable);
+	}
+	
+	public Page<Files> findByAll(String info, Pageable pageable){
+		double size =0;
+		try {
+			info+="";
+			size = Integer.parseInt(info);
+		} catch (Exception e) {
+		}
+		return fileRepository.findByNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContainingAndSharingAndActive(info, info, size, info, 1, 1, pageable);
+	}
+	
+	public void updateSharing(Integer idFile){
 		Files file = fileRepository.findOne(idFile);
 		if(null!=file){
 			if(file.getSharing()!=1){
@@ -220,66 +170,31 @@ public class FileService {
 		fileRepository.flush();
 	}
 	
-	public Page<Object> getFileByCategory(String nameCategory, Pageable pageable){
-		if(nameCategory.equals("all")){
-			nameCategory="%%";
-		} else {
-			nameCategory="%"+ nameCategory+"%";
+	public void updateDescription(Integer idFile, String content){
+		Files file = fileRepository.getOne(idFile);
+		if(null!=file){
+			file.setDescription(content);
 		}
-		return fileRepository.getFileByCategory(nameCategory, pageable);
+		fileRepository.flush();
 	}
 	
-	public Page<Object> findByInfoCategory(String infoFile, Pageable pageable){
-		if(infoFile.equals("")){
-			infoFile="%%";
-		} else {
-			infoFile="%"+ infoFile+"%";
-		}
-		return fileRepository.findByInfoCategory(infoFile, pageable);
+	/**
+	 * Get total file user uploaded which still active
+	 * @param idUser
+	 * @return long
+	 */
+	public long countFileOfUser(int idUser, Pageable pageable){
+		User user = userRepository.findOne(idUser);
+		return fileRepository.findByUserIdAndActive(user, 1, pageable).getTotalElements();
 	}
 	
-	public Page<Object> findByInfoName(String infoFile, Pageable pageable){
-		if(infoFile.equals("")){
-			infoFile="%%";
-		} else {
-			infoFile="%"+ infoFile+"%";
-		}
-		return fileRepository.findByInfoName(infoFile, pageable);
+	/**
+	 * Get total file
+	 * @return long
+	 */
+	public long countFile(){
+		return fileRepository.count();
 	}
 	
-	public Page<Object> findByInfoUploader(String uploader, Pageable pageable){
-		if(uploader.equals("")){
-			uploader="%%";
-		} else {
-			uploader="%"+ uploader+"%";
-		}
-		return fileRepository.findByInfoUploader(uploader, pageable);
-	}
-	
-	public Page<Object> findByInfoSize(int size, Pageable pageable){
-		if(size<0){
-			size=0;
-		}
-		return fileRepository.findByInfoSize(size, pageable);
-	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

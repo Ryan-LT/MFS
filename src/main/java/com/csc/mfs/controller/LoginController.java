@@ -49,6 +49,7 @@ public class LoginController {
 		ModelAndView modelAndViewAdmin = new ModelAndView();
 		ModelAndView modelAndViewMember = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getAuthorities().toString());
 		User user = new User();
 		modelAndView.addObject("user", user);
 		modelAndView.setViewName("registration");
@@ -88,6 +89,7 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
+		// System.out.println(auth.getAuthorities());
 		if (null != user) {
 			modelAndView.setViewName("admin");
 		} else {
@@ -101,8 +103,13 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
+		// System.out.println(auth.getAuthorities());
 		if (null != user) {
-			modelAndView.addObject("userId",user.getId());
+			modelAndView.addObject("userName",
+					"Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+			modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
+			modelAndView.addObject("userId", user.getId());
+			modelAndView.setViewName("member");
 		} else {
 			modelAndView.setViewName("login");
 		}
