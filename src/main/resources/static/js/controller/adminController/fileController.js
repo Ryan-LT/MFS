@@ -4,7 +4,6 @@ app.controller("fileController", function($scope, $http, fileDataOp, $routeParam
 	$scope.pageSum;
 	$scope.page;
 	getData('0', '5');
-	countFile();
 	$scope.getNumber = function(num) {
 		return new Array(num);
 	}
@@ -18,23 +17,13 @@ app.controller("fileController", function($scope, $http, fileDataOp, $routeParam
 	function getData(page, pageSize) {
 		$http({
 			method : 'get',
-			url : "http://localhost:8080/file/allPagination/" + parseInt(page)
-										+ "/" + parseInt(pageSize)
+			url : "http://localhost:8080/file/all/?page=" + parseInt(page)
+			+ "&size=" + parseInt(pageSize)
 		}).success(function(data, status, headers, config) {
-			$scope.files = data;
+			$scope.files = data.content;
+			$scope.pageSum = data.totalPages;
 		}).error(function(data, status, headers, config) {});
 	}
-	
-	function countFile() {
-		$http({
-			method : 'get',
-			url : "http://localhost:8080/file/countFile/"
-		}).success(function(data, status, headers, config) {
-			$scope.pageSum = Math.ceil(data / 5);
-		}).error(function(data, status, headers, config) {
-		});
-	}
-	
 	$scope.deleteFile = function(id){
 		fileDataOp.deleteFile(id).then(Success, Error);
 	};

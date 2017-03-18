@@ -14,7 +14,7 @@ app.factory('userDataOp',function($http) {
 	
 	var editUser = function(user) {
 		return $http({
-			method: 'POST',
+			method: 'PUT',
 			url: "http://localhost:8080/user/update/",
 			data: user
 		}).then(function(response) {
