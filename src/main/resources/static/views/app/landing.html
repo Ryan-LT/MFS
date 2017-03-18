@@ -49,7 +49,6 @@
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/thinh-landing.css">
 <link rel="stylesheet" href="css/landing.css">
 
 <!-- ===========================
@@ -184,7 +183,7 @@
 		<!-- SERVICE SECTION HEADING START -->
 		<div class="sectionhead  row wow fadeInUp">
 			<span class="bigicon icon-grid "></span>
-			<h3>This is your favorite catelogies</h3>
+			<h3>What is your favorite category</h3>
 			<hr class="separetor">
 		</div>
 		<!--SERVICE SECTION HEADING END-->
@@ -272,7 +271,7 @@
 				ng-submit="searchByCatelogy(Selectedtype,infoSearch)">
 				<div class="div-search">
 					<input class="input-search" type="text" placeholder="Search ..."
-						ng-model="infoSearch">
+						ng-model="infoSearch" required>
 					<select class="by-btn" ng-model="Selectedtype" ng-options="type for type in types">
 					</select>
 				</div>
