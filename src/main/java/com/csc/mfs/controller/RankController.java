@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +22,8 @@ public class RankController {
 	
 	
 	@RequestMapping("/all")
-	public ResponseEntity<List<Rank>> getAll(){
-		 return ResponseEntity
-	                .ok()
-	                .body((List<Rank>) rankService.getAll());
+	public List<Rank> getAll(){
+		return (List<Rank>) rankService.getAll();
 	}
 	
 	@RequestMapping("/delete/{id}")
@@ -40,10 +37,8 @@ public class RankController {
 	}
 	
 	@RequestMapping(value="/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Rank> getOne(@PathVariable int id){
-		return ResponseEntity
-                .ok()
-                .body(rankService.getOne(id));
+	public Rank getOne(@PathVariable int id){
+		return rankService.getOne(id);
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)

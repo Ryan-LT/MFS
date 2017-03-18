@@ -1,27 +1,34 @@
 package com.csc.mfs.service;
 
 import com.csc.mfs.model.Comment;
+import com.csc.mfs.model.Files;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.csc.mfs.repository.CommentRepository;
+import com.csc.mfs.repository.FilesRepository;
 
 @Service
 public class CommentService {
 	@Autowired
 	private CommentRepository commentRepository;
+	@Autowired
+	private FilesRepository fileRepository;
 	
-	public List<Comment> getByFile(int idFile){
-		return commentRepository.findByIdFile(idFile);
+	public Page<Comment> getByFile(int idFile, Pageable pageable){
+		Files file = fileRepository.findOne(idFile);
+		if(null!=file){
+			return commentRepository.findByIdFile(file, pageable);	
+		} else {
+			return null;
+		}
 	}
-	
-	public List<Object> getCommentOfFile(int idFile){
-		return commentRepository.getCommentOfFle(idFile);
-	}
-	
+
 	public void saveComment(Comment comment){
 		commentRepository.saveAndFlush(comment);
 	}

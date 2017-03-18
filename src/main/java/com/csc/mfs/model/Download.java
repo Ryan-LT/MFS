@@ -7,7 +7,6 @@ package com.csc.mfs.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,52 +20,45 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author VuMin
+ * @author training
  */
 @Entity
 @Table(name = "download", catalog = "finalfresherfilesharing", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Download.findAll", query = "SELECT d FROM Download d"),
-    @NamedQuery(name = "Download.findById", query = "SELECT d FROM Download d WHERE d.id = :id")})
 public class Download implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "datedownload", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date datedownload;
     @JoinColumn(name = "id_user", referencedColumnName = "id")
     @ManyToOne
     private User idUser;
-    public Date getDatedownload() {
-		return datedownload;
-	}
-	public void setDatedownload(Date datedownload) {
-		this.datedownload = datedownload;
-	}
-
-	@JoinColumn(name = "id_file", referencedColumnName = "id")
+    @JoinColumn(name = "id_file", referencedColumnName = "id")
     @ManyToOne
     private Files idFile;
 
-    @Column(name = "datedownload")
-    @Temporal(TemporalType.DATE)
-    private Date datedownload;
-    
     public Download() {
-    }
-    public Download(User user, Files file) {
-    	this.idUser = user;
-    	this.idFile = file;
     }
 
     public Download(Integer id) {
         this.id = id;
+    }
+
+    public Download(Integer id, Date datedownload) {
+        this.id = id;
+        this.datedownload = datedownload;
     }
 
     public Integer getId() {
@@ -75,6 +67,14 @@ public class Download implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getDatedownload() {
+        return datedownload;
+    }
+
+    public void setDatedownload(Date datedownload) {
+        this.datedownload = datedownload;
     }
 
     public User getIdUser() {
@@ -115,7 +115,7 @@ public class Download implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication1.Download[ id=" + id + " ]";
+        return "com.csc.mfs.model.Download[ id=" + id + " ]";
     }
     
 }
