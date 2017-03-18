@@ -93,7 +93,7 @@ $(function() {
   $(document).ready(function(){
 
     // hide .navbar first
-    $(".navbar").hide();
+    /*$(".navbar").hide();*/
 
     // fade in .navbar
     $(function () {
@@ -101,17 +101,24 @@ $(function() {
 
                  // set distance user needs to scroll before we start fadeIn
             if ($(this).scrollTop() > 40) {
-                $('.navbar')
+                /*$('.navbar')
                 .removeClass('animated fadeOutUp')
                 .addClass('animated fadeInDown')
                 .fadeIn();
+                $('.navbar')
+                .removeClass('animated smallerText')
+                .addClass('animated biggerText');
                 
             } else {
                 $('.navbar')
                 .removeClass('animated fadeInDown')
                 .addClass('animated fadeOutUp')
                 .fadeOut();
-            }
+                $('.navbar')
+                .removeClass('animated biggerText')
+                .addClass('animated smallerText');
+            }*/
+        	}	
         });
     });
 
