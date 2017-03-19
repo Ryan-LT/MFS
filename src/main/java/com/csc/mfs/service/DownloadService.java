@@ -1,21 +1,21 @@
 package com.csc.mfs.service;
 
-import java.io.Console;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.csc.mfs.repository.DownloadRepository;
+import com.csc.mfs.repository.FilesRepository;
 import com.csc.mfs.repository.RankRepository;
 import com.csc.mfs.repository.UserRepository;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 import com.csc.mfs.model.Download;
+import com.csc.mfs.model.Files;
 import com.csc.mfs.model.Rank;
 import com.csc.mfs.model.User;
 
@@ -35,30 +35,21 @@ public class DownloadService {
 	
 	@Autowired
 	private RankRepository rankRepository;
-	
-	/**
-	 * This method is used to get all record in download table
-	 * @return List<Download>
-	 */
-	public List<Download> getAll(){
-		return downloadRepository.findAll();
-	}
-	
-	/**
-	 * This method is used to get total record in download table 
-	 * @return long
-	 */
-	public long countDownload(){
-		return downloadRepository.count();
-	}
+	@Autowired
+	private FilesRepository fileRepository;
 	
 	/**
 	 * This method is used to get total downloads of User
 	 * @param idOfUser
 	 * @return long
 	 */
-	public long countDownloadByUser(int idOfUser){
-		return downloadRepository.countDownloadByUser(idOfUser);
+	public long countDownloadByUser(int idOfUser, Pageable pageable){
+		User user = userRepository.findOne(idOfUser);
+		if(null!=user){
+			return downloadRepository.findByIdUser(user, pageable).getTotalElements();	
+		}
+		return 0;
+		
 	}
 	
 	/**
@@ -67,7 +58,11 @@ public class DownloadService {
 	 * @return long
 	 */
 	public long countDownFile(int idFile){
-		return downloadRepository.countDownloadFiles(idFile);
+		Files file = fileRepository.findOne(idFile);
+		if(null!=file){
+			return downloadRepository.findByIdFile(file).size();
+		}
+		return 0;
 	}
 	
 	/**
@@ -84,9 +79,10 @@ public class DownloadService {
 	 * @param idUser
 	 * @return List<Download>
 	 */
-	public List<Download> findByUser(int idUser){
-		if(null!=userRepository.findOne(idUser)){
-			return (List<Download>)downloadRepository.findByIdUser(userRepository.findOne(idUser));
+	public Page<Download> findByUser(int idUser, Pageable pageable){
+		User user = userRepository.findOne(idUser);
+		if(null!=user){
+			return downloadRepository.findByIdUser(user, pageable);
 		}
 		return null;
 	}
@@ -100,33 +96,11 @@ public class DownloadService {
 	}
 	
 	/**
-	 * This method if get total size files which user download in day
-	 * @param idUser
-	 * @return double
-	 */
-	public double totalDownloadInDay(int idUser){
-		if(null!=downloadRepository.sumSizeDownload(idUser)){
-			return (double)downloadRepository.sumSizeDownload(idUser);
-		} else {
-			return 0d;
-		}
-	}
-	
-	/**
 	 * This method is used to insert or update(id must really) record download
 	 * @param download
 	 */
 	public void insert(Download download){
 		downloadRepository.save(download);
-	}
-	
-	/**
-	 * This method is used to delete all download record of user
-	 * @param id
-	 */
-	public void deleteBUser(int id){
-		User user = userRepository.findOne(id);
-		downloadRepository.removeByIdUser(user);
 	}
 	
 	/**
@@ -143,9 +117,9 @@ public class DownloadService {
 			e.printStackTrace();
 		}
 		System.out.println(date);
-		System.out.println(date.getTime());
-		if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date)){
-			return (double) downloadRepository.sumSizeDownloadInDay(idUser, date);
+		Object sum = downloadRepository.sumSizeDownloadInDay(idUser, date);
+		if(null!=sum){
+			return (double) sum;
 		} else {
 			return 0;
 		}
@@ -169,14 +143,8 @@ public class DownloadService {
 				e.printStackTrace();
 			}
 			
-			double size = 0;
-			if(null!=downloadRepository.sumSizeDownloadInDay(idUser, date)){
-				size = (double) downloadRepository.sumSizeDownloadInDay(idUser, date);
-			}
-			Rank rank = rankRepository.findOne(user.getRank_Id());
-			System.out.println(rank.getSizedownload());
-			System.out.println(size);
-			System.out.println(sizeFile);
+			double size = downloadInDay(idUser);
+			Rank rank = rankRepository.findOne(user.getRankId().getId());
 			if((size+sizeFile)>rank.getSizedownload()){
 				return rank.getSizedownload()-size;
 			} else if((size+sizeFile)==rank.getSizedownload()){
@@ -184,13 +152,5 @@ public class DownloadService {
 			}
 		}
 		return -1.0d;
-	}
-	
-	public List<Object> getDownloadOfuser(int idUser, int page, int pageSize){
-		return downloadRepository.getHistoryDownload(idUser, page*pageSize, pageSize);
-	}
-	
-	public long countHistory(int idUser){
-		return downloadRepository.countDownloadByUser(idUser);
 	}
 }

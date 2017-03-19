@@ -3,6 +3,8 @@ package com.csc.mfs.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,15 +22,6 @@ public class DownloadController {
 	private DownloadService downloadService;
 	
 	/**
-	 * Get all record download
-	 * @return List<Download>
-	 */
-	@RequestMapping("/all")
-	public List<Download> getAll(){
-		return downloadService.getAll();
-	}
-	
-	/**
 	 * Get one record download by id record
 	 * @param id
 	 * @return Download
@@ -44,8 +37,8 @@ public class DownloadController {
 	 * @return List<Download>
 	 */
 	@RequestMapping(value="/getByUser/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Download> getByUser(@PathVariable int idUser){
-		return downloadService.findByUser(idUser);
+	public Page<Download> getByUser(@PathVariable int idUser, Pageable pageable){
+		return downloadService.findByUser(idUser, pageable);
 	}
 	
 	/**
@@ -54,16 +47,7 @@ public class DownloadController {
 	 */
 	@RequestMapping("/delete/{id}")
 	public void delete(@PathVariable int id){
-		downloadService.delete(id);;
-	}
-	
-	/**
-	 * Delete all download record of user by user id
-	 * @param id
-	 */
-	@RequestMapping("/deleteByUser/{id}")
-	public void deleteByUser(@PathVariable int id){
-		downloadService.deleteBUser(id);
+		downloadService.delete(id);
 	}
 	
 	/**
@@ -82,17 +66,9 @@ public class DownloadController {
 	 */
 	@RequestMapping(value="/total/{idUser}")
 	public double total(@PathVariable int idUser){
-		return downloadService.downloadInDay(idUser);
+		return downloadService.countDownFile(idUser);
 	}
 	
-	/**
-	 * get total downloads
-	 * @return double
-	 */
-	@RequestMapping(value="/countAllDownload")
-	public double countDownload(){
-		return downloadService.countDownload();
-	}
 	
 	/**
 	 * Get total download of user
@@ -100,8 +76,8 @@ public class DownloadController {
 	 * @return double
 	 */
 	@RequestMapping(value="/countDownloadByUser/{idUser}")
-	public double countDownloadByUser(@PathVariable int idUser){
-		return downloadService.countDownloadByUser(idUser);
+	public long countDownloadByUser(@PathVariable int idUser, Pageable pageable){
+		return downloadService.countDownloadByUser(idUser, pageable);
 	}
 	
 	/**
@@ -112,20 +88,5 @@ public class DownloadController {
 	@RequestMapping(value="/countDownloadFile/{idFile}")
 	public double countDownloadFile(@PathVariable int idFile){
 		return downloadService.countDownFile(idFile);
-	}
-	
-	@RequestMapping("/history/{idUser}/{page}/{pageSize}")
-	public Object getHistoryDownload(@PathVariable int idUser, @PathVariable int page, @PathVariable int pageSize){
-		return downloadService.getDownloadOfuser(idUser, page, pageSize);
-	}
-	
-	@RequestMapping("/countHistory/{idUser}")
-	public long countHistoryDownload(@PathVariable int idUser){
-		return downloadService.countDownloadByUser(idUser);
-	}
-	
-	@RequestMapping("/getAll")
-	public List<Download> getAll1(){
-		return downloadService.getAll();
 	}
 }

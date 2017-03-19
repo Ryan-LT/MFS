@@ -6,7 +6,7 @@
 package com.csc.mfs.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,19 +20,21 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *
- * @author VuMin
+ * @author training
  */
 @Entity
 @Table(name = "categories_type", catalog = "finalfresherfilesharing", schema = "")
 public class CategoriesType implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,15 +42,16 @@ public class CategoriesType implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "file_type", nullable = false, length = 100)
     private String fileType;
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    @JsonIgnore
     private Categories categoryId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idType")
     @JsonIgnore
-    private Collection<Files> filesCollection;
+    private List<Files> filesList;
 
     public CategoriesType() {
     }
@@ -87,12 +90,12 @@ public class CategoriesType implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Files> getFilesCollection() {
-        return filesCollection;
+    public List<Files> getFilesList() {
+        return filesList;
     }
 
-    public void setFilesCollection(Collection<Files> filesCollection) {
-        this.filesCollection = filesCollection;
+    public void setFilesList(List<Files> filesList) {
+        this.filesList = filesList;
     }
 
     @Override
@@ -117,7 +120,7 @@ public class CategoriesType implements Serializable {
 
     @Override
     public String toString() {
-        return "newpackage.CategoriesType[ id=" + id + " ]";
+        return "com.csc.mfs.model.CategoriesType[ id=" + id + " ]";
     }
     
 }

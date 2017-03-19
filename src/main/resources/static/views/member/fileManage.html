@@ -2,7 +2,7 @@
 <h3>
 	<i class="fa fa-angle-right"></i> File Management
 </h3>
-<div ng-controller="fileManage" ng-init="stt=0; incre=1">
+<div ng-init="stt=0; incre=1">
 	<table id="myTable"
 		class="content-panel table table-striped table-advance table-hover">
 		<thead>
@@ -13,11 +13,11 @@
 			<th>Sharing</th>
 			<th width="15%"">Action</th>
 		</thead>
-		<tbody ng-repeat="file in files | filter: filter_">
+		<tbody ng-repeat="file in files.content | filter: filter_">
 			<td>{{$index+1}}</td>
 			<td><a href="#/detail/{{file.id}}">{{file.name}}</a></td>
 			<td>{{file.size | number:2}} Kb</td>
-			<td>{{file.dateupload}}</td>
+			<td>{{file.dateupload | date:"dd-MM-yyyy"}}</td>
 			<td><input ng-click="changeShare(file.id)" type="checkbox"
 				ng-checked="{{file.sharing==1}}"></td>
 			<td>
@@ -29,60 +29,51 @@
 					class="btn btn-danger btn-circle">
 					<span class="fa fa-trash"></span>
 				</button>
-				<button ng-click="" type="button" class="btn btn-info btn-circle"
-					onclick="$('.modal').modal('show');">
+				<button ng-click="getInfoFile(file.id)" type="button" class="btn btn-info btn-circle">
 					<span class="fa fa-info"></span>
 				</button>
 			</td>
 		</tbody>
 	</table>
 	<ul class="list-inline">
-		<li ng-repeat="i in getNumber(count) track by $index">
-			<button class="btn btn-success" ng-click="getFileByPage($index, 2)">{{$index+1}}</button>
+		<li ng-repeat="i in getNumber(files.totalPages) track by $index">
+			<button class="btn btn-success" ng-click="getFileByPage($index, 10)">{{$index+1}}</button>
 		</li>
 	</ul>
-</div>
-
-<div class="modal fade" id="editModal" role="dialog">
+	
+	
+	<!-- modal -->
+	<div class="modal fade" id="editModal" role="dialog">
 	<div class="modal-dialog">
-
 		<!-- Modal content-->
 		<div class="modal-content m-modal-content">
 			<div class="modal-header m-modal-header-edit">
 				<button type="button" class="close m-close-button"
 					data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">{{file.name | uppercase}}'s Detail</h4>
+				<h4 class="modal-title">{{fileDetail.name | uppercase}}'s Detail</h4>
 			</div>
 			<div class="modal-body">
 				<div id="article_table">
 					<table class="table table-bordered table-striped m-table">
 						<tr>
 							<td width="50%">Name</td>
-							<td>{{file.name}}</td>
+							<td>{{fileDetail.name}}</td>
 						</tr>
 						<tr>
 							<td>Size</td>
-							<td>{{file.size}}</td>
+							<td>{{fileDetail.size | number:2}} Kb</td>
 						</tr>
 						<tr>
 							<td>Date upload</td>
-							<td>{{file.dateupload}}</td>
+							<td>{{fileDetail.dateupload | date:"dd-MM-yyyy"}}</td>
 						</tr>
 						<tr>
 							<td>Total download</td>
 							<td>{{total}}</td>
 						</tr>
-						<tr>
-							<td>Description</td>
-							<td>{{file.description}}</td>
-						</tr>
-
 					</table>
-					<!-- <button class="btn btn-primary" type="button">
-						<a style="color: white" href="#/fileManage"> <span
-							class="fa fa-arrow-left">Back</span>
-						</a>
-					</button> -->
+					<h4>Description++++</h4>
+					<textarea rows="" cols="">{{fileDetail.description}}</textarea>
 				</div>
 				<hr>
 				<section class="row">
@@ -90,32 +81,33 @@
 					<section class="col-md-8">
 						<h4>Comment</h4>
 						<form ng-submit="saveComment(file.id)">
-							<textarea ng-model="content" class="form-control" rows="3"></textarea>
-							<br>
-							<button class="btn btn-success" type="submit">Comment</button>
+							<textarea ng-model="content" class="form-control" rows="3" ></textarea>
+							<button class="btn btn-primary" type="submit">Comment</button>
 						</form>
 						<table class="table table-bordered table-striped">
-							<tr ng-repeat="comment in comments">
+							<tr ng-repeat="comment in comments.content">
 								<td>
 									<article>
 										<header>
-											<a href="">{{comment[4]}}:</a>
+											<a href="">{{comment.idUser.name}}:</a>
 										</header>
-										<section>{{comment[1]}}</section>
+										<section>
+											{{comment.content}}
+										</section>
 										<footer>
-											{{comment[2]}} <a href="" ng-click="increase(comment[0])">like</a>
-											| {{comment[3]}}
+											{{comment.likeComment}} 
+											<a href="" ng-click="increase()">like</a>
+											| {{comment.dateComment}}
 										</footer>
 									</article>
 								</td>
 							</tr>
 						</table>
 					</section>
-
 				</section>
 			</div>
-
 		</div>
-
 	</div>
+</div>
+	
 </div>

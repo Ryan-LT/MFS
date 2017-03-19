@@ -3,7 +3,12 @@ package com.csc.mfs.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.csc.mfs.service.CommentService;
 import com.csc.mfs.model.Comment;
+import com.csc.mfs.model.Files;
 import com.csc.mfs.model.User;
+import com.csc.mfs.repository.CommentRepository;
+import com.csc.mfs.repository.FilesRepository;
 import com.csc.mfs.repository.UserRepository;
 
 @RestController
@@ -24,25 +32,41 @@ public class CommentController {
 	private CommentService commentService;
 	@Autowired
 	private UserRepository userRepository;
-	@RequestMapping("/getByFile/{idFile}")
-	public List<Comment> getByFile(@PathVariable int idFile){
-		return commentService.getByFile(idFile);
-	}
+	@Autowired
+	private FilesRepository fileRepository;
 	
-	@RequestMapping("/getCommnetOfFile/{idFile}")
-	public List<Object> getCommentOfFile(@PathVariable int idFile){
-		return commentService.getCommentOfFile(idFile);
+	@RequestMapping("/getByFile/{idFile}")
+	public Page<Comment> getByFile(@PathVariable int idFile, Pageable pageable){
+		return commentService.getByFile(idFile, pageable);
 	}
 	
 	@PostMapping("/saveComment")
-	public void saveComment(@RequestBody Comment comment){
+	public void saveComment(@RequestBody String jsonComment){
+		int idFile=0;
+		String content="";
+		JSONParser parser = new JSONParser();
+		Object obj;
+		try {
+			obj = parser.parse(jsonComment);
+			JSONObject jsonObject = (JSONObject) obj;
+			System.out.println(jsonObject);
+			idFile = ((Long) jsonObject.get("idFile")).intValue();
+            content = (String) jsonObject.get("content");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepository.findByEmail(auth.getName());
-		System.out.println(comment.getContent());
-		System.out.println(comment.getIdFile());
-		comment.setIdUser(user.getId());
+		Files file = fileRepository.findOne(idFile);
+//		System.out.println(comment.getContent());
+//		System.out.println(comment.getIdFile().getId());
+		Comment comment= new Comment();
+		comment.setIdFile(file);
+		comment.setIdUser(user);
+		comment.setContent(content);
 		comment.setLikeComment(0);
-		comment.setDatecomment(new Date());
+		comment.setDateComment(new Date());
 		commentService.saveComment(comment);
 	}
 	

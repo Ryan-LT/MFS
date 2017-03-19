@@ -7,14 +7,15 @@ package com.csc.mfs.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,17 +24,14 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author training
  */
 @Entity
 @Table(name = "comment", catalog = "finalfresherfilesharing", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c")
-    , @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.id = :id")
-    , @NamedQuery(name = "Comment.findByLikeComment", query = "SELECT c FROM Comment c WHERE c.likeComment = :likeComment")})
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,30 +44,20 @@ public class Comment implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "content", length = 2147483647)
     private String content;
-    
     @Column(name = "likecomment")
     private Integer likeComment;
-    
-    @Column(name="id_file")
-    private Integer idFile;
-    
-    @Column(name="id_user")
-    private Integer idUser;
-    
-    @Column(name="datecomment")
+    @Column(name = "datecomment")
     @Temporal(TemporalType.DATE)
-    private Date datecomment;
-    
-    public Comment(String content, int likeComment, int idUser, int idFile, Date dateComment) {
-    	this.content =content;
-    	this.likeComment = likeComment;
-    	this.idUser =idUser;
-    	this.idFile = idFile;
-    	this.datecomment = dateComment;
-    }
-    
-    public Comment(){
-    	
+    private Date dateComment;
+    @JoinColumn(name = "id_file", referencedColumnName = "id")
+    @JsonIgnore
+    @ManyToOne
+    private Files idFile;
+    @JoinColumn(name = "id_user", referencedColumnName = "id")
+    @ManyToOne
+    private User idUser;
+
+    public Comment() {
     }
 
     public Comment(Integer id) {
@@ -93,38 +81,38 @@ public class Comment implements Serializable {
     }
 
     public Integer getLikeComment() {
-		return likeComment;
+        return likeComment;
+    }
+
+    public void setLikeComment(Integer likeComment) {
+        this.likeComment = likeComment;
+    }
+    
+    public Date getDateComment() {
+		return dateComment;
 	}
 
-	public void setLikeComment(Integer likeComment) {
-		this.likeComment = likeComment;
+	public void setDateComment(Date dateComment) {
+		this.dateComment = dateComment;
 	}
 
-	public Integer getIdFile() {
-		return idFile;
-	}
+	public Files getIdFile() {
+        return idFile;
+    }
 
-	public void setIdFile(Integer idFile) {
-		this.idFile = idFile;
-	}
+    public void setIdFile(Files idFile) {
+        this.idFile = idFile;
+    }
 
-	public Integer getIdUser() {
-		return idUser;
-	}
+    public User getIdUser() {
+        return idUser;
+    }
 
-	public void setIdUser(Integer idUser) {
-		this.idUser = idUser;
-	}
+    public void setIdUser(User idUser) {
+        this.idUser = idUser;
+    }
 
-	public Date getDatecomment() {
-		return datecomment;
-	}
-
-	public void setDatecomment(Date datecomment) {
-		this.datecomment = datecomment;
-	}
-
-	@Override
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -146,7 +134,7 @@ public class Comment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.csc.mfs.domain.Comment[ id=" + id + " ]";
+        return "com.csc.mfs.model.Comment[ id=" + id + " ]";
     }
     
 }

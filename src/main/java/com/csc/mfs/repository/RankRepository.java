@@ -6,4 +6,6 @@ import com.csc.mfs.model.Rank;
 
 public interface RankRepository extends JpaRepository<Rank, Integer> {
 
+	Rank findByName(String string);
+
 }
