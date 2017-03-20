@@ -8,7 +8,7 @@ app.controller("landingController", function($scope, $http, $window, $routeParam
 	  
 	$scope.page = 0;
 	$scope.pageSum;
-	$scope.pageSize = 10;
+	$scope.pageSize = 8;
 	$scope.selectedIndex = 0;
 	$scope.infoSearch = undefined;
 	
