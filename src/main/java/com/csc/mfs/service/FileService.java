@@ -154,6 +154,7 @@ public class FileService {
 	}
 	
 	public Page<Files> findByAll(String info, Pageable pageable){
+		info = checkData(info);
 		double size =0;
 		try {
 			info+="";
