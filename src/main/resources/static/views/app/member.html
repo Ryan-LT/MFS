@@ -12,7 +12,7 @@
 <title>Mini File Sharing</title>
 <!-- Script file-->
 <script data-require="angular.js@1.4.x"
-	src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+	src="../js/lib/angular-1.4.9/angular.js" data-semver="1.4.9"></script>
 
 
 <script src="../js/controller/memberController/member.js"></script>
@@ -31,17 +31,20 @@
 <link href="css/member-css/bootstrap.css" rel="stylesheet">
 
 <!--external css-->
-<link rel="stylesheet" href="/css/font-awesome.min.css">  <!-- for icon -->
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<!-- for icon -->
 <link href="css/member-css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
 	href="css/member-css/zabuto_calendar.css">
 <link rel="stylesheet" type="text/css"
 	href="js/member-js/gritter/css/jquery.gritter.css" />
-<link rel="stylesheet" type="text/css" href="css/member-css/lineicons/style.css">
+<link rel="stylesheet" type="text/css"
+	href="css/member-css/lineicons/style.css">
 
 <!-- Custom styles for this template -->
 <link href="css/member-css/style.css" rel="stylesheet">
 <link href="css/member-css/style-responsive.css" rel="stylesheet">
+<link href="css/member-css/userInfo.css" rel="stylesheet">
 
 <!-- <script src="assets/js/chart-master/Chart.js"></script> -->
 
@@ -65,11 +68,9 @@
 					data-original-title="Toggle Navigation"></div>
 			</div>
 			<!--logo start-->
-			<a href="index.html" class="logo"><b>Mini File Sharing</b></a>
+			<a href="/" class="logo"><b>Mini File Sharing</b></a>
 			<!--logo end-->
-			<div class="nav notify-row" id="top_menu">
-				
-			</div>
+			<div class="nav notify-row" id="top_menu"></div>
 			<div class="top-menu">
 				<ul class="nav pull-right top-menu">
 					<li><a class="logout" href="/logout">Logout</a></li>
@@ -87,10 +88,15 @@
 				<!-- sidebar menu start-->
 				<ul class="sidebar-menu" id="nav-accordion">
 
-					<p class="centered">
+					<!-- <p class="centered">
 						<a href=""><img src="/images/Thong.jpg"
 							class="img-circle" width="60"></a>
-					</p>
+					</p> -->
+					<div class="centered">
+						<div class="img-circle"><span
+							class="fa fa-user center-content"></span></div>
+					</div>
+
 					<h5 class="centered">get user name</h5>
 
 					<!-- <li class="mt"><a class="active" href="#/explore"> <i
@@ -99,63 +105,45 @@
 
 					<li class="sub-menu"><a href="#/fileManage"> <i
 							class="fa fa-file"></i> <span>File Management</span>
-					</a>
-					</li>
+					</a></li>
 
 					<li class="sub-menu"><a href="#/download"> <i
 							class="fa fa-tasks"></i> <span>Download History</span>
-					</a>
-					</li>
+					</a></li>
 					<li class="sub-menu"><a href="#/userInfo"> <i
 							class="fa fa-cogs"></i> <span>Account Setting</span>
-					</a>
-					</li>				
+					</a></li>
 				</ul>
 				<!-- sidebar menu end-->
 			</div>
 		</aside>
 		<!--sidebar end-->
 
-		<!-- **********************************************************************************************************************************************************
-      MAIN CONTENT
+		<!-- MAIN CONTENT
       *********************************************************************************************************************************************************** -->
+		-->
 		<!--main content start-->
-		<!-- <section id="main-content">
-			<section class="wrapper">
+		<section id="main-content" ng-controller="mainControl"
+			th:attr="ng-init='userId='+${userId}+''">
+			<section class="wrapper site-min-height">
+				<div class="row mt">
+					<div class="col-lg-12">
+
+						<div ng-view></div>
+					</div>
+				</div>
 
 			</section>
-		</section> -->
+			<!--/wrapper -->
+		</section>
+		<!-- /MAIN CONTENT -->
 
 		<!--main content end-->
-		
-		<!-- MAIN CONTENT
-      *********************************************************************************************************************************************************** --> -->
-      <!--main content start-->
-      <section id="main-content" ng-controller="mainControl"
-		th:attr="ng-init='userId='+${userId}+''">
-          <section class="wrapper site-min-height">
-          	<div class="row mt">
-          		<div class="col-lg-12">
-          		
-          		<div ng-view></div>
-          		</div>
-          	</div>
 
-		</section><!--/wrapper -->
-      </section><!-- /MAIN CONTENT -->
-
-      <!--main content end-->
-		
 		<!--footer start-->
-		<footer class="site-footer">
-			<div class="text-center">
-				2014 - Alvarez.is <a class="go-top"> <i
-					class="fa fa-angle-up"></i>
-				</a>
-			</div>
-		</footer>
 		<!--footer end-->
 	</section>
+	<!--body end-->
 
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="js/member-js/jquery.js"></script>
@@ -165,7 +153,6 @@
 		src="js/member-js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="js/member-js/jquery.scrollTo.min.js"></script>
 	<script src="js/member-js/jquery.nicescroll.js" type="text/javascript"></script>
-	<script src="js/member-js/jquery.sparkline.js"></script>
 
 
 	<!--common script for all pages-->
@@ -175,9 +162,6 @@
 		src="js/member-js/gritter/js/jquery.gritter.js"></script>
 	<script type="text/javascript" src="js/member-js/gritter-conf.js"></script>
 
-	<!--script for this page-->
-	<script src="js/member-js/sparkline-chart.js"></script>
-	<script src="js/member-js/zabuto_calendar.js"></script>
 
 	<!-- <script type="text/javascript">
         $(document).ready(function () {
@@ -197,10 +181,13 @@
         });
 
         return false;
-        }); -->
-	</script>
+        }); 
+	</script>-->
 
 	<script type="application/javascript">
+		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -245,4 +232,7 @@
 				x.style.display = 'none';
 			}
 		}
-    </script>
+    
+	
+	
+	</script>

@@ -127,8 +127,7 @@ public class FileUploadController {
 
 	@PostMapping("/upload")
 	public String handleFileUpload(@RequestParam("file") MultipartFile fileList[],
-			@RequestParam("description") String description,
-			 RedirectAttributes redirectAttributes) {
+			@RequestParam("description") String description) {
 		/**
 		 * 
 		 * Retrieve user information.
@@ -163,12 +162,9 @@ public class FileUploadController {
 				fileService.afterUpload(user.getId(), file.getSize() / 1024.0);
 
 			}
-		redirectAttributes.addFlashAttribute("uploadMessage", "You have successfully uploaded your files");
-	} else {
-		redirectAttributes.addFlashAttribute("uploadMessage",
-				"You files have exceeded limitation! Please choose smaller files.");
-	}
-		return"redirect:/upload";
+		
+	} 
+	return"redirect:/upload";
 	}
 
 	@ExceptionHandler(StorageFileNotFoundException.class)
