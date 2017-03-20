@@ -4,6 +4,7 @@ import com.csc.mfs.storage.StorageFileNotFoundException;
 import com.csc.mfs.storage.StorageProperties;
 import com.csc.mfs.storage.StorageService;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -143,12 +144,7 @@ public class FileUploadController {
 
 			for (MultipartFile file : fileList) {
 
-				String fileName = file.getOriginalFilename();
-				String extension = "";
-				int i = fileName.lastIndexOf('.');
-				if (i >= 0) {
-					extension = fileName.substring(i + 1);
-				}
+				String extension = FilenameUtils.getExtension(file.getName());
 				CategoriesType category = categoryRepository.findByFileType(extension);
 				Files fileDB = new Files();
 				fileDB.setName(file.getOriginalFilename());
