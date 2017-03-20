@@ -22,19 +22,19 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	
 	Page<Files> findByUserIdAndActive(User userid, Integer active, Pageable pageable);
 	
-	Page<Files> findBySizeIsLessThanEqual(double size, Pageable pageable);
+	Page<Files> findBySizeIsLessThanEqualAndSharing(double size, Integer sharing, Pageable pageable);
 	
-	Page<Files> findByNameContainingAndActive(String name, Integer active, Pageable pageable);
+	Page<Files> findByNameContainingAndActiveAndSharing(String name, Integer active, Integer sharing, Pageable pageable);
 	
-	Page<Files> findByUserIdLastNameContainingAndActive(String lastName, Integer active, Pageable pageable);
+	Page<Files> findByUserIdLastNameContainingAndActiveAndSharing(String lastName, Integer active, Integer sharing, Pageable pageable);
 	
-	Page<Files> findByIdTypeFileTypeContainingAndActive(String typeFile, Integer active, Pageable pageable);
+	Page<Files> findByIdTypeFileTypeContainingAndActiveAndSharing(String typeFile, Integer active, Integer sharing, Pageable pageable);
 	
-	Page<Files> findByIdTypeCategoryIdNameAndActive(String category, Integer active, Pageable pageable);
+	Page<Files> findByIdTypeCategoryIdNameAndActiveAndSharing(String category, Integer active, Integer sharing, Pageable pageable);
 	
-	Page<Files> findByNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContainingAndSharingAndActive(String name, String uploader, double size, String type, Integer sharing, Integer active, Pageable pageable);
+	Page<Files> findBySharingAndActiveOrNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContaining(Integer sharing, Integer active, String name, String uploader, double size, String type, Pageable pageable);
 	
-	
+	Page<Files> findBySharingAndActiveAndNameContainingOrSharingAndActiveAndUserIdLastNameContainingOrSharingAndActiveAndSizeLessThanEqualOrSharingAndActiveAndIdTypeFileTypeContainingOrSharingAndActiveAndIdTypeCategoryIdName(Integer sharing, Integer active, String name, Integer sharing1, Integer active1, String uploader, Integer sharing2, Integer active2, double size, Integer sharing3, Integer active3, String type, Integer sharing4, Integer active4, String category, Pageable pageable);
 	
 	@Query(value="SELECT SUM(size) FROM files WHERE active=1 AND user_id=:idUser", nativeQuery=true)
 	Object sumSizeUpload(@Param("idUser") int idUser);

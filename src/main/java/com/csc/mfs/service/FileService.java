@@ -7,8 +7,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.LastModified;
 
 import com.csc.mfs.model.Files;
 import com.csc.mfs.model.Rank;
@@ -28,7 +31,8 @@ public class FileService {
 	private RankRepository rankRepository;
 	
 	public Page<Files> getAll(Pageable pageable){
-		return fileRepository.findBySharingAndActive(1, 1, pageable);
+		PageRequest page = new PageRequest( pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
+		return fileRepository.findBySharingAndActive(1, 1, page);
 	}
 	
 	/**
@@ -49,8 +53,9 @@ public class FileService {
 	 */
 	public Page<Files> getFileByUser(int idUser, Pageable pageable){
 		User user = userRepository.findOne(idUser); 
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
 		if(user != null){
-			return fileRepository.findByUserIdAndActive(user, 1, pageable);	
+			return fileRepository.findByUserIdAndActive(user, 1, page);	
 		} else {
 			return null;
 		}
@@ -129,34 +134,49 @@ public class FileService {
 	
 	
 	public Page<Files> findBySize(double size, Pageable pageable){
-		return fileRepository.findBySizeIsLessThanEqual(size, pageable);
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
+		return fileRepository.findBySizeIsLessThanEqualAndSharing(size,1 , pageable);
 	}
 	
 	public Page<Files> findByNameLike(String name, Pageable pageable){
-		return fileRepository.findByNameContainingAndActive(name, 1, pageable);
+		name = checkData(name);
+		return fileRepository.findByNameContainingAndActiveAndSharing(name, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByUploader(String lastName, Pageable pageable){
-		return fileRepository.findByUserIdLastNameContainingAndActive(lastName, 1, pageable);
+		lastName = checkData(lastName);
+		return fileRepository.findByUserIdLastNameContainingAndActiveAndSharing(lastName, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByFileType(String typeFile, Pageable pageable){
-		return fileRepository.findByIdTypeFileTypeContainingAndActive(typeFile, 1, pageable);
+		typeFile = checkData(typeFile);
+		return fileRepository.findByIdTypeFileTypeContainingAndActiveAndSharing(typeFile, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByCategory(String category, Pageable pageable){
-		return fileRepository.findByIdTypeCategoryIdNameAndActive(category, 1, pageable);
+		category = checkData(category);
+		return fileRepository.findByIdTypeCategoryIdNameAndActiveAndSharing(category, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByAll(String info, Pageable pageable){
+		info = checkData(info);
 		double size =0;
 		try {
 			info+="";
 			size = Integer.parseInt(info);
 		} catch (Exception e) {
 		}
-		return fileRepository.findByNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContainingAndSharingAndActive(info, info, size, info, 1, 1, pageable);
+		//return fileRepository.findBySharingAndActiveOrNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContaining(1, 1, info, info, size, info, pageable);
+		return fileRepository.findBySharingAndActiveAndNameContainingOrSharingAndActiveAndUserIdLastNameContainingOrSharingAndActiveAndSizeLessThanEqualOrSharingAndActiveAndIdTypeFileTypeContainingOrSharingAndActiveAndIdTypeCategoryIdName(1, 1, info, 1, 1, info, 1, 1, size, 1, 1, info, 1, 1, info,pageable);
 	}
+	
+	public String checkData(String info){
+		if(info==null || info.equals("undefined")){
+			return "";
+		}
+		return info;
+	}
+	
 	
 	public void updateSharing(Integer idFile){
 		Files file = fileRepository.findOne(idFile);

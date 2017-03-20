@@ -1,89 +1,185 @@
-/*
-filedrag.js - HTML5 File Drag & Drop demonstration
-Featured on SitePoint.com
-Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
-*/
-(function() {
+"use strict";
+angular.module('fileUpload', [])
+    .directive('fileUpload', ['$timeout', function ($timeout) {
+        return {
+            restrict: 'E',
+            template: '<div ng-transclude></div>',
+            replace: true,
+            transclude: true,
+            scope: {
+                headers: '=',
+                ngModel: '=',
+                disabled: '='
+            },
+            require: 'ngModel',
+            link: function (scope, el, attr) {
+                var fileName,
+                    shareCredentials,
+                    withPreview,
+                    fileSelector,
+                    resize,
+                    maxWidth,
+                    maxHeight,
+                    sel;
 
-	// getElementById
-	function $id(id) {
-		return document.getElementById(id);
-	}
+                fileName = attr.name || 'userFile';
+                shareCredentials = attr.credentials === 'true';
+                withPreview = attr.preview === 'true';
+                resize = attr.resize === 'true';
+                maxWidth = angular.isDefined(attr.maxWidth) ? parseInt(attr.maxWidth) : false;
+                maxHeight = angular.isDefined(attr.maxHeight) ? parseInt(attr.maxHeight) : false;
+                fileSelector = angular.isDefined(attr.fileSelector) ? attr.fileSelector : false;
 
+                el.append('<input style="display: none !important;" type="file" ' + (attr.multiple == 'true' ? 'multiple' : '') + ' accept="' + (attr.accept ? attr.accept : '') + '" name="' + fileName + '"/>');
 
-	// output information
-	function Output(msg) {
-		var m = $id("messages");
-		m.innerHTML = msg + m.innerHTML;
-	}
+                function Resize(file, index, type) {
+                    var canvas = document.createElement("canvas");
+                    var img = document.createElement("img");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        img.src = e.target.result;
+                        draw();
+                    };
+                    reader.readAsDataURL(file);
 
+                    function b64toBlob(b64Data, contentType, sliceSize) {
+                        contentType = contentType || '';
+                        sliceSize = sliceSize || 512;
 
-	// file drag hover
-	function FileDragHover(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		e.target.className = (e.type == "dragover" ? "hover" : "");
-	}
+                        var byteCharacters = atob(b64Data);
+                        var byteArrays = [];
 
+                        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                            var slice = byteCharacters.slice(offset, offset + sliceSize);
 
-	// file selection
-	function FileSelectHandler(e) {
+                            var byteNumbers = new Array(slice.length);
+                            for (var i = 0; i < slice.length; i++) {
+                                byteNumbers[i] = slice.charCodeAt(i);
+                            }
 
-		// cancel event and hover styling
-		FileDragHover(e);
+                            var byteArray = new Uint8Array(byteNumbers);
 
-		// fetch FileList object
-		var files = e.target.files || e.dataTransfer.files;
+                            byteArrays.push(byteArray);
+                        }
 
-		// process all File objects
-		for (var i = 0, f; f = files[i]; i++) {
-			ParseFile(f);
-		}
+                        var blob = new Blob(byteArrays, {type: contentType});
+                        return blob;
+                    }
 
-	}
+                    function draw() {
+                        var width = img.width;
+                        var height = img.height;
+                        var ctx = canvas.getContext("2d");
+                        ctx.drawImage(img, 0, 0);
 
+                        if (width > 0 && height > 0) {
+                            if (width > height) {
+                                if (width > maxWidth) {
+                                    height *= maxWidth / width;
+                                    width = maxWidth;
+                                }
+                            } else {
+                                if (height > maxHeight) {
+                                    width *= maxHeight / height;
+                                    height = maxHeight;
+                                }
+                            }
 
-	// output file information
-	function ParseFile(file) {
+                            canvas.width = width;
+                            canvas.height = height;
+                            ctx.drawImage(img, 0, 0, width, height);
+                            var b64 = canvas.toDataURL(type).split(',')[1];
+                            file = b64toBlob(b64, type, 512);
+                        }
 
-		Output(
-			"<p>File information: <strong>" + file.name +
-			"</strong> type: <strong>" + file.type +
-			"</strong> size: <strong>" + file.size +
-			"</strong> bytes</p>"
-		);
+                        uploadFile(file, index);
+                    }
+                }
 
-	}
-	// initialize
-	function Init() {
+                function upload(fileProperties, index, file) {
+                    if (resize && maxWidth && maxHeight && (file.type.indexOf('image/') !== -1)) {
+                        Resize(file, index, file.type);
+                    } else {
+                        uploadFile(file, index);
+                    }
+                    return angular.extend(scope.ngModel[index], {
+                        name: fileProperties.name,
+                        size: fileProperties.size,
+                        type: fileProperties.type,
+                        status: {},
+                        percent: 0,
+                        preview: null
+                    });
+                }
 
-		var fileselect = $id("fileselect"),
-			filedrag = $id("filedrag"),
-			submitbutton = $id("submitbutton");
+                function uploadFile(file, index) {
+                    var xhr = new XMLHttpRequest(),
+                        fd = new FormData(),
+                        progress = 0,
+                        uri = attr.uri || '/upload';
+                    xhr.open('POST', uri, true);
+                    xhr.withCredentials = shareCredentials;
+                    if (scope.headers) {
+                        scope.headers.forEach(function (item) {
+                            xhr.setRequestHeader(item.header, item.value);
+                        });
+                    }
+                    xhr.onreadystatechange = function () {
+                        scope.ngModel[index].status = {
+                            code: xhr.status,
+                            statusText: xhr.statusText,
+                            response: xhr.response
+                        };
+                        scope.$apply();
+                    };
+                    xhr.upload.addEventListener("progress", function (e) {
+                        progress = parseInt(e.loaded / e.total * 100);
+                        scope.ngModel[index].percent = progress;
+                        scope.$apply();
+                    }, false);
 
-		// file select
-		fileselect.addEventListener("change", FileSelectHandler, false);
+                    fd.append(fileName, file);
+                    xhr.send(fd);
 
-		// is XHR2 available?
-		var xhr = new XMLHttpRequest();
-		if (xhr.upload) {
+                    if (withPreview) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            scope.ngModel[index].preview = e.target.result;
+                            scope.$apply();
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
 
-			// file drop
-			filedrag.addEventListener("dragover", FileDragHover, false);
-			filedrag.addEventListener("dragleave", FileDragHover, false);
-			filedrag.addEventListener("drop", FileSelectHandler, false);
-			filedrag.style.display = "block";
+                $timeout(function () {
+                    sel = fileSelector ? angular.element(el[0].querySelectorAll(fileSelector)[0]) : el;
+                    sel.bind('click', function () {
+                        if (!scope.disabled) {
+                            scope.$eval(el.find('input')[0].click());
+                        }
+                    });
+                });
 
-			// remove submit button
-			submitbutton.style.display = "none";
-		}
-
-	}
-
-	// call initialization file
-	if (window.File && window.FileList && window.FileReader) {
-		Init();
-	}
-
-
-})();
+                angular.element(el.find('input')[0]).bind('change', function (e) {
+                    var files = e.target.files;
+                    if (!angular.isDefined(scope.ngModel) || attr.multiple === 'true') {
+                        scope.ngModel = [];
+                    }
+                    var f;
+                    for (var i = 0; i < files.length; i++) {
+                        f = {
+                            name: files[i].name,
+                            size: files[i].size,
+                            type: files[i].type,
+                            status: {},
+                            percent: 0,
+                            preview: null
+                        };
+                        scope.ngModel.push(f);
+                        upload(f, i, files[i]);
+                    }
+                    scope.$apply();
+                })
+            }
+        }
+    }]);
