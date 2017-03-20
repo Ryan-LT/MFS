@@ -24,7 +24,7 @@ public class CommentService {
 	
 	public Page<Comment> getByFile(int idFile, Pageable pageable){
 		Files file = fileRepository.findOne(idFile);
-		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateComment");
 		if(null!=file){
 			return commentRepository.findByIdFile(file, page);	
 		} else {
