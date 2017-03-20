@@ -3,8 +3,6 @@ package com.csc.mfs.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +19,8 @@ public class RoleController {
 	private RoleRepository roleReponsitory;
 	
 	@RequestMapping("/all")
-	public ResponseEntity<List<Role>> getAll(){
-		 return ResponseEntity
-	                .ok()
-	                .body(roleReponsitory.findAll());
+	public List<Role> getAll(){
+		return roleReponsitory.findAll();
 	}
 	
 	@RequestMapping(value="/insert", method=RequestMethod.POST)

@@ -22,16 +22,25 @@ public class RankService {
 	}
 
 	public void insert(Rank rank) {
-		rankRepository.save(rank);
+		Rank rank_ = rankRepository.findByName(rank.getName());
+		if(rank_!=null){
+			rankRepository.save(rank);	
+		}
 	}
 
 	public Rank getOne(int id) {
 		return rankRepository.findOne(id);
 	}
 
-	public void update(Rank rank) {
-		rankRepository.save(rank);
-		rankRepository.flush();
+	public Rank update(Rank rank) {
+		Rank rank_ = rankRepository.findOne(rank.getId());
+		if(rank_!=null){
+			rankRepository.save(rank);
+			rankRepository.flush();
+			return rank;
+		} else {
+			return null;
+		}
 	}
 
 }
