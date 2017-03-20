@@ -53,8 +53,9 @@ public class FileService {
 	 */
 	public Page<Files> getFileByUser(int idUser, Pageable pageable){
 		User user = userRepository.findOne(idUser); 
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
 		if(user != null){
-			return fileRepository.findByUserIdAndActive(user, 1, pageable);	
+			return fileRepository.findByUserIdAndActive(user, 1, page);	
 		} else {
 			return null;
 		}
@@ -133,27 +134,28 @@ public class FileService {
 	
 	
 	public Page<Files> findBySize(double size, Pageable pageable){
-		return fileRepository.findBySizeIsLessThanEqual(size, pageable);
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
+		return fileRepository.findBySizeIsLessThanEqualAndSharing(size,1 , pageable);
 	}
 	
 	public Page<Files> findByNameLike(String name, Pageable pageable){
 		name = checkData(name);
-		return fileRepository.findByNameContainingAndActive(name, 1, pageable);
+		return fileRepository.findByNameContainingAndActiveAndSharing(name, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByUploader(String lastName, Pageable pageable){
 		lastName = checkData(lastName);
-		return fileRepository.findByUserIdLastNameContainingAndActive(lastName, 1, pageable);
+		return fileRepository.findByUserIdLastNameContainingAndActiveAndSharing(lastName, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByFileType(String typeFile, Pageable pageable){
 		typeFile = checkData(typeFile);
-		return fileRepository.findByIdTypeFileTypeContainingAndActive(typeFile, 1, pageable);
+		return fileRepository.findByIdTypeFileTypeContainingAndActiveAndSharing(typeFile, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByCategory(String category, Pageable pageable){
 		category = checkData(category);
-		return fileRepository.findByIdTypeCategoryIdNameAndActive(category, 1, pageable);
+		return fileRepository.findByIdTypeCategoryIdNameAndActiveAndSharing(category, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByAll(String info, Pageable pageable){

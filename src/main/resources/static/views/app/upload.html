@@ -5,12 +5,19 @@
    </head>
    
    <body ng-app = "myApp">
-	
       <div ng-controller = "myCtrl">
          <input type = "file" file-model = "myFile" multiple/>
-         <button ng-click = "uploadFile(myFile)">upload me</button>
+         <textarea ng-model="description"></textarea>
+         <button ng-click = "uploadFile()">upload me</button>
+         <p ng-bind="uploadMessage"></p>
       </div>
       
+      <div>
+		<ul>
+			<li th:each="file : ${files}"><a th:href="${file}"
+				th:text="${file}" /></li>
+		</ul>
+	 </div>
       <script>
          var myApp = angular.module('myApp', []);
          
@@ -23,31 +30,25 @@
                   
                   element.bind('change', function(){
                      scope.$apply(function(){
-                    	if (element[0].files.length > 1) {
-                             modelSetter(scope, element[0].files);
-                        } else {
-                        	modelSetter(scope, element[0].files[0]);
-                     	}
+                        modelSetter(scope, element[0]);
                      });
                   });
                }
             };
          }]);
       
-         myApp.service('fileUpload', ['$http', function ($http) {
-            this.uploadFileToUrl = function(file, uploadUrl){
-            	//console.log($scope.myFile);
+         myApp.service('fileUpload', ['$http', function ($https) {
+            this.uploadFileToUrl = function(file,description, uploadUrl){
                var fd = new FormData();
-               //for(var i =0;i<file.length)
-               fd.append('file', file[0]);
-               fd.append('file', file[1]);
-            
-               $http.post(uploadUrl, fd, {
+               fd.append('file', file);
+               fd.append('description',description);
+               $https.post(uploadUrl, fd, {
                   transformRequest: angular.identity,
                   headers: {'Content-Type': undefined}
                })
             
                .success(function(){
+            	
                })
             
                .error(function(){
@@ -56,14 +57,17 @@
          }]);
       
          myApp.controller('myCtrl', ['$scope', 'fileUpload', function($scope, fileUpload){
-            $scope.uploadFile = function(myFile){
-               var file = myFile;//$scope.myFile;
-               console.log($scope.myFile);
+            $scope.uploadFile = function(){
+               var file = $scope.myFile.files;
+               
                console.log('file is ' );
                console.dir(file);
                
                var uploadUrl = "/upload";
-               fileUpload.uploadFileToUrl($scope.myFile, uploadUrl);
+               for(var i=0;i<file.length;i++){
+            	   fileUpload.uploadFileToUrl(file[i],$scope.description, uploadUrl);
+               }
+               
             };
          }]);
 			
