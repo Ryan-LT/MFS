@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.csc.mfs.repository.CommentRepository;
@@ -22,8 +24,9 @@ public class CommentService {
 	
 	public Page<Comment> getByFile(int idFile, Pageable pageable){
 		Files file = fileRepository.findOne(idFile);
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
 		if(null!=file){
-			return commentRepository.findByIdFile(file, pageable);	
+			return commentRepository.findByIdFile(file, page);	
 		} else {
 			return null;
 		}

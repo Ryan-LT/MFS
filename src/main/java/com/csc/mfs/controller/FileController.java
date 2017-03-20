@@ -115,12 +115,12 @@ public class FileController {
 	
 	@RequestMapping("/updateSharing/{idFile}")
 	public void updateSharing(@PathVariable("idFile") int idFile) {
-		fileService.updateSharing(idFile);;
+		fileService.updateSharing(idFile);
 	}
 	
-	@PutMapping("/updateDescription")
-	public void updateDescription(@RequestParam("idFile") int idFile, @RequestParam("description") String description) {
-		fileService.updateDescription(idFile, description);
+	@RequestMapping(value="/updateDescription", method=RequestMethod.PUT)
+	public void updateDescription(@RequestBody() Files file) {//@RequestParam("idFile") String idFile, @RequestParam("description") String description
+		fileService.updateDescription(file.getId(), file.getDescription());
 	}
 	
 }
