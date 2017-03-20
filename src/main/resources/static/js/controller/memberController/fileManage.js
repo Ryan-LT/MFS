@@ -98,7 +98,6 @@ app.controller('fileManage', function($scope, $http, $window){
 	}
     
     $scope.saveComment = function(id){
-    	alert(id);
 		$scope.contentComment = {
 				content: $scope.content,
 		    	idFile: id
@@ -110,5 +109,25 @@ app.controller('fileManage', function($scope, $http, $window){
 		.error(function(data, status, headers, config){
 		});
 	}
+    
+    $scope.saveChange = function(id){
+    	if($scope.description_==undefined || $scope.description_ =="" || $scope.description_==null){
+    		$scope.description_="No Description";
+    	}
+    	$scope.file = {
+    			id: id,
+    			description: $scope.description_
+    	}
+    	$http({
+			method: 'PUT',
+			url: "http://localhost:8080/file/updateDescription/",
+			data: $scope.file
+		}).success(function(data, status, headers, config){
+			$scope.msgSave ="Update successful";
+		})
+		.error(function(data, status, headers, config){
+			$scope.msgSave ="Update fail";
+		});
+    }
 	
 });
