@@ -6,8 +6,8 @@
 package com.csc.mfs.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,82 +23,81 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *
- * @author VuMin
+ * @author training
  */
 @Entity
 @Table(name = "files", catalog = "finalfresherfilesharing", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Files.findAll", query = "SELECT f FROM Files f"),
-    @NamedQuery(name = "Files.findById", query = "SELECT f FROM Files f WHERE f.id = :id"),
-    @NamedQuery(name = "Files.findByName", query = "SELECT f FROM Files f WHERE f.name = :name"),
-    @NamedQuery(name = "Files.findByPath", query = "SELECT f FROM Files f WHERE f.path = :path"),
-    @NamedQuery(name = "Files.findBySize", query = "SELECT f FROM Files f WHERE f.size = :size"),
-    @NamedQuery(name = "Files.findByDateupload", query = "SELECT f FROM Files f WHERE f.dateupload = :dateupload")})
 public class Files implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    @Size(max = 45)
     @Column(name = "name", length = 45)
     private String name;
+    @Size(max = 45)
     @Column(name = "path", length = 45)
     private String path;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "size", precision = 22)
     private Double size;
-    @Column(name = "dateupload")
-    @Temporal(TemporalType.DATE)
-    private Date dateupload;
-    @OneToMany(mappedBy = "idFile")
-    @JsonIgnore
-    private Collection<Download> downloadCollection;
-//    @JoinColumn(name = "user_id", referencedColumnName = "id")
-//    @ManyToOne(	cascade = {CascadeType.PERSIST})
-//    @JsonIgnore
-    @Column(name = "user_id")
-    private int userId;
     
-    @Column(name = "active")
+    @Column(name = "dateupload")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateupload;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "active", nullable = false)
     private int active;
     
-    @JoinColumn(name = "id_type", referencedColumnName = "id", nullable = false)
-    @JsonIgnore
-    @ManyToOne(optional = false)
-    private CategoriesType idType;
-
     @Column(name = "sharing")
-    private int sharing;
+    private Integer sharing;
     
-    @Column(name="description")
+    @Lob
+    @Size(max = 16777215)
+    @Column(name = "description", length = 16777215)
     private String description;
     
-    public Files() {
-    }
+    @OneToMany(mappedBy = "idFile")
+    @JsonIgnore
+    private List<Download> downloadList;
     
-    public Files(String name, String path, double size, int userId, Date dateUpload, 
-    		CategoriesType type, int sharing, String description){
-    	this.name = name;
-    	this.path = path;
-    	this.size = size;
-    	this.userId = userId;
-    	this.dateupload = dateUpload;
-    	this.idType = type;
-    	this.sharing =sharing;
-    	this.description = description;
+    @JoinColumn(name = "id_type", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private CategoriesType idType;
+    
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    private User userId;
+    
+    @OneToMany(mappedBy = "idFile")
+    @JsonIgnore
+    private List<Comment> commentList;
+
+    public Files() {
     }
 
     public Files(Integer id) {
         this.id = id;
+    }
+
+    public Files(Integer id, int active) {
+        this.id = id;
+        this.active = active;
     }
 
     public Integer getId() {
@@ -132,65 +132,73 @@ public class Files implements Serializable {
         this.size = size;
     }
 
-	public Date getDateupload() {
-		return dateupload;
-	}
-
-	public void setDateupload(Date dateupload) {
-		this.dateupload = dateupload;
-	}
-
-	@XmlTransient
-    public Collection<Download> getDownloadCollection() {
-        return downloadCollection;
+    public Date getDateupload() {
+        return dateupload;
     }
 
-    public void setDownloadCollection(Collection<Download> downloadCollection) {
-        this.downloadCollection = downloadCollection;
+    public void setDateupload(Date dateupload) {
+        this.dateupload = dateupload;
     }
 
+    public int getActive() {
+        return active;
+    }
 
-    public int getUserId() {
-		return userId;
-	}
+    public void setActive(int active) {
+        this.active = active;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    public Integer getSharing() {
+        return sharing;
+    }
 
-	public int getActive() {
-		return active;
-	}
+    public void setSharing(Integer sharing) {
+        this.sharing = sharing;
+    }
 
-	public void setActive(int active) {
-		this.active = active;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public CategoriesType getIdType() {
-		return idType;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setIdType(CategoriesType idType) {
-		this.idType = idType;
-	}
+    @XmlTransient
+    public List<Download> getDownloadList() {
+        return downloadList;
+    }
 
-	public int getSharing() {
-		return sharing;
-	}
+    public void setDownloadList(List<Download> downloadList) {
+        this.downloadList = downloadList;
+    }
 
-	public void setSharing(int sharing) {
-		this.sharing = sharing;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
+    public CategoriesType getIdType() {
+        return idType;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setIdType(CategoriesType idType) {
+        this.idType = idType;
+    }
 
-	@Override
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    @XmlTransient
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -199,6 +207,7 @@ public class Files implements Serializable {
 
     @Override
     public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Files)) {
             return false;
         }
@@ -211,7 +220,7 @@ public class Files implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication1.Files[ id=" + id + " ]";
+        return "com.csc.mfs.model.Files[ id=" + id + " ]";
     }
     
 }

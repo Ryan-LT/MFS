@@ -5,8 +5,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +30,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/all/{page}/{pageSize}")
-	public ResponseEntity<Page<User>> getAll(@PathVariable int page, @PathVariable int pageSize){
-		return ResponseEntity.ok().body(userService.getAll(page, pageSize));
+	@RequestMapping("/all")
+	public Page<User> getAll(Pageable pageable){
+		return userService.getAll(pageable);
 	}
 	
 	@RequestMapping("/delete/{id}")
@@ -41,33 +41,23 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> getUser(@PathVariable int id){
-		if(null!=userService.getUser(id)){
-			return ResponseEntity.ok().body(userService.getUser(id));
-		} else{
-			return ResponseEntity.ok().body(null);
-		}
+	public User getUser(@PathVariable int id){
+		return userService.getUser(id);
 	}
 	
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequestMapping(value="/update", method=RequestMethod.PUT)
 	public void updateUser(@RequestBody User user){
-		user.setPassword(userRepository.findOne(user.getId()).getPassword());
 		userService.updateUser(user);
 	}
 	
-	@RequestMapping(value="/countUser/")
-	public ResponseEntity<Long> countFileByUser(){
-		return ResponseEntity.ok().body(userService.countUser());
-	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public ResponseEntity<Message> addUser(@RequestBody User user){
-		return ResponseEntity.ok().body(userService.saveUser(user));
-	
+	public Message addUser(@RequestBody User user){
+		return userService.saveUser(user);
 	}
 	
 	@RequestMapping(value="/changePass", method=RequestMethod.POST)
-	public ResponseEntity<Message> changePassword(@RequestBody String jsonStr){
+	public Message changePassword(@RequestBody String jsonStr){
 		int index= 0; 
 		String oldPass="";
 		String newPass="";
@@ -84,7 +74,7 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ResponseEntity.ok().body(userService.changePassword(index, oldPass, newPass));
+		return userService.changePassword(index, oldPass, newPass);
 	}
 }
 

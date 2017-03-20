@@ -6,7 +6,7 @@
 package com.csc.mfs.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,21 +18,21 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
- * @author VuMin
+ * @author training
  */
 @Entity
 @Table(name = "categories", catalog = "finalfresherfilesharing", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c"),
-    @NamedQuery(name = "Categories.findById", query = "SELECT c FROM Categories c WHERE c.id = :id"),
-    @NamedQuery(name = "Categories.findByName", query = "SELECT c FROM Categories c WHERE c.name = :name")})
 public class Categories implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +40,13 @@ public class Categories implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
-    private Collection<CategoriesType> categoriesTypeCollection;
+    @JsonIgnore
+    private List<CategoriesType> categoriesTypeList;
 
     public Categories() {
     }
@@ -74,12 +77,12 @@ public class Categories implements Serializable {
     }
 
     @XmlTransient
-    public Collection<CategoriesType> getCategoriesTypeCollection() {
-        return categoriesTypeCollection;
+    public List<CategoriesType> getCategoriesTypeList() {
+        return categoriesTypeList;
     }
 
-    public void setCategoriesTypeCollection(Collection<CategoriesType> categoriesTypeCollection) {
-        this.categoriesTypeCollection = categoriesTypeCollection;
+    public void setCategoriesTypeList(List<CategoriesType> categoriesTypeList) {
+        this.categoriesTypeList = categoriesTypeList;
     }
 
     @Override
@@ -104,7 +107,7 @@ public class Categories implements Serializable {
 
     @Override
     public String toString() {
-        return "newpackage.Categories[ id=" + id + " ]";
+        return "com.csc.mfs.model.Categories[ id=" + id + " ]";
     }
     
 }

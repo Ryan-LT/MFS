@@ -80,10 +80,10 @@
 	function load() {
 		$('#myModal').modal('show');
 	}
-	
+
 	function openByModal() {
 		$('#byModal').modal('show');
-		$('.modal-backdrop').removeClass("modal-backdrop");   
+		$('.modal-backdrop').removeClass("modal-backdrop");
 	}
 </script>
 </head>
@@ -113,7 +113,7 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<!--YOUR NAVIGATION ITEMS STRAT BELOW-->
-						<li><a href="#about"><span class="btnicon icon-user"></span>About</a></li>
+						<!-- <li><a href="#about"><span class="btnicon icon-user"></span>About</a></li> -->
 						<li><a href="#services"><span class="btnicon icon-cup"></span>Services</a></li>
 						<li><a href="#portfolio"><span
 								class="btnicon icon-rocket"></span>Portfolio</a></li>
@@ -121,13 +121,33 @@
 								class="btnicon icon-bubble"></span>Testimonials</a></li>
 
 						<!--don't forget to replace my email address below with yours-->
-						<li><a href="mailto:m@creatrix.us"><span
-								class="btnicon icon-envelope-open"></span>Contact</a></li>
-						<a href="/login" th:if="${userName} == null"><button
-								type="button" class="btn btn-info navbar-btn m-btn">Login</button></a>
-						<a href="/login" th:if="${userName} != null"><button
-								type="button" class="btn btn-info navbar-btn m-btn"
-								th:text="${userName}">${userName}</button></a>
+						<!-- <li><a href="mailto:m@creatrix.us"><span
+								class="btnicon icon-envelope-open"></span>Contact</a></li> -->
+						<li>
+							<div class="dropdown">
+								<a href="/login" th:if="${userName} == null"><button
+										type="button" class="btn btn-info navbar-btn">Sign In</button></a>
+
+							</div>
+						</li>
+						<li>
+							<div class="dropdown">
+								<a th:if="${userName} != null">
+									<button class="btn btn-info navbar-btn">
+										<span class="fa fa-user"></span>
+									</button> <span th:text="${userName}" class="user-span">
+										${userName} </span>
+								</a>
+								<!-- <button class="dropbtn">Dropdown</button> -->
+								<div class="dropdown-content">
+									<a href="/member"> <span class="fa fa-file"></span> Profile
+										Management
+									</a> <a href="/logout"> <span class="fa fa-sign-out"></span>
+										Logout
+									</a>
+								</div>
+							</div>
+						</li>
 					</ul>
 
 				</div>
@@ -144,7 +164,9 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-body">
-					<div class="btn close-btn" data-dismiss="modal"><i class="fa fa-remove"></i></div>
+					<div class="btn close-btn" data-dismiss="modal">
+						<i class="fa fa-remove"></i>
+					</div>
 					<div class="modal-welcome">
 						WELLCOME TO <font style="color: #0c750c">MFS.COM</font><br>
 					</div>
@@ -173,13 +195,16 @@
 		</div>
 	</div>
 
-	<div class="btn toTop-btn" onclick="toTop()"><i class="glyphicon glyphicon-chevron-up"></i></div>
+	<div class="btn toTop-btn" onclick="toTop()">
+		<i class="glyphicon glyphicon-chevron-up"></i>
+	</div>
 
 	<!-- ===========================
     SERVICE SECTION START
     =========================== -->
-	<div id="services" class="container">
 
+
+	<div id="services" class="container">
 		<!-- SERVICE SECTION HEADING START -->
 		<div class="sectionhead  row wow fadeInUp">
 			<span class="bigicon icon-grid "></span>
@@ -191,7 +216,7 @@
 		<!-- SERVICE ITEMS START -->
 		<div class="row">
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Text',0,8)"><img
+				<a href="#portfolio" ng-click="getFileByCategory('text',0,8)"><img
 					src="images/s1.png" alt="" height="100px" width="100px"></a>
 				<h4>TEXTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -266,95 +291,119 @@
 			<hr class="separetor">
 		</div>
 
-		<div>
-			<form class="search-form"
-				ng-submit="searchByCatelogy(Selectedtype,infoSearch)">
-				<div class="div-search">
-					<input class="input-search" type="text" placeholder="Search ..."
-						ng-model="infoSearch" required>
-					<select class="by-btn" ng-model="Selectedtype" ng-options="type for type in types">
-					</select>
-				</div>
-				<button type="submit" class="btn btn-search">Search</button>
-			</form>
-			<div class="filter-form">
-				<input class="input-filter" type="text" id="myInput"
-					placeholder="Filter ..." ng-model="filterFile">
-			</div>
-			<br>
-		</div>
+
 		<div class="row">{{msgErrorDownload}}</div>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th width="40%">
-						<a href="#" ng-click="sortType = 'file[1]'; sortReverse = !sortReverse">
-          				Name
-            			<span ng-show="sortType == 'file[1]' && !sortReverse" class="fa fa-caret-down"></span>
-            			<span ng-show="sortType == 'file[1]' && sortReverse" class="fa fa-caret-up"></span>
-          			</a>
-          			</th>
-					<th>
-						<a href="#" ng-click="sortType = 'file[3]'; sortReverse = !sortReverse">
-          				Size
-            			<span ng-show="sortType == 'file[3]' && !sortReverse" class="fa fa-caret-down"></span>
-            			<span ng-show="sortType == 'file[3]' && sortReverse" class="fa fa-caret-up"></span>
-          				</a>
-          			</th>
-					<th>
-						<a href="#" ng-click="sortType = 'file[5]'; sortReverse = !sortReverse">
-          				Updated Date
-            			<span ng-show="sortType == 'file[5]' && !sortReverse" class="fa fa-caret-down"></span>
-            			<span ng-show="sortType == 'file[5]' && sortReverse" class="fa fa-caret-up"></span>
-          				</a>
-          			</th>
-					<th>
-						<a href="#" ng-click="sortType = 'file[6]'; sortReverse = !sortReverse">
-          				Owner
-            			<span ng-show="sortType == 'file[6]' && !sortReverse" class="fa fa-caret-down"></span>
-            			<span ng-show="sortType == 'file[6]' && sortReverse" class="fa fa-caret-up"></span>
-          				</a>
-          			</th>
-					<th width="15%">Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="file in files.content  | filter:filterFile | orderBy:sortType:sortReverse track by $index" class="info">
-					<td>{{$index+1}}</td>
-					<td><a href="#/detail/{{file.id}}">{{file[1]}}</a></td>
-					<td>{{file[3]}}</td>
-					<td>{{file[5] | date:'dd-MM-yyyy'}}</td>
-					<td>{{file[6]}}</td>
-					<td>
-						<div th:if="${userName} == null">
-							<button ng-click="loginAlert()" type="button"
-								class="btn btn-circle btn-warning">
-								<span class="fa fa-download"></span>
-							</button>
+		<div class="opacity-content">
+			<div>
+				<form class="search-form"
+					ng-submit="searchByCatelogy(Selectedtype,infoSearch,0,8)">
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-1">
+							<select class="by-btn" ng-model="Selectedtype"
+								ng-options="type for type in types">
+							</select>
 						</div>
-						<div th:if="${userName} != null">
-							<button ng-click="downloadFile(file[0])" type="button"
-								class="btn btn-circle btn-warning">
-								<span class="fa fa-download"></span>
-							</button>
+						<div class="col-md-6">
+							<input class="input-search" type="text" placeholder="Search ..."
+								ng-model="infoSearch" required>
 						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<ul class="list-inline">
-			<li><button class="btn m-btn"
-					ng-click="getFileByCategory(catelogyName, page-1, 8)"
-					ng-disabled="page-1<0"><<</button></li>
-			<li ng-repeat="i in getNumber(files.totalPages) track by $index">
-				<button class="btn m-btn active"
-					ng-click="getFileByCategory(catelogyName, $index, 8)">{{$index+1}}</button>
-			</li>
-			<li><button class="btn m-btn"
-					ng-click="getFileByCategory(catelogyName, page+1, 8)"
-					ng-disabled="page+1>=pageSum">>></button></li>
-		</ul>
+						<div class="col-md-3">
+							<button type="submit" class="btn btn-search">
+								<span class="fa fa-search"></span>
+							</button>
+							<div class="filter-form">
+								<input class="input-filter" type="text" id="myInput"
+									placeholder="Filter ..." ng-model="filterFile">
+							</div>
+						</div>
+						<div class="col-md-1"></div>
+					</div>
+
+				</form>
+			</div>
+
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th width="40%"><a href=""
+									ng-click="sortType = 'file.name'; sortReverse = !sortReverse">
+										Name <span ng-show="sortType == 'file.name' && !sortReverse"
+										class="fa fa-caret-down"></span> <span
+										ng-show="sortType == 'file.name' && sortReverse"
+										class="fa fa-caret-up"></span>
+								</a></th>
+								<th><a href=""
+									ng-click="sortType = 'file.size'; sortReverse = !sortReverse">
+										Size <span ng-show="sortType == 'file.size' && !sortReverse"
+										class="fa fa-caret-down"></span> <span
+										ng-show="sortType == 'file.size' && sortReverse"
+										class="fa fa-caret-up"></span>
+								</a></th>
+								<th><a href=""
+									ng-click="sortType = 'file.dateupload'; sortReverse = !sortReverse">
+										Updated Date <span
+										ng-show="sortType == 'file.dateupload' && !sortReverse"
+										class="fa fa-caret-down"></span> <span
+										ng-show="sortType == 'file.dateupload' && sortReverse"
+										class="fa fa-caret-up"></span>
+								</a></th>
+								<th><a href=""
+									ng-click="sortType = 'file.userId.name'; sortReverse = !sortReverse">
+										Owner <span ng-show="sortType == 'file.userId.name' && !sortReverse"
+										class="fa fa-caret-down"></span> <span
+										ng-show="sortType == 'file.userId.name' && sortReverse"
+										class="fa fa-caret-up"></span>
+								</a></th>
+								<th width="15%">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr
+								ng-repeat="file in files.content  | filter:filterFile | orderBy:sortType:sortReverse track by $index"
+								class="info">
+								<td>{{$index+1}}</td>
+								<td><a href="#/detail/{{file.id}}">{{file.name}}</a></td>
+								<td>{{file.size | number:2}} Kb</td>
+								<td>{{file.dateupload | date:'dd-MM-yyyy'}}</td>
+								<td>{{file.userId.name}}</td>
+								<td>
+									<div th:if="${userName} == null">
+										<button ng-click="loginAlert()" type="button"
+											class="btn btn-circle btn-warning">
+											<span class="fa fa-download"></span>
+										</button>
+									</div>
+									<div th:if="${userName} != null">
+										<button ng-click="downloadFile(file.id)" type="button"
+											class="btn btn-circle btn-warning">
+											<span class="fa fa-download"></span>
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div class="row"></div>
+			<ul class="list-inline">
+				<li><button class="btn m-btn"
+						ng-click="getFileByPage(page=page-1,8)" ng-disabled="page-1<0"><<</button></li>
+				<li ng-repeat="i in getNumber(pageSum) track by $index">
+					<button ng-class="{'active': $index == selectedIndex }"
+						class="btn m-btn" ng-click="getFileByPage($index, 8)">{{$index+1}}</button>
+				</li>
+				<li><button class="btn m-btn"
+						ng-click="getFileByPage(page=page+1,8)"
+						ng-disabled="page+1>=pageSum">>></button></li>
+			</ul>
+		</div>
 	</div>
 	<!-- PRODUCT DETAIL SECTION END -->
 
@@ -538,5 +587,8 @@
 	<script src="/js/lib/angular-1.4.9/angular-route.js"></script>
 
 	<script src="/js/controller/landingController/landingController.js"></script>
+
+	<!-- SERVICE -->
+	<script src="/js/controller/service/landingService/fileService.js"></script>
 </body>
 </html>
