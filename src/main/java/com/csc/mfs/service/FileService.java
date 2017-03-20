@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.LastModified;
 
 import com.csc.mfs.model.Files;
 import com.csc.mfs.model.Rank;
@@ -133,18 +134,22 @@ public class FileService {
 	}
 	
 	public Page<Files> findByNameLike(String name, Pageable pageable){
+		name = checkData(name);
 		return fileRepository.findByNameContainingAndActive(name, 1, pageable);
 	}
 	
 	public Page<Files> findByUploader(String lastName, Pageable pageable){
+		lastName = checkData(lastName);
 		return fileRepository.findByUserIdLastNameContainingAndActive(lastName, 1, pageable);
 	}
 	
 	public Page<Files> findByFileType(String typeFile, Pageable pageable){
+		typeFile = checkData(typeFile);
 		return fileRepository.findByIdTypeFileTypeContainingAndActive(typeFile, 1, pageable);
 	}
 	
 	public Page<Files> findByCategory(String category, Pageable pageable){
+		category = checkData(category);
 		return fileRepository.findByIdTypeCategoryIdNameAndActive(category, 1, pageable);
 	}
 	
@@ -158,6 +163,14 @@ public class FileService {
 		//return fileRepository.findBySharingAndActiveOrNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContaining(1, 1, info, info, size, info, pageable);
 		return fileRepository.findBySharingAndActiveAndNameContainingOrSharingAndActiveAndUserIdLastNameContainingOrSharingAndActiveAndSizeLessThanEqualOrSharingAndActiveAndIdTypeFileTypeContainingOrSharingAndActiveAndIdTypeCategoryIdName(1, 1, info, 1, 1, info, 1, 1, size, 1, 1, info, 1, 1, info,pageable);
 	}
+	
+	public String checkData(String info){
+		if(info==null || info.equals("undefined")){
+			return "";
+		}
+		return info;
+	}
+	
 	
 	public void updateSharing(Integer idFile){
 		Files file = fileRepository.findOne(idFile);
