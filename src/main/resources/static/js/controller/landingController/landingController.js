@@ -28,7 +28,7 @@ app.controller("landingController", function($scope, $http, $window, fileDataOp,
 	$scope.getFileByCategory = function(category,page, pageSize) {
 			$http({
 				method : 'get',
-				url : "http://localhost:8080/file/find/category/" + category + "/?page=" + parseInt(page)
+				url : "http://localhost:8080/file/find/category/" + category + "?page=" + parseInt(page)
 				+ "&size=" + parseInt(pageSize)
 			}).success(function(data, status, headers, config) {
 				$scope.files = data;
@@ -37,9 +37,10 @@ app.controller("landingController", function($scope, $http, $window, fileDataOp,
 	}
 	
 	$scope.searchByCatelogy = function(Selectedtype, infoSearch, page, pageSize) {
+		alert(Selectedtype);
 		$http({
 			method : 'get',
-			url : "http://localhost:8080/file/find/" + Selectedtype + "/" + infoSearch + "/?page=" + parseInt(page)
+			url : "http://localhost:8080/file/find/" + Selectedtype + "/" + infoSearch + "?page=" + parseInt(page)
 			+ "&size=" + parseInt(pageSize)
 		}).success(function(data, status, headers, config) {
 			$scope.files = data;
@@ -50,7 +51,7 @@ app.controller("landingController", function($scope, $http, $window, fileDataOp,
 	function getData(page, pageSize) {
 		$http({
 			method : 'get',
-			url : "http://localhost:8080/file/all/?page=" + parseInt(page)
+			url : "http://localhost:8080/file/all?page=" + parseInt(page)
 			+ "&size=" + parseInt(pageSize)
 		}).success(function(data, status, headers, config) {
 			$scope.files = data;
