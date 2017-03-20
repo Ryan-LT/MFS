@@ -114,12 +114,11 @@
 					<ul class="nav navbar-nav navbar-right">
 						<!--YOUR NAVIGATION ITEMS STRAT BELOW-->
 						<!-- <li><a href="#about"><span class="btnicon icon-user"></span>About</a></li> -->
-						<li><a href="#services"><span class="btnicon icon-cup"></span>Services</a></li>
-						<li><a href="#portfolio"><span
-								class="btnicon icon-rocket"></span>Portfolio</a></li>
-						<li><a href="#testimonials"><span
-								class="btnicon icon-bubble"></span>Testimonials</a></li>
-
+						<li><a href="#category"><span class="btnicon icon-cup"></span>Category</a></li>
+						<li><a href="#search"><span class="btnicon icon-rocket"></span>Search</a></li>
+						<li><a href="#team"><span class="btnicon icon-bubble"></span>Team</a></li>
+						<li><a href="#about"><span class="btnicon icon-bubble"></span>About
+								Us</a></li>
 						<!--don't forget to replace my email address below with yours-->
 						<!-- <li><a href="mailto:m@creatrix.us"><span
 								class="btnicon icon-envelope-open"></span>Contact</a></li> -->
@@ -204,7 +203,7 @@
     =========================== -->
 
 
-	<div id="services" class="container">
+	<div id="category" class="container">
 		<!-- SERVICE SECTION HEADING START -->
 		<div class="sectionhead  row wow fadeInUp">
 			<span class="bigicon icon-grid "></span>
@@ -283,7 +282,7 @@
 	<!-- ===========================
     PRODUCT DETAIL SECTION START
     =========================== -->
-	<div id="portfolio" class="container">
+	<div id="search" class="container">
 		<div class="sectionhead  row wow fadeInUp">
 			<span class="bigicon icon-list "></span>
 			<h3>This is what we have for you</h3>
@@ -293,7 +292,7 @@
 
 		<div class="row">{{msgErrorDownload}}</div>
 		<div class="opacity-content">
-			<div>
+			<div class="container">
 				<form class="search-form"
 					ng-submit="searchFile(Selectedtype,infoSearch)">
 					<div class="row">
@@ -303,14 +302,17 @@
 								ng-options="type for type in types">
 							</select>
 						</div>
-						<div class="col-md-6">
-							<input class="input-search" type="text" placeholder="Search ..."
-								ng-model="infoSearch" required>
+						<div class="col-md-5">
+							<input class="input-search" type="text"
+								placeholder="Search ..." ng-model="infoSearch" required>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<button type="submit" class="btn btn-search">
 								<span class="fa fa-search"></span>
 							</button>
+							<a href="" class="show-all">Show All</a>
+						</div>
+						<div class="col-md-2">
 							<div class="filter-form">
 								<input class="input-filter" type="text" id="myInput"
 									placeholder="Filter ..." ng-model="filterFile">
@@ -321,75 +323,78 @@
 
 				</form>
 			</div>
-
-			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-10">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th width="40%"><a href=""
-									ng-click="sortType = 'file.name'; sortReverse = !sortReverse">
-										Name <span ng-show="sortType == 'file.name' && !sortReverse"
-										class="fa fa-caret-down"></span> <span
-										ng-show="sortType == 'file.name' && sortReverse"
-										class="fa fa-caret-up"></span>
-								</a></th>
-								<th><a href=""
-									ng-click="sortType = 'file.size'; sortReverse = !sortReverse">
-										Size <span ng-show="sortType == 'file.size' && !sortReverse"
-										class="fa fa-caret-down"></span> <span
-										ng-show="sortType == 'file.size' && sortReverse"
-										class="fa fa-caret-up"></span>
-								</a></th>
-								<th><a href=""
-									ng-click="sortType = 'file.dateupload'; sortReverse = !sortReverse">
-										Updated Date <span
-										ng-show="sortType == 'file.dateupload' && !sortReverse"
-										class="fa fa-caret-down"></span> <span
-										ng-show="sortType == 'file.dateupload' && sortReverse"
-										class="fa fa-caret-up"></span>
-								</a></th>
-								<th><a href=""
-									ng-click="sortType = 'file.userId.name'; sortReverse = !sortReverse">
-										Owner <span ng-show="sortType == 'file.userId.name' && !sortReverse"
-										class="fa fa-caret-down"></span> <span
-										ng-show="sortType == 'file.userId.name' && sortReverse"
-										class="fa fa-caret-up"></span>
-								</a></th>
-								<th width="15%">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr
-								ng-repeat="file in files.content  | filter:filterFile | orderBy:sortType:sortReverse track by $index"
-								class="info">
-								<td>{{$index+1}}</td>
-								<td><a href="#/detail/{{file.id}}">{{file.name}}</a></td>
-								<td>{{file.size | number:2}} Kb</td>
-								<td>{{file.dateupload | date:'dd-MM-yyyy'}}</td>
-								<td>{{file.userId.name}}</td>
-								<td>
-									<div th:if="${userName} == null">
-										<button ng-click="loginAlert()" type="button"
-											class="btn btn-circle btn-warning">
-											<span class="fa fa-download"></span>
-										</button>
-									</div>
-									<div th:if="${userName} != null">
-										<button ng-click="downloadFile(file.id)" type="button"
-											class="btn btn-circle btn-warning">
-											<span class="fa fa-download"></span>
-										</button>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th width="40%"><a href=""
+										ng-click="sortType = 'file.name'; sortReverse = !sortReverse">
+											Name <span ng-show="sortType == 'file.name' && !sortReverse"
+											class="fa fa-caret-down"></span> <span
+											ng-show="sortType == 'file.name' && sortReverse"
+											class="fa fa-caret-up"></span>
+									</a></th>
+									<th><a href=""
+										ng-click="sortType = 'file.size'; sortReverse = !sortReverse">
+											Size <span ng-show="sortType == 'file.size' && !sortReverse"
+											class="fa fa-caret-down"></span> <span
+											ng-show="sortType == 'file.size' && sortReverse"
+											class="fa fa-caret-up"></span>
+									</a></th>
+									<th><a href=""
+										ng-click="sortType = 'file.dateupload'; sortReverse = !sortReverse">
+											Updated Date <span
+											ng-show="sortType == 'file.dateupload' && !sortReverse"
+											class="fa fa-caret-down"></span> <span
+											ng-show="sortType == 'file.dateupload' && sortReverse"
+											class="fa fa-caret-up"></span>
+									</a></th>
+									<th><a href=""
+										ng-click="sortType = 'file.userId.name'; sortReverse = !sortReverse">
+											Owner <span
+											ng-show="sortType == 'file.userId.name' && !sortReverse"
+											class="fa fa-caret-down"></span> <span
+											ng-show="sortType == 'file.userId.name' && sortReverse"
+											class="fa fa-caret-up"></span>
+									</a></th>
+									<th width="15%">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									ng-repeat="file in files.content  | filter:filterFile | orderBy:sortType:sortReverse track by $index"
+									class="info">
+									<td>{{$index+1}}</td>
+									<td><a href="#/detail/{{file.id}}">{{file.name}}</a></td>
+									<td>{{file.size | number:2}} Kb</td>
+									<td>{{file.dateupload | date:'dd-MM-yyyy'}}</td>
+									<td>{{file.userId.name}}</td>
+									<td>
+										<div th:if="${userName} == null">
+											<button ng-click="loginAlert()" type="button"
+												class="btn btn-circle btn-warning">
+												<span class="fa fa-download"></span>
+											</button>
+										</div>
+										<div th:if="${userName} != null">
+											<button ng-click="downloadFile(file.id)" type="button"
+												class="btn btn-circle btn-warning">
+												<span class="fa fa-download"></span>
+											</button>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-md-1"></div>
 				</div>
-				<div class="col-md-1"></div>
 			</div>
+
 			<div class="row"></div>
 			<ul class="list-inline">
 				<li><button class="btn m-btn"
@@ -409,7 +414,7 @@
 	<!-- ===========================
     TESTIMONIAL SECTION START
     =========================== -->
-	<div id="testimonials" class="container">
+	<div id="team" class="container">
 		<div class="sectionhead wow bounceInUp" data-wow-duration="2s">
 			<span class="bigicon icon-users"></span>
 			<h3>The Team</h3>
@@ -518,7 +523,7 @@
     FOOTER START
     =========================== -->
 	<footer>
-		<div class="container">
+		<div id="about" class="container" style="padding-top: 0">
 			<span class="bigicon icon-speedometer "></span>
 
 			<div class="footerlinks">
