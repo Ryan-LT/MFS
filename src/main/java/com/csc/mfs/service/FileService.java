@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.LastModified;
 
@@ -29,7 +31,8 @@ public class FileService {
 	private RankRepository rankRepository;
 	
 	public Page<Files> getAll(Pageable pageable){
-		return fileRepository.findBySharingAndActive(1, 1, pageable);
+		PageRequest page = new PageRequest( pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
+		return fileRepository.findBySharingAndActive(1, 1, page);
 	}
 	
 	/**
@@ -50,8 +53,9 @@ public class FileService {
 	 */
 	public Page<Files> getFileByUser(int idUser, Pageable pageable){
 		User user = userRepository.findOne(idUser); 
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
 		if(user != null){
-			return fileRepository.findByUserIdAndActive(user, 1, pageable);	
+			return fileRepository.findByUserIdAndActive(user, 1, page);	
 		} else {
 			return null;
 		}
@@ -130,30 +134,32 @@ public class FileService {
 	
 	
 	public Page<Files> findBySize(double size, Pageable pageable){
-		return fileRepository.findBySizeIsLessThanEqual(size, pageable);
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
+		return fileRepository.findBySizeIsLessThanEqualAndSharing(size,1 , pageable);
 	}
 	
 	public Page<Files> findByNameLike(String name, Pageable pageable){
 		name = checkData(name);
-		return fileRepository.findByNameContainingAndActive(name, 1, pageable);
+		return fileRepository.findByNameContainingAndActiveAndSharing(name, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByUploader(String lastName, Pageable pageable){
 		lastName = checkData(lastName);
-		return fileRepository.findByUserIdLastNameContainingAndActive(lastName, 1, pageable);
+		return fileRepository.findByUserIdLastNameContainingAndActiveAndSharing(lastName, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByFileType(String typeFile, Pageable pageable){
 		typeFile = checkData(typeFile);
-		return fileRepository.findByIdTypeFileTypeContainingAndActive(typeFile, 1, pageable);
+		return fileRepository.findByIdTypeFileTypeContainingAndActiveAndSharing(typeFile, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByCategory(String category, Pageable pageable){
 		category = checkData(category);
-		return fileRepository.findByIdTypeCategoryIdNameAndActive(category, 1, pageable);
+		return fileRepository.findByIdTypeCategoryIdNameAndActiveAndSharing(category, 1, 1, pageable);
 	}
 	
 	public Page<Files> findByAll(String info, Pageable pageable){
+		info = checkData(info);
 		double size =0;
 		try {
 			info+="";
