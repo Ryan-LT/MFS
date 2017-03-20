@@ -127,24 +127,26 @@ public class FileUploadController {
 
 	@PostMapping("/upload")
 	public String handleFileUpload(@RequestParam("file") MultipartFile fileList[],
-			@RequestParam("description") String description, RedirectAttributes redirectAttributes) {
+			@RequestParam("description") String description,
+			 RedirectAttributes redirectAttributes) {
 		/**
 		 * 
 		 * Retrieve user information.
 		 */
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
-		Double spaceAvailable = 0.0;
+		Double fileSumSize = 0.0;
 		for (MultipartFile file : fileList) {
-			spaceAvailable += file.getSize();
+			fileSumSize += file.getSize()/1024.0;
 		}
-
-		redirectAttributes.addFlashAttribute("spaceAvailable", spaceAvailable);
-		if (spaceAvailable >= 0) {
+		double spaceAvailable = downloadService.beforeDownload(user.getId(), fileSumSize);
+		//redirectAttributes.addFlashAttribute("spaceAvailable", spaceAvailable);
+		System.out.println("Contain files: "+fileList.length);
+		if (spaceAvailable <= 0) {
 
 			for (MultipartFile file : fileList) {
 
-				String extension = FilenameUtils.getExtension(file.getName());
+				String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 				CategoriesType category = categoryRepository.findByFileType(extension);
 				Files fileDB = new Files();
 				fileDB.setName(file.getOriginalFilename());
@@ -161,17 +163,12 @@ public class FileUploadController {
 				fileService.afterUpload(user.getId(), file.getSize() / 1024.0);
 
 			}
-		
-		String message = "You have successfully uploaded your files";
-		System.out.println(message);
-		redirectAttributes.addFlashAttribute("uploadMessage", message);
-		System.out.println(redirectAttributes.toString());
-	}else
-
-	{
-		redirectAttributes.addFlashAttribute("message",
+		redirectAttributes.addFlashAttribute("uploadMessage", "You have successfully uploaded your files");
+	} else {
+		redirectAttributes.addFlashAttribute("uploadMessage",
 				"You files have exceeded limitation! Please choose smaller files.");
-	}return"redirect:/upload";
+	}
+		return"redirect:/upload";
 	}
 
 	@ExceptionHandler(StorageFileNotFoundException.class)
