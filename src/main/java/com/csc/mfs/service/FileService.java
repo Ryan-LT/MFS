@@ -155,7 +155,8 @@ public class FileService {
 			size = Integer.parseInt(info);
 		} catch (Exception e) {
 		}
-		return fileRepository.findByNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContainingAndSharingAndActive(info, info, size, info, 1, 1, pageable);
+		//return fileRepository.findBySharingAndActiveOrNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContaining(1, 1, info, info, size, info, pageable);
+		return fileRepository.findBySharingAndActiveAndNameContainingOrSharingAndActiveAndUserIdLastNameContainingOrSharingAndActiveAndSizeLessThanEqualOrSharingAndActiveAndIdTypeFileTypeContainingOrSharingAndActiveAndIdTypeCategoryIdName(1, 1, info, 1, 1, info, 1, 1, size, 1, 1, info, 1, 1, info,pageable);
 	}
 	
 	public void updateSharing(Integer idFile){
