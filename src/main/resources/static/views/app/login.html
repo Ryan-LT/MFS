@@ -1,19 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="login">
 <head>
 <title>Login</title>
+<script src="/js/lib/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="\css\login.css" />
-<link rel="stylesheet"
-	href="/css/bootstrap.min.css">
-<script
-	src="/js/lib/jquery/jquery.min.js"></script>
-<script
-	src="/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
 </head>
-<body class="body">
+<body class="body" ng-controller="loginController">
 	<div id="div2" class="container loginAnim" style="margin-top: 150px">
 		<form th:action="@{/login}" method="POST" class="form">
 			<div class="form-signin-heading">Login</div>
@@ -49,7 +45,30 @@
 			<div class="form-signup-heading">You don't have an account?</div>
 			<button class="btn btn-lg button-signup btn-block" type="Submit">Create
 				Account</button>
+				
+			<a href="" ng-click="forgetPassword()">Forget password</a>
 		</form>
+
+				<div class="modal fade" id="editModal" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content m-modal-content">
+							<div class="modal-header m-modal-header-edit">
+								<button type="button" class="close m-close-button"
+									data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Forget Password</h4>
+							</div>
+							<div class="modal-body">
+								<form ng-submit="verify()" ng-show="checkVerify">
+								<input type="email" ng-model="yourEmail" class="form-control" required="required">
+								<p>{{msg}}</p>
+								<button class="btn btn-primary">Verify</button>
+								</form>
+								<p ng-show="!checkVerify">Please check your mail to reset password, if it's not in inbox, let check all spam or mail</p>
+							</div>
+						</div>
+					</div>
+				</div>
 
 	</div>
 
@@ -60,5 +79,9 @@
 			b.removeClass("loginAnim");
 		}
 	</script>
+<script src="/js/lib/angular-1.4.9/angular.js"></script>
+<script src="/js/lib/angular-1.4.9/angular-resource.js"></script>
+<script src="/js/lib/angular-1.4.9/angular-route.js"></script>
+<script src="/js/controller/loginController/login.js"></script>
 </body>
 </html>

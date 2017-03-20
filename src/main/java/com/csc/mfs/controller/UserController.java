@@ -45,6 +45,12 @@ public class UserController {
 		return userService.getUser(id);
 	}
 	
+	@RequestMapping(value="/getByEmail/{mail}/", produces = MediaType.APPLICATION_JSON_VALUE)
+	public User getUserByEmail(@PathVariable String mail){
+		System.out.println(mail);
+		return userService.findUserByEmail(mail);
+	}
+	
 	@RequestMapping(value="/update", method=RequestMethod.PUT)
 	public void updateUser(@RequestBody User user){
 		userService.updateUser(user);
