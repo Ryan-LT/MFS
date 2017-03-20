@@ -115,7 +115,7 @@
 						<!--YOUR NAVIGATION ITEMS STRAT BELOW-->
 						<!-- <li><a href="#about"><span class="btnicon icon-user"></span>About</a></li> -->
 						<li><a href="#category"><span class="btnicon icon-cup"></span>Category</a></li>
-						<li><a href="#search"><span class="btnicon icon-rocket"></span>Search</a></li>
+						<li><a href="#explore"><span class="btnicon icon-rocket"></span>Explore</a></li>
 						<li><a href="#team"><span class="btnicon icon-bubble"></span>Team</a></li>
 						<li><a href="#about"><span class="btnicon icon-bubble"></span>About
 								Us</a></li>
@@ -215,7 +215,7 @@
 		<!-- SERVICE ITEMS START -->
 		<div class="row">
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="searchFile('Category','Text')"><img
+				<a href="#explore" ng-click="searchFile('Category','Text')"><img
 					src="images/s1.png" alt="" height="100px" width="100px"></a>
 				<h4>TEXTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -225,7 +225,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="searchFile('Category','Graphic')"><img
+				<a href="#explore" ng-click="searchFile('Category','Graphic')"><img
 					src="images/s2.png" alt="" height="100px" width="100px"></a>
 				<h4>PICTURES</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -235,7 +235,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="searchFile('Category','Spreadsheet')"><img
+				<a href="#explore" ng-click="searchFile('Category','Spreadsheet')"><img
 					src="images/s3.png" alt="" height="100px" width="100px"></a>
 				<h4>DOCUMENTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -245,7 +245,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="searchFile('Category','Presentation')"><img
+				<a href="#explore" ng-click="searchFile('Category','Presentation')"><img
 					src="images/s4.png" alt="" height="100px" width="100px"></a>
 				<h4>PRESENTATION</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -255,7 +255,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="searchFile('Category','Multimedia')"><img
+				<a href="#explore" ng-click="searchFile('Category','Multimedia')"><img
 					src="images/s5.png" alt="" height="100px" width="100px"></a>
 				<h4>MULTIMEDIA</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -265,7 +265,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="searchFile('Category','Compression')">
+				<a href="#explore" ng-click="searchFile('Category','Compression')">
 					<img src="images/s6.png" alt="" height="100px" width="100px">
 				</a>
 				<h4>COMPRESSION</h4>
@@ -282,7 +282,7 @@
 	<!-- ===========================
     PRODUCT DETAIL SECTION START
     =========================== -->
-	<div id="search" class="container">
+	<div id="explore" class="container">
 		<div class="sectionhead  row wow fadeInUp">
 			<span class="bigicon icon-list "></span>
 			<h3>This is what we have for you</h3>
@@ -292,7 +292,7 @@
 
 		<div class="row">{{msgErrorDownload}}</div>
 		<div class="opacity-content">
-			<div class="container">
+			<div class="container search-content">
 				<form class="search-form"
 					ng-submit="searchFile(Selectedtype,infoSearch)">
 					<div class="row">
@@ -302,15 +302,14 @@
 								ng-options="type for type in types">
 							</select>
 						</div>
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<input class="input-search" type="text"
 								placeholder="Search ..." ng-model="infoSearch" required>
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-1">
 							<button type="submit" class="btn btn-search">
 								<span class="fa fa-search"></span>
 							</button>
-							<a href="" class="show-all">Show All</a>
 						</div>
 						<div class="col-md-2">
 							<div class="filter-form">
@@ -327,7 +326,7 @@
 				<div class="row">
 					<div class="col-md-1"></div>
 					<div class="col-md-10">
-						<table class="table">
+						<table class="table" style="margin-top: -8px">
 							<thead>
 								<tr>
 									<th>#</th>

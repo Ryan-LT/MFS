@@ -21,7 +21,7 @@ body {
 .bigicon {
 	font-size: 3em;
 	color: #000000;
-	text-shadow: 1px 1px 1px white;
+	text-align: center;
 }
 
 h2 {
@@ -31,7 +31,6 @@ h2 {
 h3 {
 	font-size: 28px;
 	color: #ffffff;
-	text-shadow: 1px 1px 1px green;
 }
 
 h4 {
@@ -65,7 +64,7 @@ a:hover {
 	text-decoration: none;
 }
 
-#services {
+#category {
 	text-align: center;
 }
 
@@ -185,11 +184,11 @@ ABOUT SECTION
 /*================================
 PORTFOLIO SECTION
 ================================*/
-#portfolio {
+/* #portfolio {
 	margin-top: 50px;
 	padding: 30px 0;
 	text-align: center;
-}
+} */
 
 #shotsByPlayerId li {
 	width: 31%;
