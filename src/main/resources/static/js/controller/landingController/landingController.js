@@ -1,5 +1,5 @@
 var app = angular.module('landing',['ngRoute']);
-app.controller("landingController", function($scope, $http, $window, fileDataOp, $routeParams){
+app.controller("landingController", function($scope, $http, $window, $routeParams){
 	
 	$scope.filterFile ='';
 	$scope.sortReverse = false; 
