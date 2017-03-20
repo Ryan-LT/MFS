@@ -110,7 +110,7 @@ public class FileController {
 	
 	@RequestMapping(value = "/find/All/{info}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Page<Files> findByAll(@PathVariable String info, Pageable pageable) {
-		return fileService.findByCategory(info, pageable);
+		return fileService.findByAll(info, pageable);
 	}
 	
 	@RequestMapping("/updateSharing/{idFile}")
