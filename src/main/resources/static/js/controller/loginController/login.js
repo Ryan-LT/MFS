@@ -6,12 +6,15 @@ app.controller("loginController", function($scope, $http){//, $routeParams
 	}
 	
 	$scope.verify = function(){
-		$http({
-			method : 'get',
-			url : "http://localhost:8080/user/getByEmail/" + $scope.yourEmail+"/"
-		}).success(function(data, status, headers, config) {
-			if(data!=""){
-				$scope.checkVerify = false;				
+		$scope.dataEmail = {
+				email: $scope.yourEmail
+		}
+		$http.post("http://localhost:8080/resetpassword/checkEmail", $scope.yourEmail)
+		.success(function(data, status, headers, config) {
+			console.log(data);
+			console.log(status);
+			if(data){
+				$scope.checkVerify = false;		
 			} else {
 				$scope.msg="Email is not exist";
 				$scope.checkVerify = true;
