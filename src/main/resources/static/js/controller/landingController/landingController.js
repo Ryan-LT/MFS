@@ -1,14 +1,13 @@
 var app = angular.module('landing',['ngRoute']);
-app.controller("landingController", function($scope, $http, $window, fileDataOp, $routeParams){
+app.controller("landingController", function($scope, $http, $window, $routeParams){
 	
 	$scope.filterFile ='';
 	$scope.sortReverse = false; 
 	  
-	$scope.page;
+	$scope.page = 0;
 	$scope.pageSum;
+	$scope.pageSize = 8;
 	$scope.selectedIndex = 0;
-	$scope.pageSum;
-	$scope.page;
 	
 	$scope.types = ["All", "Category", "Name", "Uploader", "Size"];
 	$scope.Selectedtype = $scope.types[0];
@@ -25,18 +24,7 @@ app.controller("landingController", function($scope, $http, $window, fileDataOp,
 		$scope.selectedIndex = page;
 	}
 	
-	$scope.getFileByCategory = function(category,page, pageSize) {
-			$http({
-				method : 'get',
-				url : "http://localhost:8080/file/find/category/" + category + "/?page=" + parseInt(page)
-				+ "&size=" + parseInt(pageSize)
-			}).success(function(data, status, headers, config) {
-				$scope.files = data;
-				$scope.pageSum = data.totalPages;
-			}).error(function(data, status, headers, config) {});
-	}
-	
-	$scope.searchByCatelogy = function(Selectedtype, infoSearch, page, pageSize) {
+	$scope.searchFile = function(Selectedtype, infoSearch, page, pageSize) {
 		$http({
 			method : 'get',
 			url : "http://localhost:8080/file/find/" + Selectedtype + "/" + infoSearch + "/?page=" + parseInt(page)
