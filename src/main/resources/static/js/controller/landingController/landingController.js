@@ -53,6 +53,73 @@ app.controller("landingController", function($scope, $http, $window, $routeParam
 		});		
 	}
 	
+    $scope.getInfoFile = function(id){
+    	$('#detailModal').modal('show');
+    	$http({
+			method: 'get',
+			url: "http://localhost:8080/file/get/"+id
+		}).success(function(data, status, headers, config){
+			$scope.fileDetail = data;
+		})
+		.error(function(data, status, headers, config){
+			alert("fail__")
+		});
+    	$http({
+			method: 'get',
+			url: "http://localhost:8080/download/total/"+id
+		}).success(function(data, status, headers, config){
+			$scope.total = data;
+			
+		})
+		.error(function(data, status, headers, config){
+			alert("fail__")
+		});
+    	getComment(id);
+    }
+    
+    function getComment(id){
+		$http({
+			method: 'get',
+			url: "http://localhost:8080/comment/getByFile/" + id
+		}).success(function(data, status, headers, config){
+			$scope.comments = data;
+		})
+		.error(function(data, status, headers, config){});
+	}
+    
+    $scope.saveComment = function(id){
+		$scope.contentComment = {
+				content: $scope.content,
+		    	idFile: id
+		}
+		$http.post("http://localhost:8080/comment/saveComment", $scope.contentComment)
+		.success(function(data, status, headers, config){
+			getComment(id);
+		})
+		.error(function(data, status, headers, config){
+		});
+	}
+    
+    $scope.saveChange = function(id){
+    	if($scope.description_==undefined || $scope.description_ =="" || $scope.description_==null){
+    		$scope.description_="No Description";
+    	}
+    	$scope.file = {
+    			id: id,
+    			description: $scope.description_
+    	}
+    	$http({
+			method: 'PUT',
+			url: "http://localhost:8080/file/updateDescription/",
+			data: $scope.file
+		}).success(function(data, status, headers, config){
+			$scope.msgSave ="Update successful";
+		})
+		.error(function(data, status, headers, config){
+			$scope.msgSave ="Update fail";
+		});
+    }
+	
 	$scope.loginAlert = function() {
 		alert("You need to login in order to download!");
 	}

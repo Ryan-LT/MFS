@@ -303,8 +303,8 @@
 							</select>
 						</div>
 						<div class="col-md-6">
-							<input class="input-search" type="text"
-								placeholder="Search ..." ng-model="infoSearch" empty-to-null>
+							<input class="input-search" type="text" placeholder="Search ..."
+								ng-model="infoSearch" empty-to-null>
 						</div>
 						<div class="col-md-1">
 							<button type="submit" class="btn btn-search">
@@ -385,6 +385,10 @@
 												<span class="fa fa-download"></span>
 											</button>
 										</div>
+										<button ng-click="getInfoFile(file.id)" type="button"
+											class="btn btn-info btn-circle">
+											<span class="fa fa-info"></span>
+										</button>
 									</td>
 								</tr>
 							</tbody>
@@ -397,10 +401,11 @@
 			<div class="row"></div>
 			<ul class="list-inline">
 				<li><button class="btn m-btn"
-						ng-click="searchFile(Selectedtype,infoSearch,page=page-1)" ng-disabled="page-1<0"><<</button></li>
+						ng-click="searchFile(Selectedtype,infoSearch,page=page-1)"
+						ng-disabled="page-1<0"><<</button></li>
 				<li ng-repeat="i in getNumber(pageSum) track by $index">
-					<button
-						class="btn m-btn" ng-click="searchFile(Selectedtype,infoSearch,$index)">{{$index+1}}</button>
+					<button class="btn m-btn"
+						ng-click="searchFile(Selectedtype,infoSearch,$index)">{{$index+1}}</button>
 				</li>
 				<li><button class="btn m-btn"
 						ng-click="searchFile(Selectedtype,infoSearch,page=page+1)"
@@ -591,6 +596,75 @@
 
 	<script src="/js/controller/landingController/landingController.js"></script>
 
-	<!-- SERVICE -->
+	<!-- MODAL START -->
+	<div class="modal fade" id="detailModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content m-modal-content">
+				<div class="modal-header m-modal-header-edit">
+					<button type="button" class="close m-close-button"
+						data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">{{fileDetail.name | uppercase}}'s
+						Detail</h4>
+				</div>
+				<div class="modal-body">
+					<div id="article_table">
+						<table class="table table-bordered table-striped m-table">
+							<tr>
+								<td width="50%">Name</td>
+								<td>{{fileDetail.name}}</td>
+							</tr>
+							<tr>
+								<td>Size</td>
+								<td>{{fileDetail.size | number:2}} Kb</td>
+							</tr>
+							<tr>
+								<td>Date upload</td>
+								<td>{{fileDetail.dateupload | date:"dd-MM-yyyy"}}</td>
+							</tr>
+							<tr>
+								<td>Total download</td>
+								<td>{{total}}</td>
+							</tr>
+						</table>
+						<h4>Description:</h4>
+						<textarea ng-model="description_" class="form-control" rows="8"
+							cols="">{{fileDetail.description}}</textarea>
+						<p>{{msgSave}}</p>
+						<button class="btn btn-primary"
+							ng-click="saveChange(fileDetail.id)">Save Change</button>
+					</div>
+					<hr>
+					<section class="row">
+						<section class="col-md-2"></section>
+						<section class="col-md-8">
+							<h4>Comment</h4>
+							<form ng-submit="saveComment(fileDetail.id)">
+								<textarea ng-model="content" class="form-control" rows="3"></textarea>
+								<button class="btn btn-primary" type="submit">Comment</button>
+							</form>
+							<table class="table table-bordered table-striped">
+								<tr ng-repeat="comment in comments.content">
+									<td>
+										<article>
+											<header>
+												<a href="">{{comment.idUser.name}}:</a>
+											</header>
+											<section>{{comment.content}}</section>
+											<footer>
+												{{comment.likeComment}} <a href="" ng-click="increase()">like</a>
+												| {{comment.dateComment}}
+											</footer>
+										</article>
+									</td>
+								</tr>
+							</table>
+						</section>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL END -->
 </body>
 </html>
