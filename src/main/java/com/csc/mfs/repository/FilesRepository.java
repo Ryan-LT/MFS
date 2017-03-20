@@ -32,9 +32,9 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	
 	Page<Files> findByIdTypeCategoryIdNameAndActive(String category, Integer active, Pageable pageable);
 	
-	Page<Files> findByNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContainingAndSharingAndActive(String name, String uploader, double size, String type, Integer sharing, Integer active, Pageable pageable);
+	Page<Files> findBySharingAndActiveOrNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContaining(Integer sharing, Integer active, String name, String uploader, double size, String type, Pageable pageable);
 	
-	
+	Page<Files> findBySharingAndActiveAndNameContainingOrSharingAndActiveAndUserIdLastNameContainingOrSharingAndActiveAndSizeLessThanEqualOrSharingAndActiveAndIdTypeFileTypeContainingOrSharingAndActiveAndIdTypeCategoryIdName(Integer sharing, Integer active, String name, Integer sharing1, Integer active1, String uploader, Integer sharing2, Integer active2, double size, Integer sharing3, Integer active3, String type, Integer sharing4, Integer active4, String category, Pageable pageable);
 	
 	@Query(value="SELECT SUM(size) FROM files WHERE active=1 AND user_id=:idUser", nativeQuery=true)
 	Object sumSizeUpload(@Param("idUser") int idUser);
