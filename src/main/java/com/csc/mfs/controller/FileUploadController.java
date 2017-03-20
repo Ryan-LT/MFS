@@ -127,7 +127,7 @@ public class FileUploadController {
 
 	@PostMapping("/upload")
 	public String handleFileUpload(@RequestParam("file") MultipartFile fileList[],
-			@RequestParam("description") String description, RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes) {//@RequestParam("description") String description, 
 		/**
 		 * 
 		 * Retrieve user information.
@@ -141,10 +141,10 @@ public class FileUploadController {
 
 		redirectAttributes.addFlashAttribute("spaceAvailable", spaceAvailable);
 		if (spaceAvailable >= 0) {
-
+			System.out.println(spaceAvailable+"ahihi");
 			for (MultipartFile file : fileList) {
-
-				String extension = FilenameUtils.getExtension(file.getName());
+				System.out.println(file.getOriginalFilename());
+				String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 				CategoriesType category = categoryRepository.findByFileType(extension);
 				Files fileDB = new Files();
 				fileDB.setName(file.getOriginalFilename());
@@ -155,7 +155,7 @@ public class FileUploadController {
 				fileDB.setUserId(user);
 				fileDB.setSharing(1);
 				fileDB.setIdType(category);
-				fileDB.setDescription(description);
+				fileDB.setDescription("");
 				fileService.insertFile(fileDB);
 				storageService.store(file, Paths.get(fileDB.getPath()));
 				fileService.afterUpload(user.getId(), file.getSize() / 1024.0);

@@ -1,65 +1,73 @@
-</body>
-</html>
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html lang="en" ng-app="upload" class="no-js"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-<!--<![endif]-->
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>MFS</title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="\css\admin.css" />
-<link rel="stylesheet" type="text/css" href="\css\admin-index.css" />
-<link rel="stylesheet" type="text/css" href="\css\filedrag.css" />
-<script src="js/filedrag.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
-<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
-</head>
-<body class="body">
-<!-- upload form -->
-		<h1>Upload Files</h1>
-<!-- end of upload form -->		
-
-	<div>
-		<ul>
-			<li th:each="file : ${files}"><a th:href="${file}"
-				th:text="${file}" /></li>
-		</ul>
-	</div>
+<html>
+   
+   <head>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+   </head>
+   
+   <body ng-app = "myApp">
 	
-	<form action="/upload" method="POST" class="dropzone" enctype="multipart/form-data">
-	<textarea name='description'></textarea>
-	  <div class="fallback">
-	    <input name="file" type="file" multiple/>
-	  </div>
-	  <button type="submit">Upload Files</button><br>
-	</form>
-	<div th:if="${uploadMessage}"><h2 th:text="${uploadMessage}" ></h2>
-
-	<script src="../static/js/lib/angular-1.4.9/angular.js"
-		th:src="@{/js/lib/angular-1.4.9/angular.js}"></script>
-	<script src="../static/js/lib/angular-1.4.9/angular-resource.js"
-		th:src="@{/js/lib/angular-1.4.9/angular-resource.js}"></script>
-	<script src="../static/js/lib/angular-1.4.9/angular-route.js"
-		th:src="@{/js/lib/angular-1.4.9/angular-route.js}"></script>
-
-	<!-- Main Controller -->
-</body>
+      <div ng-controller = "myCtrl">
+         <input type = "file" file-model = "myFile" multiple/>
+         <button ng-click = "uploadFile(myFile)">upload me</button>
+      </div>
+      
+      <script>
+         var myApp = angular.module('myApp', []);
+         
+         myApp.directive('fileModel', ['$parse', function ($parse) {
+            return {
+               restrict: 'A',
+               link: function(scope, element, attrs) {
+                  var model = $parse(attrs.fileModel);
+                  var modelSetter = model.assign;
+                  
+                  element.bind('change', function(){
+                     scope.$apply(function(){
+                    	if (element[0].files.length > 1) {
+                             modelSetter(scope, element[0].files);
+                        } else {
+                        	modelSetter(scope, element[0].files[0]);
+                     	}
+                     });
+                  });
+               }
+            };
+         }]);
+      
+         myApp.service('fileUpload', ['$http', function ($http) {
+            this.uploadFileToUrl = function(file, uploadUrl){
+            	//console.log($scope.myFile);
+               var fd = new FormData();
+               //for(var i =0;i<file.length)
+               fd.append('file', file[0]);
+               fd.append('file', file[1]);
+            
+               $http.post(uploadUrl, fd, {
+                  transformRequest: angular.identity,
+                  headers: {'Content-Type': undefined}
+               })
+            
+               .success(function(){
+               })
+            
+               .error(function(){
+               });
+            }
+         }]);
+      
+         myApp.controller('myCtrl', ['$scope', 'fileUpload', function($scope, fileUpload){
+            $scope.uploadFile = function(myFile){
+               var file = myFile;//$scope.myFile;
+               console.log($scope.myFile);
+               console.log('file is ' );
+               console.dir(file);
+               
+               var uploadUrl = "/upload";
+               fileUpload.uploadFileToUrl($scope.myFile, uploadUrl);
+            };
+         }]);
+			
+      </script>
+      
+   </body>
 </html>
