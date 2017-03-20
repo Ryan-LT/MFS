@@ -22,15 +22,15 @@ public interface FilesRepository extends JpaRepository<Files, Integer> {
 	
 	Page<Files> findByUserIdAndActive(User userid, Integer active, Pageable pageable);
 	
-	Page<Files> findBySizeIsLessThanEqual(double size, Pageable pageable);
+	Page<Files> findBySizeIsLessThanEqualAndSharing(double size, Integer sharing, Pageable pageable);
 	
-	Page<Files> findByNameContainingAndActive(String name, Integer active, Pageable pageable);
+	Page<Files> findByNameContainingAndActiveAndSharing(String name, Integer active, Integer sharing, Pageable pageable);
 	
-	Page<Files> findByUserIdLastNameContainingAndActive(String lastName, Integer active, Pageable pageable);
+	Page<Files> findByUserIdLastNameContainingAndActiveAndSharing(String lastName, Integer active, Integer sharing, Pageable pageable);
 	
-	Page<Files> findByIdTypeFileTypeContainingAndActive(String typeFile, Integer active, Pageable pageable);
+	Page<Files> findByIdTypeFileTypeContainingAndActiveAndSharing(String typeFile, Integer active, Integer sharing, Pageable pageable);
 	
-	Page<Files> findByIdTypeCategoryIdNameAndActive(String category, Integer active, Pageable pageable);
+	Page<Files> findByIdTypeCategoryIdNameAndActiveAndSharing(String category, Integer active, Integer sharing, Pageable pageable);
 	
 	Page<Files> findBySharingAndActiveOrNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContaining(Integer sharing, Integer active, String name, String uploader, double size, String type, Pageable pageable);
 	
