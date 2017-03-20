@@ -6,7 +6,9 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.csc.mfs.repository.DownloadRepository;
@@ -81,8 +83,9 @@ public class DownloadService {
 	 */
 	public Page<Download> findByUser(int idUser, Pageable pageable){
 		User user = userRepository.findOne(idUser);
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datedownload");
 		if(null!=user){
-			return downloadRepository.findByIdUser(user, pageable);
+			return downloadRepository.findByIdUser(user, page);
 		}
 		return null;
 	}
