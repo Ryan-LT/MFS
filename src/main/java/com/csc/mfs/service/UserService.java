@@ -66,7 +66,7 @@ public class UserService {
 	}
 
 	public void updateUser(User user) {
-		User u = userRepository.findOne(user.getId());
+		User u = userRepository.findByEmail(user.getEmail());
 		if(null!=u){
 			user.setPassword(u.getPassword());
 			userRepository.saveAndFlush(user);	
@@ -89,7 +89,11 @@ public class UserService {
 		if (null != userRepository.findByEmail(user.getEmail())) {
 			return (new Message(false, "There is already a user registered with the email provided"));
 		} else {
-			user.setPassword(bCryptPasswordEncoder.encode(user.getName()));
+			if(null!=user.getPassword()){
+				user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+			} else {
+				user.setPassword(bCryptPasswordEncoder.encode(user.getName()));	
+			}
 			user.setActive(1);
 			Rank rank = rankRepository.findByName("Bronze");
 			user.setRankId(rank);

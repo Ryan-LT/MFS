@@ -1,32 +1,59 @@
-var app = angular.module('landing', [ 'ngRoute' ]);
-app.controller("landingController", function($http, $scope, $window, $location, $window) {
-
+var app = angular.module('landing',['ngRoute']);
+app.controller("landingController", function($scope, $http, $window, fileDataOp, $routeParams){
+	
 	$scope.filterFile ='';
 	$scope.sortReverse = false; 
 	  
 	$scope.page;
 	$scope.pageSum;
-	getFile();
+	$scope.selectedIndex = 0;
+	$scope.pageSum;
+	$scope.page;
+	
 	$scope.types = ["All", "Category", "Name", "Uploader", "Size"];
 	$scope.Selectedtype = $scope.types[0];
 	
-	function getFile() {
-		getFileByCategoryFunction('all', 0, 8);
+	getData('0', '8');
+	
+	$scope.getNumber = function(num) {
+		return new Array(num);
 	}
 	
-	$scope.getFileByCategory = function(category, page, pageSize){
-		getFileByCategoryFunction(category, page, pageSize);
+	$scope.getFileByPage = function(page, pageSize) {
+		getData(parseInt(page), parseInt(pageSize));
+		$scope.page = (parseInt(page));
+		$scope.selectedIndex = page;
 	}
 	
-	function getFileByCategoryFunction(category, page, pageSize){
-		$scope.catelogyName = category;
+	$scope.getFileByCategory = function(category,page, pageSize) {
+			$http({
+				method : 'get',
+				url : "http://localhost:8080/file/find/category/" + category + "/?page=" + parseInt(page)
+				+ "&size=" + parseInt(pageSize)
+			}).success(function(data, status, headers, config) {
+				$scope.files = data;
+				$scope.pageSum = data.totalPages;
+			}).error(function(data, status, headers, config) {});
+	}
+	
+	$scope.searchByCatelogy = function(Selectedtype, infoSearch, page, pageSize) {
 		$http({
 			method : 'get',
-			url : "http://localhost:8080/file/getFileByCategory/" +category +"?size="+ parseInt(pageSize)
-										+ "&page=" + parseInt(page)
+			url : "http://localhost:8080/file/find/" + Selectedtype + "/" + infoSearch + "/?page=" + parseInt(page)
+			+ "&size=" + parseInt(pageSize)
 		}).success(function(data, status, headers, config) {
 			$scope.files = data;
-			$scope.page = data.number;
+			$scope.pageSum = data.totalPages;
+		}).error(function(data, status, headers, config) {});
+	}
+	
+	function getData(page, pageSize) {
+		$http({
+			method : 'get',
+			url : "http://localhost:8080/file/all/?page=" + parseInt(page)
+			+ "&size=" + parseInt(pageSize)
+		}).success(function(data, status, headers, config) {
+			$scope.files = data;
 			$scope.pageSum = data.totalPages;
 		}).error(function(data, status, headers, config) {});
 	}
@@ -45,53 +72,18 @@ app.controller("landingController", function($http, $scope, $window, $location, 
 		.error(function(data, status, headers, config){
 			alert("fail");
 		});		
-}
+	}
 	
 	$scope.loginAlert = function() {
-		alert("You must login in order to download this file !")
-	};
-	
-	$scope.searchByCatelogy = function(type, input) {
-		$http({
-			method: 'get',
-			url: "http://localhost:8080/file/searchOption/" + type + "/" + input
-		}).success(function(data, status, headers, config){
-			$scope.files = data;
-			$scope.page = data.number;
-			$scope.pageSum = data.totalPages;
-		})
-		.error(function(data, status, headers, config){
-			alert("fail");
-		});		
-	};
-	
-	$scope.infoTemp = $scope.search;
-	function searchFiles(page, pageSize) {
-		$scope.search = $scope.infoSearch;
-		countSearch();
-		$http(
-				{
-					method : 'get',
-					url : "http://localhost:8080/file/fSearch/"
-							+ $scope.infoSearch + "/" + page + "/" + pageSize
-				}).success(function(data, status, headers, config) {
-			$scope.files = data;
-		}).error(function(data, status, headers, config) {
-		});
-	}
-	
-	$scope.getNumber = function(num) {
-		return new Array(num);
+		alert("You need to login in order to download!");
 	}
 
-	function countSearch() {
-		$http({
-			method : 'get',
-			url : "http://localhost:8080/file/countSearch/" + $scope.infoSearch
-		}).success(function(data, status, headers, config) {
-			$scope.count = Math.ceil(data / 2);
-		}).error(function(data, status, headers, config) {
-			alert("fail");
-		});
-	}
+	// Exception Handling
+	var Success = function(data, status, headers, config){
+		getData('0','5');
+	};
+
+	var Error = function(data, status, headers, config){
+		alert("Error");
+	};
 });

@@ -14,7 +14,7 @@
 			<tr ng-repeat="file in files.content track by $index">
 				<td>{{$index+1}}</td>
 				<td>
-					<a href="" ng-click="getInfoFile(file.id)">{{file.idFile.name}}</a>
+					<a href="" ng-click="getInfoFile(file.idFile.id)">{{file.idFile.name}}</a>
 				</td>
 				<td>{{file.idFile.size | number:1}} KB</td>
 				<td>{{file.idUser.lastName}}</td>
@@ -58,16 +58,20 @@
 							<td>Total download</td>
 							<td>{{total}}</td>
 						</tr>
+						<tr>
+							<td colspan="2">Description</td>
+						</tr>
+						<tr>
+							<td colspan="2">{{fileDetail.description}}</td>
+						</tr>
 					</table>
-					<h4>Description++++</h4>
-					<textarea rows="" cols="">{{fileDetail.description}}</textarea>
 				</div>
 				<hr>
 				<section class="row">
 					<section class="col-md-2"></section>
 					<section class="col-md-8">
 						<h4>Comment</h4>
-						<form ng-submit="saveComment(file.id)">
+						<form ng-submit="saveComment(fileDetail.id)">
 							<textarea ng-model="content" class="form-control" rows="3" ></textarea>
 							<button class="btn btn-primary" type="submit">Comment</button>
 						</form>

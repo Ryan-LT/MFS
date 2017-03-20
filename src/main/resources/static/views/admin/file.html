@@ -11,11 +11,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="f in files track by $index">
+		<tr ng-repeat="file in files track by $index">
 			<td>{{$index+1}}</td>
-			<td>{{f[1]}}</td>
-			<td>{{f[5] | date:'MM/dd/yyyy'}}</td>
-			<td>{{f[8]}}</td>
+			<td>{{file.name}}</td>
+			<td>{{file.dateupload | date:'MM/dd/yyyy'}}</td>
+			<td>{{file.userId.name}}</td>
 			<td>
 				<button ng-click="deleteFile(f[0])" type="button"
 					class="btn btn-danger btn-circle" onclick="myToast('del')">
