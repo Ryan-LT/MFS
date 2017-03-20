@@ -110,17 +110,17 @@ public class FileController {
 	
 	@RequestMapping(value = "/find/All/{info}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Page<Files> findByAll(@PathVariable String info, Pageable pageable) {
-		return fileService.findByCategory(info, pageable);
+		return fileService.findByAll(info, pageable);
 	}
 	
 	@RequestMapping("/updateSharing/{idFile}")
 	public void updateSharing(@PathVariable("idFile") int idFile) {
-		fileService.updateSharing(idFile);;
+		fileService.updateSharing(idFile);
 	}
 	
-	@PutMapping("/updateDescription")
-	public void updateDescription(@RequestParam("idFile") int idFile, @RequestParam("description") String description) {
-		fileService.updateDescription(idFile, description);
+	@RequestMapping(value="/updateDescription", method=RequestMethod.PUT)
+	public void updateDescription(@RequestBody() Files file) {//@RequestParam("idFile") String idFile, @RequestParam("description") String description
+		fileService.updateDescription(file.getId(), file.getDescription());
 	}
 	
 }

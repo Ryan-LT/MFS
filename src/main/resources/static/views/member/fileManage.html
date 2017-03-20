@@ -1,122 +1,115 @@
 <!-- <div class="main-header">File Management</div> -->
-<h2>
+<h3>
 	<i class="fa fa-angle-right"></i> File Management
-</h2>
+</h3>
 <div ng-init="stt=0; incre=1">
-	<div class="table-height">
-		<table id="myTable"
-			class="content-panel table table-striped table-advance table-hover">
-			<thead class="thead-custom">
-				<th width="5%">#</th>
-				<th width="40%">Name File</th>
-				<th width="10%">Size</th>
-				<th width="10%">Date Upload</th>
-				<th style="text-align: center; width: 10%">Sharing</th>
-				<th style="text-align: center">Action</th>
-			</thead>
-			<tbody ng-repeat="file in files.content | filter: filter_">
-				<td>{{$index+1}}</td>
-				<td>{{file.name}}</td>
-				<td>{{file.size | number:2}} Kb</td>
-				<td>{{file.dateupload | date:"dd-MM-yyyy"}}</td>
-				<td align="center"><input class="checkbox checkbox-success" id="checkbox"
-					ng-click="changeShare(file.id)" type="checkbox"
-					ng-checked="{{file.sharing==1}}"></td>
-				<td style="text-align: center">
-					<button ng-click="downloadFile(file.id)" type="button"
-						class="btn btn-warning btn-circle">
-						<span class="fa fa-download"></span>
-					</button>
-					<button ng-click="deleteFile(file.id)" type="button"
-						class="btn btn-danger btn-circle">
-						<span class="fa fa-trash"></span>
-					</button>
-					<button ng-click="getInfoFile(file.id)" type="button"
-						class="btn btn-info btn-circle">
-						<span class="fa fa-info"></span>
-					</button>
-				</td>
-			</tbody>
-		</table>
-	</div>
-
-	<ul class="list-inline btn1">
-		<li><button type="button" class="btn btn-success">Prev</button>
-		</li>
+	<table id="myTable"
+		class="content-panel table table-striped table-advance table-hover">
+		<thead>
+			<th>#</th>
+			<th width="40%">Name File</th>
+			<th>Size</th>
+			<th>Date Upload</th>
+			<th>Sharing</th>
+			<th width="15%"">Action</th>
+		</thead>
+		<tbody ng-repeat="file in files.content | filter: filter_">
+			<td>{{$index+1}}</td>
+			<td><a href="" ng-click="getInfoFile(file.id)">{{file.name}}</a></td>
+			<td>{{file.size | number:2}} Kb</td>
+			<td>{{file.dateupload | date:"dd-MM-yyyy"}}</td>
+			<td><input ng-click="changeShare(file.id)" type="checkbox"
+				ng-checked="{{file.sharing==1}}"></td>
+			<td>
+				<button ng-click="downloadFile(file.id)" type="button"
+					class="btn btn-warning btn-circle">
+					<span class="fa fa-download"></span>
+				</button>
+				<button ng-click="deleteFile(file.id)" type="button"
+					class="btn btn-danger btn-circle">
+					<span class="fa fa-trash"></span>
+				</button>
+				<button ng-click="getInfoFile(file.id)" type="button" class="btn btn-info btn-circle">
+					<span class="fa fa-info"></span>
+				</button>
+			</td>
+		</tbody>
+	</table>
+	<ul class="list-inline">
 		<li ng-repeat="i in getNumber(files.totalPages) track by $index">
 			<button class="btn btn-success" ng-click="getFileByPage($index, 10)">{{$index+1}}</button>
 		</li>
-		<li><button type="button" class="btn btn-success">Next</button></li>
 	</ul>
-
-
+	
+	
 	<!-- modal -->
 	<div class="modal fade" id="editModal" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content m-modal-content">
-				<div class="modal-header m-modal-header-edit">
-					<button type="button" class="close m-close-button"
-						data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">{{fileDetail.name | uppercase}}'s
-						Detail</h4>
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content m-modal-content">
+			<div class="modal-header m-modal-header-edit">
+				<button type="button" class="close m-close-button"
+					data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">{{fileDetail.name | uppercase}}'s Detail</h4>
+			</div>
+			<div class="modal-body">
+				<div id="article_table">
+					<table class="table table-bordered table-striped m-table">
+						<tr>
+							<td width="50%">Name</td>
+							<td>{{fileDetail.name}}</td>
+						</tr>
+						<tr>
+							<td>Size</td>
+							<td>{{fileDetail.size | number:2}} Kb</td>
+						</tr>
+						<tr>
+							<td>Date upload</td>
+							<td>{{fileDetail.dateupload | date:"dd-MM-yyyy"}}</td>
+						</tr>
+						<tr>
+							<td>Total download</td>
+							<td>{{total}}</td>
+						</tr>
+					</table>
+					<h4>Description:</h4>
+					<textarea ng-model="description_" class="form-control" rows="8" cols="">{{fileDetail.description}}</textarea>
+					<p>{{msgSave}}</p>
+					<button class="btn btn-primary" ng-click="saveChange(fileDetail.id)">Save Change</button>
 				</div>
-				<div class="modal-body">
-					<div id="article_table">
-						<table class="table table-bordered table-striped m-table">
-							<tr>
-								<td width="50%">Name</td>
-								<td>{{fileDetail.name}}</td>
-							</tr>
-							<tr>
-								<td>Size</td>
-								<td>{{fileDetail.size | number:2}} Kb</td>
-							</tr>
-							<tr>
-								<td>Date upload</td>
-								<td>{{fileDetail.dateupload | date:"dd-MM-yyyy"}}</td>
-							</tr>
-							<tr>
-								<td>Total download</td>
-								<td>{{total}}</td>
+				<hr>
+				<section class="row">
+					<section class="col-md-2"></section>
+					<section class="col-md-8">
+						<h4>Comment</h4>
+						<form ng-submit="saveComment(fileDetail.id)">
+							<textarea ng-model="content" class="form-control" rows="3" ></textarea>
+							<button class="btn btn-primary" type="submit">Comment</button>
+						</form>
+						<table class="table table-bordered table-striped">
+							<tr ng-repeat="comment in comments.content">
+								<td>
+									<article>
+										<header>
+											<a href="">{{comment.idUser.name}}:</a>
+										</header>
+										<section>
+											{{comment.content}}
+										</section>
+										<footer>
+											{{comment.likeComment}} 
+											<a href="" ng-click="increase()">like</a>
+											| {{comment.dateComment}}
+										</footer>
+									</article>
+								</td>
 							</tr>
 						</table>
-						<h4>Description:</h4>
-						<textarea class="form-control" rows="4" cols="">{{fileDetail.description}}</textarea>
-					</div>
-					<hr>
-					<section class="row">
-						<section class="col-md-2"></section>
-						<section class="col-md-8">
-							<h4>Comment</h4>
-							<form ng-submit="saveComment(fileDetail.id)">
-								<textarea ng-model="content" class="form-control" rows="3"></textarea>
-								<button class="btn btn-primary" type="submit">Comment</button>
-							</form>
-							<div style="overflow: auto;">
-								<table class="table table-bordered table-striped">
-									<tr ng-repeat="comment in comments.content">
-										<td>
-											<article>
-												<header>
-													<a href="">{{comment.idUser.name}}:</a>
-												</header>
-												<section>{{comment.content}}</section>
-												<footer>
-													{{comment.likeComment}} <a href="" ng-click="increase()">like</a>
-													| {{comment.dateComment}}
-												</footer>
-											</article>
-										</td>
-									</tr>
-								</table>
-							</div>
-
-						</section>
 					</section>
-				</div>
+				</section>
 			</div>
 		</div>
 	</div>
-
+</div>
+	
 </div>
