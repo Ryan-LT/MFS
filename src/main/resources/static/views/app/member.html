@@ -9,7 +9,7 @@
 	content="Member, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
 
-<title>Mini File Sharing</title>
+<title>File Management</title>
 <!-- Script file-->
 <script data-require="angular.js@1.4.x"
 	src="../js/lib/angular-1.4.9/angular.js" data-semver="1.4.9"></script>
@@ -33,7 +33,7 @@
 <!--external css-->
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <!-- for icon -->
-<link href="css/member-css/font-awesome.css" rel="stylesheet" />
+<link href="css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
 	href="css/member-css/zabuto_calendar.css">
 <link rel="stylesheet" type="text/css"
@@ -44,7 +44,6 @@
 <!-- Custom styles for this template -->
 <link href="css/member-css/style.css" rel="stylesheet">
 <link href="css/member-css/style-responsive.css" rel="stylesheet">
-<link href="css/member-css/userInfo.css" rel="stylesheet">
 
 <!-- <script src="assets/js/chart-master/Chart.js"></script> -->
 
@@ -68,7 +67,7 @@
 					data-original-title="Toggle Navigation"></div>
 			</div>
 			<!--logo start-->
-			<a href="/" class="logo"><b>Mini File Sharing</b></a>
+			<a href="/" class="logo"><b>File Management</b></a>
 			<!--logo end-->
 			<div class="nav notify-row" id="top_menu"></div>
 			<div class="top-menu">
@@ -97,11 +96,11 @@
 							class="fa fa-user center-content"></span></div>
 					</div>
 
-					<h5 class="centered">get user name</h5>
+					<h5 class="centered"  th:text="${userName}"></h5>
 
-					<!-- <li class="mt"><a class="active" href="#/explore"> <i
-							class="fa fa-search"></i> <span>Search File</span>
-					</a></li> -->
+					<li class="sub-menu"><a class="active" href="#/upload"> <i
+							class="fa fa-upload"></i> <span>Upload File</span>
+					</a></li>
 
 					<li class="sub-menu"><a href="#/fileManage"> <i
 							class="fa fa-file"></i> <span>File Management</span>
@@ -187,42 +186,13 @@
 	<script type="application/javascript">
 		
 		
-		
-        $(document).ready(function () {
-            $("#date-popover").popover({html: true, trigger: "manual"});
-            $("#date-popover").hide();
-            $("#date-popover").click(function (e) {
-                $(this).hide();
-            });
-        
-            $("#my-calendar").zabuto_calendar({
-                action: function () {
-                    return myDateFunction(this.id, false);
-                },
-                action_nav: function () {
-                    return myNavFunction(this.id);
-                },
-                ajax: {
-                    url: "show_data.php?action=1",
-                    modal: true
-                },
-                legend: [
-                    {type: "text", label: "Special event", badge: "00"},
-                    {type: "block", label: "Regular event", }
-                ]
-            });
-        });
-        
+
         function myNavFunction(id) {
             $("#date-popover").hide();
             var nav = $("#" + id).data("navigation");
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
-        
-        $(function(){
-            $('select.styled').customSelect();
-        });
         
         function toggleSearch() {
 			var x = document.getElementById('advance');

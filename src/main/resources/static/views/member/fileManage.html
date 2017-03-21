@@ -39,11 +39,11 @@
 		</table>
 	</div>
 	<ul class="list-inline btn1">
-		<li><button type="button" class="btn btn-success">Prev</button></li>
+		<li><button type="button" class="btn btn-success" ng-click="getFileByPage(page=page-1)" ng-disabled="page-1<0">Prev</button></li>
 		<li ng-repeat="i in getNumber(files.totalPages) track by $index">
-			<button class="btn btn-success" ng-click="getFileByPage($index, 10)">{{$index+1}}</button>
+			<button class="btn btn-success" ng-click="getFileByPage($index)">{{$index+1}}</button>
 		</li>
-		<li><button type="button" class="btn btn-success">Next</button></li>
+		<li><button type="button" class="btn btn-success" ng-click="getFileByPage(page=page+1)" ng-disabled="page+1>=files.totalPages">Next</button></li>
 	</ul>
 
 
@@ -126,6 +126,4 @@
 			</div>
 		</div>
 	</div>
-</div>
-
 </div>
