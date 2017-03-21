@@ -1,5 +1,7 @@
 package com.csc.mfs.mail;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +20,9 @@ public class ComponentResetPassword {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		User user = userService.findUserByEmail(email);
 		if(null!=user){
-			return bCryptPasswordEncoder.encode(user.getPassword()).replaceAll("/", "");	
+			String token = UUID.randomUUID().toString();
+			token+=bCryptPasswordEncoder.encode(token.replaceAll("/", ""));
+			return token;	
 		} else {
 			return null;
 		}

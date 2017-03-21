@@ -3,8 +3,9 @@ var app = angular.module('myWeb');
 app.controller('fileManage', function($scope, $http, $window){
     //this.files = storage;
 	
-	$scope.count = 10;
-    getFiles(0, 10);
+	$scope.pageSize = 8;
+	$scope.page = 0;
+    getFiles(0, 8);
     $scope.getNumber = function(num) {
         return new Array(num);
     }
@@ -23,20 +24,26 @@ app.controller('fileManage', function($scope, $http, $window){
 			alert("fail");
 		});		
 	}
+	
+	$scope.getFileByPage = function(page) {
+		getFiles(parseInt(page), parseInt($scope.pageSize));
+		$scope.page = (parseInt(page));
+	}
     
-    function getFiles(page, pageSize) { 
+    function getFiles(page) { 
 		$http({
 			method: 'get',
 			url: "http://localhost:8080/file/getByUser/"+$scope.userId+"?page="+ parseInt(page)+
-												"&size="+ parseInt(pageSize)
+												"&size="+ parseInt($scope.pageSize)
 		}).success(function(data, status, headers, config){
 			$scope.files = data;
+			$scope.page = page;
 		})
 		.error(function(data, status, headers, config){});
 	}
     
-    $scope.getFileByPage = function(page, pageSize){
-    	getFiles(parseInt(page), parseInt(pageSize));
+    $scope.getFileByPage = function(page){
+    	getFiles(parseInt(page), parseInt($scope.pageSize));
     }
     
     $scope.deleteFile = function(id){

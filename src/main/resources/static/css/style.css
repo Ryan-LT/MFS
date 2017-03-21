@@ -6,6 +6,10 @@
 	list-style: none;
 }
 
+a {
+	color: white !important;
+}
+
 /*================================
 TYPOGRAPHY
 ================================*/
@@ -36,16 +40,25 @@ h3 {
 h4 {
 	font-size: 18px;
 	line-height: 1.4em;
+	font-weight: bolder;
 }
 
 p {
 	letter-spacing: 1px;
 	color: #c3c3c3;
 	font-weight: lighter;
+	text-align: justify !important;
+}
+
+.copyright p {
+	letter-spacing: 1px;
+	color: #c3c3c3;
+	font-weight: lighter;
+	text-align: center !important;
 }
 
 h1, h2, h4, h5, h6 {
-	color: orange;
+	color: #4CAF50;
 }
 
 /*================================
@@ -84,7 +97,7 @@ a:hover {
 
 hr.separetor {
 	color: #363942;
-	border-top: 2px solid #ea9312;
+	border-top: 2px solid #4CAF50;
 }
 
 .btn-default {
@@ -467,7 +480,7 @@ td {
 	display: none;
 	width: 40px;
 	height: 40px;
-	background-color: orange;
+	background-color: #4CAF50;
 	color: white;
 	font-size: 20px;
 	bottom: 40px;

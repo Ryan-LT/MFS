@@ -14,7 +14,11 @@ app.config(function($routeProvider){
             templateUrl: "/views/admin/file.html",
             controller: "fileController"
         })
+        .when("/", {
+            templateUrl: "/views/admin/dashBoard.html",
+            controller: "dashBoardController"
+        })
         .otherwise(
-            { redirectTo: '/admin'}
+            { redirectTo: '/'}
         );
 });

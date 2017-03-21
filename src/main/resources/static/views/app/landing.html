@@ -50,6 +50,7 @@
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/landing.css">
+<link rel="stylesheet" href="css/all-style.css">
 
 <!-- ===========================
     ICONS: 
@@ -125,17 +126,19 @@
 						<li>
 							<div class="dropdown">
 								<a href="/login" th:if="${userName} == null"><button
-										type="button" class="btn btn-info navbar-btn">Sign In</button></a>
+										class="btn navbar-btn m-btn m-green m-green-hover m-white-text">Sign
+										In</button></a>
 
 							</div>
 						</li>
 						<li>
 							<div class="dropdown">
 								<a th:if="${userName} != null">
-									<button class="btn btn-info navbar-btn">
-										<span class="fa fa-user"></span>
-									</button> <span th:text="${userName}" class="user-span">
-										${userName} </span>
+									<button
+										class="btn navbar-btn m-btn m-green m-green-hover m-white-text">
+										<span class="fa fa-user"></span> <span th:text="${userName}"
+											class="user-span"> ${userName} </span>
+									</button>
 								</a>
 								<!-- <button class="dropbtn">Dropdown</button> -->
 								<div class="dropdown-content">
@@ -297,26 +300,22 @@
 					ng-submit="searchFile(Selectedtype,infoSearch)">
 					<div class="row">
 						<div class="col-md-1"></div>
-						<div class="col-md-1">
-							<select class="by-btn" ng-model="Selectedtype"
-								ng-options="type for type in types">
-							</select>
-						</div>
-						<div class="col-md-6">
-							<input class="input-search" type="text" placeholder="Search ..."
-								ng-model="infoSearch" empty-to-null>
-						</div>
-						<div class="col-md-1">
-							<button type="submit" class="btn btn-search">
+						<div class="col-md-10">
+							<select
+								class="button-by m-button m-green m-green-hover m-white-text"
+								ng-model="Selectedtype" ng-options="type for type in types">
+							</select> <input class="input-search m-inline" type="text"
+								placeholder="Search ..." ng-model="infoSearch" empty-to-null>
+							<button type="submit"
+								class="button-search m-button m-green m-green-hover m-white-text">
 								<span class="fa fa-search"></span>
 							</button>
-						</div>
-						<div class="col-md-2">
 							<div class="filter-form">
 								<input class="input-filter" type="text" id="myInput"
 									placeholder="Filter ..." ng-model="filterFile">
 							</div>
 						</div>
+
 						<div class="col-md-1"></div>
 					</div>
 
@@ -326,91 +325,96 @@
 				<div class="row">
 					<div class="col-md-1"></div>
 					<div class="col-md-10">
-						<table class="table" style="margin-top: -8px">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th width="40%"><a href=""
-										ng-click="sortType = 'file.name'; sortReverse = !sortReverse">
+						<div class="">
+							<table class="table m-table">
+								<thead>
+									<tr>
+										<th width="5%">#</th>
+										<th class="m-cursor-pointer"
+											ng-click="sortType = 'file.name'; sortReverse = !sortReverse">
 											Name <span ng-show="sortType == 'file.name' && !sortReverse"
 											class="fa fa-caret-down"></span> <span
 											ng-show="sortType == 'file.name' && sortReverse"
 											class="fa fa-caret-up"></span>
-									</a></th>
-									<th><a href=""
-										ng-click="sortType = 'file.size'; sortReverse = !sortReverse">
+										</th>
+										<th class="m-cursor-pointer" width="10%"
+											ng-click="sortType='file.size' ; sortReverse=!sortReverse">
 											Size <span ng-show="sortType == 'file.size' && !sortReverse"
-											class="fa fa-caret-down"></span> <span
+											class="fa fa-caret-down"> </span> <span
 											ng-show="sortType == 'file.size' && sortReverse"
 											class="fa fa-caret-up"></span>
-									</a></th>
-									<th><a href=""
-										ng-click="sortType = 'file.dateupload'; sortReverse = !sortReverse">
+										</th>
+										<th class="m-cursor-pointer" width="15%"
+											ng-click="sortType = 'file.dateupload'; sortReverse = !sortReverse">
 											Updated Date <span
 											ng-show="sortType == 'file.dateupload' && !sortReverse"
 											class="fa fa-caret-down"></span> <span
 											ng-show="sortType == 'file.dateupload' && sortReverse"
 											class="fa fa-caret-up"></span>
-									</a></th>
-									<th><a href=""
-										ng-click="sortType = 'file.userId.name'; sortReverse = !sortReverse">
+										</th>
+										<th class="m-cursor-pointer" width="10%"
+											ng-click="sortType = 'file.userId.name'; sortReverse = !sortReverse">
 											Owner <span
 											ng-show="sortType == 'file.userId.name' && !sortReverse"
 											class="fa fa-caret-down"></span> <span
 											ng-show="sortType == 'file.userId.name' && sortReverse"
 											class="fa fa-caret-up"></span>
-									</a></th>
-									<th width="15%">Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr
-									ng-repeat="file in files.content  | filter:filterFile | orderBy:sortType:sortReverse track by $index"
-									class="info">
-									<td>{{$index+1}}</td>
-									<td><a href="#/detail/{{file.id}}">{{file.name}}</a></td>
-									<td>{{file.size | number:2}} Kb</td>
-									<td>{{file.dateupload | date:'dd-MM-yyyy'}}</td>
-									<td>{{file.userId.name}}</td>
-									<td>
-										<div th:if="${userName} == null">
-											<button ng-click="loginAlert()" type="button"
-												class="btn btn-circle btn-warning">
-												<span class="fa fa-download"></span>
-											</button>
-										</div>
-										<div th:if="${userName} != null">
-											<button ng-click="downloadFile(file.id)" type="button"
-												class="btn btn-circle btn-warning">
-												<span class="fa fa-download"></span>
-											</button>
-										</div>
-										<button ng-click="getInfoFile(file.id)" type="button"
-											class="btn btn-info btn-circle">
-											<span class="fa fa-info"></span>
-										</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+										</th>
+										<th width="20%">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr
+										ng-repeat="file in files.content  | filter:filterFile | orderBy:sortType:sortReverse track by $index">
+										<td>{{$index+1}}</td>
+										<td class="m-text-align-left">{{file.name}}</td>
+										<td>{{file.size | number:2}} Kb</td>
+										<td>{{file.dateupload | date:'dd-MM-yyyy'}}</td>
+										<td>{{file.userId.name}}</td>
+										<td><span th:if="${userName} == null">
+												<button ng-click="loginAlert()" type="button"
+													class="m-button m-button-circle m-orange m-orange-hover m-white-text">
+													<span class="fa fa-download"></span>
+												</button>
+
+										</span> <span th:if="${userName} != null">
+												<button ng-click="downloadFile(file.id)" type="button"
+													class="m-button m-button-circle m-orange m-orange-hover m-white-text">
+													<span class="fa fa-download "></span>
+												</button>
+										</span>
+											<button ng-click="getInfoFile(file.id)" type="button"
+												class="m-button m-button-circle m-green m-green-hover m-white-text">
+												<span class="fa fa-info"></span>
+											</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
 					</div>
 					<div class="col-md-1"></div>
 				</div>
 			</div>
-
 			<div class="row"></div>
-			<ul class="list-inline">
-				<li><button class="btn m-btn"
+			<div class="col-md-5 m-margin-left"></div>
+			<div class="col-md-5">
+				<div class="m-inline">
+					<button class="m-button m-green m-green-hover m-white-text"
 						ng-click="searchFile(Selectedtype,infoSearch,page=page-1)"
-						ng-disabled="page-1<0"><<</button></li>
-				<li ng-repeat="i in getNumber(pageSum) track by $index">
-					<button class="btn m-btn"
+						ng-disabled="page-1<0"><<</button>
+				</div>
+				<div class="m-inline m-margin-left"
+					ng-repeat="i in getNumber(pageSum) track by $index">
+					<button class="m-button m-green m-green-hover m-white-text"
 						ng-click="searchFile(Selectedtype,infoSearch,$index)">{{$index+1}}</button>
-				</li>
-				<li><button class="btn m-btn"
+				</div>
+				<div class="m-inline m-margin-left">
+					<button class="m-button m-green m-green-hover m-white-text"
 						ng-click="searchFile(Selectedtype,infoSearch,page=page+1)"
-						ng-disabled="page+1>=pageSum">>></button></li>
-			</ul>
+						ng-disabled="page+1>=pageSum">>></button>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- PRODUCT DETAIL SECTION END -->
@@ -533,14 +537,10 @@
 			<div class="footerlinks">
 				<!-- FOOTER LINKS START -->
 				<ul>
-					<li><a href="#hero">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#services">Services</a></li>
-					<li><a href="#portfolio">Portfolio</a></li>
-					<li><a href="#testimonials">Testimonials</a></li>
-
-					<!--replace the email address below with your email address-->
-					<li><a href="mailto:m@creatrix.us">Contact</a></li>
+					<li><a href="#category">Category</a></li>
+					<li><a href="#explore">Explore</a></li>
+					<li><a href="#team">Team</a></li>
+					<li><a href="mailto:mfs@gmail.com">Contact</a></li>
 				</ul>
 			</div>
 			<!-- FOOTER LINKS END -->
@@ -548,25 +548,23 @@
 			<div class="copyright">
 				<!-- FOOTER COPYRIGHT START -->
 				<p>
-					<a href="#">Drifolio</a> stands for Dribbble-Portolio. This is a
-					free HTML template designed and coded by <a
-						href="http://evenfly.com">EvenFly Team</a>. All logo and images in
-					this template used for preview purpose only. You are free to use
-					the template but make sure to use your own images.
+					<a href="#">MFS</a> stands for Mini-Files Sharing. The website uses
+					template of Drifolio and developed by MFS Team.
 				</p>
+				<p>Administrator Contact: thinhnuit@gmail.com</p>
+				<p>Hotline: (08) 3-610-832</p>
 			</div>
 			<!-- FOOTER COPYRIGHT END -->
 
 			<div class="footersocial wow fadeInUp" data-wow-duration="3s">
 				<!-- FOOTER SOCIAL ICONS START -->
 				<ul>
-					<li><a href="http://facebook.com/MamunSrizon"><span
+					<li><a href="http://facebook.com/"><span
 							class="icon-social-facebook"></span></a></li>
-					<li><a href="http://twitter.com/MamunSrizon"><span
+					<li><a href="http://twitter.com/"><span
 							class="icon-social-twitter"></span></a></li>
 					<li><a href="#"><span class="icon-social-youtube"></span></a></li>
-					<li><a href="http://dribbble.com/srizon"><span
-							class="icon-social-dribbble"></span></a></li>
+					<li><a href="#"><span class="icon-social-dribbble"></span></a></li>
 					<li><a href="#"><span class="icon-social-tumblr"></span></a></li>
 				</ul>
 			</div>
@@ -639,7 +637,7 @@
 						<section class="col-md-2"></section>
 						<section class="col-md-8">
 							<h4>Comment</h4>
-							<form ng-submit="saveComment(fileDetail.id)">
+							<form  th:if="${userName} != null" ng-submit="saveComment(fileDetail.id)">
 								<textarea ng-model="content" class="form-control" rows="3"></textarea>
 								<button class="btn btn-primary" type="submit">Comment</button>
 							</form>
