@@ -1,14 +1,10 @@
 package com.csc.mfs.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,7 +13,6 @@ import com.csc.mfs.model.Rank;
 import com.csc.mfs.model.Role;
 import com.csc.mfs.model.User;
 import com.csc.mfs.messages.Message;
-import com.csc.mfs.repository.DownloadRepository;
 import com.csc.mfs.repository.RankRepository;
 import com.csc.mfs.repository.RoleRepository;
 import com.csc.mfs.repository.UserRepository;
@@ -26,10 +21,10 @@ import com.csc.mfs.repository.UserRepository;
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
-	@Autowired
-	private FileService fileService;
-	@Autowired
-	private DownloadRepository downloadRepsitory;
+//	@Autowired
+//	private FileService fileService;
+//	@Autowired
+//	private DownloadRepository downloadRepsitory;
 	@Autowired
 	private RankRepository rankRepository;
 	@Autowired
@@ -110,5 +105,8 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 	
+	public Page<User> findByRankId(Integer rankId, Pageable pageable){
+		return userRepository.findByRankIdId(rankId, pageable);
+	}
 	
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.csc.mfs.repository.UserRepository;
 import com.csc.mfs.service.UserService;
 
 import com.csc.mfs.messages.Message;
@@ -24,8 +23,6 @@ import com.csc.mfs.model.User;
 @ResponseBody
 @RequestMapping("/user")
 public class UserController {
-	@Autowired
-	private UserRepository userRepository;
 	
 	@Autowired
 	private UserService userService;
@@ -82,6 +79,12 @@ public class UserController {
 		}
 		return userService.changePassword(index, oldPass, newPass);
 	}
+	
+	@RequestMapping(value="/get/rank/{idRank}", method=RequestMethod.GET)
+	public long countUserByRankr(@PathVariable("idRank") Integer idRank, Pageable pageable){
+		return userService.findByRankId(idRank, pageable).getTotalElements();
+	}
+	
 }
 
 
