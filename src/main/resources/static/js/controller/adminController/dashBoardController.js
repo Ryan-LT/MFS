@@ -1,12 +1,16 @@
 var app = angular.module('admin');
 app.controller("dashBoardController", function($scope, $http, $routeParams) {
 
-	getInfor();
 	
+	$scope.ranks = null;
+	getInfor();
+	$scope.listUserRank=[];
+
 	function getInfor() {
 		countUser();
-		countRank();
+		Rankdata();
 	}
+	
 	function countUser() {
 		$http({
 			method : 'get',
@@ -16,24 +20,27 @@ app.controller("dashBoardController", function($scope, $http, $routeParams) {
 		}).error(function(data, status, headers, config) {
 		});
 	}
-	
-	function countRank() {
+
+	function Rankdata() {
 		$http({
 			method : 'get',
 			url : "http://localhost:8080/rank/all/"
 		}).success(function(data, status, headers, config) {
-			$scope.totalRank = data.length;
+			$scope.ranks = data;
+			for(var i=0;i<data.length;i++){
+				userPerRank(data[i].id, data[i].name);
+			}
 		}).error(function(data, status, headers, config) {
 		});
 	}
-	
-	function userPerRank() {
-		$http({
-			method : 'get',
-			url : "http://localhost:8080/user/all/Blahhh"
-		}).success(function(data, status, headers, config) {
-			$scope.User = data.totalElements;
-		}).error(function(data, status, headers, config) {
-		});
+
+	function userPerRank(rankId, rankName) {
+			$http({
+				method : 'get',
+				url : "http://localhost:8080/user/get/rank/" + rankId
+			}).success(function(data, status, headers, config) {
+				$scope.listUserRank.push({rankName,data});
+			}).error(function(data, status, headers, config) {
+			});
 	}
 });

@@ -16,13 +16,12 @@ app.controller("fileController", function($scope, $http, fileDataOp,
 	}
 
 	function getData(page) {
-		$http(
-				{
+		$http({
 					method : 'get',
 					url : "http://localhost:8080/file/all/?page="
 							+ parseInt(page) + "&size="
 							+ parseInt($scope.pageSize)
-				}).success(function(data, status, headers, config) {
+			}).success(function(data, status, headers, config) {
 			$scope.page = page;
 			$scope.files = data.content;
 			$scope.pageSum = data.totalPages;
@@ -31,14 +30,5 @@ app.controller("fileController", function($scope, $http, fileDataOp,
 	}
 	$scope.deleteFile = function(id) {
 		fileDataOp.deleteFile(id).then(Success, Error);
-	};
-
-	// Exception Handling
-	var Success = function(data, status, headers, config) {
-		getData($scope.page);
-	};
-
-	var Error = function(data, status, headers, config) {
-		alert("Error");
 	};
 });
