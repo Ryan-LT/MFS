@@ -2,24 +2,27 @@ var app = angular.module('myWeb');
 
 app.controller("download", function($scope, $http){
 	$scope.count = 0;
-	getHistory(0,10);
-	function getHistory(page, pageSize){
+	$scope.pageSize = 8;
+	$scope.page = 0;
+	$scope.getNumber = function(num) {
+        return new Array(num);
+    }
+	getHistory(0);
+	
+	function getHistory(page){
 		$http({
 			method: 'get',
 			url: "http://localhost:8080/download/getByUser/" + $scope.userId + "?page=" + parseInt(page)
-																		+ "&size=" + parseInt(pageSize)
+																		+ "&size=" + parseInt($scope.pageSize)
 		}).success(function(data, status, headers, config){
 			$scope.files = data;
+			$scope.page = page;
 		})
 		.error(function(data, status, headers, config){});	
 	}
 	
-	$scope.getNumber = function(num) {
-        return new Array(num);
-    }
-	
-    $scope.getDownloadByPage = function(page, pageSize){
-    	getHistory(parseInt(page), parseInt(pageSize));
+    $scope.getDownloadByPage = function(page){
+    	getHistory(parseInt(page), parseInt($scope.pageSize));
     }
     
     $scope.getInfoFile = function(id){
