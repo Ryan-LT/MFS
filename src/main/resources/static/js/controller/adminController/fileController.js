@@ -1,40 +1,44 @@
 var app = angular.module('admin');
-app.controller("fileController", function($scope, $http, fileDataOp, $routeParams){
+app.controller("fileController", function($scope, $http, fileDataOp,
+		$routeParams) {
 	$scope.selectedIndex = 0;
 	$scope.pageSum;
-	$scope.page;
-	getData('0', '5');
+	$scope.page = 0;
+	$scope.pageSize = 8;
+	getData($scope.page);
 	$scope.getNumber = function(num) {
 		return new Array(num);
 	}
-	
 
-		$scope.getFileByPage = function(page, pageSize) {
-		getData(parseInt(page), parseInt(pageSize));
-		$scope.page = (parseInt(page));
+	$scope.getFileByPage = function(page) {
+		getData(parseInt(page), parseInt($scope.pageSize));
 		$scope.selectedIndex = page;
 	}
-	
-	function getData(page, pageSize) {
-		$http({
-			method : 'get',
-			url : "http://localhost:8080/file/all/?page=" + parseInt(page)
-			+ "&size=" + parseInt(pageSize)
-		}).success(function(data, status, headers, config) {
+
+	function getData(page) {
+		$http(
+				{
+					method : 'get',
+					url : "http://localhost:8080/file/all/?page="
+							+ parseInt(page) + "&size="
+							+ parseInt($scope.pageSize)
+				}).success(function(data, status, headers, config) {
+			$scope.page = page;
 			$scope.files = data.content;
 			$scope.pageSum = data.totalPages;
-		}).error(function(data, status, headers, config) {});
+		}).error(function(data, status, headers, config) {
+		});
 	}
-	$scope.deleteFile = function(id){
+	$scope.deleteFile = function(id) {
 		fileDataOp.deleteFile(id).then(Success, Error);
 	};
 
 	// Exception Handling
-	var Success = function(data, status, headers, config){
-		getData('0','5');
+	var Success = function(data, status, headers, config) {
+		getData($scope.page);
 	};
 
-	var Error = function(data, status, headers, config){
+	var Error = function(data, status, headers, config) {
 		alert("Error");
 	};
 });
