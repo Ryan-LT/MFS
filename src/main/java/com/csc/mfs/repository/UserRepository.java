@@ -11,6 +11,6 @@ import com.csc.mfs.model.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 	User findByEmail(String email);
 	Page<User> findByActive(Integer active, Pageable pageable);
-	
+	Page<User> findByRankIdId(Integer rankID, Pageable pageable);
 
 }

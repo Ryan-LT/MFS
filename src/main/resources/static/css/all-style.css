@@ -1,0 +1,139 @@
+/* Button Area */
+* {
+	transition: 0s;
+}
+
+.m-button {
+	background-color: #808080;
+	min-width: 40px;
+	height: 40px;
+	border: 0 solid transparent;
+}
+
+.m-button-large {
+	background-color: #808080;
+	min-width: 40px;
+	height: 40px;
+	border: none;
+	text-align: center;
+}
+
+.m-button:hover, .m-button-large:hover {
+	cursor: pointer;
+	background-color: #fff;	
+}
+
+
+.m-button-circle {
+	border-radius: 50%;
+	width: 40px !important;
+	height: 40px !important;
+}
+
+/* Text Area */
+
+.m-white-text {
+	color: white;
+}
+
+/* Background Area */
+
+
+.m-red {	
+	background-color: #F44336;
+}
+
+.m-red-hover:hover {
+	background-color: #B71C1C;
+}
+
+.m-green {
+	background-color: #4CAF50;
+}
+
+.m-green-hover:hover {
+	background-color: #1B5E20;
+	color: white;
+}
+
+.m-blue {
+	background-color: #2196F3;
+}
+
+.m-blue-hover:hover {
+	background-color: #0D47A1;
+	color: white;
+}
+
+.m-teal {
+	background-color: #009688;
+}
+
+.m-teal-hover:hover {
+	background-color: #004D40;
+}
+
+.m-orange {
+	background-color: #FFC107;
+}
+
+.m-orange-hover:hover {
+	background-color: #FF6F00;
+}
+
+/* Display Area */
+
+.m-inline {
+	display: inline-block;
+}
+
+.m-margin-left {
+	margin-left: 3px;
+}
+
+.m-text-align-left {
+	text-align: left !important;
+}
+
+.m-cursor-pointer {
+	cursor: pointer;
+}
+
+/* Table Area */
+
+.m-table-div-height {
+	height: 500px;
+	border: 1px dotted white;
+	margin-bottom: 5px;
+}
+
+.m-table {
+	
+}
+
+.m-table thead {
+	background-color: #009688;
+	color: white;
+	width: 100%;	
+}
+
+.m-table th, .m-table td {
+	text-align: center;
+}
+
+.m-table tbody tr:nth-child(odd) {
+	background-color: #E0F7FA !important;
+}
+.m-table tbody tr:nth-child(even) {
+	background-color: #B2EBF2 !important;
+}
+
+.m-table thead a {
+	color: white;	
+}
+
+.m-table tbody tr:hover {
+	background-color: #00BCD4 !important;
+	font-weight: bolder;
+	
+}
