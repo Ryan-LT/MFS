@@ -9,14 +9,15 @@
 	margin-top: 10px;
 }
 
-.textarea{
+.textArea{
 	margin-top: 10px;
 	margin-bottom: 10px;
+	width: 500px;
 }
 
 #input {
 	width: 500px;
-   	height: 500px;
+   	height: 300px;
    	opacity: 0;	
    	cursor: pointer;
    	margin: 0;
@@ -30,4 +31,8 @@
 	border: 1px dashed black;
 	padding: 0;
 	background: url(/images/plus.png) no-repeat center;
+}
+
+.table{
+	width: 500px;
 }
