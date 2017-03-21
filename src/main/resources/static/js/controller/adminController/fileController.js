@@ -8,11 +8,12 @@ app.controller("fileController", function($scope, $http, fileDataOp, $routeParam
 		return new Array(num);
 	}
 	
-	$scope.getFileByPage = function(page, pageSize) {
+
+		$scope.getFileByPage = function(page, pageSize) {
 		getData(parseInt(page), parseInt(pageSize));
 		$scope.page = (parseInt(page));
 		$scope.selectedIndex = page;
-}
+	}
 	
 	function getData(page, pageSize) {
 		$http({

@@ -639,7 +639,7 @@
 						<section class="col-md-2"></section>
 						<section class="col-md-8">
 							<h4>Comment</h4>
-							<form ng-submit="saveComment(fileDetail.id)">
+							<form  th:if="${userName} != null" ng-submit="saveComment(fileDetail.id)">
 								<textarea ng-model="content" class="form-control" rows="3"></textarea>
 								<button class="btn btn-primary" type="submit">Comment</button>
 							</form>
