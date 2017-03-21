@@ -7,7 +7,7 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!--  <link href="css/w3.css" rel="stylesheet"> -->
-<link href="css/uploadFile.css" rel="stylesheet">
+<link href="css/member-css/uploadFile.css" rel="stylesheet">
 <!--  <script src="/js/bootstrap.min.js"></script> -->
 </head>
 <style>
@@ -15,6 +15,7 @@
 
 <body ng-app="myApp">
 	<div ng-controller="myCtrl" class="wrapper">
+	<h3>Upload File</h3>
 		<!-- <div><input class="form-control" type = "file" file-model = "myFile" multiple id="input"/></div> -->
 		<span class="btn upload"> <input class="form-control" type="file"
 			file-model="myFile" multiple id="input" /> <span
@@ -22,7 +23,7 @@
 		</span>
 		<h4>Description</h4>
 		<div>
-			<textarea ng-model="description"></textarea>
+			<textarea class="textArea" ng-model="description"></textarea>
 		</div>
 		<button class="btn btn-success" ng-click="uploadFile()">Upload</button>
 		<div>
@@ -36,7 +37,7 @@
 					<th width="30%">Name</th>
 					<th width="15%">Size</th>
 					<th width="25%">Type</th>
-					<th width="25%"></th>
+					<th width="25%">Action</th>
 				</thead>
 				<tbody ng-repeat="x in list track by $index">
 					<td>{{$index+1}}</td>
@@ -50,7 +51,7 @@
 		</div>
 	</div>
 	
-	<script>
+	<!-- <script>
 		var uploadMessage = "";
 		var myApp = angular.module('myApp', []);
 		var list = [];
@@ -120,6 +121,8 @@
 						console.log(list);
 					};
 				} ]);
-	</script>
+	</script> -->
+	
+	 <script src="/js/filedrag.js"></script>
 </body>
 </html>
