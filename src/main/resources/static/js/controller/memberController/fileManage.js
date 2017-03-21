@@ -70,6 +70,7 @@ app.controller('fileManage', function($scope, $http, $window){
 			url: "http://localhost:8080/file/get/"+id
 		}).success(function(data, status, headers, config){
 			$scope.fileDetail = data;
+			$scope.description_ = data.description;
 		})
 		.error(function(data, status, headers, config){
 			alert("fail__")
