@@ -6,10 +6,6 @@
 	list-style: none;
 }
 
-a {
-	color: white !important;
-}
-
 /*================================
 TYPOGRAPHY
 ================================*/
@@ -40,7 +36,7 @@ h3 {
 h4 {
 	font-size: 18px;
 	line-height: 1.4em;
-	font-weight: bolder;
+	font-weight: 500;
 }
 
 p {
@@ -58,7 +54,7 @@ p {
 }
 
 h1, h2, h4, h5, h6 {
-	color: #4CAF50;
+	color: #79c67d;
 }
 
 /*================================
