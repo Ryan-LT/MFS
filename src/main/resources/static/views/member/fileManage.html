@@ -82,10 +82,9 @@
 								</table>
 								<h4>Description:</h4>
 								<textarea ng-model="description_" class="form-control textarea"
-									rows="2">{{fileDetail.description}}</textarea>
-
+									rows="7">{{fileDetail.description}}</textarea>
 								<div class="btn-save">
-									<button class="btn btn-info"
+									<button class="btn btn-info btn-block"
 										ng-click="saveChange(fileDetail.id)">Save Change</button>
 								</div>
 							</div>
@@ -96,9 +95,9 @@
 
 							<form ng-submit="saveComment(fileDetail.id)">
 								<textarea ng-model="content" class="form-control textarea1"
-									rows="1"></textarea>
+									rows="2"></textarea>
 								<div class="btn-save">
-									<button class="btn btn-info" type="submit">Send</button>
+									<button class="btn btn-info btn-block" type="submit">Send</button>
 								</div>
 
 							</form>

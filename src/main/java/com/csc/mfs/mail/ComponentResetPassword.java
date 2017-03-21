@@ -21,8 +21,8 @@ public class ComponentResetPassword {
 		User user = userService.findUserByEmail(email);
 		if(null!=user){
 			String token = UUID.randomUUID().toString();
-			token+=bCryptPasswordEncoder.encode(token.replaceAll("/", ""));
-			return token;	
+			token+=bCryptPasswordEncoder.encode(token);
+			return token.replaceAll("/", "");	
 		} else {
 			return null;
 		}
