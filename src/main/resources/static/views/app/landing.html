@@ -215,7 +215,7 @@
 		<!-- SERVICE ITEMS START -->
 		<div class="row">
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('text',0,8)"><img
+				<a href="#portfolio" ng-click="searchFile('Category','Text')"><img
 					src="images/s1.png" alt="" height="100px" width="100px"></a>
 				<h4>TEXTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -225,7 +225,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Graphic',0,8)"><img
+				<a href="#portfolio" ng-click="searchFile('Category','Graphic')"><img
 					src="images/s2.png" alt="" height="100px" width="100px"></a>
 				<h4>PICTURES</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -235,7 +235,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Spreadsheet',0,8)"><img
+				<a href="#portfolio" ng-click="searchFile('Category','Spreadsheet')"><img
 					src="images/s3.png" alt="" height="100px" width="100px"></a>
 				<h4>DOCUMENTS</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -245,8 +245,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio"
-					ng-click="getFileByCategory('Presentation',0,8)"><img
+				<a href="#portfolio" ng-click="searchFile('Category','Presentation')"><img
 					src="images/s4.png" alt="" height="100px" width="100px"></a>
 				<h4>PRESENTATION</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -256,7 +255,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Multimedia',0,8)"><img
+				<a href="#portfolio" ng-click="searchFile('Category','Multimedia')"><img
 					src="images/s5.png" alt="" height="100px" width="100px"></a>
 				<h4>MULTIMEDIA</h4>
 				<p>Grinder affogato, dark, sweet carajillo, flavour seasonal
@@ -266,7 +265,7 @@
 			<!-- ITEM END -->
 
 			<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-				<a href="#portfolio" ng-click="getFileByCategory('Compression',0,8)">
+				<a href="#portfolio" ng-click="searchFile('Category','Compression')">
 					<img src="images/s6.png" alt="" height="100px" width="100px">
 				</a>
 				<h4>COMPRESSION</h4>
@@ -295,7 +294,7 @@
 		<div class="opacity-content">
 			<div class="container">
 				<form class="search-form"
-					ng-submit="searchByCatelogy(Selectedtype,infoSearch,0,8)">
+					ng-submit="searchFile(Selectedtype,infoSearch)">
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-1">
@@ -399,13 +398,13 @@
 			<div class="row"></div>
 			<ul class="list-inline">
 				<li><button class="btn m-btn"
-						ng-click="getFileByPage(page=page-1,8)" ng-disabled="page-1<0"><<</button></li>
+						ng-click="getFileByPage(page=page-1)" ng-disabled="page-1<0"><<</button></li>
 				<li ng-repeat="i in getNumber(pageSum) track by $index">
 					<button ng-class="{'active': $index == selectedIndex }"
-						class="btn m-btn" ng-click="getFileByPage($index, 8)">{{$index+1}}</button>
+						class="btn m-btn" ng-click="getFileByPage($index)">{{$index+1}}</button>
 				</li>
 				<li><button class="btn m-btn"
-						ng-click="getFileByPage(page=page+1,8)"
+						ng-click="getFileByPage(page=page+1)"
 						ng-disabled="page+1>=pageSum">>></button></li>
 			</ul>
 		</div>
