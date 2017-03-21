@@ -2,7 +2,7 @@
    
    <head>
       <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-      
+      <script src="js/filedrag.js"></script>
    </head>
    <style>
    	#fileInput{
@@ -30,76 +30,5 @@
          	</div>
          </div>
       </div>
-      <div>
-		<ul>
-			<li th:each="file : ${files}"><a th:href="${file}"
-				th:text="${file}" /></li>
-		</ul>
-	 </div>
-      <script>
-      	 var uploadMessage="";
-         var myApp = angular.module('myApp', []);
-         var list=[];
-         myApp.directive('fileModel', ['$parse', function ($parse) {
-            return {
-               restrict: 'A',
-               link: function(scope, element, attrs) {
-                  var model = $parse(attrs.fileModel);
-                  var modelSetter = model.assign;
-                  
-                  element.bind('change', function(){
-                	  
-                     scope.$apply(function(){
-                       // modelSetter(scope, element[0]);
-                        list.length=0;
-                        for(var i=0;i<element[0].files.length;i++){
-                        	list.push(element[0].files[i]);
-                        }
-                        
-                     });
-                  });
-               }
-            };
-         }]);
-      
-         myApp.service('fileUpload', ['$http', function ($https) {
-            this.uploadFileToUrl = function(file,description, uploadUrl){
-               var fd = new FormData();
-               fd.append('file', file);
-               fd.append('description',description);
-               $https.post(uploadUrl, fd, {
-                  transformRequest: angular.identity,
-                  headers: {'Content-Type': undefined}
-               })
-            
-               .success(function(){
-            	uploadMessage="Upload "+file.name+" successfully!";
-            	
-               })
-            
-               .error(function(){
-                uploadMessage="Fail to upload "+file.name;
-               });
-            }
-         }]);
-      
-         myApp.controller('myCtrl', ['$scope', 'fileUpload', function($scope, fileUpload){
-        	$scope.uploadMessage="";
-        	$scope.list=list;
-            $scope.uploadFile = function(){
-               console.log('file is ' );
-               console.dir(list);
-               var uploadUrl = "/upload";
-               for(var i=0;i<list.length;i++){
-            	   fileUpload.uploadFileToUrl(list[i],$scope.description, uploadUrl);            	  
-            	   $scope.uploadMessage=uploadMessage; 
-               }
-            };
-            $scope.removeFile= function(index){
-            	$scope.list.splice(index,1);
-            	console.log(list);
-            };
-         }]);
-      </script>
    </body>
 </html>
