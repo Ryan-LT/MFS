@@ -1,17 +1,11 @@
 package com.csc.mfs.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.LastModified;
 
 import com.csc.mfs.model.Files;
 import com.csc.mfs.model.Rank;
@@ -135,30 +129,35 @@ public class FileService {
 	
 	public Page<Files> findBySize(double size, Pageable pageable){
 		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
-		return fileRepository.findBySizeIsLessThanEqualAndSharing(size,1 , pageable);
+		return fileRepository.findBySizeIsLessThanEqualAndSharing(size,1 , page);
 	}
 	
 	public Page<Files> findByNameLike(String name, Pageable pageable){
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
 		name = checkData(name);
-		return fileRepository.findByNameContainingAndActiveAndSharing(name, 1, 1, pageable);
+		return fileRepository.findByNameContainingAndActiveAndSharing(name, 1, 1, page);
 	}
 	
 	public Page<Files> findByUploader(String lastName, Pageable pageable){
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
 		lastName = checkData(lastName);
-		return fileRepository.findByUserIdLastNameContainingAndActiveAndSharing(lastName, 1, 1, pageable);
+		return fileRepository.findByUserIdLastNameContainingAndActiveAndSharing(lastName, 1, 1, page);
 	}
 	
 	public Page<Files> findByFileType(String typeFile, Pageable pageable){
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
 		typeFile = checkData(typeFile);
-		return fileRepository.findByIdTypeFileTypeContainingAndActiveAndSharing(typeFile, 1, 1, pageable);
+		return fileRepository.findByIdTypeFileTypeContainingAndActiveAndSharing(typeFile, 1, 1, page);
 	}
 	
 	public Page<Files> findByCategory(String category, Pageable pageable){
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
 		category = checkData(category);
-		return fileRepository.findByIdTypeCategoryIdNameAndActiveAndSharing(category, 1, 1, pageable);
+		return fileRepository.findByIdTypeCategoryIdNameAndActiveAndSharing(category, 1, 1, page);
 	}
 	
 	public Page<Files> findByAll(String info, Pageable pageable){
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
 		info = checkData(info);
 		double size =0;
 		try {
@@ -167,7 +166,7 @@ public class FileService {
 		} catch (Exception e) {
 		}
 		//return fileRepository.findBySharingAndActiveOrNameContainingOrUserIdLastNameContainingOrSizeLessThanEqualOrIdTypeFileTypeContaining(1, 1, info, info, size, info, pageable);
-		return fileRepository.findBySharingAndActiveAndNameContainingOrSharingAndActiveAndUserIdLastNameContainingOrSharingAndActiveAndSizeLessThanEqualOrSharingAndActiveAndIdTypeFileTypeContainingOrSharingAndActiveAndIdTypeCategoryIdName(1, 1, info, 1, 1, info, 1, 1, size, 1, 1, info, 1, 1, info,pageable);
+		return fileRepository.findBySharingAndActiveAndNameContainingOrSharingAndActiveAndUserIdLastNameContainingOrSharingAndActiveAndSizeLessThanEqualOrSharingAndActiveAndIdTypeFileTypeContainingOrSharingAndActiveAndIdTypeCategoryIdName(1, 1, info, 1, 1, info, 1, 1, size, 1, 1, info, 1, 1, info,page);
 	}
 	
 	public String checkData(String info){
