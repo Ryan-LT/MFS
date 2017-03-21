@@ -1,0 +1,33 @@
+.wrapper{
+	width: 70%;
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+.showFileInfo{
+	border-style: dotted;
+	margin-top: 10px;
+}
+
+.textarea{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#input {
+	width: 500px;
+   	height: 500px;
+   	opacity: 0;	
+   	cursor: pointer;
+   	margin: 0;
+}
+
+.form-control{
+	margin-top: 2px;
+}
+
+.upload {
+	border: 1px dashed black;
+	padding: 0;
+	background: url(/images/plus.png) no-repeat center;
+}

@@ -18,6 +18,10 @@ app.config(function($routeProvider) {
     templateUrl: "/views/member/download.html",
     controller: "download"
   })
+  .when("/upload",{
+	  templateUrl: "/views/member/upload.html",
+	  controller: "upload"
+  })
   .when("/", {
     controller: "mainControl"
   })
