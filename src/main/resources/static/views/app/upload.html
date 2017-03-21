@@ -62,27 +62,6 @@
             };
          }]);
       
-         myApp.service('fileUpload', ['$http', function ($https) {
-            this.uploadFileToUrl = function(file,description, uploadUrl){
-               var fd = new FormData();
-               fd.append('file', file);
-               fd.append('description',description);
-               $https.post(uploadUrl, fd, {
-                  transformRequest: angular.identity,
-                  headers: {'Content-Type': undefined}
-               })
-            
-               .success(function(){
-            	uploadMessage="Upload "+file.name+" successfully!";
-            	
-               })
-            
-               .error(function(){
-                uploadMessage="Fail to upload "+file.name;
-               });
-            }
-         }]);
-      
          myApp.controller('myCtrl', ['$scope', 'fileUpload', function($scope, fileUpload){
         	$scope.uploadMessage="";
         	$scope.list=list;
@@ -92,7 +71,8 @@
                var uploadUrl = "/upload";
                for(var i=0;i<list.length;i++){
             	   fileUpload.uploadFileToUrl(list[i],$scope.description, uploadUrl);            	  
-            	   $scope.uploadMessage=uploadMessage; 
+            	   $scope.uploadMessage=uploadMessage;
+            	   console.log("After uploadMessage changed!");
                }
             };
             $scope.removeFile= function(index){
@@ -100,6 +80,28 @@
             	console.log(list);
             };
          }]);
+         myApp.service('fileUpload', ['$http', function ($https) {
+             this.uploadFileToUrl = function(file,description, uploadUrl){
+                var fd = new FormData();
+                fd.append('file', file);
+                fd.append('description',description);
+                $https.post(uploadUrl, fd, {
+                   transformRequest: angular.identity,
+                   headers: {'Content-Type': undefined}
+                })
+             
+                .success(function(){
+             	//uploadMessage="Upload "+file.name+" successfully!";
+             	console.log("Before uploadMessage changed");
+             	
+                })
+             
+                .error(function(){
+                 //uploadMessage="Fail to upload "+file.name;
+                 console.log("Before uploadMessage changed");
+                });
+             }
+          }]);
       </script>
    </body>
 </html>
