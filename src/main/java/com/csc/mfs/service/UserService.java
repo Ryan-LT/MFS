@@ -69,7 +69,7 @@ public class UserService {
 	}
 
 	public Message changePassword(int id, String oldPass, String newPass) {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		//BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		User user = userRepository.findOne(id);
 		if (bCryptPasswordEncoder.matches(oldPass, user.getPassword())) {
 			user.setPassword(bCryptPasswordEncoder.encode(newPass));
@@ -78,6 +78,16 @@ public class UserService {
 		} else {
 			return (new Message(false, "Old password is wrong!"));
 		}
+	}
+	
+	public Message resetPassword(String email, String newPass){
+		User user = userRepository.findByEmail(email);
+		if(null!=user){
+			user.setPassword(bCryptPasswordEncoder.encode(newPass));
+			userRepository.saveAndFlush(user);
+			return new Message(true, "Reset password successful");
+		}
+		return new Message(false, "Reset fail");
 	}
 
 	public Message saveUser(User user) {
