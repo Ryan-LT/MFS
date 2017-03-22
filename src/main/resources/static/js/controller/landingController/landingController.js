@@ -1,4 +1,15 @@
 var app = angular.module('landing',['ngRoute']);
+
+app.filter('sizeFormat', function() {
+    return function(size) {
+        if(size>=925){
+        	return (size/1024).toFixed(2)+" Mb";
+        } else {
+        	return size.toFixed(2) +" Kb";
+        }
+    };
+});
+
 app.controller("landingController", function($scope, $http, $window, $routeParams){
 	
 	$scope.types = ["All", "Category", "Name", "Uploader", "Size"];

@@ -31,7 +31,10 @@ import com.csc.mfs.service.UserService;
 public class ResetPassword {
 	@Autowired
 	private UserService userService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(ResetPassword.class);
+	
+	ApplicationContext context;
 	
 	private ComponentResetPassword componentResetPassword;
 	
@@ -45,7 +48,7 @@ public class ResetPassword {
 		new ResponseEntity<Boolean>(HttpStatus.OK);
 		if(null!=user){
 			componentResetPassword.getConfirm(user.getEmail());
-			ApplicationContext context = new ClassPathXmlApplicationContext("Mail-Bean.xml");
+			context = new ClassPathXmlApplicationContext("Mail-Bean.xml");
 			SendMail sendMail = (SendMail) context.getBean("mail__");
 			String content="<h2 text-align='center'>You required reset your password at mfs.com</h2>";
 			content+="<b>Please click link below to reset your password</b><br>";
@@ -93,8 +96,6 @@ public class ResetPassword {
 				model.addObject("msg", "Sonething was wrong, please check again!");
 			}
 		}
-//		model.addObject("msg", "Sonething was wrong, please check again!");
-//		model.setViewName("formResetPassword");
 		return model;
 	}
 	

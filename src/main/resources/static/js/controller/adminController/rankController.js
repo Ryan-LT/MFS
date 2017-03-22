@@ -43,7 +43,9 @@ app.controller("rankController", function($scope, $http, rankDataOp, $routeParam
 	};
 
 	$scope.deleteRank = function(id){
-		rankDataOp.deleteRank(id).then(Success, Error);
+		if(confirm("Are you sure delete this rank ?")){
+			rankDataOp.deleteRank(id).then(Success, Error);
+		}
 	};
 
 	// Exception Handling
