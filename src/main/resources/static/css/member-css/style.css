@@ -4,7 +4,7 @@
 /* BASIC THEME CONFIGURATION */
 body {
 	color: #797979;
-	background: #f2f2f2;
+	/* background: #f2f2f2; */
 	/* font-family: 'Ruda', sans-serif; */
 	padding: 0px !important;
 	margin: 0px !important;
@@ -383,7 +383,7 @@ ul.sidebar-menu li a.active i {
 
 .wrapper {
 	display: inline-block;
-	margin-top: 60px;
+	margin-top: 30px;
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-bottom: 15px;
@@ -1820,7 +1820,7 @@ label {
 }
 
 .table-height {
-	min-height: 560px;
+	min-height: 480px;
 }
 
 .description {
@@ -1846,4 +1846,12 @@ label {
 .table-overflow {
 	height: 400px;
 	overflow-y: auto;
+}
+
+.list-inline{
+	text-align: center;
+}
+
+.btn1{
+	text-align: center;
 }
