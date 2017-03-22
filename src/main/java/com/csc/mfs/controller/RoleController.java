@@ -23,6 +23,11 @@ public class RoleController {
 		return roleReponsitory.findAll();
 	}
 	
+	@RequestMapping("/get/{idRole}")
+	public Role getRole(@PathVariable Integer idRole){
+		return roleReponsitory.findOne(idRole);
+	}
+	
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	public void insertFile(@RequestBody Role role){
 		roleReponsitory.save(role);
