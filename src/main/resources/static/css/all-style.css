@@ -178,6 +178,10 @@ a:hover {
 	text-align: right !important;
 }
 
+.m-text-align-center {
+	text-align: center !important;
+}
+
 .m-cursor-pointer {
 	cursor: pointer;
 }
@@ -334,7 +338,7 @@ a:hover {
 	text-align: center;
 	padding: 30px;
 	position: fixed;
-	z-index: 1;
+	z-index: 1500;
 	top: 30px;
 	right: 30px;
 }
@@ -348,10 +352,10 @@ a:hover {
 
 @keyframes fadein {
 	from {top: 10px; opacity: 0;}
- 	to {top: 30px; opacity: 1;}
+ 	to {top: 30px; opacity: .8;}
 }
 
 @keyframes fadeout {
-	from {top: 30px; opacity: 1;}
+	from {top: 30px; opacity: .8;}
 	to { top: 10px; opacity: 0;}
 }
