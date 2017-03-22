@@ -50,6 +50,7 @@ public class UserController {
 	
 	@RequestMapping(value="/update", method=RequestMethod.PUT)
 	public void updateUser(@RequestBody User user){
+		System.out.println(user.getRoleList());
 		userService.updateUser(user);
 	}
 	
