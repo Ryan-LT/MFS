@@ -1,19 +1,21 @@
+
 <div class="main-header">User Management</div>
 
 <button ng-click="addBlock=true; editBlock=false" data-toggle="modal"
-	type="button" data-target="#addModal" class="btn btn-info btn-add">
-	<span style="color: white" class="glyphicon glyphicon-plus"></span>
+	data-target="#addModal"
+	class="m-button m-blue m-blue-hover m-white-text m-margin-bottom">
+	<i class="glyphicon glyphicon-plus"></i> Add user
 </button>
 
-<table class="table table-striped">
+<table class="table m-table m-table-hover">
 	<thead>
 		<tr>
-			<th>#</th>
+			<th width="5%">#</th>
 			<th>Email</th>
-			<th>Name</th>
-			<th>Last Name</th>
-			<th>Rank</th>
-			<th>Action</th>
+			<th width="15%">Name</th>
+			<th width="15%">Last Name</th>
+			<th width="10%">Rank</th>
+			<th width="25%">Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,11 +29,12 @@
 
 				<button ng-disabled="{{u.id == 0 }}" ng-click="getUser(u.id)"
 					type="button" data-toggle="modal" data-target="#editModal"
-					class="btn btn-warning btn-circle">
+					class="m-button m-button-circle m-green m-green-hover m-white-text">
 					<span style="color: white" class="glyphicon glyphicon-edit"></span>
 				</button>
 				<button ng-disabled="{{u.id == 0 }}" ng-click="deleteUser(u.id)"
-					type="button" class="btn btn-danger btn-circle"
+					type="button"
+					class="m-button m-button-circle m-red m-red-hover m-white-text"
 					onclick="myToast('del')">
 					<span style="color: white"
 						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
@@ -40,18 +43,29 @@
 		</tr>
 	</tbody>
 </table>
-<div style="margin: auto;">
-	<ul class="list-inline">
-		<li><button class="btn m-btn"
-				ng-click="getUserByPage(page=page-1)" ng-disabled="page-1<0"><<</button></li>
-		<li ng-repeat="i in getNumber(pageSum) track by $index">
-			<button ng-class="{'active': $index == selectedIndex }" class="btn m-btn" ng-click="getUserByPage($index)">{{$index+1}}</button>
-		</li>
-		<li><button class="btn m-btn"
-				ng-click="getUserByPage(page=page+1)"
-				ng-disabled="page+1>=pageSum">>></button></li>
-	</ul>
+<div class="row">
+	<div class="col-md-5"></div>
+	<div class="col-md-5">
+		<div class="m-inline">
+			<div class="m-inline">
+				<button class="m-button m-green m-green-hover m-white-text"
+					ng-click="getUserByPage(page=page-1)" ng-disabled="page-1<0">Prev</button>
+			</div>
+			<div class="m-inline m-margin-left"
+				ng-repeat="i in getNumber(pageSum) track by $index">
+				<button ng-class="{'active': $index == selectedIndex }"
+					class="m-button m-green m-green-hover m-white-text"
+					ng-click="getUserByPage($index)">{{$index+1}}</button>
+			</div>
+			<div class="m-inline m-margin-left">
+				<button class="m-button m-green m-green-hover m-white-text"
+					ng-click="getUserByPage(page=page+1)" ng-disabled="page+1>=pageSum">Next</button>
+			</div>
+		</div>
+	</div>
 </div>
+
+
 
 
 <div class="modal fade" id="editModal" role="dialog">
@@ -98,7 +112,6 @@
 
 	</div>
 </div>
-
 <div class="modal fade" id="addModal" role="dialog">
 	<div class="modal-dialog">
 
@@ -131,7 +144,6 @@
 
 	</div>
 </div>
-
 <div id="textshow"></div>
 
 <script>

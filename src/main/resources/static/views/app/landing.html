@@ -400,25 +400,29 @@
 					<div class="col-md-1"></div>
 				</div>
 			</div>
-			<div class="row"></div>
-			<div class="col-md-5 m-margin-left"></div>
-			<div class="col-md-5">
-				<div class="m-inline">
-					<button class="m-button m-green m-green-hover m-white-text"
-						ng-click="searchFile(Selectedtype,infoSearch,page=page-1)"
-						ng-disabled="page-1<0"><<</button>
-				</div>
-				<div class="m-inline m-margin-left"
-					ng-repeat="i in getNumber(pageSum) track by $index">
-					<button class="m-button m-green m-green-hover m-white-text"
-						ng-click="searchFile(Selectedtype,infoSearch,$index)">{{$index+1}}</button>
-				</div>
-				<div class="m-inline m-margin-left">
-					<button class="m-button m-green m-green-hover m-white-text"
-						ng-click="searchFile(Selectedtype,infoSearch,page=page+1)"
-						ng-disabled="page+1>=pageSum">>></button>
+			<div class="row">
+				<div class="col-md-5 m-margin-left">
+					<div class="col-md-5">
+						<div class="m-inline">
+							<button class="m-button m-green m-green-hover m-white-text"
+								ng-click="searchFile(Selectedtype,infoSearch,page=page-1)"
+								ng-disabled="page-1<0"><<</button>
+						</div>
+						<div class="m-inline m-margin-left"
+							ng-repeat="i in getNumber(pageSum) track by $index">
+							<button class="m-button m-green m-green-hover m-white-text"
+								ng-click="searchFile(Selectedtype,infoSearch,$index)">{{$index+1}}</button>
+						</div>
+						<div class="m-inline m-margin-left">
+							<button class="m-button m-green m-green-hover m-white-text"
+								ng-click="searchFile(Selectedtype,infoSearch,page=page+1)"
+								ng-disabled="page+1>=pageSum">>></button>
+						</div>
+					</div>
 				</div>
 			</div>
+
+
 		</div>
 	</div>
 	<!-- PRODUCT DETAIL SECTION END -->

@@ -40,6 +40,7 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 			$scope.roles= data;
 		}).error(function(data, status, headers, config) {});
 	};
+	
 	$scope.checkRole = function(role){
 		if($scope.rolesUser != undefined){
 			for(var i =0;i<$scope.rolesUser.length;i++){
@@ -96,8 +97,6 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 
 	
 	$scope.editUser = function(user) {
-		console.log(document.getElementById("MEMBER").checked);
-		console.log(user.roleList);
 		user.roleList =[];
 		for(var i=0;i<$scope.roles.length;i++){
 			var check = document.getElementById($scope.roles[i].role);
@@ -122,7 +121,9 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 	};
 
 	$scope.deleteUser = function(id) {
-		userDataOp.deleteUser(id).then(Success, Error);
+		if(confirm("Are you sure delete this user ?")){
+			userDataOp.deleteUser(id).then(Success, Error);	
+		}
 	};
 
 	// Exception Handling
