@@ -1,8 +1,10 @@
-var app = angular.module('myWeb');
+var app = angular.module('member');
 
 app.controller('fileManage', function($scope, $http, $window){
     //this.files = storage;
 	
+	
+	$scope.content = "";
 	$scope.pageSize = 8;
 	$scope.page = 0;
     getFiles(0, 8);
@@ -113,6 +115,7 @@ app.controller('fileManage', function($scope, $http, $window){
 		$http.post("http://localhost:8080/comment/saveComment", $scope.contentComment)
 		.success(function(data, status, headers, config){
 			getComment(id);
+			$scope.content = "";
 		})
 		.error(function(data, status, headers, config){
 		});
@@ -138,4 +141,15 @@ app.controller('fileManage', function($scope, $http, $window){
 		});
     }
 	
+});
+
+
+app.filter('sizeFormat', function() {
+    return function(size) {
+        if(size>=925){
+        	return (size/1024).toFixed(2)+" Mb";
+        } else {
+        	return size.toFixed(2) +" Kb";
+        }
+    };
 });

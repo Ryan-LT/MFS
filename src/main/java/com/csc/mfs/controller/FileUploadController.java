@@ -5,6 +5,7 @@ import com.csc.mfs.storage.StorageProperties;
 import com.csc.mfs.storage.StorageService;
 
 import org.apache.commons.io.FilenameUtils;
+import org.glassfish.jersey.server.internal.monitoring.jmx.ExceptionMapperMXBeanImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -16,16 +17,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Vector;
 import java.util.stream.Collectors;
 
 import com.csc.mfs.messages.Message;
@@ -53,25 +50,9 @@ public class FileUploadController {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	@Autowired
-	private StorageProperties storageProp;
-	@Autowired
 	private DownloadService downloadService;
 	@Autowired
 	private UserService userService;
-
-	@RequestMapping(value = "/upload", method = RequestMethod.GET)
-	public String listUploadedFiles(Model model) throws IOException {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		model.addAttribute("files",
-				storageService.loadAll()
-						.map(path -> MvcUriComponentsBuilder
-								.fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
-								.build().toString())
-						.collect(Collectors.toList()));
-
-		return "upload";
-	}
 
 	/**
 	 * @param This
@@ -146,6 +127,9 @@ public class FileUploadController {
 			for (MultipartFile file : fileList) {
 				String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 				CategoriesType category = categoryRepository.findByFileType(extension);
+				if(null==category){
+					category = new CategoriesType(66);
+				}
 				Files fileDB = new Files();
 				fileDB.setName(file.getOriginalFilename());
 				fileDB.setName(file.getOriginalFilename());
@@ -156,8 +140,12 @@ public class FileUploadController {
 				fileDB.setSharing(1);
 				fileDB.setIdType(category);
 				fileDB.setDescription(description);
-				fileService.insertFile(fileDB);
-				storageService.store(file, Paths.get(fileDB.getPath()));
+				try{
+					storageService.store(file, Paths.get(fileDB.getPath()));
+					fileService.insertFile(fileDB);	
+				} catch(Exception e){
+					return ResponseEntity.ok().body(new Message(false, fileList[0].getOriginalFilename()));
+				}
 				fileService.afterUpload(user.getId(), file.getSize() / 1024.0);
 			}
 			return ResponseEntity.ok().body(new Message(true, fileList[0].getOriginalFilename()));
