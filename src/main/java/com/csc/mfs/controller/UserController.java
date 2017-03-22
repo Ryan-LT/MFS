@@ -86,6 +86,11 @@ public class UserController {
 		return userService.findByRankId(idRank, pageable).getTotalElements();
 	}
 	
+	@RequestMapping(value="/find/{info}", method=RequestMethod.GET)
+	public Page<User> findUser(@PathVariable("info") String info, Pageable pageable){
+		return userService.findByName(info, pageable);
+	}
+	
 }
 
 

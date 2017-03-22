@@ -26,6 +26,8 @@ import com.csc.mfs.messages.Message;
 import com.csc.mfs.model.User;
 import com.csc.mfs.service.UserService;
 
+import net.sf.ehcache.CacheManager;
+
 @Controller
 @RequestMapping("/resetpassword")
 public class ResetPassword {
@@ -52,7 +54,8 @@ public class ResetPassword {
 			SendMail sendMail = (SendMail) context.getBean("mail__");
 			String content="<h2 text-align='center'>You required reset your password at mfs.com</h2>";
 			content+="<b>Please click link below to reset your password</b><br>";
-			content+="<a href='http://localhost:8080/resetpassword/user/"+user.getPassword()+"'>http://localhost:8080/resetpassword/user/"+user.getPassword()+"</a>";
+			content+="<a href='http://localhost:8080/resetpassword/user/"+user.getEmail()+"/"+componentResetPassword.getConfirm(user.getEmail())+"/'>";
+			content+="http://localhost:8080/resetpassword/user/"+user.getEmail()+"/"+componentResetPassword.getConfirm(user.getEmail())+"</a>";
 			sendMail.sendmailToClient("MFS", user.getEmail(), "RESET PASSWORD", content);
 			return ResponseEntity.ok(true);
 		}
@@ -64,14 +67,13 @@ public class ResetPassword {
 		ModelAndView model = new ModelAndView();
 		User user = userService.findUserByEmail(mail);
 		if(null!=user){
-			logger.info(mail);
-			logger.info(componentResetPassword.getConfirm(user.getEmail()));
-			logger.info(code);
+			//CacheManager cache = new CacheManager();
+			//logger.info(cache.getCache("passwordConfirm")+"");
 			if(componentResetPassword.getConfirm(user.getEmail()).equals(code)){
-				logger.info(mail);
-				logger.info(componentResetPassword.getConfirm(user.getEmail()));
-				logger.info(code);
-				
+//				logger.info(mail);
+//				logger.info(componentResetPassword.getConfirm(user.getEmail()));
+//				logger.info(code);
+//				
 				model.addObject("email", user.getEmail());
 				model.addObject("token", componentResetPassword.getConfirm(user.getEmail()));
 				model.setViewName("formResetPassword");
@@ -82,7 +84,7 @@ public class ResetPassword {
 		return model;
 	}
 	
-	@GetMapping("/doReset")
+	@PostMapping("/doReset")
 	public ModelAndView doReset(@RequestParam String email, @RequestParam String token, @RequestParam String newPassword){
 		ModelAndView model = new ModelAndView();
 		if(!token.equals(componentResetPassword.getConfirm(email))){
@@ -92,6 +94,7 @@ public class ResetPassword {
 			Message msg = userService.resetPassword(email, newPassword);
 			if(msg.isState()){
 				model.addObject("msg", "Reset password successful");
+				componentResetPassword.refreshConfirm();
 			} else {
 				model.addObject("msg", "Sonething was wrong, please check again!");
 			}
