@@ -28,6 +28,9 @@ import java.util.List;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.csc.mfs.messages.Message;
 import com.csc.mfs.model.*;
 import com.csc.mfs.repository.CategoryRepository;
@@ -132,6 +135,9 @@ public class FileUploadController {
 			for (MultipartFile file : fileList) {
 				String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 				CategoriesType category = categoryRepository.findByFileType(extension);
+				if(null==category){
+					category = new CategoriesType(66);
+				}
 				Files fileDB = new Files();
 				fileDB.setName(file.getOriginalFilename());
 				fileDB.setName(file.getOriginalFilename());
@@ -148,11 +154,10 @@ public class FileUploadController {
 			}
 			return ResponseEntity.ok().body(new Message(true, fileList[0].getOriginalFilename()));
 	} else {
-		return ResponseEntity.ok().body(new Message(false, fileList[0].getOriginalFilename()));
+		return ResponseEntity.ok().body(new Message(false, "maximum"));
 	}
 	
 	}
-
 	@ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
