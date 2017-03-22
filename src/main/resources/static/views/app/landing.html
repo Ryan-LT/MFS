@@ -86,10 +86,18 @@
 		$('#byModal').modal('show');
 		$('.modal-backdrop').removeClass("modal-backdrop");
 	}
+
+	function toast() {
+		var a = document.getElementsById("m-toast-blue");
+		a.className = "show";
+		setTimeout(function() {
+			a.className = a.className.replace("show", "");
+		}, 3000);
+	}
 </script>
 </head>
 <body data-spy="scroll" ng-controller="landingController"
-	th:attr="ng-init='userName='+${userName}+''">
+	th:attr="ng-init='userName='+${userName}+''" onload="toast">
 	<header>
 		<!-- ===========================
          NAVBAR START
@@ -384,7 +392,7 @@
 												</button>
 										</span>
 											<button ng-click="getInfoFile(file.id)" type="button"
-												class="m-button m-button-circle m-green m-green-hover m-white-text">
+												class="m-button m-button-circle m-blue m-blue-hover m-white-text">
 												<span class="fa fa-info"></span>
 											</button></td>
 									</tr>
@@ -573,6 +581,8 @@
 	</footer>
 	<!-- FOOTER END -->
 
+	<span id="m-toast-blue">text here is powerful</span>
+
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/js/lib/jquery/jquery-latest.min.js"></script>
 
@@ -596,73 +606,79 @@
 
 	<!-- MODAL START -->
 	<div class="modal fade" id="detailModal" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog" style="width: 600px">
 			<!-- Modal content-->
 			<div class="modal-content m-modal-content">
-				<div class="modal-header m-modal-header-edit">
+				<div class="modal-header m-blue">
 					<button type="button" class="close m-close-button"
 						data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">{{fileDetail.name | uppercase}}'s
-						Detail</h4>
+					<h4 class="modal-title m-white-text">{{fileDetail.name |
+						uppercase}}'s Detail</h4>
 				</div>
 				<div class="modal-body">
-					<div id="article_table">
-						<table class="table table-bordered table-striped m-table">
-							<tr>
-								<td width="50%">Name</td>
-								<td>{{fileDetail.name}}</td>
-							</tr>
-							<tr>
-								<td>Size</td>
-								<td>{{fileDetail.size | number:2}} Kb</td>
-							</tr>
-							<tr>
-								<td>Date upload</td>
-								<td>{{fileDetail.dateupload | date:"dd-MM-yyyy"}}</td>
-							</tr>
-							<tr>
-								<td>Total download</td>
-								<td>{{total}}</td>
-							</tr>
-						</table>
-						<h4>Description:</h4>
-						<textarea ng-model="description_" class="form-control" rows="8"
-							cols="">{{fileDetail.description}}</textarea>
-						<p>{{msgSave}}</p>
-						<button class="btn btn-primary"
-							ng-click="saveChange(fileDetail.id)">Save Change</button>
-					</div>
-					<hr>
-					<section class="row">
-						<section class="col-md-2"></section>
-						<section class="col-md-8">
-							<h4>Comment</h4>
-							<form  th:if="${userName} != null" ng-submit="saveComment(fileDetail.id)">
-								<textarea ng-model="content" class="form-control" rows="3"></textarea>
-								<button class="btn btn-primary" type="submit">Comment</button>
+					<div class="row">
+						<div class="col-md-7">
+							<div id="article_table">
+								<table class="table table-bordered table-striped m-table">
+									<tr>
+										<td width="50%">Name</td>
+										<td>{{fileDetail.name}}</td>
+									</tr>
+									<tr>
+										<td>Size</td>
+										<td>{{fileDetail.size | number:2}} Kb</td>
+									</tr>
+									<tr>
+										<td>Date upload</td>
+										<td>{{fileDetail.dateupload | date:"dd-MM-yyyy"}}</td>
+									</tr>
+									<tr>
+										<td>Total download</td>
+										<td>{{total}}</td>
+									</tr>
+								</table>
+								<h4>Description:</h4>
+								<textarea ng-model="description_"
+									class="form-control m-overflow" rows="4">{{fileDetail.description}}</textarea>
+
+								<div class="m-text-align-right">
+									<button
+										class="m-button m-blue m-blue-hover m-white-text m-margin-top"
+										ng-click="saveChange(fileDetail.id)">Save Change</button>
+								</div>
+							</div>
+							<p>{{msgSave}}</p>
+						</div>
+						<div class="col-md-5">
+							<form ng-submit="saveComment(fileDetail.id)">
+								<input ng-model="content" class="form-control"
+									placeholder="Comment..."></input>
+								<div class="m-text-align-right">
+									<button
+										class="m-button-small m-blue m-blue-hover m-white-text m-margin-top m-margin-bottom"
+										type="submit">Send</button>
+								</div>
+
 							</form>
-							<table class="table table-bordered table-striped">
-								<tr ng-repeat="comment in comments.content">
-									<td>
-										<article>
-											<header>
-												<a href="">{{comment.idUser.name}}:</a>
-											</header>
-											<section>{{comment.content}}</section>
-											<footer>
-												{{comment.likeComment}} <a href="" ng-click="increase()">like</a>
-												| {{comment.dateComment}}
-											</footer>
-										</article>
-									</td>
-								</tr>
-							</table>
-						</section>
-					</section>
+							<div class="m-overflow">
+								<table class="table">
+									<tr ng-repeat="comment in comments.content">
+										<td><a href="">{{comment.idUser.name}}:</a>
+											{{comment.content}}
+											<div>
+												{{comment.likeComment}} <a href="" ng-click="increase()">
+													like</a> | {{comment.dateComment}}
+											</div></td>
+								</table>
+							</div>
+
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- MODAL END -->
+
 </body>
 </html>
