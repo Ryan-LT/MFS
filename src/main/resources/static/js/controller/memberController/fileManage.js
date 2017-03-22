@@ -1,4 +1,4 @@
-var app = angular.module('myWeb');
+var app = angular.module('member');
 
 app.controller('fileManage', function($scope, $http, $window){
     //this.files = storage;
