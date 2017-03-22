@@ -1,7 +1,9 @@
 package com.csc.mfs.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -106,7 +108,7 @@ public class UserService {
 			Rank rank = rankRepository.findByName("Bronze");
 			user.setRankId(rank);
 			Role userRole = roleRepository.findByRole("MEMBER");
-			List<Role> listRole = new ArrayList<Role>();
+			Set<Role> listRole = new HashSet<Role>();//((Set<Role>) new ArrayList<Role>());
 			listRole.add(userRole);
 			user.setRoleList(listRole);
 			userRepository.save(user);
