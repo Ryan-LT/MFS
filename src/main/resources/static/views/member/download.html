@@ -13,9 +13,7 @@
 		<tbody>
 			<tr ng-repeat="file in files.content track by $index">
 				<td>{{$index+1}}</td>
-				<td>
-					<a href="" ng-click="getInfoFile(file.idFile.id)">{{file.idFile.name}}</a>
-				</td>
+				<td>{{file.idFile.name}}</td>
 				<td>{{file.idFile.size | number:1}} KB</td>
 				<td>{{file.idUser.lastName}}</td>
 				<td>{{file.datedownload | date :"dd-MM-yyyy"}}</td>
@@ -29,79 +27,4 @@
 		</li>
 		<li><button type="button" class="btn btn-success" ng-click="getDownloadByPage(page=page+1)" ng-disabled="page+1>=files.totalPages">Next</button>	</li>
 	</ul>
-	
-	
-	<!-- modal -->
-	<div class="modal fade" id="editModal" role="dialog">
-	<!-- <div class="modal-dialog"> -->
-	<div>
-		<!-- Modal content-->
-		<div class="modal-content m-modal-content">
-			<div class="modal-header m-modal-header-edit">
-				<button type="button" class="close m-close-button"
-					data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">{{fileDetail.name | uppercase}}'s Detail</h4>
-			</div>
-			<!-- <div class="modal-body"> -->
-			<div>
-				<div id="article_table">
-					<table class="content-panel table table-striped table-advance table-hover">
-						<tr>
-							<td width="50%">Name</td>
-							<td>{{fileDetail.name}}</td>
-						</tr>
-						<tr>
-							<td>Size</td>
-							<td>{{fileDetail.size | number:2}} Kb</td>
-						</tr>
-						<tr>
-							<td>Date upload</td>
-							<td>{{fileDetail.dateupload | date:"dd-MM-yyyy"}}</td>
-						</tr>
-						<tr>
-							<td>Total download</td>
-							<td>{{total}}</td>
-						</tr>
-						<tr>
-							<td colspan="2">Description</td>
-						</tr>
-						<tr>
-							<td colspan="2">{{fileDetail.description}}</td>
-						</tr>
-					</table>
-				</div>
-				<hr>
-				<section class="row">
-					<section class="col-md-2"></section>
-					<section class="col-md-8">
-						<h4>Comment</h4>
-						<form ng-submit="saveComment(fileDetail.id)">
-							<textarea ng-model="content" class="form-control" rows="3" ></textarea>
-							<button class="btn btn-primary" type="submit">Comment</button>
-						</form>
-						<table class="table table-bordered table-striped">
-							<tr ng-repeat="comment in comments.content">
-								<td>
-									<article>
-										<header>
-											<a href="">{{comment.idUser.name}}:</a>
-										</header>
-										<section>
-											{{comment.content}}
-										</section>
-										<footer>
-											{{comment.likeComment}} 
-											<a href="" ng-click="increase()">like</a>
-											| {{comment.dateComment}}
-										</footer>
-									</article>
-								</td>
-							</tr>
-						</table>
-					</section>
-				</section>
-			</div>
-		</div>
-	</div>
-</div>
 </div>
