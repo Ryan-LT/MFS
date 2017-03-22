@@ -6,7 +6,7 @@
 	<div class="table-height">
 		<table id="myTable"
 			class="content-panel table table-striped table-advance table-hover">
-			<thead>
+			<thead class="thead-custom">
 				<th width="5%">#</th>
 				<th width="40%">Name File</th>
 				<th width="10%">Size</th>
@@ -17,7 +17,7 @@
 			<tbody ng-repeat="file in files.content | filter: filter_">
 				<td>{{$index+1}}</td>
 				<td><a href="" ng-click="getInfoFile(file.id)">{{file.name}}</a></td>
-				<td>{{file.size | number:2}} Kb</td>
+				<td>{{file.size | sizeFormat}}</td>
 				<td>{{file.dateupload | date:"dd-MM-yyyy"}}</td>
 				<td><input ng-click="changeShare(file.id)" type="checkbox"
 					ng-checked="{{file.sharing==1}}"></td>
@@ -94,12 +94,11 @@
 							<h4>Comment</h4>
 
 							<form ng-submit="saveComment(fileDetail.id)">
-								<textarea ng-model="content" class="form-control textarea1"
+								<textarea ng-model="content"  class="form-control textarea1"
 									rows="2"></textarea>
 								<div class="btn-save">
 									<button class="btn btn-info btn-block" type="submit">Send</button>
 								</div>
-
 							</form>
 							<div class="table-overflow">
 								<table class="table table-bordered table-striped">
