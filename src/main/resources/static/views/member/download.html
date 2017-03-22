@@ -1,5 +1,6 @@
 <h2><i class="fa fa-angle-right"></i> Download History</h2>
 <div ng-controller="download">
+<div class="table table-height ">
 	<table class="content-panel table table-striped table-advance table-hover">
 		<thead>
 			<tr class="thead-custom"}>
@@ -20,6 +21,7 @@
 			</tr>
 		</tbody>
 	</table>
+	</div>
 	<ul class="list-inline btn1">
 		<li><button type="button" class="btn btn-success"  ng-click="getDownloadByPage(page=page-1)" ng-disabled="page-1<0">Previous</button>	</li>
 		<li ng-repeat="i in getNumber(files.totalPages) track by $index">
