@@ -2,13 +2,13 @@
 <h3>
 	<i class="fa fa-angle-right"></i> File Management
 </h3>
+<!-- class="content-panel table table-striped table-advance table-hover" -->
 <div ng-init="stt=0; incre=1">
 	<div class="table-height">
-		<table id="myTable"
-			class="content-panel table table-striped table-advance table-hover">
-			<thead>
+		<table id="myTable" class="table m-table">
+			<thead class="thead-custom">
 				<th width="5%">#</th>
-				<th width="40%">Name File</th>
+				<th width="40%">Name</th>
 				<th width="10%">Size</th>
 				<th width="15%">Date Upload</th>
 				<th width="10%">Sharing</th>
@@ -23,29 +23,39 @@
 					ng-checked="{{file.sharing==1}}"></td>
 				<td>
 					<button ng-click="downloadFile(file.id)" type="button"
-						class="btn btn-warning btn-circle">
+						class="m-button m-orange m-button-circle m-orange-hover m-white-text">
 						<span class="fa fa-download"></span>
 					</button>
 					<button ng-click="deleteFile(file.id)" type="button"
-						class="btn btn-danger btn-circle">
+						class="m-button m-red m-button-circle m-red-hover m-white-text">
 						<span class="fa fa-trash"></span>
 					</button>
 					<button ng-click="getInfoFile(file.id)" type="button"
-						class="btn btn-info btn-circle">
+						class="m-button m-green m-button-circle m-green-hover m-white-text">
 						<span class="fa fa-info"></span>
 					</button>
 				</td>
 			</tbody>
 		</table>
 	</div>
-	<ul class="list-inline btn1">
-		<li><button type="button" class="btn btn-success" ng-click="getFileByPage(page=page-1)" ng-disabled="page-1<0">Prev</button></li>
-		<li ng-repeat="i in getNumber(files.totalPages) track by $index">
-			<button class="btn btn-success" ng-click="getFileByPage($index)">{{$index+1}}</button>
-		</li>
-		<li><button type="button" class="btn btn-success" ng-click="getFileByPage(page=page+1)" ng-disabled="page+1>=files.totalPages">Next</button></li>
-	</ul>
 
+	<div class="row m-text-align-center">
+		<div class="m-inline">
+			<button class="m-button m-green m-green-hover m-white-text"
+				ng-click="getFileByPage(page=page-1)" ng-disabled="page-1<0">Prev</button>
+		</div>
+		<div class="m-inline m-margin-left"
+			ng-repeat="i in getNumber(files.totalPages) track by $index">
+			<button ng-class="{'active': $index == selectedIndex }"
+				class="m-button m-green m-green-hover m-white-text"
+				ng-click="getFileByPage($index)">{{$index+1}}</button>
+		</div>
+		<div class="m-inline m-margin-left">
+			<button class="m-button m-green m-green-hover m-white-text"
+				ng-click="getFileByPage(page=page+1)"
+				ng-disabled="page+1>=files.totalPages">Next</button>
+		</div>
+	</div>
 
 	<!-- modal -->
 	<div class="modal fade" id="editModal" role="dialog">
@@ -94,7 +104,7 @@
 							<h4>Comment</h4>
 
 							<form ng-submit="saveComment(fileDetail.id)">
-								<textarea ng-model="content"  class="form-control textarea1"
+								<textarea ng-model="content" class="form-control textarea1"
 									rows="2"></textarea>
 								<div class="btn-save">
 									<button class="btn btn-info btn-block" type="submit">Send</button>
