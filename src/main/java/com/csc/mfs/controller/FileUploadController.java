@@ -27,6 +27,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import java.util.stream.Collectors;
+
+import com.csc.mfs.messages.Message;
 import com.csc.mfs.model.*;
 import com.csc.mfs.repository.CategoryRepository;
 import com.csc.mfs.repository.FilesRepository;
@@ -126,7 +128,7 @@ public class FileUploadController {
 	}
 
 	@PostMapping("/upload")
-	public String handleFileUpload(@RequestParam("file") MultipartFile fileList[],
+	public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile fileList[],
 			@RequestParam("description") String description) {
 		/**
 		 * 
@@ -138,13 +140,10 @@ public class FileUploadController {
 		for (MultipartFile file : fileList) {
 			fileSumSize += file.getSize()/1024.0;
 		}
-		double spaceAvailable = downloadService.beforeDownload(user.getId(), fileSumSize);
-		//redirectAttributes.addFlashAttribute("spaceAvailable", spaceAvailable);
+		double spaceAvailable = fileService.beforeUpload(user.getId(), fileSumSize);
 		System.out.println("Contain files: "+fileList.length);
-		if (spaceAvailable <= 0) {
-
+		if (spaceAvailable >= 0) {
 			for (MultipartFile file : fileList) {
-
 				String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 				CategoriesType category = categoryRepository.findByFileType(extension);
 				Files fileDB = new Files();
@@ -160,11 +159,12 @@ public class FileUploadController {
 				fileService.insertFile(fileDB);
 				storageService.store(file, Paths.get(fileDB.getPath()));
 				fileService.afterUpload(user.getId(), file.getSize() / 1024.0);
-
 			}
-		
-	} 
-	return"redirect:/upload";
+			return ResponseEntity.ok().body(new Message(true, fileList[0].getOriginalFilename()));
+	} else {
+		return ResponseEntity.ok().body(new Message(false, fileList[0].getOriginalFilename()));
+	}
+	
 	}
 
 	@ExceptionHandler(StorageFileNotFoundException.class)

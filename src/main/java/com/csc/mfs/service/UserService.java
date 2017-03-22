@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,8 @@ public class UserService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public Page<User> getAll(Pageable pageable) {
-		return userRepository.findByActive(1, pageable);
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "name");
+		return userRepository.findByActive(1, page);
 	}
 
 	public long countRecord() {
@@ -69,7 +72,7 @@ public class UserService {
 	}
 
 	public Message changePassword(int id, String oldPass, String newPass) {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		//BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		User user = userRepository.findOne(id);
 		if (bCryptPasswordEncoder.matches(oldPass, user.getPassword())) {
 			user.setPassword(bCryptPasswordEncoder.encode(newPass));
@@ -78,6 +81,16 @@ public class UserService {
 		} else {
 			return (new Message(false, "Old password is wrong!"));
 		}
+	}
+	
+	public Message resetPassword(String email, String newPass){
+		User user = userRepository.findByEmail(email);
+		if(null!=user){
+			user.setPassword(bCryptPasswordEncoder.encode(newPass));
+			userRepository.saveAndFlush(user);
+			return new Message(true, "Reset password successful");
+		}
+		return new Message(false, "Reset fail");
 	}
 
 	public Message saveUser(User user) {
@@ -106,7 +119,8 @@ public class UserService {
 	}
 	
 	public Page<User> findByRankId(Integer rankId, Pageable pageable){
-		return userRepository.findByRankIdId(rankId, pageable);
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "name");
+		return userRepository.findByRankIdId(rankId, page);
 	}
 	
 }
