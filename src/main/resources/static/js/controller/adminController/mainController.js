@@ -4,6 +4,9 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 	$scope.pageSum;
 	$scope.page = 0;
 	$scope.pageSize = 8;
+	$scope.roles;
+	$scope.rolesUser;
+	$scope.rolesUpdate;
 	getData($scope.page);
 	$scope.getNumber = function(num) {
 		return new Array(num);
@@ -27,6 +30,27 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 			getData(parseInt(page), parseInt($scope.pageSize));
 			$scope.selectedIndex = page;
 	}
+	
+	function getRoles() {
+		
+		$http({
+			method : 'get',
+			url : "http://localhost:8080/role/all"
+		}).success(function(data, status, headers, config) {
+			$scope.roles= data;
+		}).error(function(data, status, headers, config) {});
+	};
+	$scope.checkRole = function(role){
+		if($scope.rolesUser != undefined){
+			for(var i =0;i<$scope.rolesUser.length;i++){
+				if($scope.rolesUser[i]!=undefined && role==$scope.rolesUser[i].id){
+					return true;
+				}
+			}	
+		}
+		return false;
+	}
+
 
 	$scope.getUser = function(id) {
 		$scope.editBlock = true;
@@ -39,6 +63,7 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 		}).success(function(data, status, headers, config) {
 			$scope.user = data;
 			id_Rank = data.rank_Id;
+			$scope.rolesUser = data.roleList;
 			$http({
 				method: 'get',
 				url: "http://localhost:8080/rank/all"
@@ -54,6 +79,7 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 			.error(function(data, status, headers, config){});
 		}).error(function(data, status, headers, config) {
 		});
+		getRoles();
 	};
 
 	$scope.addUser = function() {
@@ -68,8 +94,21 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 				$scope.lastName = ""
 	};
 
+	
 	$scope.editUser = function(user) {
-		//alert($scope.rank.current);
+		console.log(document.getElementById("MEMBER").checked);
+		console.log(user.roleList);
+		user.roleList =[];
+		for(var i=0;i<$scope.roles.length;i++){
+			var check = document.getElementById($scope.roles[i].role);
+			if(check!=null && check.checked){
+				user.roleList.push($scope.roles[i]);
+			}	
+		}
+		
+		if(document.getElementById("MEMBER").checked){
+			
+		}
 		$scope.rankId = {
 		"id": parseInt($scope.rank.current)+1,
 		"name": "",
