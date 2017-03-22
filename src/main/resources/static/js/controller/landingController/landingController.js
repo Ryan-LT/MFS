@@ -17,9 +17,12 @@ app.controller("landingController", function($scope, $http, $window, $routeParam
 	$scope.filterFile ='';
 	$scope.sortReverse = false; 
 	  
+	$scope.description_ = "";
+	$scope.content = "";
+	
 	$scope.page = 0;
 	$scope.pageSum;
-	$scope.pageSize = 5;
+	$scope.pageSize = 8;
 	$scope.selectedIndex = 0;
 	$scope.infoSearch = undefined;
 	
@@ -106,6 +109,7 @@ app.controller("landingController", function($scope, $http, $window, $routeParam
 		$http.post("http://localhost:8080/comment/saveComment", $scope.contentComment)
 		.success(function(data, status, headers, config){
 			getComment(id);
+			$scope.content = "";
 		})
 		.error(function(data, status, headers, config){
 		});
@@ -125,6 +129,7 @@ app.controller("landingController", function($scope, $http, $window, $routeParam
 			data: $scope.file
 		}).success(function(data, status, headers, config){
 			$scope.msgSave ="Update successful";
+			$scope.description_ = "";
 		})
 		.error(function(data, status, headers, config){
 			$scope.msgSave ="Update fail";
