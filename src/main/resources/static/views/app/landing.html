@@ -634,10 +634,10 @@
 									</tr>
 								</table>
 								<h4>Description:</h4>
-								<textarea ng-model="description_"
+								<textarea ng-model="description_"  th:if="${userName} != null"
 									class="form-control m-overflow" rows="4">{{fileDetail.description}}</textarea>
 
-								<div class="m-text-align-right">
+								<div class="m-text-align-right" th:if="${userName} != null">
 									<button
 										class="m-button m-blue m-blue-hover m-white-text m-margin-top"
 										ng-click="saveChange(fileDetail.id)">Save Change</button>
@@ -646,7 +646,7 @@
 							<p>{{msgSave}}</p>
 						</div>
 						<div class="col-md-5">
-							<form ng-submit="saveComment(fileDetail.id)">
+							<form  th:if="${userName} != null" ng-submit="saveComment(fileDetail.id)">
 								<input ng-model="content" class="form-control"
 									placeholder="Comment..."></input>
 								<div class="m-text-align-right">
