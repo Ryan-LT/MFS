@@ -1,8 +1,8 @@
-.wrapper{
+/* .wrapper{
 	width: 70%;
 	margin-left: 15%;
 	margin-right: 15%;
-}
+} */
 
 .showFileInfo{
 	border-style: dotted;
@@ -10,13 +10,15 @@
 }
 
 .textArea{
-	margin-top: 10px;
+	/* margin-top: 2px; */
 	margin-bottom: 10px;
-	width: 500px;
+	width: 665px;
+	max-width: 665px;
+	max-height: 300px;
 }
 
 #input {
-	width: 500px;
+	width: 668px;
    	height: 300px;
    	opacity: 0;	
    	cursor: pointer;
@@ -28,11 +30,96 @@
 }
 
 .upload {
-	border: 1px dashed black;
+	/* border: 1px dashed black; */
 	padding: 0;
-	background: url(/images/plus.png) no-repeat center;
+	background: url(/images/upload.png) no-repeat center;
 }
 
 .table{
-	width: 500px;
+	width: 665px;
+}
+
+.m-left{
+	margin-left: 15%;
+	width: 665px;
+}
+
+#textshow {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #adebb1;
+    color: black;
+    text-align: center;
+    padding: 30px;
+    position: fixed;
+    z-index: 1;
+    right: 30px;
+    top: 30px;
+    font-size: 17px;
+    border-left: 6px solid #00cc00;
+    font-weight: 500;
+}
+
+.alert-danger{
+	margin-top: 2px;
+}
+
+
+
+/* popup */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
 }

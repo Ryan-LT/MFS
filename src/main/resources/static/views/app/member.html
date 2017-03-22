@@ -22,6 +22,7 @@
 <script src="../js/controller/memberController/userInfoController.js"></script>
 <script src="../js/controller/memberController/detailController.js"></script>
 <script src="../js/controller/memberController/uploadController.js"></script>
+
 <script src="js/lib/angular-1.4.9/angular-route.js"></script>
 <script src="js/lib/jquery/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
@@ -45,6 +46,7 @@
 <!-- Custom styles for this template -->
 <link href="css/member-css/style.css" rel="stylesheet">
 <link href="css/member-css/style-responsive.css" rel="stylesheet">
+<link href="css/all-style.css" rel="stylesheet">
 
 <!-- <script src="assets/js/chart-master/Chart.js"></script> -->
 
@@ -53,6 +55,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 </head>
 
 <body>
@@ -68,7 +71,7 @@
 					data-original-title="Toggle Navigation"></div>
 			</div>
 			<!--logo start-->
-			<a href="/" class="logo"><b>File Management</b></a>
+			<a class="logo">File Management</a>
 			<!--logo end-->
 			<div class="nav notify-row" id="top_menu"></div>
 			<div class="top-menu">
@@ -93,11 +96,12 @@
 							class="img-circle" width="60"></a>
 					</p> -->
 					<div class="centered">
-						<div class="img-circle"><span
-							class="fa fa-user center-content"></span></div>
+						<div class="img-circle">
+							<span class="fa fa-user center-content"></span>
+						</div>
 					</div>
 
-					<h5 class="centered"  th:text="${userName}"></h5>
+					<h5 class="centered" th:text="${userName}"></h5>
 
 					<li class="sub-menu"><a class="active" href="#/upload"> <i
 							class="fa fa-upload"></i> <span>Upload File</span>
@@ -112,6 +116,9 @@
 					</a></li>
 					<li class="sub-menu"><a href="#/userInfo"> <i
 							class="fa fa-cogs"></i> <span>Account Setting</span>
+					</a></li>
+					<li class="sub-menu"><a href="/"> <i
+							class="fa fa-cogs"></i> <span>Return Home</span>
 					</a></li>
 				</ul>
 				<!-- sidebar menu end-->
@@ -164,6 +171,7 @@
 
 	<script type="application/javascript">
 		
+		
         function myNavFunction(id) {
             $("#date-popover").hide();
             var nav = $("#" + id).data("navigation");
@@ -180,6 +188,10 @@
 			}
 		}
     
+        function myFunction() {
+    	    var popup = document.getElementById("myPopup");
+    	    popup.classList.toggle("show");
+    	}
 	
 	
 	</script>

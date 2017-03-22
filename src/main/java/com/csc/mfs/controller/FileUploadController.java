@@ -19,6 +19,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.csc.mfs.messages.Message;
 import com.csc.mfs.model.*;
 import com.csc.mfs.repository.CategoryRepository;
@@ -144,11 +147,10 @@ public class FileUploadController {
 			}
 			return ResponseEntity.ok().body(new Message(true, fileList[0].getOriginalFilename()));
 	} else {
-		return ResponseEntity.ok().body(new Message(false, fileList[0].getOriginalFilename()));
+		return ResponseEntity.ok().body(new Message(false, "maximum"));
 	}
 	
 	}
-
 	@ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
