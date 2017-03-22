@@ -1,4 +1,4 @@
-var app = angular.module('myWeb');
+var app = angular.module('member');
 
 app.controller("detail", function($scope, $routeParams, $http){
 	$scope.file="";
