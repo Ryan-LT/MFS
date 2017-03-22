@@ -7,6 +7,8 @@ package com.csc.mfs.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  *
@@ -39,7 +44,8 @@ public class Role implements Serializable {
     @Column(name = "role", nullable = false, length = 255)
     private String role;
     @ManyToMany(mappedBy = "roleList")
-    private List<User> userList;
+    @JsonIgnoreProperties({"roleList"})
+    private Set<User> userList;
 
     public Role() {
     }
@@ -69,12 +75,12 @@ public class Role implements Serializable {
         this.role = role;
     }
 
-    @XmlTransient
-    public List<User> getUserList() {
+    //@XmlTransient
+    public Set<User> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(Set<User> userList) {
         this.userList = userList;
     }
 

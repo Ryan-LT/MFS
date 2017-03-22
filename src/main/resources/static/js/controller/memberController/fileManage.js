@@ -139,3 +139,14 @@ app.controller('fileManage', function($scope, $http, $window){
     }
 	
 });
+
+
+app.filter('sizeFormat', function() {
+    return function(size) {
+        if(size>=925){
+        	return (size/1024).toFixed(2)+" Mb";
+        } else {
+        	return size.toFixed(2) +" Kb";
+        }
+    };
+});

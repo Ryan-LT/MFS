@@ -1,7 +1,6 @@
 package com.csc.mfs.controller;
 
 import java.util.Date;
-import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,7 +20,6 @@ import com.csc.mfs.service.CommentService;
 import com.csc.mfs.model.Comment;
 import com.csc.mfs.model.Files;
 import com.csc.mfs.model.User;
-import com.csc.mfs.repository.CommentRepository;
 import com.csc.mfs.repository.FilesRepository;
 import com.csc.mfs.repository.UserRepository;
 
