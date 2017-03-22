@@ -33,7 +33,6 @@ public class RoleController {
 		Role role = roleReponsitory.findOne(id);
 		role.setRole(name);
 		roleReponsitory.flush();
-		
 	}
 	
 	@RequestMapping("/delete/{id}")

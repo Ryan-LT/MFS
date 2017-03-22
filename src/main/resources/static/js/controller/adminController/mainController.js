@@ -69,7 +69,6 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 	};
 
 	$scope.editUser = function(user) {
-		//alert($scope.rank.current);
 		$scope.rankId = {
 		"id": parseInt($scope.rank.current)+1,
 		"name": "",
