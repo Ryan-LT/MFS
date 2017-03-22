@@ -14,8 +14,8 @@ app.controller("userInfo", function($scope, $http){
 		});
 	}
 	
-	$scope.changePass = function(){//changePass
-		if($scope.confirmpassword==$scope.currentPassword){
+	$scope.changePass = function(){
+		if($scope.confirmpassword == $scope.newPassword){
 			$scope.d = {
 					id: $scope.userId,
 					oldPass:$scope.currentPassword,

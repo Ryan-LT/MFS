@@ -1,0 +1,57 @@
+<h2>User Information</h2>
+<br>
+<div ng-controller="userInfo" class="form-panel">
+	<div class="input-group">
+		<span class="input-group-addon" title="Your email"> <i
+			class="fa fa-envelope"></i>
+		</span> <input readonly="readonly" id="email" type="text"
+			value="{{userInfo.email}}" class="form-control" name="email"
+			placeholder="Email">
+	</div>
+	<br>
+	<div class="input-group">
+		<span class="input-group-addon" title="Your name"> <i
+			class="fa fa-user"></i>
+		</span> <input readonly="readonly" id="displayName" value="{{userInfo.name}}"
+			type="text" class="form-control" name="displayName"
+			placeholder="Display Name">
+	</div>
+	<br>
+	<div class="input-group">
+		<span class="input-group-addon" title="Your name"> <i
+			class="fa fa-bookmark" title="Your rank"></i>
+		</span> <input readonly="readonly" id="displayName" value="{{userInfo.rankId.name}}"
+			type="text" class="form-control" name="rank" placeholder="Rank">
+	</div>
+	<form ng-submit="changePass()">
+		<h3 class="text-center">Change Password</h3>
+		<div class="input-group">
+			<span class="input-group-addon"> <i
+				class="fa fa-lock"></i>
+			</span> <input required="required" id="password" type="password"
+				class="form-control" ng-model="currentPassword" name="password"
+				placeholder="Current Password">
+		</div>
+		<br>
+		<div class="input-group">
+			<span class="input-group-addon"> <i
+				class="fa fa-edit"></i>
+			</span> <input required="required" id="password" type="password"
+				class="form-control" ng-model="newPassword" name="password"
+				placeholder="New Password">
+		</div>
+		<br>
+		<div class="input-group">
+			<span class="input-group-addon"> <i
+				class="fa fa-edit"></i>
+			</span> <input required="required" id="password" type="password"
+				class="form-control"  ng-model="confirmpassword"
+				placeholder="Confirm New Password">
+		</div>
+		{{msg}} <br>
+		<div class="btn1">
+			<button type="submit" class="btn btn-success">Save</button>
+			<button type="cancel" class="btn btn-danger">Cancel</button>
+		</div>
+	</form>
+</div>
