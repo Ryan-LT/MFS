@@ -2,28 +2,29 @@ var app = angular.module('admin');
 app.controller("mainController", function($scope, $http, userDataOp, $routeParams) {
 	$scope.selectedIndex = 0;
 	$scope.pageSum;
-	$scope.page;
-	getData('0', '5');
+	$scope.page = 0;
+	$scope.pageSize = 8;
+	getData($scope.page);
 	$scope.getNumber = function(num) {
 		return new Array(num);
 	}
 	// Get Data
 	
-	function getData(page, pageSize) {
+	function getData(page) {
 		$http({
 					method : 'get',
 					url : "http://localhost:8080/user/all/?page=" + parseInt(page)
-							+ "&size=" + parseInt(pageSize)
+							+ "&size=" + parseInt($scope.pageSize)
 			}).success(function(data, status, headers, config) {
+			$scope.page = page;
 			$scope.users = data.content;
 			$scope.pageSum = data.totalPages;
 		}).error(function(data, status, headers, config) {
 		});
 	}
 
-	$scope.getUserByPage = function(page, pageSize) {
-			getData(parseInt(page), parseInt(pageSize));
-			$scope.page = (parseInt(page));
+	$scope.getUserByPage = function(page) {
+			getData(parseInt(page), parseInt($scope.pageSize));
 			$scope.selectedIndex = page;
 	}
 
@@ -87,7 +88,7 @@ app.controller("mainController", function($scope, $http, userDataOp, $routeParam
 
 	// Exception Handling
 	var Success = function(data, status, headers, config) {
-		getData('0', '5');
+		getData($scope.page);
 	};
 
 	var Error = function(data, status, headers, config) {
