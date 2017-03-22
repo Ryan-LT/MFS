@@ -1,4 +1,4 @@
-var app = angular.module('myWeb');
+var app = angular.module('member');
 
 app.controller("download", function($scope, $http){
 	$scope.count = 0;
@@ -27,7 +27,6 @@ app.controller("download", function($scope, $http){
     
     $scope.getInfoFile = function(id){
     	$('.modal').modal('show');
-    	alert(id);
     	$http({
 			method: 'get',
 			url: "http://localhost:8080/file/get/"+id
