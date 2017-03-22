@@ -1,4 +1,4 @@
-var app = angular.module("myWeb", ["ngRoute"]);
+var app = angular.module("member", ["ngRoute"]);
 
 app.config(function($routeProvider) {
   $routeProvider
@@ -20,7 +20,7 @@ app.config(function($routeProvider) {
   })
   .when("/upload",{
 	  templateUrl: "/views/member/upload.html",
-	  controller: "upload"
+	  controller: "myCtrl"
   })
   .otherwise({
     //controller: "mainControl"
