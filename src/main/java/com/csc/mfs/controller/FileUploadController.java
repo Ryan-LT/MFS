@@ -59,20 +59,6 @@ public class FileUploadController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/upload", method = RequestMethod.GET)
-	public String listUploadedFiles(Model model) throws IOException {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		model.addAttribute("files",
-				storageService.loadAll()
-						.map(path -> MvcUriComponentsBuilder
-								.fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
-								.build().toString())
-						.collect(Collectors.toList()));
-
-		return "upload";
-	}
-
 	/**
 	 * @param This
 	 *            function is for responding to a download request
