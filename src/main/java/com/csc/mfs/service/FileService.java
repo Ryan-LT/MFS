@@ -128,36 +128,36 @@ public class FileService {
 	
 	
 	public Page<Files> findBySize(double size, Pageable pageable){
-		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
 		return fileRepository.findBySizeIsLessThanEqualAndSharing(size,1 , page);
 	}
 	
 	public Page<Files> findByNameLike(String name, Pageable pageable){
-		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
 		name = checkData(name);
 		return fileRepository.findByNameContainingAndActiveAndSharing(name, 1, 1, page);
 	}
 	
 	public Page<Files> findByUploader(String lastName, Pageable pageable){
-		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
 		lastName = checkData(lastName);
 		return fileRepository.findByUserIdLastNameContainingAndActiveAndSharing(lastName, 1, 1, page);
 	}
 	
 	public Page<Files> findByFileType(String typeFile, Pageable pageable){
-		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
 		typeFile = checkData(typeFile);
 		return fileRepository.findByIdTypeFileTypeContainingAndActiveAndSharing(typeFile, 1, 1, page);
 	}
 	
 	public Page<Files> findByCategory(String category, Pageable pageable){
-		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
 		category = checkData(category);
 		return fileRepository.findByIdTypeCategoryIdNameAndActiveAndSharing(category, 1, 1, page);
 	}
 	
 	public Page<Files> findByAll(String info, Pageable pageable){
-		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "datecomment");
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "dateupload");
 		info = checkData(info);
 		double size =0;
 		try {
