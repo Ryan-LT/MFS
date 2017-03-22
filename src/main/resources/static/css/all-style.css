@@ -3,10 +3,21 @@
 	transition: 0s;
 }
 
+a {
+	color: #2196F3;
+}
+
 .m-button {
 	background-color: #808080;
 	min-width: 40px;
 	height: 40px;
+	border: 0 solid transparent;
+}
+
+.m-button-small {
+	background-color: #808080;
+	min-width: 30px;
+	height: 30px;
 	border: 0 solid transparent;
 }
 
@@ -33,7 +44,7 @@
 /* Text Area */
 
 .m-white-text {
-	color: white;
+	color: white !important;
 }
 
 /* Background Area */
@@ -91,12 +102,29 @@
 	margin-left: 3px;
 }
 
+.m-margin-top {
+	margin-top: 3px;
+}
+
+.m-margin-bottom {
+	margin-bottom: 3px;
+}
+
 .m-text-align-left {
 	text-align: left !important;
 }
 
+.m-text-align-right {
+	text-align: right !important;
+}
+
 .m-cursor-pointer {
 	cursor: pointer;
+}
+
+.m-overflow {
+	overflow: auto;
+	height: 400px;
 }
 
 /* Table Area */
@@ -129,11 +157,38 @@
 }
 
 .m-table thead a {
-	color: white;	
+	color: white !important;	
 }
 
-.m-table tbody tr:hover {
+.m-table-hover tbody tr:hover {
 	background-color: #00BCD4 !important;
-	font-weight: bolder;
-	
+	font-weight: bolder;	
+}
+
+#m-toast-blue {
+	visibility: hidden;
+	min-width: 250px;
+	background-color: #2196F3;
+	color: white;
+	text-align: center;
+	padding: 30px;
+	position: fixed;
+	z-index: 1;
+	top: 30px;
+	right: 30px;
+}
+
+#m-toast-blue.show {
+	visibility: visible;
+	animation: fadein 1s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+	from {top: 10px; opacity: 0;}
+ 	to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadeout {
+	from {top: 30px; opacity: 1;}
+	to { top: 10px; opacity: 0;}
 }

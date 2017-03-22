@@ -1,34 +1,128 @@
 <html>
-   
-   <head>
-      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-      <script src="js/filedrag.js"></script>
-   </head>
-   <style>
-   	#fileInput{
-   	width:100px;
-   	height:100px;
-   	border: 1px solid #000;
-   	}
-   </style>
-   
-   <body ng-app = "myApp">
-      <div ng-controller = "myCtrl">
-         <input type = "file" file-model = "myFile" multiple id="fileInput"/>
-         <textarea ng-model="description"></textarea>
-         <button ng-click = "uploadFile()">upload me</button>
-         <div>
-         	<p>{{uploadMessage}}</p>
-         </div>
-         <div ng-repeat="x in list track by $index">
-         	<div>
-         		<p>{{$index+1}}</p>
-         		<p>Name: {{x.name}}</p>
-         		<p>Size: {{x.size}} Kb</p>
-         		<p>Type: {{x.type}}</p>
-         		<button ng-click="removeFile($index)" type="button">Remove File</button>
-         	</div>
-         </div>
-      </div>
-   </body>
+
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!--  <link href="css/w3.css" rel="stylesheet"> -->
+<link href="css/member-css/uploadFile.css" rel="stylesheet">
+<!--  <script src="/js/bootstrap.min.js"></script> -->
+</head>
+<style>
+</style>
+
+<body ng-app="myApp">
+	<div ng-controller="myCtrl" class="wrapper">
+	<h3>Upload File</h3>
+		<!-- <div><input class="form-control" type = "file" file-model = "myFile" multiple id="input"/></div> -->
+		<span class="btn upload"> <input class="form-control" type="file"
+			file-model="myFile" multiple id="input" /> <span
+			class="fa fa-upload"></span> 
+		</span>
+		<h4>Description</h4>
+		<div>
+			<textarea class="textArea" ng-model="description"></textarea>
+		</div>
+		<button class="btn btn-success" ng-click="uploadFile()">Upload</button>
+		<div>
+			<p>{{uploadMessage}}</p>
+		</div>
+		<h3>File Infomation</h3>
+		<div>
+			<table class="table table-striped table-hover">
+				<thead>
+					<th width="5%">#</th>
+					<th width="30%">Name</th>
+					<th width="15%">Size</th>
+					<th width="25%">Type</th>
+					<th width="25%">Action</th>
+				</thead>
+				<tbody ng-repeat="x in list track by $index">
+					<td>{{$index+1}}</td>
+					<td>{{x.name}}</td>
+					<td>{{x.size}}</td>
+					<td>{{x.type}}</td>
+					<td><button class="btn btn-danger"
+							ng-click="removeFile($index)" type="button">Remove File</button></td>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<!-- <script>
+		var uploadMessage = "";
+		var myApp = angular.module('myApp', []);
+		var list = [];
+		myApp.directive('fileModel', [ '$parse', function($parse) {
+			return {
+				restrict : 'A',
+				link : function(scope, element, attrs) {
+					var model = $parse(attrs.fileModel);
+					var modelSetter = model.assign;
+
+					element.bind('change', function() {
+
+						scope.$apply(function() {
+							// modelSetter(scope, element[0]);
+							list.length = 0;
+							for (var i = 0; i < element[0].files.length; i++) {
+								list.push(element[0].files[i]);
+							}
+
+						});
+					});
+				}
+			};
+		} ]);
+
+		myApp.service('fileUpload', [ '$http', function($https) {
+			this.uploadFileToUrl = function(file, description, uploadUrl) {
+				var fd = new FormData();
+				fd.append('file', file);
+				fd.append('description', description);
+				$https.post(uploadUrl, fd, {
+					transformRequest : angular.identity,
+					headers : {
+						'Content-Type' : undefined
+					}
+				})
+
+				.success(function() {
+					uploadMessage = "Upload " + file.name + " successfully!";
+
+				})
+
+				.error(function() {
+					uploadMessage = "Fail to upload " + file.name;
+				});
+			}
+		} ]);
+
+		myApp.controller('myCtrl', [
+				'$scope',
+				'fileUpload',
+				function($scope, fileUpload) {
+					$scope.uploadMessage = "";
+					$scope.list = list;
+					$scope.uploadFile = function() {
+						console.log('file is ');
+						console.dir(list);
+						var uploadUrl = "/upload";
+						for (var i = 0; i < list.length; i++) {
+							fileUpload.uploadFileToUrl(list[i],
+									$scope.description, uploadUrl);
+							$scope.uploadMessage = uploadMessage;
+						}
+					};
+					$scope.removeFile = function(index) {
+						$scope.list.splice(index, 1);
+						console.log(list);
+					};
+				} ]);
+	</script> -->
+	
+	 <script src="/js/filedrag.js"></script>
+</body>
 </html>

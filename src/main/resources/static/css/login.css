@@ -104,6 +104,10 @@ input[type="password"] {
 	animation: example 1.5s ease;
 }
 
+.msgFail {
+	color: red !important;
+	font-size: 12px;
+}
 @keyframes example {
     0%   {margin-top: 250px; opacity: .2}
     100% {margin-top: 150px; opacity: .9}
