@@ -7,6 +7,7 @@ package com.csc.mfs.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -26,6 +27,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  *
@@ -35,186 +37,189 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "user", catalog = "finalfresherfilesharing", schema = "")
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Integer id;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "email", nullable = false, length = 255)
-    private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "password", nullable = false, length = 255)
-    @JsonIgnore
-    private String password;
-    @Size(max = 100)
-    @Column(name = "name", length = 100)
-    private String name;
-    @Column(name = "active")
-    private Integer active;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "last_name", nullable = false, length = 255)
-    private String lastName;
-    
-    @JoinTable(name = "user_role", joinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)})
-    @ManyToMany
-    @JsonIgnore
-    private List<Role> roleList;
-    
-    @OneToMany( cascade = CascadeType.ALL ,mappedBy = "idUser")
-    @JsonIgnore
-    private List<Download> downloadList;
-    
-    @OneToMany(mappedBy = "userId")
-    @JsonIgnore
-    private List<Files> filesList;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
-    @JsonIgnore
-    private List<Comment> commentList;
-    
-    @JoinColumn(name = "rank_id", referencedColumnName = "id")
-    @ManyToOne
-    private Rank rankId;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "id", nullable = false)
+	private Integer id;
+	// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+	// message="Invalid email")//if the field contains email address consider
+	// using this annotation to enforce field validation
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 255)
+	@Column(name = "email", nullable = false, length = 255)
+	private String email;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 255)
+	@Column(name = "password", nullable = false, length = 255)
+	@JsonIgnore
+	private String password;
+	@Size(max = 100)
+	@Column(name = "name", length = 100)
+	private String name;
+	@Column(name = "active")
+	private Integer active;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 255)
+	@Column(name = "last_name", nullable = false, length = 255)
+	private String lastName;
 
-    public User() {
-    }
+	@JoinTable(name = "user_role", joinColumns = {
+			@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false) })
+	@ManyToMany
+	@JsonIgnoreProperties({ "userList" })
+	private Set<Role> roleList;
 
-    public User(Integer id) {
-        this.id = id;
-    }
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
+	@JsonIgnore
+	private List<Download> downloadList;
 
-    public User(Integer id, String email, String password, String lastName) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.lastName = lastName;
-    }
+	@OneToMany(mappedBy = "userId")
+	@JsonIgnore
+	private List<Files> filesList;
 
-    public Integer getId() {
-        return id;
-    }
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
+	@JsonIgnore
+	private List<Comment> commentList;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@JoinColumn(name = "rank_id", referencedColumnName = "id")
+	@ManyToOne
+	private Rank rankId;
 
-    public String getEmail() {
-        return email;
-    }
+	public User() {
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public User(Integer id) {
+		this.id = id;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public User(Integer id, String email, String password, String lastName) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.lastName = lastName;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public Integer getActive() {
-        return active;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setActive(Integer active) {
-        this.active = active;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public List<Role> getRoleList() {
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Set<Role> getRoleList() {
 		return roleList;
 	}
 
-	public void setRoleList(List<Role> roleList) {
+	public void setRoleList(Set<Role> roleList) {
 		this.roleList = roleList;
 	}
 
 	@XmlTransient
-    public List<Download> getDownloadList() {
-        return downloadList;
-    }
+	public List<Download> getDownloadList() {
+		return downloadList;
+	}
 
-    public void setDownloadList(List<Download> downloadList) {
-        this.downloadList = downloadList;
-    }
+	public void setDownloadList(List<Download> downloadList) {
+		this.downloadList = downloadList;
+	}
 
-    @XmlTransient
-    public List<Files> getFilesList() {
-        return filesList;
-    }
+	@XmlTransient
+	public List<Files> getFilesList() {
+		return filesList;
+	}
 
-    public void setFilesList(List<Files> filesList) {
-        this.filesList = filesList;
-    }
+	public void setFilesList(List<Files> filesList) {
+		this.filesList = filesList;
+	}
 
-    @XmlTransient
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
+	@XmlTransient
+	public List<Comment> getCommentList() {
+		return commentList;
+	}
 
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
-    }
+	public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
+	}
 
-    public Rank getRankId() {
-        return rankId;
-    }
+	public Rank getRankId() {
+		return rankId;
+	}
 
-    public void setRankId(Rank rankId) {
-        this.rankId = rankId;
-    }
+	public void setRankId(Rank rankId) {
+		this.rankId = rankId;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are
+		// not set
+		if (!(object instanceof User)) {
+			return false;
+		}
+		User other = (User) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        return "com.csc.mfs.model.User[ id=" + id + " ]";
-    }
-    
+	@Override
+	public String toString() {
+		return "com.csc.mfs.model.User[ id=" + id + " ]";
+	}
+
 }

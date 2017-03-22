@@ -5,6 +5,7 @@ import com.csc.mfs.storage.StorageProperties;
 import com.csc.mfs.storage.StorageService;
 
 import org.apache.commons.io.FilenameUtils;
+import org.glassfish.jersey.server.internal.monitoring.jmx.ExceptionMapperMXBeanImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -126,7 +127,7 @@ public class FileUploadController {
 			for (MultipartFile file : fileList) {
 				String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 				CategoriesType category = categoryRepository.findByFileType(extension);
-				if(null!=category){
+				if(null==category){
 					category = new CategoriesType(66);
 				}
 				Files fileDB = new Files();
@@ -139,8 +140,12 @@ public class FileUploadController {
 				fileDB.setSharing(1);
 				fileDB.setIdType(category);
 				fileDB.setDescription(description);
-				fileService.insertFile(fileDB);
-				storageService.store(file, Paths.get(fileDB.getPath()));
+				try{
+					storageService.store(file, Paths.get(fileDB.getPath()));
+					fileService.insertFile(fileDB);	
+				} catch(Exception e){
+					return ResponseEntity.ok().body(new Message(false, fileList[0].getOriginalFilename()));
+				}
 				fileService.afterUpload(user.getId(), file.getSize() / 1024.0);
 			}
 			return ResponseEntity.ok().body(new Message(true, fileList[0].getOriginalFilename()));

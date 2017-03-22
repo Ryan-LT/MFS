@@ -376,7 +376,7 @@
 										ng-repeat="file in files.content  | filter:filterFile | orderBy:sortType:sortReverse track by $index">
 										<td>{{$index+1}}</td>
 										<td class="m-text-align-left">{{file.name}}</td>
-										<td>{{file.size | number:2}} Kb</td>
+										<td>{{file.size | sizeFormat}}</td>
 										<td>{{file.dateupload | date:'dd-MM-yyyy'}}</td>
 										<td>{{file.userId.name}}</td>
 										<td><span th:if="${userName} == null">
