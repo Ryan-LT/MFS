@@ -7,6 +7,13 @@ app.controller('myCtrl', [
 			$scope.list = list;
 			console.log("Runned");
 			$scope.uploadFile = function() {
+				
+				var a = document.getElementById("m-toast-blue");
+				a.className = "show";
+				setTimeout(function() {
+					a.className = a.className.replace("show", "");
+				}, 3000);
+				
 				console.log('file is ');
 				console.dir(list);
 				var uploadUrl = "/upload";
