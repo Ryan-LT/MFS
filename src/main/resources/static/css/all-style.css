@@ -1,11 +1,25 @@
-/* Button Area */
-* {
-	transition: 0s;
+button, a {
+	transition: .2s;
 }
 
 a {
 	color: #2196F3;
 }
+
+a:hover {
+	text-decoration: none;
+}
+
+.body {
+	background-color: #ECEFF1;
+}
+
+.row {
+	margin-right: 0;
+}
+/* Button Area */
+
+
 
 .m-button {
 	background-color: #808080;
@@ -34,6 +48,15 @@ a {
 	background-color: #fff;	
 }
 
+.m-button:hover, .m-button-large:hover {
+	cursor: pointer;
+	background-color: #fff;	
+}
+
+.m-button[disabled] {
+	opacity: 0.65;
+	cursor: not-allowed;
+}
 
 .m-button-circle {
 	border-radius: 50%;
@@ -47,6 +70,26 @@ a {
 	color: white !important;
 }
 
+.m-red-text {
+	color: #F44336 !important;
+}
+
+.m-blue-text {
+	color: #2196F3 !important;
+}
+
+.m-green-text {
+	color: #4CAF50 !important;
+}
+
+.m-orange-text {
+	color: #FFC107 !important;
+}
+
+.m-violet-text {
+	color: #673AB7 !important;
+}
+
 /* Background Area */
 
 
@@ -58,11 +101,20 @@ a {
 	background-color: #B71C1C;
 }
 
+.m-red-border-color {
+	border-color: #F44336 !important;
+}
+
 .m-green {
 	background-color: #4CAF50;
 }
 
 .m-green-hover:hover {
+	background-color: #1B5E20;
+	color: white;
+}
+
+.m-green-hover.active {
 	background-color: #1B5E20;
 	color: white;
 }
@@ -90,6 +142,14 @@ a {
 
 .m-orange-hover:hover {
 	background-color: #FF6F00;
+}
+
+.m-violet {
+	background-color: #673AB7 !important;
+}
+
+.m-violet-hover:hover {
+	background-color: #311B92 !important;
 }
 
 /* Display Area */
@@ -150,10 +210,10 @@ a {
 }
 
 .m-table tbody tr:nth-child(odd) {
-	background-color: #E0F7FA !important;
+	background-color: white !important;
 }
 .m-table tbody tr:nth-child(even) {
-	background-color: #B2EBF2 !important;
+	background-color: #E0F7FA !important;
 }
 
 .m-table thead a {
@@ -161,9 +221,110 @@ a {
 }
 
 .m-table-hover tbody tr:hover {
-	background-color: #00BCD4 !important;
+	/* background-color: #75eeff!important; */
 	font-weight: bolder;	
 }
+
+/* Vertical Navigation Bar Area */
+
+.m-vnar-bar {
+	background-color: white;
+	padding-bottom: 800px;
+	width: 100%;
+}
+
+.m-vnar-bar-title {
+	text-align: center !important;
+	font-size: 18px !important;
+	background-color: #4CAF50 !important;
+	color: white !important;
+}
+
+.m-vnar-bar-fa-avatar {
+	font-size: 70px;
+	color: black;
+	text-align: center;
+	margin: 30px 0;
+}
+
+.m-vnar-bar button {
+	background-color: inherit;
+	color: black;
+	border: 0 solid transparent;
+	width: 100%;
+	font-size: 15px;
+	text-align: left;
+	padding: 5px;
+}
+
+.m-vnar-bar button i {
+	font-size: 20px;
+}
+
+.m-vnar-bar button:hover {
+	background-color: #808080;
+	color: white;
+}
+
+.m-vnar-bar button.active {
+	background-color: white;
+	color: #009688;
+	border: 0 solid transparent;
+	outline: none;
+}
+
+/* Card Area */
+
+.m-card {
+	width: 100%;	
+	box-shadow: 1px 1px 1px #8c8c8c;
+}
+
+.m-card table {
+	width: 100%;
+}
+
+.m-card-body {
+	background-color: white;
+	margin: auto;
+	padding: 10px;
+}
+
+.m-card-info {
+	vertical-align: top;
+	text-align: right !important;
+}
+
+.m-card .t1 {
+	font-size: 40px;
+	font-weight: 700;
+}
+
+.m-card .t2 {
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.m-card .t3 {
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.m-card-body i {
+	font-size: 80px;
+	text-align: center;
+	padding: 10px;
+}
+
+.m-card footer {
+	margin-top: 0px;
+	cursor: pointer;
+	text-align: left;
+	padding: 5px 15px;
+}
+
+
+/* Toast Area */
 
 #m-toast-blue {
 	visibility: hidden;
@@ -182,6 +343,8 @@ a {
 	visibility: visible;
 	animation: fadein 1s, fadeout 0.5s 2.5s;
 }
+
+/* Animation Area */
 
 @keyframes fadein {
 	from {top: 10px; opacity: 0;}
