@@ -1,14 +1,14 @@
 var app = angular.module('admin');
 app.controller("dashBoardController", function($scope, $http, $routeParams) {
-
 	
+	$scope.textNum;
+	$scope.graphicNum;
+	$scope.spreadsheettNum;
 	$scope.ranks = null;
 	getInfor();
 	$scope.listUserRank=[];
 	
-	$scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-	$scope.data = [300, 500, 100];
-
+	
 	function getInfor() {
 		countUser();
 		countFile();
@@ -107,3 +107,4 @@ app.controller("dashBoardController", function($scope, $http, $routeParams) {
 			});
 	}
 });
+
