@@ -1,0 +1,22 @@
+﻿use members
+select * from dbo.infoUser
+delete dbo.infoUser where age = 37;
+rollback;
+commit;
+set xact_abort on
+SET XACT_ABORT ON
+declare	@check int =0;
+begin tran
+	begin try
+		insert into dbo.infoUser(name, age, email) values('vưeqwemxv', '223', 'xxx@gmail.com')
+		insert into dbo.infoUser(name, age, email) values('vmqưeqwevx', '223', 'xxx@gmail.com')
+		set @check =1;
+		commit
+	end try
+	begin catch
+		ROLLBACK
+		DECLARE @ErrorMessage VARCHAR(2000)
+		SELECT @ErrorMessage = 'Lỗi: ' + ERROR_MESSAGE()
+		RAISERROR(@ErrorMessage, 16, 1)
+   end catch
+   
