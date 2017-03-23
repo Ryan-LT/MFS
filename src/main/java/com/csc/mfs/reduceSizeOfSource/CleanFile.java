@@ -1,6 +1,5 @@
 package com.csc.mfs.reduceSizeOfSource;
 
-import java.io.IOException;
 import java.nio.file.*;
 import java.util.Date;
 import java.util.List;
