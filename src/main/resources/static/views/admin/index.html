@@ -80,7 +80,6 @@
 			</div>
 			<div class="modal-body">
 				<div ng-show="editBlock">
-
 					<form class="form-horizontal css-form" name="editForm"
 						ng-submit="editUser(user)">
 						<label>Email:</label> <input type="email"
@@ -92,6 +91,14 @@
 						<select class="form-control" ng-model="rank.current">
 							<option ng-repeat="name in rank.names" value="{{name.id}}">{{name.name}}</option>
 						</select>
+						
+						<label>Role:</label>
+						<div ng-repeat="role in roles track by $index">
+							<input id="{{role.role}}"  type="checkbox" ng-model="user.roleList[$index]" ng-checked="checkRole(role.id)" value="role.role">{{role.role}}
+						</div>
+						
+						
+						
 						<div class="modal-footer">
 							<button type="submit" ng-disabled="editForm.$invalid"
 								class="btn m-btn-edit" onclick="closeModal('edit')">Save

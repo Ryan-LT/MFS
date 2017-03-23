@@ -1,4 +1,4 @@
-var app = angular.module('myWeb');
+var app = angular.module('member');
 
 app.controller("download", function($scope, $http){
 	$scope.count = 0;
@@ -27,7 +27,6 @@ app.controller("download", function($scope, $http){
     
     $scope.getInfoFile = function(id){
     	$('.modal').modal('show');
-    	alert(id);
     	$http({
 			method: 'get',
 			url: "http://localhost:8080/file/get/"+id
@@ -49,29 +48,4 @@ app.controller("download", function($scope, $http){
 		});
     	getComment(id);
     }
-    
-    function getComment(id){
-    	$http({
-    		method: 'get',
-    		url: "http://localhost:8080/comment/getByFile/" + id
-    	}).success(function(data, status, headers, config){
-    		$scope.comments = data;
-    	})
-    	.error(function(data, status, headers, config){});
-    }
-    
-    $scope.saveComment = function(id){
-		$scope.contentComment = {
-				content: $scope.content,
-		    	idFile: id
-		}
-		$http.post("http://localhost:8080/comment/saveComment", $scope.contentComment)
-		.success(function(data, status, headers, config){
-			getComment(id);
-			$scope.content="";
-		})
-		.error(function(data, status, headers, config){
-			alert("fail");
-		});
-	}
 });

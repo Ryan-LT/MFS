@@ -29,6 +29,8 @@ app.controller("fileController", function($scope, $http, fileDataOp,
 		});
 	}
 	$scope.deleteFile = function(id) {
-		fileDataOp.deleteFile(id).then(Success, Error);
+		if(confirm("Are you sure delete this file ?")){
+			fileDataOp.deleteFile(id).then(Success, Error);
+		}
 	};
 });
