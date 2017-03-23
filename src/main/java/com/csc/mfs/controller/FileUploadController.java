@@ -141,6 +141,7 @@ public class FileUploadController {
 					storageService.store(file, Paths.get(fileDB.getPath()));
 					fileService.insertFile(fileDB);	
 				} catch(Exception e){
+					e.printStackTrace();
 					return ResponseEntity.ok().body(new Message(false, fileList[0].getOriginalFilename()));
 				}
 				fileService.afterUpload(user.getId(), file.getSize() / 1024.0);

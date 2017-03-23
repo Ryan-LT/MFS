@@ -79,7 +79,7 @@ public class UserService {
 		if (bCryptPasswordEncoder.matches(oldPass, user.getPassword())) {
 			user.setPassword(bCryptPasswordEncoder.encode(newPass));
 			userRepository.flush();
-			return (new Message(true, "Seccussful"));
+			return (new Message(true, "Sucessfully"));
 		} else {
 			return (new Message(false, "Old password is wrong!"));
 		}
@@ -129,5 +129,4 @@ public class UserService {
 		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "name");
 		return userRepository.findByNameContaining(name, page);
 	}
-	
 }

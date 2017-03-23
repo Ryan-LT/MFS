@@ -54,7 +54,7 @@ app.directive('fileModel', [ '$parse', function($parse) {
 					var listContainTooLargeFile = false;
 					for (var i = 0; i < element[0].files.length; i++) {
 						var notEligibleFile = "";
-						if(element[0].files[i].size<1024*2014){
+						if(element[0].files[i].size<1024*1024*100){
 							list.push(element[0].files[i]);
 						} else {
 							listContainTooLargeFile = true;
