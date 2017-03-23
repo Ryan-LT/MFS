@@ -19,13 +19,13 @@ import com.csc.mfs.reduceSizeOfSource.CleanFile;
 
 @RestController
 @EnableScheduling
-public class TriggerCleanFile implements SchedulingConfigurer {
+public class TriggerCleanFile {// implements SchedulingConfigurer
 	@Autowired
 	private CleanFile cleanFile;
 	private static final Logger logger = LoggerFactory.getLogger(TriggerCleanFile.class);
 	//private String cronConfig="* 14 * * * *";
 	
-	@RequestMapping("/scheduled/cleanFile/")
+	/*@RequestMapping("/scheduled/cleanFile/")
 	@Override
 	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
 		taskRegistrar.addTriggerTask(new Runnable() {
@@ -48,7 +48,7 @@ public class TriggerCleanFile implements SchedulingConfigurer {
 	public String configCron(){
 		Date date = new Date();
 		return "* "+(date.getMinutes()+1)+" * * * *"; 
-	}
+	}*/
 		
 	
 	
