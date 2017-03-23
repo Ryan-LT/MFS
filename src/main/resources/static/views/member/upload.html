@@ -17,17 +17,17 @@
 			type="file" file-model="myFile" multiple id="input" />
 		</span> </span>
 
-		<h4>Description</h4>
+		<h5>Add your description here:</h5>
 		<div>
 			<textarea class="textArea" ng-model="description"></textarea>
 		</div>
-		<button class="btn btn-success">Upload</button>
+		<!-- <button class="btn btn-success">Upload</button> -->
 
-		<div class="alert alert-danger" ng-click="uploadFile()">{{uploadMessage}}</div>
+		<!-- <div class="alert alert-danger" ng-click="uploadFile()">{{uploadMessage}}</div> -->
 
 		<div class="popup">
 			<button class="btn btn-success" ng-click="uploadFile()">Upload</button>
-			<span class="popuptext" id="myPopup"> {{uploadMessage}} </span>
+			<p class="popuptext" id="myPopup">{{uploadMessage}}</p>
 		</div>
 		<div>
 			<p id="myNotice"></p>
