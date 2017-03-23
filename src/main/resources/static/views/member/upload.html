@@ -1,34 +1,33 @@
 <html>
 <head>
-<script
-	src="js/lib/angular-1.4.9/angular.js"></script>
+<script src="js/lib/angular-1.4.9/angular.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!--  <link href="css/w3.css" rel="stylesheet"> -->
 <link href="css/member-css/uploadFile.css" rel="stylesheet">
 <!--  <script src="/js/bootstrap.min.js"></script> -->
 </head>
-<style>
-</style>
 
 <body ng-app="myApp">
-	<h2><i class="fa fa-angle-right"></i> Upload File</h2>
+	<h2>
+		<i class="fa fa-angle-right"></i> Upload File
+	</h2>
 	<div class="m-left">
 		<!-- <div><input class="form-control" type = "file" file-model = "myFile" multiple id="input"/></div> -->
-		<span class="btn upload"> <input class="form-control" type="file"
-			file-model="myFile" multiple id="input" /> </span> 
-		</span>
-		
+		<span class="btn upload"> <input class="form-control"
+			type="file" file-model="myFile" multiple id="input" />
+		</span> </span>
+
 		<h4>Description</h4>
 		<div>
 			<textarea class="textArea" ng-model="description"></textarea>
 		</div>
-		<button class="btn btn-success" ng-click="uploadFile()">Upload</button>
-		
-		<div class="alert alert-danger">{{uploadMessage}}</div>
+		<button class="btn btn-success">Upload</button>
 
-		<div class="popup" onclick="myFunction()">
-			<button class="btn btn-success" ng-click="uploadFile()">Upload</button> <span class="popuptext" id="myPopup">
-				<div>{{uploadMessage}}</div></span>
+		<div class="alert alert-danger" ng-click="uploadFile()">{{uploadMessage}}</div>
+
+		<div class="popup">
+			<button class="btn btn-success" ng-click="uploadFile()">Upload</button>
+			<span class="popuptext" id="myPopup"> {{uploadMessage}} </span>
 		</div>
 
 		<h3>File Infomation</h3>
@@ -39,7 +38,6 @@
 					<th width="30%">Name</th>
 					<th width="15%">Size</th>
 					<th width="20%">Type</th>
-					<th width="20%">Description</th>
 					<th width="10%">Action</th>
 				</thead>
 				<tbody ng-repeat="x in list track by $index">
@@ -47,13 +45,12 @@
 					<td>{{x.name}}</td>
 					<td>{{x.size}}</td>
 					<td>{{x.type}}</td>
-					<td><textarea ng-model="description"></textarea></td>
 					<td><button class="btn btn-danger"
 							ng-click="removeFile($index)" type="button">Remove File</button></td>
 				</tbody>
 			</table>
 		</div>
 	</div>
-	
+	<span id="m-toast-blue">{{uploadMessage}}</span>
 </body>
 </html>

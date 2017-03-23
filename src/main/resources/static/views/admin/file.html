@@ -1,10 +1,10 @@
 <div class="main-header">File Management</div>
 
-<table class="table table-striped">
+<table class="table m-table m-table-hover">
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>Name</th>
+			<th width="30%">Name</th>
 			<th>Dateupload</th>
 			<th>User</th>
 			<th>Action</th>
@@ -18,7 +18,8 @@
 			<td>{{file.userId.name}}</td>
 			<td>
 				<button ng-click="deleteFile(f[0])" type="button"
-					class="btn btn-danger btn-circle" onclick="myToast('del')">
+					class="m-button m-button-circle m-red m-red-hover m-white-text"
+					onclick="myToast('del')">
 					<span style="color: white"
 						class="glyphicon glyphicon-glyphicon glyphicon-trash"></span>
 				</button>
@@ -26,17 +27,28 @@
 		</tr>
 	</tbody>
 </table>
-<ul class="list-inline">
-	<li><button class="btn m-btn"
-			ng-click="getFileByPage(page=page-1)" ng-disabled="page-1<0"><<</button></li>
-	<li ng-repeat="i in getNumber(pageSum) track by $index">
-		<button ng-class="{'active': $index == selectedIndex }"
-			class="btn m-btn" ng-click="getFileByPage($index)">{{$index+1}}</button>
-	</li>
-	<li><button class="btn m-btn"
-			ng-click="getFileByPage(page=page+1)" ng-disabled="page+1>=pageSum">>></button></li>
-
-</ul>
+<div class="row">
+	<div class="col-md-5"></div>
+	<div class="col-md-5">
+		<div class="m-inline">
+			<div class="m-inline">
+				<button class="m-button m-green m-green-hover m-white-text"
+					ng-click="getFileByPage(page=page-1)" ng-disabled="page-1<0">Prev</button>
+			</div>
+			<div class="m-inline m-margin-left"
+				ng-repeat="i in getNumber(pageSum) track by $index">
+				<button ng-class="{'active': $index == selectedIndex }"
+					class="m-button m-green m-green-hover m-white-text"
+					ng-click="getFileByPage($index)">{{$index+1}}</button>
+			</div>
+			<div class="m-inline m-margin-left">
+				<button class="m-button m-green m-green-hover m-white-text"
+					ng-click="getFileByPage(page=page+1)"
+					ng-disabled="page+1>=pageSum">Next</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div id="textshow"></div>
 
