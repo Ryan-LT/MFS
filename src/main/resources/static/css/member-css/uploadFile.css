@@ -15,6 +15,7 @@
 	width: 665px;
 	max-width: 665px;
 	max-height: 300px;
+	border-radius: 4px;
 }
 
 #input {
