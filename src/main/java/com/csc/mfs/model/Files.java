@@ -41,11 +41,11 @@ public class Files implements Serializable {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Size(max = 45)
-    @Column(name = "name", length = 45)
+    @Size(max = 255)
+    @Column(name = "name", length = 255)
     private String name;
-    @Size(max = 45)
-    @Column(name = "path", length = 45)
+    @Size(max = 255)
+    @Column(name = "path", length = 255)
     private String path;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "size", precision = 22)

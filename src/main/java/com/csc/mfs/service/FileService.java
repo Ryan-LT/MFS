@@ -122,7 +122,7 @@ public class FileService {
 	 * @param file
 	 */
 	public void insertFile(Files file){
-		file.setActive(1);
+		//file.setActive(1);
 		fileRepository.save(file);
 	}
 	

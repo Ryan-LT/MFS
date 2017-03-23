@@ -1,5 +1,0 @@
-fsutil file createnew d:\temp\1mbfile.txt 1000000
-
--- Mean create a file with name 1mbfile in d:\temp\ with 1 mb file size.
--- Can't create same name file at the same location.
--- Can't auto create path (File path must not be wrong)
