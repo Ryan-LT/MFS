@@ -130,7 +130,7 @@
 						<li>
 							<div class="dropdown">
 								<a href="/login" th:if="${userName} == null"><button
-										class="btn navbar-btn m-btn m-green m-green-hover m-white-text">Sign
+										class="m-btn m-button navbar-btn m-green m-green-hover m-white-text">Sign
 										In</button></a>
 
 							</div>
@@ -139,9 +139,9 @@
 							<div class="dropdown">
 								<a th:if="${userName} != null">
 									<button
-										class="btn navbar-btn m-btn m-green m-green-hover m-white-text">
+										class="m-button navbar-btn m-green m-green-hover m-white-text">
 										<span class="fa fa-user"></span> <span th:text="${userName}"
-											class="user-span"> ${userName} </span>
+											class="user-span">${userName}</span>
 									</button>
 								</a>
 								<div class="dropdown-content">
