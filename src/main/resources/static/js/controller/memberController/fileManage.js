@@ -136,7 +136,7 @@ app.controller('fileManage', function($scope, $http, $window){
 			data: $scope.file
 		}).success(function(data, status, headers, config){
 			$scope.msgSave ="Update successful";
-			$scope.description_ = "";
+			//$scope.description_ = "";
 		})
 		.error(function(data, status, headers, config){
 			$scope.msgSave ="Update fail";

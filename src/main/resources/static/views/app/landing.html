@@ -125,8 +125,10 @@
 						<li><a href="#category"><span class="btnicon icon-grid"></span>Category</a></li>
 						<li><a href="#explore"><span class="btnicon icon-list"></span>Explore</a></li>
 						<li><a href="#team"><span class="btnicon icon-users"></span>Team</a></li>
-						<li><a href="#about"><span class="btnicon icon-question"></span>About Us</a></li>
-						<li><a href="/member#/upload" class="m-white-text"><span class="btnicon icon-arrow-up"></span>UPLOAD</a></li>
+						<li><a href="#about"><span class="btnicon icon-question"></span>About
+								Us</a></li>
+						<li><a href="/member#/upload" class="m-white-text"><span
+								class="btnicon icon-arrow-up"></span>UPLOAD</a></li>
 						<li>
 							<div class="dropdown">
 								<a href="/login" th:if="${userName} == null"><button
@@ -262,9 +264,9 @@
 				<a href="#explore" ng-click="searchFile('Category','Multimedia')"><img
 					src="images/s5.png" alt="" height="100px" width="100px"></a>
 				<h4>MULTIMEDIA</h4>
-				<p>Multimedia is content that uses a combination of different content 
-				forms such as audio, images, animations, video and interactive 
-				content.</p>
+				<p>Multimedia is content that uses a combination of different
+					content forms such as audio, images, animations, video and
+					interactive content.</p>
 			</div>
 			<!-- ITEM END -->
 
@@ -273,9 +275,9 @@
 					<img src="images/s6.png" alt="" height="100px" width="100px">
 				</a>
 				<h4>COMPRESSION</h4>
-				<p>One or more files with the same data at a size substantially 
-				smaller than the original file. File compression is also known
-				 as file zipping.</p>
+				<p>One or more files with the same data at a size substantially
+					smaller than the original file. File compression is also known as
+					file zipping.</p>
 			</div>
 			<!-- ITEM END -->
 		</div>
@@ -633,14 +635,14 @@
 									</tr>
 								</table>
 								<h4>Description:</h4>
-								<textarea ng-model="description_" th:if="${userName} != null"
-									class="form-control m-overflow" rows="4">{{fileDetail.description}}</textarea>
+								<textarea readonly="readonly"
+									class="form-control m-overflow" rows="4">{{fileDetail.description}}</textarea><!-- th:if="${userName} != null" -->
 
-								<div class="m-text-align-right" th:if="${userName} != null">
+								<!-- <div class="m-text-align-right" th:if="${userName} != null">
 									<button
 										class="m-button m-blue m-blue-hover m-white-text m-margin-top"
 										ng-click="saveChange(fileDetail.id)">Save Change</button>
-								</div>
+								</div> -->
 							</div>
 							<p>{{msgSave}}</p>
 						</div>
@@ -658,13 +660,13 @@
 							</form>
 							<div class="m-overflow">
 								<table class="table">
+									<caption>Comment</caption>
 									<tr ng-repeat="comment in comments.content">
-										<td><a href="">{{comment.idUser.name}}:</a>
+										<td>
+											<a href="">{{comment.idUser.name}}:</a>
 											{{comment.content}}
-											<div>
-												{{comment.likeComment}} <a href="" ng-click="increase()">
-													like</a> | {{comment.dateComment}}
-											</div></td>
+											<div>Date: {{comment.dateComment}}</div>
+										</td>
 								</table>
 							</div>
 
