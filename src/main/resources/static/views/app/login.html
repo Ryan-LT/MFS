@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="login">
+<head>
+<title>Login</title>
+<script src="/js/lib/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="\css\login.css" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+<body class="body" ng-controller="loginController">
+	<div id="div2" class="container loginAnim" style="margin-top: 150px">
+		<form th:action="@{/login}" method="POST" class="form">
+			<div class="form-signin-heading">Login</div>
+			<br />
+			<div class="input-group">
+				<span class="input-group-addon add-on"> <i
+					class="glyphicon glyphicon-user"></i>
+				</span> <input type="text" class="form-control" id="email" name="email"
+					placeholder="Email"> </span>
+			</div>
+			<br />
+
+			<div class="input-group">
+				<span class="input-group-addon add-on"> <i
+					class="glyphicon glyphicon-lock"></i></span> <input type="password"
+					id="password" name="password" placeholder="Password"
+					class="form-control" />
+			</div>
+
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" /> <br>
+			<div id="valid" align="center" th:if="${param.error}">
+				<p style="font-size: 20; color: #FF1C19;">Email or Password
+					invalid, please verify <br> <a href="" ng-click="forgetPassword()">Forget password</a></p>
+			</div>
+			<button class="btn btn-lg button-login btn-block" name="Submit"
+				value="Login" type="Submit" th:text="Login"></button>
+		</form>
+
+		<br>
+
+		<form class="form" th:action="@{/registration}" method="get">
+			<div class="form-signup-heading">You don't have an account?</div>
+			<button class="btn btn-lg button-signup btn-block" type="Submit">Create
+				Account</button>
+		</form>
+
+		<div class="modal fade" id="editModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content m-modal-content">
+					<div class="modal-header m-modal-header-edit">
+						<button type="button" class="close m-close-button"
+							data-dismiss="modal">&times;</button>
+						<h2 class="modal-title text-center">Forget Password</h2>
+					</div>
+					<div class="modal-body">
+						<form ng-submit="verify()" ng-show="checkVerify">
+							<label>Enter your email:</label><br> <input type="email"
+								ng-model="yourEmail" class="form-control" required="required">
+							<i class="msgFail">{{msg}}</i>
+							<button class="btn btn-primary btn-block">Verify</button>
+						</form>
+						<p class="text-center" ng-show="!checkVerify">Please check your mail to reset
+							password, if it's not in inbox, let check all spam or mail</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+		var a = document.getElementById("valid");
+		var b = $("#div2");
+		if (a.textContent != "") {
+			b.removeClass("loginAnim");
+		}
+	</script>
+	<script src="/js/lib/angular-1.4.9/angular.js"></script>
+	<script src="/js/lib/angular-1.4.9/angular-resource.js"></script>
+	<script src="/js/lib/angular-1.4.9/angular-route.js"></script>
+	<script src="/js/controller/loginController/login.js"></script>
+</body>
+</html>
