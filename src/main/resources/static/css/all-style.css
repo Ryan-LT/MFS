@@ -26,6 +26,7 @@ a:hover {
 	min-width: 40px;
 	height: 40px;
 	border: 0 solid transparent;
+	border-radius: 3px;
 }
 
 .m-button-small {
@@ -90,15 +91,23 @@ a:hover {
 	color: #673AB7 !important;
 }
 
+.m-teal-text {
+	color: #009688 !important;
+}
+
+.m-bluegray-text {
+	color: #607D8B !important;
+}
+
 /* Background Area */
 
 
 .m-red {	
-	background-color: #F44336;
+	background-color: #F44336 !important;
 }
 
 .m-red-hover:hover {
-	background-color: #B71C1C;
+	background-color: #B71C1C !important;
 }
 
 .m-red-border-color {
@@ -106,42 +115,42 @@ a:hover {
 }
 
 .m-green {
-	background-color: #4CAF50;
+	background-color: #4CAF50 !important;
 }
 
 .m-green-hover:hover {
-	background-color: #1B5E20;
+	background-color: #1B5E20 !important;
 	color: white;
 }
 
 .m-green-hover.active {
-	background-color: #1B5E20;
+	background-color: #1B5E20 !important;
 	color: white;
 }
 
 .m-blue {
-	background-color: #2196F3;
+	background-color: #2196F3 !important;
 }
 
 .m-blue-hover:hover {
-	background-color: #0D47A1;
+	background-color: #0D47A1 !important;
 	color: white;
 }
 
 .m-teal {
-	background-color: #009688;
+	background-color: #009688 !important;
 }
 
 .m-teal-hover:hover {
-	background-color: #004D40;
+	background-color: #004D40 !important;
 }
 
 .m-orange {
-	background-color: #FFC107;
+	background-color: #FFC107 !important;
 }
 
 .m-orange-hover:hover {
-	background-color: #FF6F00;
+	background-color: #FF6F00 !important;
 }
 
 .m-violet {
@@ -150,6 +159,14 @@ a:hover {
 
 .m-violet-hover:hover {
 	background-color: #311B92 !important;
+}
+
+.m-pink {
+	background-color: #E91E63 !important;
+}
+
+.m-bluegray {
+	background-color: #607D8B !important;
 }
 
 /* Display Area */
@@ -189,6 +206,10 @@ a:hover {
 .m-overflow {
 	overflow: auto;
 	height: 400px;
+}
+
+.m-opacity-8 {
+	opacity: .8;
 }
 
 /* Table Area */
@@ -282,6 +303,7 @@ a:hover {
 .m-card {
 	width: 100%;	
 	box-shadow: 1px 1px 1px #8c8c8c;
+	margin-bottom: 5px;
 }
 
 .m-card table {
@@ -310,7 +332,12 @@ a:hover {
 }
 
 .m-card .t3 {
-	font-size: 18px;
+	font-size: 15px;
+	font-weight: 400;
+}
+
+.m-card .t4 {
+	font-size: 12px;
 	font-weight: 500;
 }
 
@@ -320,6 +347,12 @@ a:hover {
 	padding: 10px;
 }
 
+.m-card-body i.sm {
+	font-size: 30px !important;
+	padding: 5px;
+}
+
+
 .m-card footer {
 	margin-top: 0px;
 	cursor: pointer;
@@ -327,6 +360,24 @@ a:hover {
 	padding: 5px 15px;
 }
 
+.m-card-sm table {
+	width: 100%;
+}
+
+/* Page Header */
+
+.m-h1 {
+	font-size: 50px;
+	padding-top: 50px;
+	border-bottom: 2px solid #607D8B;
+}
+
+.m-h2 {
+	font-size: 30px;
+	padding-top: 50px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #607D8B;
+}
 
 /* Toast Area */
 

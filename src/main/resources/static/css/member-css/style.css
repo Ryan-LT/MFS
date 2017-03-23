@@ -1855,3 +1855,13 @@ label {
 .btn1{
 	text-align: center;
 }
+
+.form-panel{
+	width: 70%;
+	margin-left: 15%;
+	margin-right: 15%;	
+}
+ 
+.custombtn{
+	background: #ff7979;
+}
