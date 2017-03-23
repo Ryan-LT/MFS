@@ -3,6 +3,7 @@ var app = angular.module('member');
 app.controller('fileManage', function($scope, $http, $window){
     //this.files = storage;
 	
+	$scope.description_ = "";
 	
 	$scope.content = "";
 	$scope.pageSize = 8;
@@ -135,6 +136,7 @@ app.controller('fileManage', function($scope, $http, $window){
 			data: $scope.file
 		}).success(function(data, status, headers, config){
 			$scope.msgSave ="Update successful";
+			$scope.description_ = "";
 		})
 		.error(function(data, status, headers, config){
 			$scope.msgSave ="Update fail";

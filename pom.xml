@@ -80,37 +80,35 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		
+		<!-- Ehcache -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cache</artifactId>
+		    <groupId>net.sf.ehcache</groupId>
+		    <artifactId>ehcache</artifactId>
+		    <version>2.10.2.2.21</version>
 		</dependency>
-		
-		
-		<dependency>
+		 <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
+            <version>4.3.7.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <version>4.3.7.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
+            <version>4.3.7.RELEASE</version>
         </dependency>
-        <!-- EHCache -->
-        <!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
-		<dependency>
-    <groupId>net.sf.ehcache</groupId>
-    <artifactId>ehcache</artifactId>
-    <version>2.10.2.2.21</version>
-		</dependency>
-        <!-- SLF4J/Logback -->
+        
+         <!-- SLF4J/Logback -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.1.7</version>
-        </dependency>     
+            <version>1.1.11</version><!--$NO-MVN-MAN-VER$-->
+        </dependency>  
 	</dependencies>
 
 	<build>

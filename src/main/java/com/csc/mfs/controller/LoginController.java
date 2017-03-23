@@ -92,6 +92,7 @@ public class LoginController {
 		User user = userService.findUserByEmail(auth.getName());
 		if (null != user) {
 			modelAndView.setViewName("admin");
+			modelAndView.addObject("userId", user.getId());
 		} else {
 			modelAndView.setViewName("login");
 		}

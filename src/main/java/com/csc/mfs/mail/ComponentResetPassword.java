@@ -3,6 +3,7 @@ package com.csc.mfs.mail;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,11 @@ public class ComponentResetPassword {
 		} else {
 			return null;
 		}
+		
+	}
+	
+	@CacheEvict(value="passwordConfirm", allEntries=true)
+	public void refreshConfirm(){
 		
 	}
 }

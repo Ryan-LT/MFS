@@ -1,4 +1,4 @@
-var app = angular.module('member');
+var app = angular.module('admin');
 
 app.controller("userInfo", function($scope, $http){
 	$scope.rankName="";
