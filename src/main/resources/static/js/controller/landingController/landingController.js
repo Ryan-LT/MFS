@@ -38,6 +38,7 @@ app.controller("landingController", function($scope, $http, $window, $routeParam
 		$scope.Selectedtype = Selectedtype;
 		$scope.infoSearch = infoSearch;
 		$scope.page = page;
+		$scope.selectedIndex = page;
 	}
 	
 	function searchFile(Selectedtype, infoSearch, page, pageSize) {

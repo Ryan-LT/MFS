@@ -123,7 +123,10 @@ public class FileUploadController {
 					String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 					CategoriesType category = categoryRepository.findByFileType(extension);
 					if(null==category){
-						category = new CategoriesType(66);
+						category = categoryRepository.findByCategoryIdId(7);
+						if(null==category){
+							category = new CategoriesType(66);	
+						}
 					}
 					Files fileDB = new Files();
 					fileDB.setName(file.getOriginalFilename());
