@@ -1,98 +1,212 @@
-<h1>Dashboard</h1>
-<ul ng-repeat="l in listUserRank">
-	<li>{{l.rankName}},{{l.data}}</li>
-</ul>
-<ul>
-  <li>textNum, {{textNum}}</li>
-  <li>graphicNum, {{graphicNum}}</li>
-  <li>spreadsheettNum, {{spreadsheettNum}}</li>
-  <li>presentationNum, {{presentationNum}}</li>
-  <li>multimediatNum, {{multimediatNum}}</li>
-  <li>CompressionNum, {{CompressionNum}}</li>
-</ul>
+<div class="m-h1 m-bluegray-text">Dashboard</div>
 
-<div class="col-sm-4">
-	<div class="m-card">
-		<div class="m-card-body m-red-text">
-			<table>
-				<tr>
-					<td><i class="fa fa-user"></i></td>
-					<td class="m-card-info">
-						<div class="t1">{{totalUser}}</div>
-						<div class="t2">USERS</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<footer class="m-red m-red-hover">
-			<a href="#/admin" class=" m-white-text">
+<div class="m-h2 m-bluegray-text">Total</div>
+
+<div class="row">
+	<div class="col-sm-4">
+		<div class="m-card">
+			<div class="m-card-body m-red-text">
 				<table>
 					<tr>
-						<td class="t3">See More</td>
-						<td class="t2 m-text-align-right"><i
-							class="fa fa-arrow-circle-right"></i></td>
+						<td><i class="fa fa-user"></i></td>
+						<td class="m-card-info">
+							<div class="t1">{{totalUser}}</div>
+							<div class="t2">USERS</div>
+						</td>
 					</tr>
 				</table>
-			</a>
+			</div>
+			<footer class="m-red m-red-hover">
+				<a href="#/admin" class=" m-white-text">
+					<table>
+						<tr>
+							<td class="t3">See More</td>
+							<td class="t2 m-text-align-right"><i
+								class="fa fa-arrow-circle-right"></i></td>
+						</tr>
+					</table>
+				</a>
 
-		</footer>
+			</footer>
+		</div>
+	</div>
+
+	<div class="col-sm-4">
+		<div class="m-card">
+			<div class="m-card-body m-blue-text">
+				<table>
+					<tr>
+						<td><i class="fa fa-sitemap"></i></td>
+						<td class="m-card-info">
+							<div class="t1">{{ranks.length}}</div>
+							<div class="t2">RANKS</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<footer class="m-blue m-blue-hover m-white-text">
+				<a href="#/rank" class=" m-white-text">
+					<table>
+						<tr>
+							<td class="t3">See More</td>
+							<td class="t2 m-text-align-right"><i
+								class="fa fa-arrow-circle-right"></i></td>
+						</tr>
+					</table>
+				</a>
+			</footer>
+		</div>
+	</div>
+
+	<div class="col-sm-4">
+		<div class="m-card">
+			<div class="m-card-body m-green-text">
+				<table>
+					<tr>
+						<td><i class="fa fa-file"></i></td>
+						<td class="m-card-info">
+							<div class="t1">{{totalFile}}</div>
+							<div class="t2">FILES</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<footer class="m-green m-green-hover m-white-text">
+				<a href="#/file" class=" m-white-text">
+					<table>
+						<tr>
+							<td class="t3">See More</td>
+							<td class="t2 m-text-align-right"><i
+								class="fa fa-arrow-circle-right"></i></td>
+						</tr>
+					</table>
+				</a>
+			</footer>
+		</div>
 	</div>
 </div>
 
-<div class="col-sm-4">
-	<div class="m-card">
-		<div class="m-card-body m-blue-text">
-			<table>
-				<tr>
-					<td><i class="fa fa-sitemap"></i></td>
-					<td class="m-card-info">
-						<div class="t1">{{ranks.length}}</div>
-						<div class="t2">RANKS</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<footer class="m-blue m-blue-hover m-white-text">
-			<a href="#/rank" class=" m-white-text">
+<div class="m-h2 m-bluegray-text">File Summary</div>
+
+<div class="row m-opacity-8">
+	<div class="col-sm-2">
+		<div class="m-card">
+			<div class="m-card-body m-blue m-white-text">
 				<table>
 					<tr>
-						<td class="t3">See More</td>
-						<td class="t2 m-text-align-right"><i
-							class="fa fa-arrow-circle-right"></i></td>
+						<td><i class="sm fa fa-file-text-o"></i></td>
+						<td width="70%">
+							<div class="t3 m-text-align-right">{{textNum}} files</div>
+							<div class="t4 m-text-align-right">Text</div>
+						</td>
 					</tr>
 				</table>
-			</a>
-		</footer>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-2">
+		<div class="m-card">
+			<div class="m-card-body m-violet m-white-text">
+				<table>
+					<tr>
+						<td><i class="sm fa fa-file-image-o"></i></td>
+						<td width="70%">
+							<div class="t3 m-text-align-right">{{graphicNum}} files</div>
+							<div class="t4 m-text-align-right">Graphic</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-sm-2">
+		<div class="m-card">
+			<div class="m-card-body m-green m-white-text">
+				<table>
+					<tr>
+						<td><i class="sm fa fa-file-excel-o"></i></td>
+						<td width="70%">
+							<div class="t3 m-text-align-right">{{spreadsheettNum}}
+								files</div>
+							<div class="t4 m-text-align-right">Spreadsheet</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-2">
+		<div class="m-card">
+			<div class="m-card-body m-orange m-white-text">
+				<table>
+					<tr>
+						<td><i class="sm fa fa-file-powerpoint-o"></i></td>
+						<td width="70%">
+							<div class="t3 m-text-align-right">{{presentationNum}}
+								files</div>
+							<div class="t4 m-text-align-right">Presentation</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-sm-2">
+		<div class="m-card">
+			<div class="m-card-body m-pink m-white-text">
+				<table>
+					<tr>
+						<td><i class="sm fa fa-file-audio-o"></i></td>
+						<td width="70%">
+							<div class="t3 m-text-align-right">{{multimediatNum}} files</div>
+							<div class="t4 m-text-align-right">Multimedia</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-2">
+		<div class="m-card">
+			<div class="m-card-body m-bluegray m-white-text">
+				<table>
+					<tr>
+						<td><i class="sm fa fa-file-archive-o"></i></td>
+						<td width="70%">
+							<div class="t3 m-text-align-right">{{CompressionNum}} files</div>
+							<div class="t4 m-text-align-right">Compression</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
 	</div>
 </div>
 
-<div class="col-sm-4">
-	<div class="m-card">
-		<div class="m-card-body m-green-text">
-			<table>
-				<tr>
-					<td><i class="fa fa-file"></i></td>
-					<td class="m-card-info">
-						<div class="t1">{{totalFile}}</div>
-						<div class="t2">FILES</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<footer class="m-green m-green-hover m-white-text">
-			<a href="#/file" class=" m-white-text">
+<div class="m-h2 m-bluegray-text">Rank Summary</div>
+
+<div ng-repeat="l in listUserRank track by $index">
+	<div class="col-sm-4">
+		<div class="m-card">
+
+			<footer class="m-white m-teal-text t2 m-text-align-center">
+				{{l.rankName}}</footer>
+			<div class="m-card-body m-teal m-white-text">
 				<table>
 					<tr>
-						<td class="t3">See More</td>
-						<td class="t2 m-text-align-right"><i
-							class="fa fa-arrow-circle-right"></i></td>
+						<td><i class="fa fa-certificate"></i></td>
+						<td class="t1">{{l.data}}</td>
 					</tr>
 				</table>
-			</a>
-		</footer>
+			</div>
+		</div>
+
 	</div>
 </div>
-
-<canvas id="doughnut" class="chart chart-doughnut" chart-data="data"
-	chart-labels="labels">
-</canvas>
