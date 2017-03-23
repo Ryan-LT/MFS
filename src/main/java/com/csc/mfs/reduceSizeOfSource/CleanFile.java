@@ -30,4 +30,16 @@ public class CleanFile {
 			}
 		}
 	}
+	
+	
+	@Scheduled(cron="0 0 10 * * *")//second minutes hour date year OPTION(MON_FRI)
+	public void showData(){
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(new Date());
+	}
 }
