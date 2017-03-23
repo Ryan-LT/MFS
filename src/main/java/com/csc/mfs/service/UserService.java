@@ -43,7 +43,7 @@ public class UserService {
 		User user = userRepository.findOne(idUser);
 		if(user!=null){
 			user.setActive(0);
-			userRepository.flush();
+			userRepository.saveAndFlush(user);
 		}
 	}
 

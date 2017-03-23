@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.csc.mfs.service.UserService;
-
 import com.csc.mfs.messages.Message;
 import com.csc.mfs.model.User;
+import com.csc.mfs.service.UserService;
 
 @RestController
 @ResponseBody
