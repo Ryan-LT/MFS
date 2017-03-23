@@ -1,11 +1,13 @@
 var app = angular.module('member');
+const FileSizeLimit = 1024*1024*1024;
+var list = [];
+var uploadMessage = "";
 app.controller('myCtrl', [
 		'$scope',
 		'fileUpload',
 		function($scope, fileUpload) {
 			$scope.uploadMessage = "";
 			$scope.list = list;
-			console.log("Runned");
 			$scope.uploadFile = function() {
 				
 				var a = document.getElementById("m-toast-blue");
@@ -18,20 +20,43 @@ app.controller('myCtrl', [
 				console.dir(list);
 				var uploadUrl = "/upload";
 				$scope.uploadMessage = "";
+				var success = [];
+				var fail = [];
 				for (var i = list.length-1; i >=0 ; i--) {
 						fileUpload.uploadFileToUrl(list[i], $scope.description,
 								uploadUrl).then(
 								function(response) {
 									if (response.state) {
-										console.log(response.msg);
 										$scope.uploadMessage += response.msg
 												+ ": Success ";
+										success.push(response.msg);						
 									} else {
 										$scope.uploadMessage += response.msg
 												+ ": Fail ";
+										fail.push(response.msg);
 									}
+									var component="";
+									if(success.length>0){
+										component+="Success:<br><ul>";
+										for(var i=0;i<success.length;i++){
+											component +="<li>"+success[i]+"</li>";										
+										}
+										component +="</ul><br>";
+									}
+									if(fail.length>0){
+										component+="Fail:<br><ul>";
+										for(var i=0;i<fail.length;i++){
+											component +="<li>"+fail[i]+"</li>";										
+										}
+										component +="</ul><br>";
+									}
+									
+									var myHTML = angular.element(document.querySelector('#myNotice'));
+									myHTML.html(component);
 								});
 				}
+				
+				
 				
 			} 			
 			$scope.removeFile = function(index) {
@@ -54,7 +79,7 @@ app.directive('fileModel', [ '$parse', function($parse) {
 					var listContainTooLargeFile = false;
 					for (var i = 0; i < element[0].files.length; i++) {
 						var notEligibleFile = "";
-						if(element[0].files[i].size<1024*2014){
+						if(element[0].files[i].size<FileSizeLimit){
 							list.push(element[0].files[i]);
 						} else {
 							listContainTooLargeFile = true;
@@ -62,7 +87,7 @@ app.directive('fileModel', [ '$parse', function($parse) {
 						}
 						if(listContainTooLargeFile){
 							alert("These files have exceeded the limitation: "+notEligibleFile);
-						}											
+						}
 					}
 				});
 			});
@@ -88,5 +113,3 @@ app.factory('fileUpload', [ '$http', function($https, $p) {
 		}
 	};
 }]);
-var list = [];
-var uploadMessage = "";

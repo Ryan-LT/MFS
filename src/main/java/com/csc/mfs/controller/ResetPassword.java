@@ -1,17 +1,13 @@
 package com.csc.mfs.controller;
 
-//import org.json.simple.JSONObject;
-//import org.json.simple.parser.JSONParser;
-//import org.json.simple.parser.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,15 +22,13 @@ import com.csc.mfs.messages.Message;
 import com.csc.mfs.model.User;
 import com.csc.mfs.service.UserService;
 
-import net.sf.ehcache.CacheManager;
-
 @Controller
 @RequestMapping("/resetpassword")
 public class ResetPassword {
 	@Autowired
 	private UserService userService;
 	
-	private static final Logger logger = LoggerFactory.getLogger(ResetPassword.class);
+	//private static final Logger logger = LoggerFactory.getLogger(ResetPassword.class);
 	
 	ApplicationContext context;
 	
