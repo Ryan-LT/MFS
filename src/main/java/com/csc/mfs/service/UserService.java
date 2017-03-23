@@ -125,4 +125,9 @@ public class UserService {
 		return userRepository.findByRankIdId(rankId, page);
 	}
 	
+	public Page<User> findByName(String name, Pageable pageable){
+		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "name");
+		return userRepository.findByNameContaining(name, page);
+	}
+	
 }

@@ -32,6 +32,11 @@
 				<div class="m-vnar-bar-fa-avatar">
 					<i class="fa fa-users"></i>
 				</div>
+				<a href="#/dashboard" class="">
+					<button id="id01" onclick="function1('#id01')" class="">
+						<span class=""> <i class="fa fa-home" aria-hidden="true"></i>
+						</span> Admin Dashboard
+					</button>
 				<a href="#/admin" class="">
 					<button id="id01" onclick="function1('#id01')" class="">
 						<span class=""> <i class="fa fa-home" aria-hidden="true"></i>
@@ -47,6 +52,11 @@
 						<span class=""> <i class="fa fa-list-ol" aria-hidden="true"></i>
 						</span> File Management
 					</button>
+				</a> <a href="#/user">
+					<button id="id03" onclick="function1('#id03')" class="">
+						<span class=""> <i class="fa fa-list-ol" aria-hidden="true"></i>
+						</span> Profile Edit
+					</button>
 				</a> <a href="/logout">
 					<button class="">
 						<span class=""> <i class="fa fa-sign-out"
@@ -56,7 +66,7 @@
 				</a>
 			</div>
 		</div>
-		<div class="col-sm-10" ng-view></div>
+		<div th:attr="ng-init='userId='+${userId}+''" class="col-sm-10" ng-view></div>
 	</div>
 
 
@@ -72,6 +82,7 @@
 	<script src="/js/controller/adminController/rankController.js"></script>
 	<script src="/js/controller/adminController/fileController.js"></script>
 	<script src="/js/controller/adminController/dashBoardController.js"></script>
+	<script src="/js/controller/adminController/userInfoController.js"></script>
 
 	<!-- Services -->
 	<script src="/js/controller/service/adminService/userService.js"></script>

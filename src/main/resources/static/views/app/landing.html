@@ -127,9 +127,7 @@
 						<li><a href="#explore"><span class="btnicon icon-rocket"></span>Explore</a></li>
 						<li><a href="#team"><span class="btnicon icon-bubble"></span>Team</a></li>
 						<li><a href="#about"><span class="btnicon icon-bubble"></span>About Us</a></li>
-						<!--don't forget to replace my email address below with yours-->
-						<!-- <li><a href="mailto:m@creatrix.us"><span
-								class="btnicon icon-envelope-open"></span>Contact</a></li> -->
+						<li><a href="/member#/upload"><span class="btnicon icon-bubble"></span>UPLOAD</a></li>
 						<li>
 							<div class="dropdown">
 								<a href="/login" th:if="${userName} == null"><button
@@ -228,9 +226,9 @@
 				<a href="#explore" ng-click="searchFile('Category','Text')"><img
 					src="images/s1.png" alt="" height="100px" width="100px"></a>
 				<h4>TEXTS</h4>
-				<p>Text files contain textual data and may be saved in plain text 
-				or rich text formats. Text files include word processing 
-				documents, log files...</p>
+				<p>Text files contain textual data and may be saved in plain
+					text or rich text formats. Text files include word processing
+					documents, log files...</p>
 			</div>
 			<!-- ITEM END -->
 
@@ -238,9 +236,8 @@
 				<a href="#explore" ng-click="searchFile('Category','Graphic')"><img
 					src="images/s2.png" alt="" height="100px" width="100px"></a>
 				<h4>PICTURES</h4>
-				<p>Image file formats are standardized means of organizing 
-				and storing digital images. There are 
-				hundreds of image file types.</p>
+				<p>Image file formats are standardized means of organizing and
+					storing digital images. There are hundreds of image file types.</p>
 			</div>
 			<!-- ITEM END -->
 
@@ -248,8 +245,9 @@
 				<a href="#explore" ng-click="searchFile('Category','Spreadsheet')"><img
 					src="images/s3.png" alt="" height="100px" width="100px"></a>
 				<h4>DOCUMENTS</h4>
-				<p>A document file format is a, text or binary file format for 
-				storing documents on a storage media, especially for use by computers.</p>
+				<p>A document file format is a, text or binary file format for
+					storing documents on a storage media, especially for use by
+					computers.</p>
 			</div>
 			<!-- ITEM END -->
 
@@ -257,7 +255,8 @@
 				<a href="#explore" ng-click="searchFile('Category','Presentation')"><img
 					src="images/s4.png" alt="" height="100px" width="100px"></a>
 				<h4>PRESENTATION</h4>
-				<p>Containing most of presentation files Including microsoft powerpoint files,.</p>
+				<p>Containing most of presentation files Including microsoft
+					powerpoint files,.</p>
 			</div>
 			<!-- ITEM END -->
 
@@ -400,25 +399,23 @@
 					<div class="col-md-1"></div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-5 m-margin-left">
-					<div class="col-md-5">
-						<div class="m-inline">
-							<button class="m-button m-green m-green-hover m-white-text"
-								ng-click="searchFile(Selectedtype,infoSearch,page=page-1)"
-								ng-disabled="page-1<0"><<</button>
-						</div>
-						<div class="m-inline m-margin-left"
-							ng-repeat="i in getNumber(pageSum) track by $index">
-							<button class="m-button m-green m-green-hover m-white-text"
-								ng-click="searchFile(Selectedtype,infoSearch,$index)">{{$index+1}}</button>
-						</div>
-						<div class="m-inline m-margin-left">
-							<button class="m-button m-green m-green-hover m-white-text"
-								ng-click="searchFile(Selectedtype,infoSearch,page=page+1)"
-								ng-disabled="page+1>=pageSum">>></button>
-						</div>
-					</div>
+
+			<div class="row m-text-align-center">
+				<div class="m-inline">
+					<button class="m-button m-green m-green-hover m-white-text"
+						ng-click="searchFile(Selectedtype,infoSearch,page=page-1)"
+						ng-disabled="page-1<0">Prev</button>
+				</div>
+				<div class="m-inline m-margin-left"
+					ng-repeat="i in getNumber(pageSum) track by $index">
+					<button ng-class="{'active': $index == selectedIndex }"
+						class="m-button m-green m-green-hover m-white-text"
+						ng-click="searchFile(Selectedtype,infoSearch,$index)">{{$index+1}}</button>
+				</div>
+				<div class="m-inline m-margin-left">
+					<button class="m-button m-green m-green-hover m-white-text"
+						ng-click="searchFile(Selectedtype,infoSearch,page=page+1)"
+						ng-disabled="page+1>=pageSum">Next</button>
 				</div>
 			</div>
 
@@ -638,10 +635,10 @@
 									</tr>
 								</table>
 								<h4>Description:</h4>
-								<textarea ng-model="description_"
+								<textarea ng-model="description_" th:if="${userName} != null"
 									class="form-control m-overflow" rows="4">{{fileDetail.description}}</textarea>
 
-								<div class="m-text-align-right">
+								<div class="m-text-align-right" th:if="${userName} != null">
 									<button
 										class="m-button m-blue m-blue-hover m-white-text m-margin-top"
 										ng-click="saveChange(fileDetail.id)">Save Change</button>
@@ -650,7 +647,8 @@
 							<p>{{msgSave}}</p>
 						</div>
 						<div class="col-md-5">
-							<form ng-submit="saveComment(fileDetail.id)">
+							<form th:if="${userName} != null"
+								ng-submit="saveComment(fileDetail.id)">
 								<input ng-model="content" class="form-control"
 									placeholder="Comment..."></input>
 								<div class="m-text-align-right">
