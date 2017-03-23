@@ -74,6 +74,7 @@ app.controller("landingController", function($scope, $http, $window, $routeParam
 			url: "http://localhost:8080/file/get/"+id
 		}).success(function(data, status, headers, config){
 			$scope.fileDetail = data;
+			console.log($scope.fileDetail.description);
 		})
 		.error(function(data, status, headers, config){
 			alert("fail__")
