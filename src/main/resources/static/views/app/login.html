@@ -33,7 +33,7 @@
 				value="${_csrf.token}" /> <br>
 			<div id="valid" align="center" th:if="${param.error}">
 				<p style="font-size: 20; color: #FF1C19;">Email or Password
-					invalid, please verify</p>
+					invalid, please verify<br> <a href="" ng-click="forgetPassword()">Forget password</a></p>
 			</div>
 			<button class="btn btn-lg button-login btn-block" name="Submit"
 				value="Login" type="Submit" th:text="Login"></button>
@@ -45,7 +45,6 @@
 			<div class="form-signup-heading">You don't have an account?</div>
 			<button class="btn btn-lg button-signup btn-block" type="Submit">Create
 				Account</button>
-			<a href="" ng-click="forgetPassword()">Forget password</a>
 		</form>
 
 		<div class="modal fade" id="editModal" role="dialog">
