@@ -109,43 +109,48 @@ public class FileUploadController {
 		 * 
 		 * Retrieve user information.
 		 */
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		Double fileSumSize = 0.0;
-		for (MultipartFile file : fileList) {
-			fileSumSize += file.getSize()/1024.0;
-		}
-		double spaceAvailable = fileService.beforeUpload(user.getId(), fileSumSize);
-		System.out.println("Contain files: "+fileList.length);
-		if (spaceAvailable >= 0) {
+		try{
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			User user = userService.findUserByEmail(auth.getName());
+			Double fileSumSize = 0.0;
 			for (MultipartFile file : fileList) {
-				String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-				CategoriesType category = categoryRepository.findByFileType(extension);
-				if(null==category){
-					category = new CategoriesType(66);
-				}
-				Files fileDB = new Files();
-				fileDB.setName(file.getOriginalFilename());
-				fileDB.setName(file.getOriginalFilename());
-				fileDB.setSize((double) file.getSize() / 1024.0);
-				fileDB.setDateupload(new Date());
-				fileDB.setPath((file.getOriginalFilename()).toString() + (new Date()).getTime());
-				fileDB.setUserId(user);
-				fileDB.setSharing(1);
-				fileDB.setIdType(category);
-				fileDB.setDescription(description);
-				try{
-					storageService.store(file, Paths.get(fileDB.getPath()));
-					fileService.insertFile(fileDB);	
-				} catch(Exception e){
-					return ResponseEntity.ok().body(new Message(false, fileList[0].getOriginalFilename()));
-				}
-				fileService.afterUpload(user.getId(), file.getSize() / 1024.0);
+				fileSumSize += file.getSize()/1024.0;
 			}
-			return ResponseEntity.ok().body(new Message(true, fileList[0].getOriginalFilename()));
-	} else {
-		return ResponseEntity.ok().body(new Message(false, "maximum"));
-	}
+			double spaceAvailable = fileService.beforeUpload(user.getId(), fileSumSize);
+			System.out.println("Contain files: "+fileList.length);
+			if (spaceAvailable >= 0) {
+				for (MultipartFile file : fileList) {
+					String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+					CategoriesType category = categoryRepository.findByFileType(extension);
+					if(null==category){
+						category = new CategoriesType(66);
+					}
+					Files fileDB = new Files();
+					fileDB.setName(file.getOriginalFilename());
+					fileDB.setName(file.getOriginalFilename());
+					fileDB.setSize((double) file.getSize() / 1024.0);
+					fileDB.setDateupload(new Date());
+					fileDB.setPath((file.getOriginalFilename()).toString() + (new Date()).getTime());
+					fileDB.setUserId(user);
+					fileDB.setSharing(1);
+					fileDB.setIdType(category);
+					fileDB.setDescription(description);
+					try{
+						storageService.store(file, Paths.get(fileDB.getPath()));
+						fileService.insertFile(fileDB);	
+					} catch(Exception e){
+						return ResponseEntity.ok().body(new Message(false, fileList[0].getOriginalFilename()));
+					}
+					fileService.afterUpload(user.getId(), file.getSize() / 1024.0);
+				}
+				return ResponseEntity.ok().body(new Message(true, fileList[0].getOriginalFilename()));
+		} else {
+			return ResponseEntity.ok().body(new Message(false, fileList[0].getOriginalFilename()));
+		}
+		} catch (Exception e){
+			return ResponseEntity.ok().body(new Message(false, e.getMessage()));
+		}
+		
 	
 	}
 	@ExceptionHandler(StorageFileNotFoundException.class)

@@ -16,15 +16,15 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <script src="js/lib/jquery/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<script src="/js/Chart.js"></script>
+
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="\css\admin.css" />
 <link rel="stylesheet" type="text/css" href="\css\admin-index.css" />
 <link rel="stylesheet" type="text/css" href="\css\all-style.css" />
 <script src="/js/js-admin.js"></script>
+
 </head>
 <body class="body">
-
 	<div class="row">
 		<div class="col-sm-2">
 			<div class="m-vnar-bar">
@@ -34,39 +34,42 @@
 				</div>
 				<a href="#/dashboard" class="">
 					<button id="id01" onclick="function1('#id01')" class="">
-						<span class=""> <i class="fa fa-home" aria-hidden="true"></i>
-						</span> Admin Dashboard
-					</button>
-				<a href="#/admin" class="">
-					<button id="id01" onclick="function1('#id01')" class="">
-						<span class=""> <i class="fa fa-home" aria-hidden="true"></i>
-						</span> User Management
-					</button>
+						<span class=""> <i class="fa fa-dashboard" aria-hidden="true"></i>
+						</span> Dashboard
+					</button> <a href="#/admin" class="">
+						<button id="id01" onclick="function1('#id01')" class="">
+							<span class=""> <i class="fa fa-user" aria-hidden="true"></i>
+							</span> User Management
+						</button>
 				</a> <a href="#/rank">
-					<button id="id02" onclick="function1('#id02')" class=" ">
-						<span class=""> <i class="fa fa-sitemap" aria-hidden="true"></i>
-						</span> Rank Management
-					</button>
+						<button id="id02" onclick="function1('#id02')" class=" ">
+							<span class=""> <i class="fa fa-sitemap"
+								aria-hidden="true"></i>
+							</span> Rank Management
+						</button>
 				</a> <a href="#/file">
-					<button id="id03" onclick="function1('#id03')" class="">
-						<span class=""> <i class="fa fa-list-ol" aria-hidden="true"></i>
-						</span> File Management
-					</button>
+						<button id="id03" onclick="function1('#id03')" class="">
+							<span class=""> <i class="fa fa-list-ol"
+								aria-hidden="true"></i>
+							</span> File Management
+						</button>
 				</a> <a href="#/user">
-					<button id="id03" onclick="function1('#id03')" class="">
-						<span class=""> <i class="fa fa-list-ol" aria-hidden="true"></i>
-						</span> Profile Edit
-					</button>
+						<button id="id03" onclick="function1('#id03')" class="">
+							<span class=""> <i class="fa fa-cogs"
+								aria-hidden="true"></i>
+							</span> Profile Edit
+						</button><hr>
 				</a> <a href="/logout">
-					<button class="">
-						<span class=""> <i class="fa fa-sign-out"
-							aria-hidden="true"></i>
-						</span> Logout
-					</button>
+						<button class="">
+							<span class=""> <i class="fa fa-sign-out"
+								aria-hidden="true"></i>
+							</span> Logout
+						</button>
 				</a>
 			</div>
 		</div>
-		<div th:attr="ng-init='userId='+${userId}+''" class="col-sm-10" ng-view></div>
+		<div th:attr="ng-init='userId='+${userId}+''" class="col-sm-10"
+			ng-view></div>
 	</div>
 
 
