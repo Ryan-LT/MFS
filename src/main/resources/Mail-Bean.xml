@@ -20,9 +20,7 @@
 		<property name="mailSender" ref="mailSender" />
 	</bean>
 	
-	<bean id="mail_test" class="com.csc.mfs.mailtest.EmailTest">
-		<property name="mailSender" ref="mailSender" />
-	</bean>
+	
 	
 	<!-- <bean id="customeMailMessage"
 		class="org.springframework.mail.SimpleMailMessage">

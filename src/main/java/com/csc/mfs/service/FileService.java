@@ -1,5 +1,9 @@
 package com.csc.mfs.service;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -106,15 +110,33 @@ public class FileService {
 	 * @param sizeFile
 	 */
 	public void afterUpload(int idUser, double sizeFile){
+		boolean checkCurrentRank = false;
 		User user = userRepository.findOne(idUser);
-		Rank rank = rankRepository.findOne(user.getRankId().getId());
-		if("gold".equals(user.getRankId().getName().toLowerCase())){
-		} else {
-			if(totalSizeUpload(idUser)>rank.getSizerank()){
-				user.setRankId(rankRepository.findOne(user.getRankId().getId()+1));
-				userRepository.flush();
+		List<Rank> ranks = rankRepository.findAll();
+		Collections.sort(ranks);
+		//Rank rank = rankRepository.findOne(user.getRankId().getId());
+		for(Rank r:ranks){
+			System.out.println(r.getSizerank());
+			if(user.getRankId().getId()==r.getId()){
+				checkCurrentRank = true;
+				continue;
+			}
+			if(checkCurrentRank){
+				if(totalSizeUpload(idUser)>=r.getSizerank()){
+					user.setRankId(r);
+					userRepository.saveAndFlush(user);
+				}
+				break;
 			}
 		}
+//		if("gold".equals(user.getRankId().getName().toLowerCase())){
+//		} else {
+//			Rank rankNext = rankRepository.findOne(user.getRankId().getId()+1);
+//			if(totalSizeUpload(idUser)>=rankNext.getSizerank()){
+//				user.setRankId(rankRepository.findOne(user.getRankId().getId()+1));
+//				userRepository.flush();
+//			}
+//		}
 	}
 	
 	/**
