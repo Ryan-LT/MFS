@@ -1,19 +1,89 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Admin Dashboard</title>
-</head>
-<body>
-	<h1>Dashboard</h1>
-	<div>
-		<h2>Total User</h2>
-		<p>{{totalUser}}</p>
-		<h2>Total Rank</h2>
-		<p>{{ranks.length}}</p>
-	</div>
-	<ul ng-repeat="l in listUserRank">
+<h1>Dashboard</h1>
+<ul ng-repeat="l in listUserRank">
 	<li>{{l.rankName}},{{l.data}}</li>
-	</ul>
-</body>
-</html>
+</ul>
+<div class="col-sm-4">
+	<div class="m-card">
+		<div class="m-card-body m-red-text">
+			<table>
+				<tr>
+					<td><i class="fa fa-user"></i></td>
+					<td class="m-card-info">
+						<div class="t1">{{totalUser}}</div>
+						<div class="t2">USERS</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<footer class="m-red m-red-hover">
+			<a href="#/admin" class=" m-white-text">
+				<table>
+					<tr>
+						<td class="t3">See More</td>
+						<td class="t2 m-text-align-right"><i
+							class="fa fa-arrow-circle-right"></i></td>
+					</tr>
+				</table>
+			</a>
+
+		</footer>
+	</div>
+</div>
+
+<div class="col-sm-4">
+	<div class="m-card">
+		<div class="m-card-body m-blue-text">
+			<table>
+				<tr>
+					<td><i class="fa fa-sitemap"></i></td>
+					<td class="m-card-info">
+						<div class="t1">{{ranks.length}}</div>
+						<div class="t2">RANKS</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<footer class="m-blue m-blue-hover m-white-text">
+			<a href="#/rank" class=" m-white-text">
+				<table>
+					<tr>
+						<td class="t3">See More</td>
+						<td class="t2 m-text-align-right"><i
+							class="fa fa-arrow-circle-right"></i></td>
+					</tr>
+				</table>
+			</a>
+		</footer>
+	</div>
+</div>
+
+<div class="col-sm-4">
+	<div class="m-card">
+		<div class="m-card-body m-green-text">
+			<table>
+				<tr>
+					<td><i class="fa fa-file"></i></td>
+					<td class="m-card-info">
+						<div class="t1">{{totalFile}}</div>
+						<div class="t2">FILES</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<footer class="m-green m-green-hover m-white-text">
+			<a href="#/file" class=" m-white-text">
+				<table>
+					<tr>
+						<td class="t3">See More</td>
+						<td class="t2 m-text-align-right"><i
+							class="fa fa-arrow-circle-right"></i></td>
+					</tr>
+				</table>
+			</a>
+		</footer>
+	</div>
+</div>
+
+<canvas id="doughnut" class="chart chart-doughnut" chart-data="data"
+	chart-labels="labels">
+</canvas>

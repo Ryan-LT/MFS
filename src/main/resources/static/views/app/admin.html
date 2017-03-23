@@ -16,54 +16,55 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <script src="js/lib/jquery/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/Chart.js"></script>
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="\css\admin.css" />
 <link rel="stylesheet" type="text/css" href="\css\admin-index.css" />
+<link rel="stylesheet" type="text/css" href="\css\all-style.css" />
 <script src="/js/js-admin.js"></script>
 </head>
 <body class="body">
-	<div class="nav-ul">
-		<div class="admin-header">.</div>
-		<div class="info">
-			<a class="profile"><i class="fa fa-user-circle"></i> Profile</a> <a
-				class="setting"><i class="fa fa-cog"></i> Setting</a>
+
+	<div class="row">
+		<div class="col-sm-2">
+			<div class="m-vnar-bar">
+				<a href="#"><button class="m-vnar-bar-title">Administrator</button></a>
+				<div class="m-vnar-bar-fa-avatar">
+					<i class="fa fa-users"></i>
+				</div>
+				<a href="#/admin" class="">
+					<button id="id01" onclick="function1('#id01')" class="">
+						<span class=""> <i class="fa fa-home" aria-hidden="true"></i>
+						</span> User Management
+					</button>
+				</a> <a href="#/rank">
+					<button id="id02" onclick="function1('#id02')" class=" ">
+						<span class=""> <i class="fa fa-sitemap" aria-hidden="true"></i>
+						</span> Rank Management
+					</button>
+				</a> <a href="#/file">
+					<button id="id03" onclick="function1('#id03')" class="">
+						<span class=""> <i class="fa fa-list-ol" aria-hidden="true"></i>
+						</span> File Management
+					</button>
+				</a> <a href="/logout">
+					<button class="">
+						<span class=""> <i class="fa fa-sign-out"
+							aria-hidden="true"></i>
+						</span> Logout
+					</button>
+				</a>
+			</div>
 		</div>
-		<a href="#/admin" class="li-a">
-			<button id="id01" onclick="function1('#id01')" class=" li active">
-				<span class="lii"> <i class="fa fa-home" aria-hidden="true"></i>
-				</span> User Management
-			</button>
-		</a> <a href="#/rank">
-			<button id="id02" onclick="function1('#id02')" class=" li">
-				<span class="lii"> <i class="fa fa-sitemap"
-					aria-hidden="true"></i>
-				</span> Rank Management
-			</button>
-		</a> <a href="#/file">
-			<button id="id03" onclick="function1('#id03')" class=" li">
-				<span class="lii"> <i class="fa fa-list-ol"
-					aria-hidden="true"></i>
-				</span> File Managerment
-			</button>
-		</a> <a href="/logout">
-			<button class=" li">
-				<span class="lii"> <i class="fa fa-sign-out"
-					aria-hidden="true"></i>
-				</span> Logout
-			</button>
-		</a>
-	</div>
-	<div class="main">
-		<div class="sub">
-			<div ng-view></div>
-		</div>
+		<div class="col-sm-10" ng-view></div>
 	</div>
 
 
 	<!-- Angular -->
 	<script src="/js/lib/angular-1.4.9/angular.js"></script>
-	<script src="/js/lib/angular-1.4.9/angular-resource.js""></script>
-	<script src="/js/lib/angular-1.4.9/angular-route.js""></script>
+	<script src="/js/lib/angular-1.4.9/angular-resource.js"></script>
+	<script src="/js/lib/angular-1.4.9/angular-route.js"></script>
+	<script src="/js/lib/angular-1.4.9/angular-chart.js"></script>
 
 	<!-- Main Controller -->
 	<script src="/js/controller/adminController/admin.js"></script>

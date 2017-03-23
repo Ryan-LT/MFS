@@ -5,9 +5,13 @@ app.controller("dashBoardController", function($scope, $http, $routeParams) {
 	$scope.ranks = null;
 	getInfor();
 	$scope.listUserRank=[];
+	
+	$scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+	$scope.data = [300, 500, 100];
 
 	function getInfor() {
 		countUser();
+		countFile();
 		Rankdata();
 	}
 	
@@ -17,6 +21,16 @@ app.controller("dashBoardController", function($scope, $http, $routeParams) {
 			url : "http://localhost:8080/user/all/"
 		}).success(function(data, status, headers, config) {
 			$scope.totalUser = data.totalElements;
+		}).error(function(data, status, headers, config) {
+		});
+	}
+	
+	function countFile() {
+		$http({
+			method : 'get',
+			url : "http://localhost:8080/file/all/"
+		}).success(function(data, status, headers, config) {
+			$scope.totalFile = data.totalElements;
 		}).error(function(data, status, headers, config) {
 		});
 	}
