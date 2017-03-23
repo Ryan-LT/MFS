@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "rank", catalog = "finalfresherfilesharing", schema = "")
-public class Rank implements Serializable {
+public class Rank implements Serializable, Comparable<Rank> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -128,5 +128,17 @@ public class Rank implements Serializable {
     public String toString() {
         return "com.csc.mfs.model.Rank[ id=" + id + " ]";
     }
+
+	@Override
+	public int compareTo(Rank rank) {
+		if(rank.getSizerank()==sizerank){
+			return 0;	
+		} else if(rank.getSizerank()<sizerank){
+			return 1;
+		} else {
+			return -1;
+		}
+		
+	}
     
 }
