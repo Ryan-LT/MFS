@@ -66,6 +66,13 @@
 	margin-top: 2px;
 }
 
+.notice{
+	margin-top: 2px;
+	border-color: rgb(169, 169, 169);
+	border-radius: 4px;
+	background-color: #f2f2f2;
+	color: !important;
+}
 
 
 /* popup */
@@ -124,3 +131,5 @@
     from {opacity: 0;}
     to {opacity:1 ;}
 }
+
+
