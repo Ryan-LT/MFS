@@ -1,8 +1,6 @@
 package com.csc.mfs.service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +23,6 @@ import com.csc.mfs.repository.UserRepository;
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
-//	@Autowired
-//	private FileService fileService;
-//	@Autowired
-//	private DownloadRepository downloadRepsitory;
 	@Autowired
 	private RankRepository rankRepository;
 	@Autowired
@@ -79,7 +73,7 @@ public class UserService {
 		if (bCryptPasswordEncoder.matches(oldPass, user.getPassword())) {
 			user.setPassword(bCryptPasswordEncoder.encode(newPass));
 			userRepository.flush();
-			return (new Message(true, "Seccussful"));
+			return (new Message(true, "Sucessfully"));
 		} else {
 			return (new Message(false, "Old password is wrong!"));
 		}
@@ -122,12 +116,11 @@ public class UserService {
 	
 	public Page<User> findByRankId(Integer rankId, Pageable pageable){
 		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "name");
-		return userRepository.findByRankIdId(rankId, page);
+		return userRepository.findByRankIdIdAndActive(rankId, 1, page);
 	}
 	
 	public Page<User> findByName(String name, Pageable pageable){
 		PageRequest page = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Direction.DESC, "name");
-		return userRepository.findByNameContaining(name, page);
+		return userRepository.findByNameContainingAndActive(name, 1, page);
 	}
-	
 }
