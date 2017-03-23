@@ -97,7 +97,7 @@
 </script>
 </head>
 <body data-spy="scroll" ng-controller="landingController"
-	th:attr="ng-init='userName='+${userName}+''" onload="load()">
+	th:attr="ng-init='userName='+${userName}+''">
 	<header>
 		<!-- ===========================
          NAVBAR START
@@ -126,7 +126,7 @@
 						<li><a href="#explore"><span class="btnicon icon-list"></span>Explore</a></li>
 						<li><a href="#team"><span class="btnicon icon-users"></span>Team</a></li>
 						<li><a href="#about"><span class="btnicon icon-question"></span>About Us</a></li>
-						<li class="m-red m-white-text m-red-hover"><a href="/member#/upload" class="m-white-text"><span class="btnicon icon-arrow-up"></span>UPLOAD</a></li>
+						<li><a href="/member#/upload" class="m-white-text"><span class="btnicon icon-arrow-up"></span>UPLOAD</a></li>
 						<li>
 							<div class="dropdown">
 								<a href="/login" th:if="${userName} == null"><button
